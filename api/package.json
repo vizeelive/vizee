@@ -1,0 +1,26 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js & stripe listen --forward-to localhost:3001/webhook & wait",
+    "debug": "node --inspect-brk ./src/index.js & stripe listen --forward-to localhost:3001/webhook & wait"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@apollo/client": "^3.0.0-rc.8",
+    "@apollo/link-context": "^2.0.0-beta.3",
+    "@stripe/stripe-js": "^1.7.0",
+    "atob": "^2.1.2",
+    "body-parser": "^1.19.0",
+    "btoa": "^1.2.1",
+    "cors": "^2.8.5",
+    "cross-fetch": "^3.0.5",
+    "express": "^4.17.1",
+    "graphql": "^15.1.0",
+    "nodemon": "^2.0.4",
+    "stripe": "^8.66.0"
+  }
+}
