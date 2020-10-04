@@ -294,3 +294,21 @@
 - table:
     schema: public
     name: users
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - first_name
+      - id
+      - last_name
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - first_name
+      - last_name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null

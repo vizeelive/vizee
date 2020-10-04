@@ -164,16 +164,16 @@ export default function Event() {
         />
         <meta property="og:description" content={event.description} />
       </Helmet>
-      {event.type === "live" && isLive && (isFree || isPurchased) && (
+      {event.type === "live" && isLive && (isFree || isPurchased) ? (
         <VideoConference
           roomName={`${event.id}-23kjh23kjh232kj3h`}
           user={user}
         />
-      )}
+      ) : null}
       {event.type === "video" && isLive && (isFree || isPurchased) && (
         <video src={event.video} width="100%" autoPlay muted controls />
       )}
-      {!isLive && cover}
+      {(!isFree || !isPurchased) && cover}
       <Content>
         {!isFree && !isPurchased && (
           <Button type="primary" role="link" onClick={handleClick}>
