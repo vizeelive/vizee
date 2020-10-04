@@ -79,9 +79,13 @@ const GET_EVENTS_UNAUTH = gql`
   }
 `;
 
-const SEARCH_EVENTS = gql`
+const SEARCH_EVENTS_UNAUTH = gql`
   query SearchEvents($q: String!) {
-    events(where: { name: { _ilike: $q } }) {
+    events(
+      where: {
+        _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
+      }
+    ) {
       id
       name
       start
@@ -98,10 +102,6 @@ const SEARCH_EVENTS = gql`
       category {
         id
       }
-    }
-    categories {
-      id
-      name
     }
   }
 `;
@@ -123,7 +123,9 @@ export default function Home() {
     { variables: { id: user?.sub } }
   );
 
-  const [searchEvents, { data: searchData }] = useLazyQuery(SEARCH_EVENTS);
+  const [searchEvents, { data: searchData }] = useLazyQuery(
+    SEARCH_EVENTS_UNAUTH
+  );
 
   useEffect(() => {
     if (data) {
