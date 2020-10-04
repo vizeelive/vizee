@@ -25,18 +25,26 @@ const Grid = styled.a`
 
   .ant-card-bordered {
     margin: 5px;
-    height: 60vh;
+    height: 400px;
     overflow: hidden;
+  }
+
+  .ant-card-cover {
+    height: 50%;
+  }
+
+  .ant-card-body {
+    height: 50%;
   }
 
   .ant-card-cover img {
     object-fit: cover;
-    height: 15vw;
+    height: 100%;
   }
 
   .ant-card-cover video {
     object-fit: cover;
-    height: 15vw;
+    height: 100%;
   }
 
   .ant-tag {

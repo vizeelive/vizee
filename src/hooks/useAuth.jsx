@@ -1,11 +1,17 @@
-import config from '../config';
+import config from "../config";
 import { useEffect, useState } from "react";
 
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { setContext } from "@apollo/link-context";
+
+// import posthog from "posthog-js";
 
 export default function useAuth() {
   const {
@@ -22,6 +28,9 @@ export default function useAuth() {
     user.isAdmin = user["https://hasura.io/jwt/claims"][
       "x-hasura-allowed-roles"
     ].includes("admin");
+
+    // posthog.identify(user.sub);
+    // posthog.people.set({ email: user.email });
   }
 
   useEffect(() => {

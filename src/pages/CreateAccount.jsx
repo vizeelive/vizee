@@ -10,7 +10,6 @@ const Content = styled.div`
 
 export default function CreateAccount() {
   const { user } = useAuth();
-  console.log({user});
   return (
     <Content>
       <h1>Let's create an account.</h1>

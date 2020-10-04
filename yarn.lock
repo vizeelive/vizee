@@ -9144,6 +9144,11 @@ postcss@^7, postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, po
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+posthog-js@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.4.5.tgz#b16235afe47938bd71eaed4ede3790c8b910ed71"
+  integrity sha512-Rzc5/DpuX55BqwNEbZB0tLav1gEinnr5H+82cbLiMtXLADlxmCwZiEaVXcC3XOqW0x8bcAEehicx1TbpfBamzA==
+
 preact@8.2.9:
   version "8.2.9"
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.9.tgz#813ba9dd45e5d97c5ea0d6c86d375b3be711cc40"

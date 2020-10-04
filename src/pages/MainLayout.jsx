@@ -14,8 +14,6 @@ const { Header, Content, Sider } = Layout;
 export default function MainLayout() {
   const { user } = useAuth0();
 
-  console.log({ user });
-
   return (
     <Layout>
       <Header className="header">

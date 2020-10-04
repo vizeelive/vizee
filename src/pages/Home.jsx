@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 import useAuth from "../hooks/useAuth";
 
+import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
 
-import { Tabs } from "antd";
+import { Form, Input, Button, Tabs, Modal } from "antd";
 
 const { TabPane } = Tabs;
 
 const GET_EVENTS_AUTH = gql`
-  query MyQuery {
+  query GetHomeData($id: String!) {
+    users_by_pk(id: $id) {
+      id
+      first_name
+      last_name
+    }
     events {
       id
       name
@@ -77,9 +83,19 @@ const MainContent = styled.div`
 
 export default function Home() {
   const { user } = useAuth();
+  const [showModal, setShowModal] = useState(false);
   const { loading, error, data, refetch } = useQuery(
-    user ? GET_EVENTS_AUTH : GET_EVENTS_UNAUTH
+    user ? GET_EVENTS_AUTH : GET_EVENTS_UNAUTH,
+    { variables: { id: user?.sub } }
   );
+
+  useEffect(() => {
+    if (data) {
+      if (!data?.users_by_pk?.first_name || !data?.users_by_pk?.first_name) {
+        setShowModal(true);
+      }
+    }
+  }, [data]);
 
   if (loading) return "Loading...";
   if (error) return "Error.";
@@ -96,6 +112,7 @@ export default function Home() {
           your audience is waiting.
         </h1>
       </Hero> */}
+      {user && showModal && <FinishSignup setShowModal={setShowModal} />}
       <Tabs defaultActiveKey="Music" onChange={callback}>
         {categories.map((category) => {
           return (
