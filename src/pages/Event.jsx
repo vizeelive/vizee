@@ -160,6 +160,8 @@ export default function Event() {
     />
   );
 
+  const canWatch = isLive && (isFree || isPurchased);
+
   return (
     <React.Fragment>
       <Helmet>
@@ -174,17 +176,42 @@ export default function Event() {
         <meta property="og:description" content={event.description} />
       </Helmet>
       <MainContent>
-        {isLive && event.type === "live" && (isFree || isPurchased) ? (
-          <VideoConference
-            roomName={`${event.id}-23kjh23kjh232kj3h`}
-            user={user}
-          />
-        ) : null}
-        {isLive && event.type === "video" && (isFree || isPurchased) && (
-          <video src={event.video} width="100%" autoPlay muted controls />
-        )}
-        {isLive && !isFree && cover}
-        {!isLive && cover}
+        {(() => {
+          if (canWatch) {
+            if (isBroadcast) {
+              return (
+                <VideoConference
+                  roomName={`${event.id}-23kjh23kjh232kj3h`}
+                  user={user}
+                />
+              );
+            } else {
+              return (
+                <video src={event.video} width="100%" autoPlay muted controls />
+              );
+            }
+          } else {
+            if (event.preview) {
+              return (
+                <video
+                  src={event.preview}
+                  width="100%"
+                  autoPlay
+                  muted
+                  controls
+                />
+              );
+            } else {
+              return (
+                <img
+                  width="100%"
+                  alt={event.name || event?.account?.name}
+                  src={event.photo || event.account.photo}
+                />
+              );
+            }
+          }
+        })()}
       </MainContent>
       <Content>
         {!isFree && !isPurchased && (
