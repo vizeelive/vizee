@@ -102,7 +102,7 @@ export default function Events(props) {
         let isBroadcast = event.type === "live";
         let isVideo = event.type === "video";
         const cover =
-          event.preview && isLive ? (
+          event.preview ? (
             <video src={event.preview} autoPlay controls loop muted />
           ) : (
             <img

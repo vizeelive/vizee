@@ -21,6 +21,8 @@
   - role: user
     permission:
       check: {}
+      set:
+        created_by: x-hasura-User-Id
       columns:
       - description
       - facebook

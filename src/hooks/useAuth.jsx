@@ -1,16 +1,12 @@
 import config from "../config";
 import { useEffect, useState } from "react";
 
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-} from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { setContext } from "@apollo/link-context";
-// import { onError } from "@apollo/client/link/error";
+import { onError } from "@apollo/client/link/error";
 
 // import posthog from "posthog-js";
 
@@ -61,9 +57,24 @@ export default function useAuth() {
     return context;
   });
 
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.map(({ message, locations, path }) => {
+        if (message.includes("JWT")) {
+          logout();
+        }
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        );
+        return null;
+      });
+
+    if (networkError) console.log(`[Network error]: ${networkError}`);
+  });
+
   let client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(httpLink),
+    link: authLink.concat(errorLink).concat(httpLink),
   });
 
   return {
