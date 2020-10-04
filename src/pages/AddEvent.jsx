@@ -121,12 +121,12 @@ export default function AddEvent() {
   }, [event]);
 
   if (loading) {
-		return (
-			<Centered height="full">
-				<Spinner />
-			</Centered>
-		);
-	}
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return "Error";
 

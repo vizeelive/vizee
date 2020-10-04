@@ -40,12 +40,12 @@ export default function Events() {
 
 
   if (loading) {
-		return (
-			<Centered>
-				<Spinner />
-			</Centered>
-		);
-	}
+    return (
+      <Centered>
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return "Error";
 

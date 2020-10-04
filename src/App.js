@@ -21,14 +21,14 @@ function App() {
   const { isLoading, user, client, error } = useAuth();
 
   if (isLoading) {
-		return (
-			<Theme>
-				<Centered height="full">
-					<Spinner />
-				</Centered>
-			</Theme>
-		);
-	}
+    return (
+      <Theme>
+        <Centered height="full">
+          <Spinner />
+        </Centered>
+      </Theme>
+    );
+  }
 
   if (error) {
     return <div>Oops... {error.message}</div>;

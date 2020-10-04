@@ -19,9 +19,9 @@ const theme = {
     white: '#fff',
     black: '#000',
     gray: {
-			light: '#d8d8d8',
-			medium: '#808080',
-			dark: '#202020'
+      light: '#d8d8d8',
+      medium: '#808080',
+      dark: '#202020'
     }
   }
 };

@@ -12,7 +12,7 @@ import Event from "./Event";
 import useAuth from "../hooks/useAuth";
 
 import {
-	LayoutGrid
+  LayoutGrid
 } from '../components/styled/layout';
 
 import { Centered } from '../components/styled/common';
@@ -38,12 +38,12 @@ export default function User() {
   });
 
   if (loading) {
-		return (
-			<Centered height="full">
-				<Spinner />
-			</Centered>
-		);
-	}
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return "Error";
 

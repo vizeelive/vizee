@@ -105,12 +105,12 @@ export default function Event() {
   );
 
   if (loading) {
-		return (
-			<Centered height="full">
-				<Spinner />
-			</Centered>
-		);
-	}
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return "Error";
 

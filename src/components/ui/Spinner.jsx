@@ -30,13 +30,13 @@ const Svg = styled.svg.attrs({
   width: ${({ size }) => `${size}rem`};
   height: ${({ size }) => `${size}rem`};
   opacity: 0.75;
-	will-change: transform;
+  will-change: transform;
   
   circle {
     stroke: ${({ theme: { colors } }) => colors.black};
     stroke-linecap: round;
     animation: ${dash} 1300ms ease-in-out infinite;
-		will-change: stroke-dasharray, stroke-dashoffset;
+    will-change: stroke-dasharray, stroke-dashoffset;
   }
 `;
 

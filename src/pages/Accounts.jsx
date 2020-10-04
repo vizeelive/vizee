@@ -33,12 +33,12 @@ export default function Events() {
   const [deleteAccount] = useMutation(DELETE_ACCOUNT);
 
   if (loading) {
-		return (
-			<Centered height="full">
-				<Spinner />
-			</Centered>
-		);
-	}
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return "Error.";
 

@@ -60,12 +60,12 @@ const Cal = (props) => {
   const { loading, error, data } = useQuery(query, options);
 
   if (loading) {
-		return (
-			<Centered height="full">
-				<Spinner />
-			</Centered>
-		);
-	}
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return "Error";
 
