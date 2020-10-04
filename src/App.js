@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import useAuth from "./hooks/useAuth";
 import Admin from "./pages/Admin";
 import User from "./pages/User";
+import Theme from "./Theme";
 
 LogRocket.init("muse/muse");
 
@@ -32,14 +33,16 @@ function App() {
   }
 
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <Switch>
-          <PrivateRoute path="/admin" user={user} component={Admin} />
-          <Route path="/" component={User} />
-        </Switch>
-      </Router>
-    </ApolloProvider>
+    <Theme>
+			<ApolloProvider client={client}>
+				<Router>
+					<Switch>
+						<PrivateRoute path="/admin" user={user} component={Admin} />
+						<Route path="/" component={User} />
+					</Switch>
+				</Router>
+			</ApolloProvider>
+		</Theme>
   );
 }
 
