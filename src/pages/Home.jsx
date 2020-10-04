@@ -118,6 +118,9 @@ export default function Home() {
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
       <Tabs defaultActiveKey="Music" onChange={callback}>
         {categories.map((category) => {
+          // @TODO use view count once we have pagination here
+          let count = data.events.filter(e => e.category.id === category.id);
+          if (!count.length) return null;
           return (
             <TabPane tab={category.name} key={category.name}>
               <h1>{category.name}</h1>

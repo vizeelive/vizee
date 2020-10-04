@@ -103,6 +103,9 @@
       filter: {}
 - table:
     schema: public
+    name: category_counts
+- table:
+    schema: public
     name: events
   object_relationships:
   - name: account
