@@ -25,3 +25,6 @@ reports
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# VS Code workspace
+*.code-workspace
