@@ -57,6 +57,8 @@ const GET_EVENTS_UNAUTH = gql`
       start
       photo
       preview
+      type
+      price
       end
       account {
         name

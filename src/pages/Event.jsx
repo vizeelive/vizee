@@ -143,23 +143,6 @@ export default function Event() {
     }
   `;
 
-  const cover = event.preview ? (
-    <video
-      src={event.preview}
-      style={{ width: "100%" }}
-      loop
-      autoPlay
-      controls
-      muted
-    />
-  ) : (
-    <img
-      width="100%"
-      alt={event.name || event?.account?.name}
-      src={event.photo || event.account.photo}
-    />
-  );
-
   const canWatch = isLive && (isFree || isPurchased);
 
   return (
@@ -187,7 +170,7 @@ export default function Event() {
               );
             } else {
               return (
-                <video src={event.video} width="100%" autoPlay muted controls />
+                <video src={event.video} width="100%" autoPlay uted controls />
               );
             }
           } else {
