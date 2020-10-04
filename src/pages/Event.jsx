@@ -15,6 +15,9 @@ import useAuth from "../hooks/useAuth";
 
 import { StarFilled } from "@ant-design/icons";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 const { Text } = Typography;
 
 const stripePromise = loadStripe(
@@ -83,7 +86,14 @@ export default function Event() {
     }
   );
 
-  if (loading) return "Loading...";
+  if (loading) {
+		return (
+			<Centered height="full">
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error";
 
   const event = { ...data.events_by_pk };

@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Form, Input, Button, message, DatePicker, Select, Radio } from "antd";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 import FileUpload from "../components/FileUpload";
@@ -117,7 +120,14 @@ export default function AddEvent() {
     }
   }, [event]);
 
-  if (loading) return "Loading...";
+  if (loading) {
+		return (
+			<Centered height="full">
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error";
 
   const { accounts, categories } = data;

@@ -4,6 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 const GET_EVENTS = gql`
   query MyQuery {
     events {
@@ -35,7 +38,15 @@ export default function Events() {
 
   const [deleteEvent] = useMutation(DELETE_EVENT);
 
-  if (loading) return "Loading...";
+
+  if (loading) {
+		return (
+			<Centered>
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error";
 
   let tableData = data.events.map((event) => {

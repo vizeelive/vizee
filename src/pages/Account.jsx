@@ -16,6 +16,9 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
@@ -101,7 +104,14 @@ export default function Event() {
     }
   );
 
-  if (loading) return "Loading...";
+  if (loading) {
+		return (
+			<Centered height="full">
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error";
 
   const account = data?.accounts[0];

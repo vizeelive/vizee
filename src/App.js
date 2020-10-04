@@ -2,7 +2,6 @@ import "antd/dist/antd.css";
 import "antd/dist/dark-theme.js";
 
 import { ApolloProvider } from "@apollo/client";
-import { Spin } from "antd";
 import LogRocket from "logrocket";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -13,14 +12,24 @@ import Admin from "./pages/Admin";
 import User from "./pages/User";
 import Theme from "./Theme";
 
+import { Centered } from './components/styled/common';
+import Spinner from './components/ui/Spinner';
+
 LogRocket.init("muse/muse");
 
 function App() {
   const { isLoading, user, client, error } = useAuth();
 
   if (isLoading) {
-    return <Spin size="large" />;
-  }
+		return (
+			<Theme>
+				<Centered height="full">
+					<Spinner />
+				</Centered>
+			</Theme>
+		);
+	}
+
   if (error) {
     return <div>Oops... {error.message}</div>;
   }

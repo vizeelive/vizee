@@ -8,6 +8,9 @@ import Events from "../components/Events";
 
 import { Tabs, Input } from "antd";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 const { TabPane } = Tabs;
 
 const GET_EVENTS_AUTH = gql`
@@ -103,7 +106,7 @@ const SEARCH_EVENTS = gql`
   }
 `;
 
-const MainContent = styled.div`
+const MainContent = styled.main`
   padding: 20px;
 `;
 
@@ -130,7 +133,14 @@ export default function Home() {
     }
   }, [data]);
 
-  if (loading) return "Loading...";
+  if (loading) {
+		return (
+			<Centered>
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error.";
 
   const search = async (val) => {

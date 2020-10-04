@@ -6,6 +6,9 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import { gql, useQuery } from "@apollo/client";
 import useAuth from "../hooks/useAuth";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const { Content } = Layout;
@@ -56,7 +59,14 @@ const Cal = (props) => {
   }
   const { loading, error, data } = useQuery(query, options);
 
-  if (loading) return "Loading..";
+  if (loading) {
+		return (
+			<Centered height="full">
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error";
 
   let events = data?.favorite_events || data?.events;

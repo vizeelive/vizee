@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Popconfirm, Button, Table, message } from "antd";
 
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 const GET_ACCOUNTS = gql`
@@ -29,7 +32,14 @@ export default function Events() {
   });
   const [deleteAccount] = useMutation(DELETE_ACCOUNT);
 
-  if (loading) return "Loading...";
+  if (loading) {
+		return (
+			<Centered height="full">
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error.";
 
   let tableData = data.accounts.map((account) => {

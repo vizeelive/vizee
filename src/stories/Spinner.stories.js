@@ -11,5 +11,5 @@ const Template = (args) => <Spinner {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  size: 3
+  size: 5
 };

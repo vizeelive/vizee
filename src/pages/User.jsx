@@ -11,6 +11,13 @@ import Account from "./Account";
 import Event from "./Event";
 import useAuth from "../hooks/useAuth";
 
+import {
+	LayoutGrid
+} from '../components/styled/layout';
+
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
 const { Header } = Layout;
 
 const GET_ACCOUNTS = gql`
@@ -30,13 +37,20 @@ export default function User() {
     variables: { id: user?.sub },
   });
 
-  if (loading) return "Loading";
+  if (loading) {
+		return (
+			<Centered height="full">
+				<Spinner />
+			</Centered>
+		);
+	}
+
   if (error) return "Error";
 
   const account = data.accounts[0];
 
   return (
-    <Layout>
+    <LayoutGrid>
       <Header>
         <Link to="/" style={{ float: "left", paddingRight: "40px" }}>
           <img src="/favicon.ico" alt="Muse" width="20px" />
@@ -86,6 +100,6 @@ export default function User() {
         <Route path="/:username" component={Account} />
         <Route path="/" component={Home} />
       </Switch>
-    </Layout>
+    </LayoutGrid>
   );
 }
