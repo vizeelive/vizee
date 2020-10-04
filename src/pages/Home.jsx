@@ -6,8 +6,6 @@ import useAuth from "../hooks/useAuth";
 import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
 
-import useDebounce from "../hooks/useDebounce";
-
 import { Tabs, Input } from "antd";
 
 const { TabPane } = Tabs;
