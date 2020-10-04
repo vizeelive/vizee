@@ -97,7 +97,7 @@ export default function Event() {
     user ? GET_ACCOUNT_AUTH : GET_ACCOUNT_UNAUTH,
     {
       fetchPolicy: "cache-and-network",
-      variables: { username, user_id: user.sub },
+      variables: { username, user_id: user?.sub },
     }
   );
 
