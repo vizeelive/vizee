@@ -1,8 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Button, Layout, Menu } from "antd";
-import styled from "styled-components";
+import { Layout, Menu } from "antd";
 import { gql, useQuery } from "@apollo/client";
 
 import Home from "./Home";
@@ -13,13 +12,6 @@ import Event from "./Event";
 import useAuth from "../hooks/useAuth";
 
 const { Header } = Layout;
-
-// const Menu = styled.div`
-//   float: right;
-//   button {
-//     margin: 10px;
-//   }
-// `;
 
 const GET_ACCOUNTS = gql`
   query MyAccounts($id: String) {

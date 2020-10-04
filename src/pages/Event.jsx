@@ -21,14 +21,6 @@ const stripePromise = loadStripe(
   "pk_test_51GxNPWFN46jAxE7Qjk2k8EvqQyVBsaq9TZ2NXcEtBfqWpKlilZWUuAoggjDXYaPjMogzejgajC7InSicHwXSRS4x006DpoBHJl"
 );
 
-const Content = styled.div`
-  margin: 20px;
-  height: 100vh;
-  button {
-    float: right;
-  }
-`;
-
 const GET_EVENT_UNAUTH = gql`
   query MyQuery($id: uuid!) {
     events_by_pk(id: $id) {
@@ -132,6 +124,24 @@ export default function Event() {
   let isFree = event.price === "$0.00";
   let isLive = time.isBetween(start, end);
   let isPurchased = event?.transactions?.length;
+  let isBroadcast = event.type === "live";
+  let isVideo = event.type === "video";
+
+  const Content = styled.div`
+    margin: 20px;
+    height: 100vh;
+    button {
+      float: right;
+    }
+  `;
+
+  const MainContent = styled.div`
+    img,
+    video {
+      height: 50vh;
+      object-fit: cover;
+    }
+  `;
 
   const cover = event.preview ? (
     <video
@@ -147,7 +157,6 @@ export default function Event() {
       width="100%"
       alt={event.name || event?.account?.name}
       src={event.photo || event.account.photo}
-      style={{ objectFit: "cover", height: "62vh" }}
     />
   );
 
@@ -164,16 +173,19 @@ export default function Event() {
         />
         <meta property="og:description" content={event.description} />
       </Helmet>
-      {event.type === "live" && isLive && (isFree || isPurchased) ? (
-        <VideoConference
-          roomName={`${event.id}-23kjh23kjh232kj3h`}
-          user={user}
-        />
-      ) : null}
-      {event.type === "video" && isLive && (isFree || isPurchased) && (
-        <video src={event.video} width="100%" autoPlay muted controls />
-      )}
-      {(!isFree || !isPurchased) && cover}
+      <MainContent>
+        {isLive && event.type === "live" && (isFree || isPurchased) ? (
+          <VideoConference
+            roomName={`${event.id}-23kjh23kjh232kj3h`}
+            user={user}
+          />
+        ) : null}
+        {isLive && event.type === "video" && (isFree || isPurchased) && (
+          <video src={event.video} width="100%" autoPlay muted controls />
+        )}
+        {isLive && !isFree && cover}
+        {!isLive && cover}
+      </MainContent>
       <Content>
         {!isFree && !isPurchased && (
           <Button type="primary" role="link" onClick={handleClick}>
@@ -183,6 +195,8 @@ export default function Event() {
         {isPurchased ? <Tag color="green">Purchased</Tag> : null}
         {isLive && <Tag color="magenta">Live Now!</Tag>}
         {isFree && <Tag color="blue">Free!</Tag>}
+        {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
+        {isVideo && <Tag color="gold">Video</Tag>}
         <h1>{event.name}</h1>
         <h2>
           <Link to={`/${event.account.username}`}>

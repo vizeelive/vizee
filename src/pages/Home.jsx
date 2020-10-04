@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
 
-import { Form, Input, Button, Tabs, Modal } from "antd";
+import { Tabs } from "antd";
 
 const { TabPane } = Tabs;
 
@@ -23,6 +23,7 @@ const GET_EVENTS_AUTH = gql`
       start
       photo
       preview
+      type
       price
       end
       account {

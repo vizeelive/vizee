@@ -99,6 +99,8 @@ export default function Events(props) {
         let isPurchased = event?.transactions?.length;
         let isFavorite = event?.favorites?.length;
         let isFree = event.price === "$0.00";
+        let isBroadcast = event.type === "live";
+        let isVideo = event.type === "video";
         const cover =
           event.preview && isLive ? (
             <video src={event.preview} autoPlay controls loop muted />
@@ -115,6 +117,8 @@ export default function Events(props) {
                 {isPurchased ? <Tag color="green">Purchased</Tag> : null}
                 {isLive && <Tag color="magenta">Live Now!</Tag>}
                 {isFree && <Tag color="blue">Free!</Tag>}
+                {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
+                {isVideo && <Tag color="gold">Video</Tag>}
               </Row>
               <h3>{event.name}</h3>
               <h3>

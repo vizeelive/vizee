@@ -32,8 +32,8 @@ const VideoConference = (props) => {
         disableInviteFunctions: true,
         parentNode: document.getElementById(jitsiContainerId),
         userInfo: {
-          email: props.user.email,
-          displayName: props.user.name
+          email: props?.user?.email,
+          displayName: props?.user?.name
         },
       });
 
@@ -42,7 +42,7 @@ const VideoConference = (props) => {
     initialiseJitsi();
 
     return () => jitsi?.dispose?.();
-  }, [props.roomName, props.user.email, props.user.name]);
+  }, [props]);
 
   return <div id={jitsiContainerId} style={{ height: 500, width: "100%" }} />;
 };

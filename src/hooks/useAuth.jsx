@@ -10,6 +10,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { setContext } from "@apollo/link-context";
+// import { onError } from "@apollo/client/link/error";
 
 // import posthog from "posthog-js";
 

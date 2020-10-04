@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Typography, Menu } from "antd";
+import { Layout, Typography } from "antd";
 import styled from "styled-components";
 import Events from "../../components/Events";
 

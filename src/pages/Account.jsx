@@ -7,7 +7,6 @@ import { gql, useQuery } from "@apollo/client";
 
 import Home from "./Account/Home";
 import Calendar from "./Calendar";
-import Account from "./Account";
 import useAuth from "../hooks/useAuth";
 
 import {
@@ -18,7 +17,7 @@ import {
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
-const { Content, Sider } = Layout;
+const { Sider } = Layout;
 
 const GET_ACCOUNT_UNAUTH = gql`
   query GetAccountByUsername($username: String!) {
