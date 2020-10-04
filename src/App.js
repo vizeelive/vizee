@@ -34,15 +34,15 @@ function App() {
 
   return (
     <Theme>
-			<ApolloProvider client={client}>
-				<Router>
-					<Switch>
-						<PrivateRoute path="/admin" user={user} component={Admin} />
-						<Route path="/" component={User} />
-					</Switch>
-				</Router>
-			</ApolloProvider>
-		</Theme>
+      <ApolloProvider client={client}>
+        <Router>
+          <Switch>
+            <PrivateRoute path="/admin" user={user} component={Admin} />
+            <Route path="/" component={User} />
+          </Switch>
+        </Router>
+      </ApolloProvider>
+    </Theme>
   );
 }
 
