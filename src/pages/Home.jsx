@@ -8,8 +8,8 @@ import Events from "../components/Events";
 
 import { Tabs, Input } from "antd";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 const { TabPane } = Tabs;
 
@@ -106,6 +106,40 @@ const SEARCH_EVENTS_UNAUTH = gql`
   }
 `;
 
+const SEARCH_EVENTS_AUTH = gql`
+  query SearchEvents($q: String!) {
+    events(
+      where: {
+        _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
+      }
+    ) {
+      id
+      name
+      start
+      photo
+      preview
+      type
+      price
+      end
+      account {
+        name
+        username
+        photo
+      }
+      category {
+        id
+        name
+      }
+      transactions {
+        id
+      }
+      favorites {
+        id
+      }
+    }
+  }
+`;
+
 const MainContent = styled.main`
   padding: 20px;
 `;
@@ -124,7 +158,7 @@ export default function Home() {
   );
 
   const [searchEvents, { data: searchData }] = useLazyQuery(
-    SEARCH_EVENTS_UNAUTH
+    user ? SEARCH_EVENTS_AUTH : SEARCH_EVENTS_UNAUTH
   );
 
   useEffect(() => {
