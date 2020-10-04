@@ -44,7 +44,7 @@ const stripe = require("stripe")(
 );
 
 // Find your endpoint's secret in your Dashboard's webhook settings
-const endpointSecret = "whsec_9of3uLueSwo7XrZjqyXrdPcptqxeSxIU";
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 app.get("/session", async function (req, res) {
   let ref = JSON.parse(atob(req.query.ref));
