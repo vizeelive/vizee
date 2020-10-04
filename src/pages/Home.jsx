@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery } from "@apollo/client";
 import useAuth from "../hooks/useAuth";
 
 import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
 
-import { Tabs } from "antd";
+import useDebounce from "../hooks/useDebounce";
+
+import { Tabs, Input } from "antd";
 
 const { TabPane } = Tabs;
 
@@ -76,6 +78,33 @@ const GET_EVENTS_UNAUTH = gql`
   }
 `;
 
+const SEARCH_EVENTS = gql`
+  query SearchEvents($q: String!) {
+    events(where: { name: { _ilike: $q } }) {
+      id
+      name
+      start
+      photo
+      preview
+      type
+      price
+      end
+      account {
+        name
+        username
+        photo
+      }
+      category {
+        id
+      }
+    }
+    categories {
+      id
+      name
+    }
+  }
+`;
+
 const MainContent = styled.div`
   padding: 20px;
 `;
@@ -87,10 +116,13 @@ const MainContent = styled.div`
 export default function Home() {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
+
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENTS_AUTH : GET_EVENTS_UNAUTH,
     { variables: { id: user?.sub } }
   );
+
+  const [searchEvents, { data: searchData }] = useLazyQuery(SEARCH_EVENTS);
 
   useEffect(() => {
     if (data) {
@@ -103,9 +135,12 @@ export default function Home() {
   if (loading) return "Loading...";
   if (error) return "Error.";
 
-  const callback = () => {};
+  const search = async (val) => {
+    searchEvents({ variables: { q: `%${val}%` } });
+  };
 
   const categories = data?.categories;
+  const events = searchData?.events || data.events;
 
   return (
     <MainContent>
@@ -115,17 +150,21 @@ export default function Home() {
           your audience is waiting.
         </h1>
       </Hero> */}
+      <Input
+        placeholder="Search"
+        onChange={(e) => search(e.currentTarget.value)}
+      />
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
-      <Tabs defaultActiveKey="Music" onChange={callback}>
+      <Tabs defaultActiveKey="Music">
         {categories.map((category) => {
           // @TODO use view count once we have pagination here
-          let count = data.events.filter(e => e.category.id === category.id);
+          let count = events.filter((e) => e.category.id === category.id);
           if (!count.length) return null;
           return (
             <TabPane tab={category.name} key={category.name}>
               <h1>{category.name}</h1>
               <Events
-                events={data.events}
+                events={events}
                 category={category.id}
                 refetch={refetch}
               />
