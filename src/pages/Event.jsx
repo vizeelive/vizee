@@ -1,7 +1,7 @@
 import config from "../config";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Button, Typography, Tag, message } from "antd";
+import { Button, Typography, Tag, message, Modal } from "antd";
 import styled from "styled-components";
 import moment from "moment";
 import { Helmet } from "react-helmet";
@@ -18,6 +18,15 @@ import { StarFilled } from "@ant-design/icons";
 
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
+
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  EmailShareButton,
+  EmailIcon,
+} from "react-share";
 
 const { Text } = Typography;
 
@@ -79,6 +88,8 @@ const GET_EVENT_AUTH = gql`
 
 export default function Event() {
   let { id } = useParams();
+
+  const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
@@ -217,6 +228,7 @@ export default function Event() {
             Buy Ticket
           </Button>
         )}
+        <Button onClick={() => setShareModalVisible(true)}>Share</Button>
         <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
           <Button>Copy Link</Button>
         </CopyToClipboard>
@@ -236,6 +248,22 @@ export default function Event() {
         <h2>{event.description}</h2>
         <div>{moment(event.start).format("MMMM Do h:mm:ss a")}</div>
         <div>{moment(event.end).format("MMMM Do h:mm:ss a")}</div>
+        <Modal
+          title="Share"
+          visible={shareModalVisible}
+          footer={null}
+          onCancel={() => setShareModalVisible(false)}
+        >
+          <FacebookShareButton url={window.location.href}>
+            <FacebookIcon />
+          </FacebookShareButton>
+          <TwitterShareButton url={window.location.href}>
+            <TwitterIcon />
+          </TwitterShareButton>
+          <EmailShareButton url={window.location.href}>
+            <EmailIcon />
+          </EmailShareButton>
+        </Modal>
         {user?.isAdmin && (
           <Link to={`/admin/events/edit/${event.id}`}>Edit</Link>
         )}
