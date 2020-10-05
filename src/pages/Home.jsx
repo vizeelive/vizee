@@ -171,7 +171,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <Centered>
+      <Centered padded>
         <Spinner />
       </Centered>
     );

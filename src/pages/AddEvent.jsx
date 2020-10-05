@@ -122,7 +122,7 @@ export default function AddEvent() {
 
   if (loading) {
     return (
-      <Centered height="full">
+      <Centered padded>
         <Spinner />
       </Centered>
     );

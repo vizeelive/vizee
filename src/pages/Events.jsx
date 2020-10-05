@@ -41,7 +41,7 @@ export default function Events() {
 
   if (loading) {
     return (
-      <Centered>
+      <Centered padded>
         <Spinner />
       </Centered>
     );

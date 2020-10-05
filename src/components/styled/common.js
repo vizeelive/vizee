@@ -9,6 +9,7 @@ export const Centered = styled.div`
 			? '100vh'
 			: !height
 				? 'auto'
-				: `${height}rem`;
+				: `${height}`;
 	}};
+	padding: ${({ padded }) => padded ? '5rem' : '0'};
 `;

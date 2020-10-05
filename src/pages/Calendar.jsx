@@ -61,7 +61,7 @@ const Cal = (props) => {
 
   if (loading) {
     return (
-      <Centered height="full">
+      <Centered padded>
         <Spinner />
       </Centered>
     );
