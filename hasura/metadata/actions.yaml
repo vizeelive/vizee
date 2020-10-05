@@ -2,7 +2,7 @@ actions:
 - name: CreateAccount
   definition:
     kind: synchronous
-    handler: http://3.235.146.85:3000
+    handler: '{{ACTION_BASE_URL}}'
     forward_client_headers: true
   permissions:
   - role: user
