@@ -73,7 +73,7 @@ export default function User() {
           )}
           {user && (
             <Menu.Item key="/account">
-              <Link to="/account">Create Profile</Link>
+              <Link to="/account">Create Account</Link>
             </Menu.Item>
           )}
           {!user && (
