@@ -1,13 +1,13 @@
 import React from "react";
 import moment from "moment";
-import { Layout } from "antd";
+import { Layout, Alert } from "antd";
 import styled from "styled-components";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { gql, useQuery } from "@apollo/client";
 import useAuth from "../hooks/useAuth";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -83,7 +83,13 @@ const Cal = (props) => {
   return (
     <Layout>
       <MainContent>
-        <div style={{ height: "800px" }}>
+        <Alert
+          message="How The Calendar Works"
+          description="Events will appear on the calendar when you favorite events, or purchase access to events. It's so easy!"
+          type="info"
+          showIcon
+        />
+        <div style={{ marginTop: "20px", height: "800px" }}>
           <h1>Calendar</h1>
           <Calendar
             localizer={localizer}
