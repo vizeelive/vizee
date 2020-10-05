@@ -1,15 +1,19 @@
-var config = require("./config");
-var express = require("express");
-var app = express();
-var cors = require("cors");
-var atob = require("atob");
-
-app.use(cors({ origin: "*" }));
-
+const config = require("./config");
+const fetch = require("cross-fetch");
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const atob = require("atob");
 const bodyParser = require("body-parser");
 const { setContext } = require("@apollo/link-context");
 
-let fetch = require("cross-fetch");
+const actions = require("./actions");
+const execute = require("./execute");
+
+app.use(cors({ origin: "*" }));
+app.use(bodyParser.json());
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var {
   ApolloClient,
   createHttpLink,
@@ -46,6 +50,17 @@ const stripe = require("stripe")(
 // Find your endpoint's secret in your Dashboard's webhook settings
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+/**
+ * Hasura Actions interceptor
+ */
+app.post("/", async (req, res) => {
+  let action = req.body.action.name;
+  return actions[action](req, res);
+});
+
+/**
+ * Stripe Session
+ */
 app.get("/session", async function (req, res) {
   let ref = JSON.parse(atob(req.query.ref));
 
@@ -72,21 +87,27 @@ app.get("/session", async function (req, res) {
           currency: "usd",
           product_data: {
             name: "Admission",
-            images: ["https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg"],
+            images: [
+              "https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg",
+            ],
           },
-          unit_amount: parseInt(event.data.events_by_pk.price.replace('$', '').replace('.', '')) // FIXME create a real product
+          unit_amount: parseInt(
+            event.data.events_by_pk.price.replace("$", "").replace(".", "")
+          ), // FIXME create a real product
         },
         quantity: 1,
       },
     ],
     mode: "payment",
-    success_url:
-      `${config.ui}/events/${event.data.events_by_pk.id}`,
+    success_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
     cancel_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
   });
   res.send(session);
 });
 
+/**
+ * Stripe Webhook
+ */
 app.post(
   "/webhook",
   bodyParser.raw({ type: "application/json" }),

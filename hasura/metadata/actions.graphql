@@ -1,2 +1,393 @@
+type Mutation {
+  CreateAccount (
+    object: CreateAccountInput!
+  ): CreateAccountOutput
+}
 
+
+
+
+enum MyMutationAccountsConstraint {
+  """ unique or primary key constraint """ accounts_pkey
+  """ unique or primary key constraint """ accounts_username_key
+}
+
+enum MyMutationAccountsUpdateColumn {
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ facebook
+  """ column name """ id
+  """ column name """ instagram
+  """ column name """ name
+  """ column name """ photo
+  """ column name """ twitter
+  """ column name """ username
+}
+
+enum MyMutationCategoriesConstraint {
+  """ unique or primary key constraint """ categories_pkey
+}
+
+enum MyMutationCategoriesUpdateColumn {
+  """ column name """ id
+  """ column name """ name
+}
+
+enum MyMutationEventsConstraint {
+  """ unique or primary key constraint """ events_pkey
+}
+
+enum MyMutationEventsUpdateColumn {
+  """ column name """ account_id
+  """ column name """ category_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ end
+  """ column name """ id
+  """ column name """ name
+  """ column name """ photo
+  """ column name """ preview
+  """ column name """ price
+  """ column name """ start
+  """ column name """ type
+  """ column name """ video
+}
+
+enum MyMutationFavoritesConstraint {
+  """ unique or primary key constraint """ favorites_pkey
+}
+
+enum MyMutationFavoritesUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ event_id
+  """ column name """ id
+}
+
+enum MyMutationTransactionsConstraint {
+  """ unique or primary key constraint """ transactions_pkey
+}
+
+enum MyMutationTransactionsUpdateColumn {
+  """ column name """ created
+  """ column name """ event_id
+  """ column name """ id
+  """ column name """ user_id
+}
+
+enum MyMutationUsersConstraint {
+  """ unique or primary key constraint """ users_pkey
+}
+
+enum MyMutationUsersUpdateColumn {
+  """ column name """ created
+  """ column name """ first_name
+  """ column name """ id
+  """ column name """ last_name
+  """ column name """ name
+}
+
+input MyMutationAccountsInsertInput {
+  created : timestamptz
+  created_by : String
+  description : String
+  events : MyMutationEventsArrRelInsertInput
+  facebook : String
+  favorites : MyMutationFavoritesArrRelInsertInput
+  id : uuid
+  instagram : String
+  name : String
+  photo : String
+  twitter : String
+  username : String
+}
+
+input MyMutationEventsArrRelInsertInput {
+  data : [MyMutationEventsInsertInput!]!
+  on_conflict : MyMutationEventsOnConflict
+}
+
+input MyMutationEventsInsertInput {
+  account : MyMutationAccountsObjRelInsertInput
+  account_id : uuid
+  category : MyMutationCategoriesObjRelInsertInput
+  category_id : uuid
+  created : timestamptz
+  created_by : String
+  description : String
+  end : timestamptz
+  favorites : MyMutationFavoritesArrRelInsertInput
+  id : uuid
+  name : String
+  photo : String
+  preview : String
+  price : money
+  start : timestamptz
+  transactions : MyMutationTransactionsArrRelInsertInput
+  type : String
+  user : MyMutationUsersObjRelInsertInput
+  video : String
+}
+
+input MyMutationAccountsObjRelInsertInput {
+  data : MyMutationAccountsInsertInput!
+  on_conflict : MyMutationAccountsOnConflict
+}
+
+input MyMutationAccountsOnConflict {
+  constraint : MyMutationAccountsConstraint!
+  update_columns : [MyMutationAccountsUpdateColumn!]!
+  where : MyMutationAccountsBoolExp
+}
+
+input MyMutationAccountsBoolExp {
+  _and : [MyMutationAccountsBoolExp]
+  _not : MyMutationAccountsBoolExp
+  _or : [MyMutationAccountsBoolExp]
+  created : MyMutationTimestamptzComparisonExp
+  created_by : MyMutationStringComparisonExp
+  description : MyMutationStringComparisonExp
+  events : MyMutationEventsBoolExp
+  facebook : MyMutationStringComparisonExp
+  favorites : MyMutationFavoritesBoolExp
+  id : MyMutationUuidComparisonExp
+  instagram : MyMutationStringComparisonExp
+  name : MyMutationStringComparisonExp
+  photo : MyMutationStringComparisonExp
+  twitter : MyMutationStringComparisonExp
+  username : MyMutationStringComparisonExp
+}
+
+input MyMutationTimestamptzComparisonExp {
+  _eq : timestamptz
+  _gt : timestamptz
+  _gte : timestamptz
+  _in : [timestamptz!]
+  _is_null : Boolean
+  _lt : timestamptz
+  _lte : timestamptz
+  _neq : timestamptz
+  _nin : [timestamptz!]
+}
+
+input MyMutationStringComparisonExp {
+  _eq : String
+  _gt : String
+  _gte : String
+  _ilike : String
+  _in : [String!]
+  _is_null : Boolean
+  _like : String
+  _lt : String
+  _lte : String
+  _neq : String
+  _nilike : String
+  _nin : [String!]
+  _nlike : String
+  _nsimilar : String
+  _similar : String
+}
+
+input MyMutationEventsBoolExp {
+  _and : [MyMutationEventsBoolExp]
+  _not : MyMutationEventsBoolExp
+  _or : [MyMutationEventsBoolExp]
+  account : MyMutationAccountsBoolExp
+  account_id : MyMutationUuidComparisonExp
+  category : MyMutationCategoriesBoolExp
+  category_id : MyMutationUuidComparisonExp
+  created : MyMutationTimestamptzComparisonExp
+  created_by : MyMutationStringComparisonExp
+  description : MyMutationStringComparisonExp
+  end : MyMutationTimestamptzComparisonExp
+  favorites : MyMutationFavoritesBoolExp
+  id : MyMutationUuidComparisonExp
+  name : MyMutationStringComparisonExp
+  photo : MyMutationStringComparisonExp
+  preview : MyMutationStringComparisonExp
+  price : MyMutationMoneyComparisonExp
+  start : MyMutationTimestamptzComparisonExp
+  transactions : MyMutationTransactionsBoolExp
+  type : MyMutationStringComparisonExp
+  user : MyMutationUsersBoolExp
+  video : MyMutationStringComparisonExp
+}
+
+input MyMutationUuidComparisonExp {
+  _eq : uuid
+  _gt : uuid
+  _gte : uuid
+  _in : [uuid!]
+  _is_null : Boolean
+  _lt : uuid
+  _lte : uuid
+  _neq : uuid
+  _nin : [uuid!]
+}
+
+input MyMutationCategoriesBoolExp {
+  _and : [MyMutationCategoriesBoolExp]
+  _not : MyMutationCategoriesBoolExp
+  _or : [MyMutationCategoriesBoolExp]
+  id : MyMutationUuidComparisonExp
+  name : MyMutationStringComparisonExp
+}
+
+input MyMutationFavoritesBoolExp {
+  _and : [MyMutationFavoritesBoolExp]
+  _not : MyMutationFavoritesBoolExp
+  _or : [MyMutationFavoritesBoolExp]
+  account : MyMutationAccountsBoolExp
+  account_id : MyMutationUuidComparisonExp
+  created : MyMutationTimestamptzComparisonExp
+  created_by : MyMutationStringComparisonExp
+  event : MyMutationEventsBoolExp
+  event_id : MyMutationUuidComparisonExp
+  id : MyMutationUuidComparisonExp
+}
+
+input MyMutationMoneyComparisonExp {
+  _eq : money
+  _gt : money
+  _gte : money
+  _in : [money!]
+  _is_null : Boolean
+  _lt : money
+  _lte : money
+  _neq : money
+  _nin : [money!]
+}
+
+input MyMutationTransactionsBoolExp {
+  _and : [MyMutationTransactionsBoolExp]
+  _not : MyMutationTransactionsBoolExp
+  _or : [MyMutationTransactionsBoolExp]
+  created : MyMutationTimestamptzComparisonExp
+  event_id : MyMutationUuidComparisonExp
+  id : MyMutationUuidComparisonExp
+  user_id : MyMutationStringComparisonExp
+}
+
+input MyMutationUsersBoolExp {
+  _and : [MyMutationUsersBoolExp]
+  _not : MyMutationUsersBoolExp
+  _or : [MyMutationUsersBoolExp]
+  created : MyMutationTimestamptzComparisonExp
+  first_name : MyMutationStringComparisonExp
+  id : MyMutationStringComparisonExp
+  last_name : MyMutationStringComparisonExp
+  name : MyMutationStringComparisonExp
+}
+
+input MyMutationCategoriesObjRelInsertInput {
+  data : MyMutationCategoriesInsertInput!
+  on_conflict : MyMutationCategoriesOnConflict
+}
+
+input MyMutationCategoriesInsertInput {
+  id : uuid
+  name : String
+}
+
+input MyMutationCategoriesOnConflict {
+  constraint : MyMutationCategoriesConstraint!
+  update_columns : [MyMutationCategoriesUpdateColumn!]!
+  where : MyMutationCategoriesBoolExp
+}
+
+input MyMutationFavoritesArrRelInsertInput {
+  data : [MyMutationFavoritesInsertInput!]!
+  on_conflict : MyMutationFavoritesOnConflict
+}
+
+input MyMutationFavoritesInsertInput {
+  account : MyMutationAccountsObjRelInsertInput
+  account_id : uuid
+  created : timestamptz
+  created_by : String
+  event : MyMutationEventsObjRelInsertInput
+  event_id : uuid
+  id : uuid
+}
+
+input MyMutationEventsObjRelInsertInput {
+  data : MyMutationEventsInsertInput!
+  on_conflict : MyMutationEventsOnConflict
+}
+
+input MyMutationEventsOnConflict {
+  constraint : MyMutationEventsConstraint!
+  update_columns : [MyMutationEventsUpdateColumn!]!
+  where : MyMutationEventsBoolExp
+}
+
+input MyMutationFavoritesOnConflict {
+  constraint : MyMutationFavoritesConstraint!
+  update_columns : [MyMutationFavoritesUpdateColumn!]!
+  where : MyMutationFavoritesBoolExp
+}
+
+input MyMutationTransactionsArrRelInsertInput {
+  data : [MyMutationTransactionsInsertInput!]!
+  on_conflict : MyMutationTransactionsOnConflict
+}
+
+input MyMutationTransactionsInsertInput {
+  created : timestamptz
+  event_id : uuid
+  id : uuid
+  user_id : String
+}
+
+input MyMutationTransactionsOnConflict {
+  constraint : MyMutationTransactionsConstraint!
+  update_columns : [MyMutationTransactionsUpdateColumn!]!
+  where : MyMutationTransactionsBoolExp
+}
+
+input MyMutationUsersObjRelInsertInput {
+  data : MyMutationUsersInsertInput!
+  on_conflict : MyMutationUsersOnConflict
+}
+
+input MyMutationUsersInsertInput {
+  created : timestamptz
+  first_name : String
+  id : String
+  last_name : String
+  name : String
+}
+
+input MyMutationUsersOnConflict {
+  constraint : MyMutationUsersConstraint!
+  update_columns : [MyMutationUsersUpdateColumn!]!
+  where : MyMutationUsersBoolExp
+}
+
+input CreateAccountInput {
+  created : timestamptz
+  created_by : String
+  description : String
+  events : MyMutationEventsArrRelInsertInput
+  facebook : String
+  favorites : MyMutationFavoritesArrRelInsertInput
+  id : uuid
+  instagram : String
+  name : String
+  photo : String
+  twitter : String
+  username : String
+}
+
+type MyMutationOutput {
+  id : uuid!
+}
+
+type CreateAccountOutput {
+  id : uuid!
+  username : String
+}
 

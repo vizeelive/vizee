@@ -7,11 +7,9 @@ import FileUpload from "../components/FileUpload";
 import { gql, useMutation } from "@apollo/client";
 
 const CREATE_ACCOUNT = gql`
-  mutation MyMutation($object: accounts_insert_input!) {
-    insert_accounts_one(object: $object) {
+  mutation CreateAccount($object: CreateAccountInput!) {
+    CreateAccount(object: $object) {
       id
-      name
-      photo
       username
     }
   }
@@ -19,6 +17,7 @@ const CREATE_ACCOUNT = gql`
 
 export default function AddAccount(props) {
   const history = useHistory();
+  const [validationErrors, setValidationErrors] = useState({});
   const [photoUrl, setPhotoUrl] = useState(null);
   const [createAccount] = useMutation(CREATE_ACCOUNT);
 
@@ -53,7 +52,11 @@ export default function AddAccount(props) {
       });
     } catch (e) {
       if (e.graphQLErrors[0].message.includes("duplicate")) {
-        message.error("That account name is already taken");
+        setValidationErrors({ username: "Username is already taken" });
+        return;
+      }
+      if (e.graphQLErrors[0].extensions.code.includes("validation-error")) {
+        setValidationErrors(JSON.parse(e.graphQLErrors[0].message));
         return;
       }
     }
@@ -61,7 +64,7 @@ export default function AddAccount(props) {
     if (account) {
       message.success("Successfully created account");
       if (props.redirect) {
-        history.push(`/${account.data.insert_accounts_one.username}`);
+        history.push(`/${account.data.CreateAccount.username}`);
       } else {
         history.push("/admin/accounts");
       }
@@ -83,6 +86,8 @@ export default function AddAccount(props) {
     allowedFileTypes: ["image/*"],
   };
 
+  console.log(validationErrors);
+
   return (
     <Form
       {...layout}
@@ -102,6 +107,8 @@ export default function AddAccount(props) {
       <Form.Item
         label="Username"
         name="username"
+        validateStatus={validationErrors.username ? "error" : "success"}
+        help={validationErrors.username ?? null}
         rules={[{ required: true, message: "Required" }]}
       >
         <Input />
@@ -111,15 +118,30 @@ export default function AddAccount(props) {
         <Input />
       </Form.Item>
 
-      <Form.Item label="Instagram" name="instagram">
+      <Form.Item
+        label="Instagram"
+        name="instagram"
+        validateStatus={validationErrors.instagram ? "error" : "success"}
+        help={validationErrors.instagram ?? null}
+      >
         <Input />
       </Form.Item>
 
-      <Form.Item label="Twitter" name="twitter">
+      <Form.Item
+        label="Twitter"
+        name="twitter"
+        validateStatus={validationErrors.twitter ? "error" : "success"}
+        help={validationErrors.twitter ?? null}
+      >
         <Input />
       </Form.Item>
 
-      <Form.Item label="Facebook" name="facebook">
+      <Form.Item
+        label="Facebook"
+        name="facebook"
+        validateStatus={validationErrors.facebook ? "error" : "success"}
+        help={validationErrors.facebook ?? null}
+      >
         <Input />
       </Form.Item>
 

@@ -103,7 +103,7 @@ export default function Events(props) {
         let isVideo = event.type === "video";
         const cover =
           event.preview ? (
-            <video src={event.preview} autoPlay controls loop muted />
+            <video src={event.preview} controls loop muted />
           ) : (
             <img
               alt={event?.account?.name}

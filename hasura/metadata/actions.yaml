@@ -1,6 +1,210 @@
-actions: []
+actions:
+- name: CreateAccount
+  definition:
+    kind: synchronous
+    handler: http://3.235.146.85:3000
+    forward_client_headers: true
+  permissions:
+  - role: user
 custom_types:
-  enums: []
-  input_objects: []
-  objects: []
+  enums:
+  - name: MyMutationAccountsConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: accounts_pkey
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: accounts_username_key
+  - name: MyMutationAccountsUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: created_by
+    - description: column name
+      is_deprecated: null
+      value: description
+    - description: column name
+      is_deprecated: null
+      value: facebook
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: instagram
+    - description: column name
+      is_deprecated: null
+      value: name
+    - description: column name
+      is_deprecated: null
+      value: photo
+    - description: column name
+      is_deprecated: null
+      value: twitter
+    - description: column name
+      is_deprecated: null
+      value: username
+  - name: MyMutationCategoriesConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: categories_pkey
+  - name: MyMutationCategoriesUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: name
+  - name: MyMutationEventsConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: events_pkey
+  - name: MyMutationEventsUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: account_id
+    - description: column name
+      is_deprecated: null
+      value: category_id
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: created_by
+    - description: column name
+      is_deprecated: null
+      value: description
+    - description: column name
+      is_deprecated: null
+      value: end
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: name
+    - description: column name
+      is_deprecated: null
+      value: photo
+    - description: column name
+      is_deprecated: null
+      value: preview
+    - description: column name
+      is_deprecated: null
+      value: price
+    - description: column name
+      is_deprecated: null
+      value: start
+    - description: column name
+      is_deprecated: null
+      value: type
+    - description: column name
+      is_deprecated: null
+      value: video
+  - name: MyMutationFavoritesConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: favorites_pkey
+  - name: MyMutationFavoritesUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: account_id
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: created_by
+    - description: column name
+      is_deprecated: null
+      value: event_id
+    - description: column name
+      is_deprecated: null
+      value: id
+  - name: MyMutationTransactionsConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: transactions_pkey
+  - name: MyMutationTransactionsUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: event_id
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: user_id
+  - name: MyMutationUsersConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: users_pkey
+  - name: MyMutationUsersUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: first_name
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: last_name
+    - description: column name
+      is_deprecated: null
+      value: name
+  input_objects:
+  - name: MyMutationAccountsInsertInput
+  - name: MyMutationEventsArrRelInsertInput
+  - name: MyMutationEventsInsertInput
+  - name: MyMutationAccountsObjRelInsertInput
+  - name: MyMutationAccountsOnConflict
+  - name: MyMutationAccountsBoolExp
+  - name: MyMutationTimestamptzComparisonExp
+  - name: MyMutationStringComparisonExp
+  - name: MyMutationEventsBoolExp
+  - name: MyMutationUuidComparisonExp
+  - name: MyMutationCategoriesBoolExp
+  - name: MyMutationFavoritesBoolExp
+  - name: MyMutationMoneyComparisonExp
+  - name: MyMutationTransactionsBoolExp
+  - name: MyMutationUsersBoolExp
+  - name: MyMutationCategoriesObjRelInsertInput
+  - name: MyMutationCategoriesInsertInput
+  - name: MyMutationCategoriesOnConflict
+  - name: MyMutationFavoritesArrRelInsertInput
+  - name: MyMutationFavoritesInsertInput
+  - name: MyMutationEventsObjRelInsertInput
+  - name: MyMutationEventsOnConflict
+  - name: MyMutationFavoritesOnConflict
+  - name: MyMutationTransactionsArrRelInsertInput
+  - name: MyMutationTransactionsInsertInput
+  - name: MyMutationTransactionsOnConflict
+  - name: MyMutationUsersObjRelInsertInput
+  - name: MyMutationUsersInsertInput
+  - name: MyMutationUsersOnConflict
+  - name: CreateAccountInput
+  objects:
+  - name: MyMutationOutput
+  - name: CreateAccountOutput
   scalars: []

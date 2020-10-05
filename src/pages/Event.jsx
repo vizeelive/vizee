@@ -196,7 +196,7 @@ export default function Event() {
               );
             } else {
               return (
-                <video src={event.video} width="100%" autoPlay uted controls />
+                <video src={event.video} width="100%" muted controls />
               );
             }
           } else {
