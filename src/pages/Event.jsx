@@ -1,10 +1,11 @@
 import config from "../config";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { Button, Typography, Tag } from "antd";
+import { Button, Typography, Tag, message } from "antd";
 import styled from "styled-components";
 import moment from "moment";
 import { Helmet } from "react-helmet";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { gql, useQuery } from "@apollo/client";
 
@@ -15,8 +16,8 @@ import useAuth from "../hooks/useAuth";
 
 import { StarFilled } from "@ant-design/icons";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 const { Text } = Typography;
 
@@ -155,6 +156,10 @@ export default function Event() {
 
   const canWatch = isLive && (isFree || isPurchased);
 
+  const handleCopy = () => {
+    message.success("Copied link");
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -212,6 +217,9 @@ export default function Event() {
             Buy Ticket
           </Button>
         )}
+        <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
+          <Button>Copy Link</Button>
+        </CopyToClipboard>
         {isPurchased ? <Tag color="green">Purchased</Tag> : null}
         {isLive && <Tag color="magenta">Live Now!</Tag>}
         {isFree && <Tag color="blue">Free!</Tag>}
