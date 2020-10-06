@@ -69,6 +69,7 @@ export default function Admin() {
               <Route path="/admin/events/add" exact component={AddEvent} />
               <Route path="/admin/events/edit/:id" exact component={AddEvent} />
               <Route path="/admin/accounts/add" exact component={AddAccount} />
+              <Route path="/admin/accounts/edit/:id" exact component={AddAccount} />
             </Switch>
           </Content>
         </Layout>

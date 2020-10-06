@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Popconfirm, Button, Table, message } from "antd";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -65,7 +65,6 @@ export default function Events() {
       title: "Account Name",
       key: "name",
       render: (account) => {
-        console.log({ account });
         return <Link to={`/${account.username}`}>{account.name}</Link>;
       },
     },
@@ -84,17 +83,22 @@ export default function Events() {
       key: "id",
       render: (account) => {
         return (
-          <Popconfirm
-            title="Are you sure?"
-            onConfirm={() => handleDeleteAcount(account)}
-            onCancel={() => {}}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger size="small">
-              Delete
-            </Button>
-          </Popconfirm>
+          <React.Fragment>
+            <Popconfirm
+              title="Are you sure?"
+              onConfirm={() => handleDeleteAcount(account)}
+              onCancel={() => {}}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button danger size="small">
+                Delete
+              </Button>
+            </Popconfirm>
+            <Link to={`/admin/accounts/edit/${account.id}`}>
+              <Button size="small">Edit</Button>
+            </Link>
+          </React.Fragment>
         );
       },
     },
