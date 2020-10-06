@@ -232,21 +232,6 @@ export default function AddAccount(props) {
         <Input />
       </Form.Item>
 
-      {/* {!replacePhoto && account?.photo ? (
-        <Form.Item label="Photo">
-          <img src={account.photo} alt="Account" width="300" />
-          <Button onClick={() => handleReplacePhoto()}>Replace Photo</Button>
-        </Form.Item>
-      ) : (
-        <Form.Item label="Photo">
-          <FileUpload
-            id="photo"
-            callback={handleFileUpload}
-            options={options}
-          />
-        </Form.Item>
-      )} */}
-
       {!replacePhoto && !photoUrl && account?.photo && (
         <Form.Item label="Photo">
           <img src={account.photo} alt="Account" width="300" />
@@ -261,7 +246,7 @@ export default function AddAccount(props) {
         </Form.Item>
       )}
 
-      {replacePhoto && (
+      {(replacePhoto && (!photoUrl || !account?.photo)) && (
         <Form.Item label="Photo">
           <FileUpload
             id="photo"

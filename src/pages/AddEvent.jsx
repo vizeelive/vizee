@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import moment from "moment";
+import moment from "moment";
 import { useParams, useHistory } from "react-router-dom";
 import { Form, Input, Button, message, DatePicker, Select, Radio } from "antd";
 
@@ -42,9 +42,13 @@ const GET_EVENT = gql`
   query GetEvent($id: uuid!) {
     events_by_pk(id: $id) {
       id
+      type
       name
       start
       end
+      preview
+      video
+      photo
       description
       price
       account_id
@@ -68,12 +72,16 @@ const UPDATE_EVENT = gql`
   ) {
     update_events_by_pk(_set: $_set, pk_columns: $pk_columns) {
       id
+      type
       name
-      end
-      price
       start
-      account_id
+      video
+      photo
+      preview
+      end
       description
+      price
+      account_id
     }
   }
 `;
@@ -89,7 +97,10 @@ export default function AddEvent() {
 
   if (params.id) {
     query = GET_EVENT;
-    options = { variables: { id: params.id } };
+    options = {
+      fetchPolicy: "cache-and-network",
+      variables: { id: params.id },
+    };
     title = "Edit Event";
     buttonLabel = "Update Event";
   } else {
@@ -99,16 +110,15 @@ export default function AddEvent() {
     buttonLabel = "Save Event";
   }
 
-  const [eventType, setEventType] = useState("live");
+  const [event, setEvent] = useState();
   const [coverType, setCoverType] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [videoUrl, setVideoUrl] = useState(null);
   const { loading, error, data } = useQuery(query, options);
   const [createEvent] = useMutation(CREATE_EVENT);
   const [updateEvent] = useMutation(UPDATE_EVENT);
 
-  const event = data?.events_by_pk;
+  useEffect(() => {
+    setEvent(data?.events_by_pk);
+  }, [data]);
 
   useEffect(() => {
     if (event) {
@@ -132,15 +142,6 @@ export default function AddEvent() {
 
   const { accounts, categories } = data;
 
-  const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 16 },
-  };
-
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-
   const onFinish = async (values) => {
     let [start, end] = values.range;
 
@@ -155,9 +156,9 @@ export default function AddEvent() {
             description: values.description,
             category_id: values.category_id,
             account_id: values.account_id,
-            video: videoUrl || event?.video,
-            preview: previewUrl || event?.preview,
-            photo: photoUrl || event?.photo,
+            video: event?.video,
+            preview: event?.preview,
+            photo: event?.photo,
             start,
             end,
           },
@@ -172,9 +173,9 @@ export default function AddEvent() {
             description: values.description,
             category_id: values.category_id,
             account_id: values.account_id,
-            video: videoUrl || event?.video,
-            preview: previewUrl || event?.preview,
-            photo: photoUrl || event?.photo,
+            video: event?.video,
+            preview: event?.preview,
+            photo: event?.photo,
             start,
             end,
           },
@@ -190,20 +191,30 @@ export default function AddEvent() {
     }
   };
 
-  const rangeConfig = {
-    rules: [{ type: "array", required: true, message: "Please select time!" }],
-  };
-
   const handlePhotoUpload = (step) => {
-    setPhotoUrl(step.uploads[0].ssl_url);
+    setEvent({ ...event, photo: step.uploads[0].ssl_url });
   };
 
   const handlePreviewUpload = (step) => {
-    setPreviewUrl(step.uploads[0].ssl_url);
+    setEvent({ ...event, preview: step.uploads[0].ssl_url });
   };
 
   const handleVideoUpload = (step) => {
-    setVideoUrl(step.uploads[0].ssl_url);
+    setEvent({ ...event, video: step.uploads[0].ssl_url });
+  };
+
+  // prevents form creation because it doesn't like to re-render
+  if (params.id && !event) return "Loading...";
+
+  // preloads date range
+  let eventData = { ...event, range: [moment(event?.start), moment(event?.end)] };
+
+  const isSubmitDisabled =
+    (event?.type === "Video" && !event?.video) ||
+    (!event?.preview && !event?.photo);
+
+  const rangeConfig = {
+    rules: [{ type: "array", required: true, message: "Please select time!" }],
   };
 
   let uploadPhotoOptions = {
@@ -214,8 +225,14 @@ export default function AddEvent() {
     allowedFileTypes: ["video/*"],
   };
 
-  const isSubmitDisabled =
-    (eventType === "Video" && !videoUrl) || (!previewUrl && !photoUrl);
+  const layout = {
+    labelCol: { span: 2 },
+    wrapperCol: { span: 16 },
+  };
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
 
   return (
     <React.Fragment>
@@ -223,7 +240,12 @@ export default function AddEvent() {
       <hr />
       <br />
 
-      <Form {...layout} name="basic" initialValues={event} onFinish={onFinish}>
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={eventData}
+        onFinish={onFinish}
+      >
         <Form.Item
           label="Name"
           name="name"
@@ -252,7 +274,6 @@ export default function AddEvent() {
           <RangePicker
             showTime
             format="MM-DD-YYYY HH:mm:ss"
-            // defaultValue={[moment(event.start), moment(event.end)]}
           />
         </Form.Item>
 
@@ -280,7 +301,7 @@ export default function AddEvent() {
             style={{ width: 200 }}
             placeholder="Select a category"
             optionFilterProp="children"
-            defaultValue={event?.category_id}
+            // defaultValue={event?.category_id}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
@@ -299,14 +320,19 @@ export default function AddEvent() {
               { label: "Live", value: "live" },
               { label: "Video", value: "video" },
             ]}
-            onChange={(e) => setEventType(e.target.value)}
+            onChange={(e) => setEvent({ ...event, type: e.target.value })}
             optionType="button"
-            value={eventType}
+            value={event?.type}
           />
-          {eventType === "video" && (
-            <Form.Item>
-              {videoUrl ? (
-                <video src={videoUrl} width="300px" alt="event" controls />
+          {event?.type === "video" && (
+            <React.Fragment>
+              {event?.video ? (
+                <React.Fragment>
+                  <video src={event.video} width="300px" alt="event" controls />
+                  <Button onClick={() => setEvent({ ...event, video: null })}>
+                    Replace Video
+                  </Button>
+                </React.Fragment>
               ) : (
                 <FileUpload
                   id="video"
@@ -314,7 +340,7 @@ export default function AddEvent() {
                   options={uploadVideoOptions}
                 />
               )}
-            </Form.Item>
+            </React.Fragment>
           )}
         </Form.Item>
 
@@ -330,8 +356,13 @@ export default function AddEvent() {
           />
           {coverType === "Photo" && (
             <Form.Item>
-              {photoUrl ? (
-                <img src={photoUrl} width="300px" alt="event" />
+              {event?.photo ? (
+                <React.Fragment>
+                  <img src={event.photo} width="300px" alt="event" />
+                  <Button onClick={() => setEvent({ ...event, photo: null })}>
+                    Replace Photo
+                  </Button>
+                </React.Fragment>
               ) : (
                 <FileUpload
                   id="photo"
@@ -342,9 +373,19 @@ export default function AddEvent() {
             </Form.Item>
           )}
           {coverType === "Video" && (
-            <Form.Item>
-              {previewUrl ? (
-                <video src={previewUrl} width="300" controls />
+            <React.Fragment>
+              {event?.preview ? (
+                <React.Fragment>
+                  <video
+                    src={event.preview}
+                    width="300px"
+                    alt="event"
+                    controls
+                  />
+                  <Button onClick={() => setEvent({ ...event, preview: null })}>
+                    Replace Preview
+                  </Button>
+                </React.Fragment>
               ) : (
                 <FileUpload
                   id="preview"
@@ -352,7 +393,7 @@ export default function AddEvent() {
                   options={uploadVideoOptions}
                 />
               )}
-            </Form.Item>
+            </React.Fragment>
           )}
         </Form.Item>
 

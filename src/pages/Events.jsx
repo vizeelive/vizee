@@ -11,6 +11,7 @@ const GET_EVENTS = gql`
   query MyQuery {
     events {
       id
+      type
       name
       start
       end
@@ -37,7 +38,6 @@ export default function Events() {
   });
 
   const [deleteEvent] = useMutation(DELETE_EVENT);
-
 
   if (loading) {
     return (
@@ -82,6 +82,11 @@ export default function Events() {
       render: (event) => {
         return <Link to={`/events/${event.id}`}>{event.name}</Link>;
       },
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
     },
     {
       title: "Price",
