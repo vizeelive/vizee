@@ -79,7 +79,6 @@ export default function AddAccount(props) {
 
   const handleFileUpload = (step) => {
     setPhotoUrl(step.uploads[0].ssl_url);
-    console.log(step);
   };
 
   let options = {
@@ -145,10 +144,20 @@ export default function AddAccount(props) {
         <Input />
       </Form.Item>
 
-      <Form.Item label="Photo">
-        <FileUpload id="photo" callback={handleFileUpload} options={options} />
-      </Form.Item>
-
+      {photoUrl ? (
+        <Form.Item label="Photo">
+          <img src={photoUrl} alt="Account" width="300" />
+          <Button onClick={() => setPhotoUrl(null)}>Replace Photo</Button>
+        </Form.Item>
+      ) : (
+        <Form.Item label="Photo">
+          <FileUpload
+            id="photo"
+            callback={handleFileUpload}
+            options={options}
+          />
+        </Form.Item>
+      )}
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Add
