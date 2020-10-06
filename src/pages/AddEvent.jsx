@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Form, Input, Button, message, DatePicker, Select, Radio } from "antd";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -304,12 +304,16 @@ export default function AddEvent() {
             value={eventType}
           />
           {eventType === "video" && (
-            <Form.Item label="Video Deliverable">
-              <FileUpload
-                id="video"
-                callback={handleVideoUpload}
-                options={uploadVideoOptions}
-              />
+            <Form.Item>
+              {videoUrl ? (
+                <video src={videoUrl} width="300px" alt="event" controls />
+              ) : (
+                <FileUpload
+                  id="video"
+                  callback={handleVideoUpload}
+                  options={uploadVideoOptions}
+                />
+              )}
             </Form.Item>
           )}
         </Form.Item>
@@ -325,21 +329,29 @@ export default function AddEvent() {
             value={coverType}
           />
           {coverType === "Photo" && (
-            <Form.Item label="Photo">
-              <FileUpload
-                id="photo"
-                callback={handlePhotoUpload}
-                options={uploadPhotoOptions}
-              />
+            <Form.Item>
+              {photoUrl ? (
+                <img src={photoUrl} width="300px" alt="event" />
+              ) : (
+                <FileUpload
+                  id="photo"
+                  callback={handlePhotoUpload}
+                  options={uploadPhotoOptions}
+                />
+              )}
             </Form.Item>
           )}
           {coverType === "Video" && (
-            <Form.Item label="Video">
-              <FileUpload
-                id="preview"
-                callback={handlePreviewUpload}
-                options={uploadVideoOptions}
-              />
+            <Form.Item>
+              {previewUrl ? (
+                <video src={previewUrl} width="300" controls />
+              ) : (
+                <FileUpload
+                  id="preview"
+                  callback={handlePreviewUpload}
+                  options={uploadVideoOptions}
+                />
+              )}
             </Form.Item>
           )}
         </Form.Item>
