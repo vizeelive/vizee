@@ -246,7 +246,7 @@ export default function AddAccount(props) {
         </Form.Item>
       )}
 
-      {(replacePhoto && (!photoUrl || !account?.photo)) && (
+      {(replacePhoto || (!photoUrl && !account?.photo)) && (
         <Form.Item label="Photo">
           <FileUpload
             id="photo"
