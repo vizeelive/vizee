@@ -1,15 +1,15 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Popconfirm, Button, message, Table } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 const GET_EVENTS = gql`
-  query MyQuery {
-    events {
+  query GetEvents($username: String) {
+    events(where: { account: { username: { _eq: $username } } }) {
       id
       type
       name
@@ -25,16 +25,20 @@ const GET_EVENTS = gql`
 `;
 
 const DELETE_EVENT = gql`
-  mutation MyMutation($id: uuid!) {
+  mutation DeleteEvent($id: uuid!) {
     delete_events_by_pk(id: $id) {
       id
     }
   }
 `;
 
-export default function Events() {
+export default function Events(props) {
+  let { username } = useParams();
   const { loading, error, data, refetch } = useQuery(GET_EVENTS, {
     fetchPolicy: "cache-and-network",
+    variables: {
+      username
+    }
   });
 
   const [deleteEvent] = useMutation(DELETE_EVENT);
@@ -48,6 +52,17 @@ export default function Events() {
   }
 
   if (error) return "Error";
+
+  let ui = {};
+  if (props?.admin) {
+    ui.addUrl = `/admin/events/add`;
+    ui.editUrl = `/admin/events/edit`;
+    ui.redirect = `/admin/events`;
+  } else {
+    ui.addUrl = `/${username}/events/add`;
+    ui.editUrl = `/${username}/events/edit`;
+    ui.redirect = `/${username}/events`;
+  }
 
   let tableData = data.events.map((event) => {
     return {
@@ -121,7 +136,7 @@ export default function Events() {
               </Button>
             </Popconfirm>
 
-            <Link to={`/admin/events/edit/${event.id}`}>
+            <Link to={`${ui.editUrl}/${event.id}`}>
               <Button size="small">Edit</Button>
             </Link>
           </React.Fragment>
@@ -133,7 +148,7 @@ export default function Events() {
   return (
     <React.Fragment>
       <Button style={{ float: "right" }} type="primary">
-        <Link to={"/admin/events/add"}>Create Event</Link>
+        <Link to={ui.addUrl}>Create Event</Link>
       </Button>
       <h2>Events</h2>
       <Table rowKey="id" columns={columns} dataSource={tableData} />

@@ -1,11 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Link, useParams, useLocation } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Badge, Layout, Menu } from "antd";
 
 import { gql, useQuery } from "@apollo/client";
 
 import Home from "./Account/Home";
+import AddEvent from "./AddEvent";
+import Events from "./Events";
 import Calendar from "./Calendar";
 import Users from "./Users";
 import useAuth from "../hooks/useAuth";
@@ -22,7 +24,7 @@ import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
 
 const { SubMenu } = Menu;
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
 const GET_ACCOUNT_UNAUTH = gql`
   query GetAccountByUsername($username: String!) {
@@ -58,11 +60,19 @@ const GET_ACCOUNT_UNAUTH = gql`
 // @TODO KEEP THE OUTPUT SCHEMAS THE SAME
 const GET_ACCOUNT_AUTH = gql`
   query GetAccountByUsername($username: String!, $user_id: String!) {
-    myaccounts: accounts_users(order_by: {name: asc}, where: { user_id: { _eq: $user_id } }) {
+    myaccounts: accounts_users(
+      order_by: { account: { name: asc } }
+      where: { user_id: { _eq: $user_id } }
+    ) {
       account {
         id
         name
         username
+      }
+    }
+    events_aggregate(where: { account: { username: { _eq: $username } } }) {
+      aggregate {
+        count
       }
     }
     accounts(where: { username: { _eq: $username } }) {
@@ -100,10 +110,15 @@ const GET_ACCOUNT_AUTH = gql`
 
 const GET_ACCOUNT_AUTH_ADMIN = gql`
   query GetAccountByUsername($username: String!) {
-    myaccounts: accounts(order_by: {name: asc}) {
+    myaccounts: accounts(order_by: { name: asc }) {
       id
       name
       username
+    }
+    events_aggregate(where: { account: { username: { _eq: $username } } }) {
+      aggregate {
+        count
+      }
     }
     accounts(where: { username: { _eq: $username } }) {
       id
@@ -173,10 +188,14 @@ export default function Account() {
 
   // @TODO find by pk, no need for [0]
   const account = data?.account?.[0].account || data?.accounts[0];
-  const isMyAccount = user?.isAdmin || data?.myaccounts?.filter(
-    (acc) => acc.account.username === account.username
-  );
-  const myAccounts = data?.myaccounts?.[0]?.account ? data.myaccounts.map(acc => acc.account) : data.myaccounts;
+  const isMyAccount =
+    user?.isAdmin ||
+    data?.myaccounts?.filter(
+      (acc) => acc.account.username === account.username
+    );
+  const myAccounts = data?.myaccounts?.[0]?.account
+    ? data.myaccounts.map((acc) => acc.account)
+    : data.myaccounts;
 
   return (
     <React.Fragment>
@@ -187,9 +206,7 @@ export default function Account() {
               <SubMenu key="accounts" icon={<UserOutlined />} title="Accounts">
                 {myAccounts.map((account) => (
                   <Menu.Item key={`/${account.username}`}>
-                    <Link to={`/${account.username}`}>
-                      {account.name}
-                    </Link>
+                    <Link to={`/${account.username}`}>{account.name}</Link>
                   </Menu.Item>
                 ))}
                 <Menu.Item key="/account">
@@ -212,12 +229,20 @@ export default function Account() {
               >
                 <Link to={`/${username}/calendar`}>Calendar</Link>
               </Menu.Item>
+              <Menu.Item
+                key={`/${username}/events`}
+                icon={<CalendarOutlined />}
+              >
+                <Link to={`/${username}/events`}>
+                  Events <Badge count={data.events_aggregate.aggregate.count} />
+                </Link>
+              </Menu.Item>
               {(user.isAdmin || account.created_by === user.sub) && (
                 <Menu.Item
                   key={`/${username}/users`}
                   icon={<UserAddOutlined />}
                 >
-                  <Link to={`/${username}/users`}>Users</Link>
+                  <Link to={`/${username}/users`}>Users <Badge count={data.events_aggregate.aggregate.count} /></Link>
                 </Menu.Item>
               )}
               <Menu.Item
@@ -230,14 +255,32 @@ export default function Account() {
             </Menu>
           </Sider>
         ) : null}
-        <Layout>
-          <Switch>
-            <Route path="/:username/users" exact component={Users} />
-            <Route path="/:username/calendar" exact component={Calendar} />
-            <Route path="/:username" exact>
-              <Home account={account} refetch={refetch} />
-            </Route>
-          </Switch>
+        <Layout style={{ padding: "0 24px 24px" }}>
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+            }}
+          >
+            <Switch>
+              <Route path="/:username/users" exact component={Users} />
+              <Route path="/:username/events" exact>
+                <Events />
+              </Route>
+              <Route path="/:username/events/add" exact>
+                <AddEvent redirect={`/${username}/events`} />
+              </Route>
+              <Route path="/:username/events/edit/:id" exact>
+                <AddEvent redirect={`/${username}/events`} />
+              </Route>
+              <Route path="/:username/calendar" exact component={Calendar} />
+              <Route path="/:username" exact>
+                <Home account={account} refetch={refetch} />
+              </Route>
+            </Switch>
+          </Content>
         </Layout>
       </Layout>
     </React.Fragment>

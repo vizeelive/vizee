@@ -17,6 +17,13 @@
         table:
           schema: public
           name: favorites
+  - name: users
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          schema: public
+          name: accounts_users
   insert_permissions:
   - role: user
     permission:
@@ -239,10 +246,12 @@
       - type
       - video
       filter: {}
+      allow_aggregations: true
   update_permissions:
   - role: user
     permission:
       columns:
+      - account_id
       - category_id
       - description
       - end
@@ -261,8 +270,10 @@
   - role: user
     permission:
       filter:
-        created_by:
-          _eq: X-Hasura-User-Id
+        account:
+          users:
+            user_id:
+              _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: favorite_events

@@ -16,7 +16,11 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const GET_ACCOUNTS = gql`
-  query GetAccounts {
+  query GetAccounts($username: String) {
+    account: accounts(where: { username: { _eq: $username } }) {
+      id
+      name
+    }
     accounts {
       id
       name
@@ -39,7 +43,11 @@ const CREATE_EVENT = gql`
 `;
 
 const GET_EVENT = gql`
-  query GetEvent($id: uuid!) {
+  query GetEvent($id: uuid!, $username: String) {
+    account: accounts(where: { username: { _eq: $username } }) {
+      id
+      name
+    }
     events_by_pk(id: $id) {
       id
       type
@@ -86,7 +94,7 @@ const UPDATE_EVENT = gql`
   }
 `;
 
-export default function AddEvent() {
+export default function AddEvent(props) {
   const params = useParams();
   const history = useHistory();
 
@@ -99,13 +107,13 @@ export default function AddEvent() {
     query = GET_EVENT;
     options = {
       fetchPolicy: "cache-and-network",
-      variables: { id: params.id },
+      variables: { id: params.id, username: params.username },
     };
     title = "Edit Event";
     buttonLabel = "Update Event";
   } else {
     query = GET_ACCOUNTS;
-    options = {};
+    options = { variables: { username: params.username }};
     title = "Add An Event";
     buttonLabel = "Save Event";
   }
@@ -141,6 +149,7 @@ export default function AddEvent() {
   if (error) return "Error";
 
   const { accounts, categories } = data;
+  const account = data.account[0];
 
   const onFinish = async (values) => {
     let [start, end] = values.range;
@@ -155,7 +164,7 @@ export default function AddEvent() {
             price: values.price,
             description: values.description,
             category_id: values.category_id,
-            account_id: values.account_id,
+            account_id: account.id,
             video: event?.video,
             preview: event?.preview,
             photo: event?.photo,
@@ -172,7 +181,7 @@ export default function AddEvent() {
             price: values.price,
             description: values.description,
             category_id: values.category_id,
-            account_id: values.account_id,
+            account_id: account.id,
             video: event?.video,
             preview: event?.preview,
             photo: event?.photo,
@@ -185,7 +194,7 @@ export default function AddEvent() {
 
     if (newEvent) {
       message.success("Successfully created event");
-      history.push("/admin/events");
+      history.push(props.redirect);
     } else {
       message.error("Failed to create event");
     }
@@ -207,7 +216,10 @@ export default function AddEvent() {
   if (params.id && !event) return "Loading...";
 
   // preloads date range
-  let eventData = { ...event, range: [moment(event?.start), moment(event?.end)] };
+  let eventData = {
+    ...event,
+    range: [moment(event?.start), moment(event?.end)],
+  };
 
   const isSubmitDisabled =
     (event?.type === "Video" && !event?.video) ||
@@ -271,29 +283,28 @@ export default function AddEvent() {
         </Form.Item>
 
         <Form.Item name="range" label="Event Times" {...rangeConfig}>
-          <RangePicker
-            showTime
-            format="MM-DD-YYYY HH:mm:ss"
-          />
+          <RangePicker showTime format="MM-DD-YYYY HH:mm:ss" />
         </Form.Item>
 
-        <Form.Item name="account_id" label="Account">
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select an account"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-          >
-            {accounts.map((account) => (
-              <Option key={account.id} value={account.id}>
-                {account.name}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
+        {!params.username && (
+          <Form.Item name="account_id" label="Account">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select an account"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {accounts.map((account) => (
+                <Option key={account.id} value={account.id}>
+                  {account.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
 
         <Form.Item name="category_id" label="Category">
           <Select
