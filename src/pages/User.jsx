@@ -11,14 +11,14 @@ import Account from "./Account";
 import Event from "./Event";
 import useAuth from "../hooks/useAuth";
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 const { Header } = Layout;
 
-const GET_ACCOUNTS = gql`
-  query MyAccounts($id: String) {
-    accounts(where: { created_by: { _eq: $id } }) {
+const GET_ACCOUNTS_UNAUTH = gql`
+  query Accounts {
+    accounts {
       id
       name
       username
@@ -26,11 +26,23 @@ const GET_ACCOUNTS = gql`
   }
 `;
 
+const GET_ACCOUNTS_AUTH = gql`
+  query MyAccounts($user_id: String) {
+    accounts_users(where: { user_id: { _eq: $user_id } }) {
+      account {
+        id
+        name
+        username
+      }
+    }
+  }
+`;
+
 export default function User() {
   const { user, logout, loginWithRedirect } = useAuth();
 
-  const { loading, error, data } = useQuery(GET_ACCOUNTS, {
-    variables: { id: user?.sub },
+  const { loading, error, data } = useQuery(user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH, {
+    variables: { user_id: user?.sub },
   });
 
   if (loading) {
@@ -43,7 +55,7 @@ export default function User() {
 
   if (error) return "Error";
 
-  const account = data.accounts[0];
+  const account = data?.accounts_users?.[0]?.account || data?.accounts
 
   return (
     <Layout>

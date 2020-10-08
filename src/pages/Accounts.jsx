@@ -8,7 +8,7 @@ import Spinner from "../components/ui/Spinner";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 const GET_ACCOUNTS = gql`
-  query MyQuery {
+  query GetAccount {
     accounts {
       id
       name
@@ -19,7 +19,7 @@ const GET_ACCOUNTS = gql`
 `;
 
 const DELETE_ACCOUNT = gql`
-  mutation MyMutation($id: uuid!) {
+  mutation DeleteAccount($id: uuid!) {
     delete_accounts_by_pk(id: $id) {
       id
     }

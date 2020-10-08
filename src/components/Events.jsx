@@ -106,7 +106,7 @@ export default function Events(props) {
             <video src={event.preview} controls loop muted />
           ) : (
             <img
-              alt={event?.account?.name}
+              alt={event?.account?.name || event?.name}
               src={event.photo || event.account.photo}
             />
           );
