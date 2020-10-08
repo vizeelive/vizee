@@ -6,7 +6,9 @@ import { Badge, Layout, Menu } from "antd";
 import { gql, useQuery } from "@apollo/client";
 
 import Home from "./Account/Home";
+import AddAccount from "./AddAccount";
 import AddEvent from "./AddEvent";
+import ViewEvent from "./ViewEvent";
 import Events from "./Events";
 import Calendar from "./Calendar";
 import Users from "./Users";
@@ -16,8 +18,11 @@ import {
   UserOutlined,
   CalendarOutlined,
   LogoutOutlined,
-  VideoCameraOutlined,
   UserAddOutlined,
+  ThunderboltOutlined,
+  AreaChartOutlined,
+  YoutubeOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
 
 import { Centered } from "../components/styled/common";
@@ -27,7 +32,7 @@ const { SubMenu } = Menu;
 const { Sider, Content } = Layout;
 
 const GET_ACCOUNT_UNAUTH = gql`
-  query GetAccountByUsername($username: String!) {
+  query AnonGetAccountByUsername($username: String!) {
     accounts(where: { username: { _eq: $username } }) {
       id
       name
@@ -109,7 +114,7 @@ const GET_ACCOUNT_AUTH = gql`
 `;
 
 const GET_ACCOUNT_AUTH_ADMIN = gql`
-  query GetAccountByUsername($username: String!) {
+  query AdminGetAccountByUsername($username: String!) {
     myaccounts: accounts(order_by: { name: asc }) {
       id
       name
@@ -171,6 +176,7 @@ export default function Account() {
     variables = { username };
   }
 
+  // @TODO would probably be better to use named actions rather than variables queries in order to track which one gets called, or give them different query names above
   const { loading, error, data, refetch } = useQuery(query, {
     fetchPolicy: "cache-and-network",
     variables,
@@ -220,7 +226,7 @@ export default function Account() {
               defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0 }}
             >
-              <Menu.Item key={`/${username}`} icon={<VideoCameraOutlined />}>
+              <Menu.Item key={`/${username}`} icon={<YoutubeOutlined />}>
                 <Link to={`/${username}`}>Profile</Link>
               </Menu.Item>
               <Menu.Item
@@ -231,7 +237,7 @@ export default function Account() {
               </Menu.Item>
               <Menu.Item
                 key={`/${username}/events`}
-                icon={<CalendarOutlined />}
+                icon={<ThunderboltOutlined />}
               >
                 <Link to={`/${username}/events`}>
                   Events <Badge count={data.events_aggregate.aggregate.count} />
@@ -242,9 +248,24 @@ export default function Account() {
                   key={`/${username}/users`}
                   icon={<UserAddOutlined />}
                 >
-                  <Link to={`/${username}/users`}>Users <Badge count={data.events_aggregate.aggregate.count} /></Link>
+                  <Link to={`/${username}/users`}>
+                    Users{" "}
+                    <Badge count={data.events_aggregate.aggregate.count} />
+                  </Link>
                 </Menu.Item>
               )}
+              <Menu.Item
+                key={`/${username}/reports`}
+                icon={<AreaChartOutlined />}
+              >
+                <Link to={`/${username}/reports`}>Reports</Link>
+              </Menu.Item>
+              <Menu.Item
+                key={`/${username}/settings`}
+                icon={<SettingOutlined />}
+              >
+                <Link to={`/${username}/settings/${account.id}`}>Settings</Link>
+              </Menu.Item>
               <Menu.Item
                 key="/logout"
                 icon={<LogoutOutlined />}
@@ -272,9 +293,13 @@ export default function Account() {
               <Route path="/:username/events/add" exact>
                 <AddEvent redirect={`/${username}/events`} />
               </Route>
+              <Route path="/:username/events/:id" exact>
+                <ViewEvent />
+              </Route>
               <Route path="/:username/events/edit/:id" exact>
                 <AddEvent redirect={`/${username}/events`} />
               </Route>
+              <Route path="/:username/settings/:id" exact component={AddAccount} />
               <Route path="/:username/calendar" exact component={Calendar} />
               <Route path="/:username" exact>
                 <Home account={account} refetch={refetch} />

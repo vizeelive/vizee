@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
 
-import { Tabs, Input } from "antd";
+import { Tabs, Input  } from "antd";
 
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
@@ -186,6 +186,16 @@ export default function Home() {
   const categories = data?.categories;
   const events = searchData?.events || data.events;
 
+  // const onChange = () => {};
+
+  // const contentStyle = {
+  //   height: "160px",
+  //   color: "#fff",
+  //   lineHeight: "160px",
+  //   textAlign: "center",
+  //   background: "#364d79",
+  // };
+
   return (
     <MainContent>
       {/* <Hero>
@@ -199,6 +209,22 @@ export default function Home() {
         onChange={(e) => search(e.currentTarget.value)}
       />
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
+      {/* <Divider /> */}
+      {/* <Tag color="magenta">Live Now!</Tag><br /> */}
+      {/* <Carousel afterChange={onChange}>
+        <div>
+          <img src="https://dam-media.s3.amazonaws.com/0b/7631c4ad0a400ba9fe5da4d2cdbc01/Damian-Marley-and-Third-World-2019-billboard-1548-1024x677.jpg" alt="thangs" />
+        </div>
+        <div>
+          <h3 style={contentStyle}>2</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>3</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>4</h3>
+        </div>
+      </Carousel> */}
       <Tabs defaultActiveKey="Music">
         {categories.map((category) => {
           // @TODO use view count once we have pagination here

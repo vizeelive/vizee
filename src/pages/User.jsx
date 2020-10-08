@@ -94,7 +94,7 @@ export default function User() {
               key="/logout"
               onClick={() => logout({ returnTo: window.location.origin })}
             >
-              Logout
+              Logout ({`${user.email}`})
             </Menu.Item>
           )}
         </Menu>

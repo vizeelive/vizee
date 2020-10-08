@@ -1,6 +1,8 @@
+import React from "react";
+import PropTypes from 'prop-types';
+
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Popconfirm, Button, message, Table } from "antd";
-import React from "react";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 
@@ -95,7 +97,7 @@ export default function Events(props) {
       title: "Event Name",
       key: "name",
       render: (event) => {
-        return <Link to={`/events/${event.id}`}>{event.name}</Link>;
+        return <Link to={`/${username}/events/${event.id}`}>{event.name}</Link>;
       },
     },
     {
@@ -155,3 +157,7 @@ export default function Events(props) {
     </React.Fragment>
   );
 }
+
+Events.propTypes = {
+  admin: PropTypes.bool
+};
