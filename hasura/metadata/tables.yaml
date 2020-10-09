@@ -202,6 +202,7 @@
       - category_id
       - description
       - end
+      - location
       - name
       - photo
       - preview
@@ -220,6 +221,7 @@
       - description
       - end
       - id
+      - location
       - name
       - photo
       - preview
@@ -238,6 +240,7 @@
       - description
       - end
       - id
+      - location
       - name
       - photo
       - preview
@@ -255,6 +258,7 @@
       - category_id
       - description
       - end
+      - location
       - name
       - photo
       - preview
@@ -263,8 +267,10 @@
       - type
       - video
       filter:
-        created_by:
-          _eq: X-Hasura-User-Id
+        account:
+          users:
+            user_id:
+              _eq: X-Hasura-User-Id
       check: null
   delete_permissions:
   - role: user
@@ -274,6 +280,72 @@
           users:
             user_id:
               _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: events_report
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
+  array_relationships:
+  - name: transaction
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: transactions
+        column_mapping:
+          id: event_id
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - account_id
+      - category_id
+      - created
+      - created_by
+      - description
+      - end
+      - favorites
+      - id
+      - location
+      - name
+      - photo
+      - preview
+      - price
+      - start
+      - transactions
+      - type
+      - video
+      - views
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - account_id
+      - category_id
+      - created
+      - created_by
+      - description
+      - end
+      - favorites
+      - id
+      - location
+      - name
+      - photo
+      - preview
+      - price
+      - start
+      - transactions
+      - type
+      - video
+      - views
+      filter: {}
 - table:
     schema: public
     name: favorite_events
@@ -404,3 +476,21 @@
         id:
           _eq: X-Hasura-User-Id
       check: null
+- table:
+    schema: public
+    name: views
+  insert_permissions:
+  - role: public
+    permission:
+      check: {}
+      columns:
+      - created_by
+      - event_id
+      backend_only: false
+  - role: user
+    permission:
+      check: {}
+      columns:
+      - created_by
+      - event_id
+      backend_only: false

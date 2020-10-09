@@ -113,7 +113,7 @@ export default function AddEvent(props) {
     buttonLabel = "Update Event";
   } else {
     query = GET_ACCOUNTS;
-    options = { variables: { username: params.username }};
+    options = { variables: { username: params.username } };
     title = "Add An Event";
     buttonLabel = "Save Event";
   }
@@ -161,6 +161,7 @@ export default function AddEvent(props) {
           pk_columns: { id: params.id },
           _set: {
             name: values.name,
+            location: values.location,
             price: values.price,
             description: values.description,
             category_id: values.category_id,
@@ -178,6 +179,7 @@ export default function AddEvent(props) {
         variables: {
           object: {
             name: values.name,
+            location: values.location,
             price: values.price,
             description: values.description,
             category_id: values.category_id,
@@ -272,6 +274,10 @@ export default function AddEvent(props) {
           rules={[{ required: true, message: "Required" }]}
         >
           <CurrencyInput />
+        </Form.Item>
+
+        <Form.Item label="Location" name="location">
+          <Input />
         </Form.Item>
 
         <Form.Item

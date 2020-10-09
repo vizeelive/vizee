@@ -1,5 +1,5 @@
 import config from "../config";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button, Typography, Tag, message, Modal } from "antd";
 import styled from "styled-components";
@@ -7,7 +7,7 @@ import moment from "moment";
 import { Helmet } from "react-helmet";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -35,8 +35,8 @@ const stripePromise = loadStripe(
 );
 
 const GET_EVENT_UNAUTH = gql`
-  query MyQuery($id: uuid!) {
-    events_by_pk(id: $id) {
+  query AnonEventsReport($id: uuid!) {
+    events_report(where: { id: { _eq: $id } }) {
       id
       type
       name
@@ -59,8 +59,8 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 const GET_EVENT_AUTH = gql`
-  query MyQuery($id: uuid!) {
-    events_by_pk(id: $id) {
+  query UserEventsReport($id: uuid!) {
+    events_report(where: { id: { _eq: $id } }) {
       id
       type
       name
@@ -71,17 +71,25 @@ const GET_EVENT_AUTH = gql`
       preview
       video
       description
+      transactions
+      favorites
+      views
       account {
         name
         username
         photo
       }
-      transactions {
+      transaction {
         id
       }
-      favorites {
-        id
-      }
+    }
+  }
+`;
+
+const TRACK_VIEW = gql`
+  mutation TrackView($event_id: uuid!, $created_by: String!) {
+    insert_views(objects: { event_id: $event_id, created_by: $created_by }) {
+      affected_rows
     }
   }
 `;
@@ -91,12 +99,21 @@ export default function Event() {
 
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
+  const [trackView] = useMutation(TRACK_VIEW);
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       variables: { id },
     }
   );
+
+  const event = { ...data?.events_report[0] };
+
+  useEffect(() => {
+    if (event?.id) {
+      trackView({ variables: { created_by: user.sub, event_id: event.id } });
+    }
+  }, [event.id, trackView, user.sub]);
 
   if (loading) {
     return (
@@ -108,7 +125,6 @@ export default function Event() {
 
   if (error) return "Error";
 
-  const event = { ...data.events_by_pk };
   event.link = `https://us.meething.space/?room=${event.id}&mesh=false`;
 
   const handleBuy = async () => {
@@ -195,9 +211,7 @@ export default function Event() {
                 />
               );
             } else {
-              return (
-                <video src={event.video} width="100%" muted controls />
-              );
+              return <video src={event.video} width="100%" muted controls />;
             }
           } else {
             if (event.preview) {

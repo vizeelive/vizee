@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Statistic, Row, Col, Button, Divider, Table } from "antd";
 import moment from "moment";
 
@@ -11,8 +11,8 @@ import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
 
 const GET_EVENT_AUTH = gql`
-  query MyQuery($id: uuid!) {
-    events_by_pk(id: $id) {
+  query UserEventsReport($id: uuid!) {
+    events_report(where: { id: { _eq: $id } }) {
       id
       type
       name
@@ -22,16 +22,17 @@ const GET_EVENT_AUTH = gql`
       photo
       preview
       video
+      location
       description
+      transactions
+      favorites
+      views
       account {
         name
         username
         photo
       }
-      transactions {
-        id
-      }
-      favorites {
+      transaction {
         id
       }
     }
@@ -39,9 +40,10 @@ const GET_EVENT_AUTH = gql`
 `;
 
 export default function ViewEvent() {
-  let { id } = useParams();
+  let { id, username } = useParams();
 
   const { loading, error, data } = useQuery(GET_EVENT_AUTH, {
+    fetchPolicy: 'cache-and-network',
     variables: { id },
   });
 
@@ -55,7 +57,7 @@ export default function ViewEvent() {
 
   if (error) return "Error";
 
-  const event = { ...data.events_by_pk };
+  const event = { ...data?.events_report[0] };
 
   const columns = [
     {
@@ -95,8 +97,11 @@ export default function ViewEvent() {
 
   return (
     <React.Fragment>
+      <Button style={{ float: "right" }} type="secondary">
+        <Link to={`/${username}/events/edit/${event.id}`}>Edit Event</Link>
+      </Button>
       <h2>
-        <ThunderboltOutlined /> {event.name}
+        <ThunderboltOutlined /> <Link to={`/events/${event.id}`}>{event.name}</Link>
       </h2>
       <div>
         <CalendarOutlined /> {moment(event.start).format("MMMM Do h:mm:ss a")}
@@ -104,7 +109,7 @@ export default function ViewEvent() {
       <div>
         <CalendarOutlined /> {moment(event.end).format("MMMM Do h:mm:ss a")}
       </div>
-      <div>Location: Los Angeles, CA</div>
+      <div>Location: {event.location}</div>
       <Divider />
       {/* <div>{event.description}</div> */}
 
@@ -116,13 +121,13 @@ export default function ViewEvent() {
           </Button>
         </Col>
         <Col span={4}>
-          <Statistic title="Tickets Purchased" value={1032} />
+          <Statistic title="Tickets Purchased" value={event.transactions} />
         </Col>
         <Col span={4}>
-          <Statistic title="Views" value={3423} />
+          <Statistic title="Views" value={event.views || 0} />
         </Col>
         <Col span={4}>
-          <Statistic title="Favorites" value={272} />
+          <Statistic title="Favorites" value={event.favorites} />
         </Col>
       </Row>
 
