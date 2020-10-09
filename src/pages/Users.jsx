@@ -11,6 +11,7 @@ import {
   Popconfirm,
 } from "antd";
 import styled from "styled-components";
+import moment from "moment";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -34,6 +35,7 @@ const GET_USERS = gql`
     }
     accounts_users(where: { account: { username: { _eq: $username } } }) {
       id
+      created
       user {
         id
         name
@@ -51,7 +53,7 @@ const GET_USERS = gql`
 `;
 
 const GET_USERS_ADMIN = gql`
-  query GetUsers($username: String!) {
+  query AdminGetUsers($username: String!) {
     myaccounts: accounts {
       id
       name
@@ -59,6 +61,7 @@ const GET_USERS_ADMIN = gql`
     }
     accounts_users(where: { account: { username: { _eq: $username } } }) {
       id
+      created
       user {
         id
         name
@@ -138,8 +141,8 @@ export default function Users() {
   const users = data?.users;
   const accountUsers = data?.accounts_users;
 
-  const addableUsers = users.filter(user => {
-    let match = accountUsers.filter(accountUser => {
+  const addableUsers = users.filter((user) => {
+    let match = accountUsers.filter((accountUser) => {
       return accountUser.user.id === user.id;
     });
     return !match.length;
@@ -177,6 +180,14 @@ export default function Users() {
       title: "Last Name",
       dataIndex: ["user", "last_name"],
       key: "last_name",
+    },
+    {
+      title: "Date Added",
+      dataIndex: 'created',
+      key: "created",
+      render: (created) => {
+        return moment(created).format("MMMM Do h:mm:ss a");
+      },
     },
     {
       title: "Actions",
