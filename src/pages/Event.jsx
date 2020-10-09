@@ -51,7 +51,7 @@ const GET_EVENT_UNAUTH = gql`
         username
         photo
       }
-      favorites {
+      favorite {
         id
       }
     }
@@ -108,12 +108,13 @@ export default function Event() {
   );
 
   const event = { ...data?.events_report[0] };
+  const userId = user?.sub;
 
   useEffect(() => {
-    if (event?.id) {
-      trackView({ variables: { created_by: user.sub, event_id: event.id } });
+    if (event?.id && userId) {
+      trackView({ variables: { created_by: userId, event_id: event.id } });
     }
-  }, [event.id, trackView, user.sub]);
+  }, [event.id, trackView, userId]);
 
   if (loading) {
     return (
@@ -257,7 +258,7 @@ export default function Event() {
             <Text type="secondary">{event.account.name}</Text>
           </Link>
         </h2>
-        <StarFilled /> {event.favorites.length}
+        <StarFilled /> {event.favorite.length}
         {!isPurchased && <h2>{event.price}</h2>}
         <h2>{event.description}</h2>
         <div>{moment(event.start).format("MMMM Do h:mm:ss a")}</div>

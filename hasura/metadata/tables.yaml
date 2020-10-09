@@ -293,6 +293,14 @@
         column_mapping:
           account_id: id
   array_relationships:
+  - name: favorite
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: favorites
+        column_mapping:
+          id: event_id
   - name: transaction
     using:
       manual_configuration:
@@ -340,6 +348,7 @@
       - photo
       - preview
       - price
+      - revenue
       - start
       - transactions
       - type
@@ -443,6 +452,13 @@
 - table:
     schema: public
     name: transactions
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
   select_permissions:
   - role: user
     permission:
@@ -450,21 +466,51 @@
       - created
       - event_id
       - id
+      - price
       - user_id
       filter:
-        user_id:
-          _eq: X-Hasura-User-Id
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: users
+  array_relationships:
+  - name: accounts
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: accounts_users
+  - name: events
+    using:
+      foreign_key_constraint_on:
+        column: created_by
+        table:
+          schema: public
+          name: events
+  - name: transactions
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: transactions
   select_permissions:
   - role: user
     permission:
       columns:
+      - city
+      - country
       - first_name
       - id
       - last_name
       - name
+      - state
       filter: {}
   update_permissions:
   - role: user

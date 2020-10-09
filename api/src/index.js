@@ -131,7 +131,7 @@ app.post(
         variables: {
           object: {
             event_id: ref.event_id,
-            user_id: ref.user_id,
+            user_id: ref.user_id
           },
         },
         mutation: gql`

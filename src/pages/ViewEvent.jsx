@@ -10,6 +10,7 @@ import { CalendarOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
 
+// @TODO only let certain roles select revenue..
 const GET_EVENT_AUTH = gql`
   query UserEventsReport($id: uuid!) {
     events_report(where: { id: { _eq: $id } }) {
@@ -26,6 +27,7 @@ const GET_EVENT_AUTH = gql`
       description
       transactions
       favorites
+      revenue
       views
       account {
         name
@@ -34,6 +36,13 @@ const GET_EVENT_AUTH = gql`
       }
       transaction {
         id
+        price
+        user {
+          first_name
+          last_name
+          city
+          country
+        }
       }
     }
   }
@@ -43,7 +52,7 @@ export default function ViewEvent() {
   let { id, username } = useParams();
 
   const { loading, error, data } = useQuery(GET_EVENT_AUTH, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: "cache-and-network",
     variables: { id },
   });
 
@@ -69,8 +78,12 @@ export default function ViewEvent() {
       dataIndex: "last_name",
     },
     {
-      title: "Location",
-      dataIndex: "location",
+      title: "City",
+      dataIndex: "city",
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
     },
     {
       title: "Price",
@@ -78,22 +91,16 @@ export default function ViewEvent() {
     },
   ];
 
-  const tableData = [
-    {
-      id: "1",
-      first_name: "Jeff",
-      last_name: "Loiselle",
-      location: "Mobile, AL",
-      price: "$50",
-    },
-    {
-      id: "2",
-      first_name: "Doug",
-      last_name: "Richar",
-      location: "Colchester, CT",
-      price: "$50",
-    },
-  ];
+  const transactionData = event.transaction.map((t) => {
+    return {
+      id: t.id,
+      price: t.price,
+      first_name: t.user.first_name,
+      last_name: t.user.last_name,
+      city: t.user.city,
+      country: t.user.country,
+    };
+  });
 
   return (
     <React.Fragment>
@@ -101,7 +108,8 @@ export default function ViewEvent() {
         <Link to={`/${username}/events/edit/${event.id}`}>Edit Event</Link>
       </Button>
       <h2>
-        <ThunderboltOutlined /> <Link to={`/events/${event.id}`}>{event.name}</Link>
+        <ThunderboltOutlined />{" "}
+        <Link to={`/events/${event.id}`}>{event.name}</Link>
       </h2>
       <div>
         <CalendarOutlined /> {moment(event.start).format("MMMM Do h:mm:ss a")}
@@ -115,7 +123,11 @@ export default function ViewEvent() {
 
       <Row gutter={16}>
         <Col span={4}>
-          <Statistic title="Revenue (USD)" value={30960} precision={2} />
+          <Statistic
+            title="Revenue (USD)"
+            value={event.revenue}
+            precision={2}
+          />
           <Button style={{ marginTop: 16 }} type="primary">
             Withdraw
           </Button>
@@ -142,7 +154,7 @@ export default function ViewEvent() {
       <br />
       <br />
       <h3>Transactions</h3>
-      <Table rowKey="id" columns={columns} dataSource={tableData} />
+      <Table rowKey="id" columns={columns} dataSource={transactionData} />
     </React.Fragment>
   );
 }
