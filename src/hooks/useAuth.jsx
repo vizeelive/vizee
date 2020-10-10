@@ -1,5 +1,6 @@
+import React from "react";
 import config from "../config";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 
@@ -19,6 +20,7 @@ export default function useAuth() {
     user,
     error,
   } = useAuth0();
+  const [geo, setGeo] = useState();
   const [claims, setClaims] = useState();
 
   if (user) {
@@ -77,10 +79,16 @@ export default function useAuth() {
     link: authLink.concat(errorLink).concat(httpLink),
   });
 
+  if (user && geo) {
+    user.geo = geo;
+  }
+
   return {
     isLoading,
     client,
     user,
+    geo,
+    setGeo,
     error,
     logout,
     loginWithRedirect,

@@ -3,7 +3,7 @@ import "antd/dist/dark-theme.js";
 
 import { ApolloProvider } from "@apollo/client";
 import LogRocket from "logrocket";
-import React from "react";
+import React, { useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import PrivateRoute from "./components/PrivateRoute";
@@ -12,13 +12,26 @@ import Admin from "./pages/Admin";
 import User from "./pages/User";
 import Theme from "./Theme";
 
-import { Centered } from './components/styled/common';
-import Spinner from './components/ui/Spinner';
+import { Centered } from "./components/styled/common";
+import Spinner from "./components/ui/Spinner";
 
 LogRocket.init("muse/muse");
 
 function App() {
-  const { isLoading, user, client, error } = useAuth();
+  const { isLoading, user, setGeo, client, error } = useAuth();
+
+  useMemo(() => {
+    async function fetchData() {
+      let geo = {};
+      let response = await fetch("https://ipinfo.io/?token=61a3ecaa16294f");
+
+      if (response.ok) {
+        geo = await response.json();
+        setGeo(geo);
+      }
+    }
+    fetchData();
+  }, [setGeo]);
 
   if (isLoading) {
     return (

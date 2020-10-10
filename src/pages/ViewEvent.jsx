@@ -44,6 +44,13 @@ const GET_EVENT_AUTH = gql`
           country
         }
       }
+      view {
+        id
+        city
+        region
+        country
+        timezone
+      }
     }
   }
 `;
@@ -102,6 +109,35 @@ export default function ViewEvent() {
     };
   });
 
+  const viewColumns = [
+    {
+      title: "City",
+      dataIndex: "city",
+    },
+    {
+      title: "Region",
+      dataIndex: "region",
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
+    },
+    {
+      title: "Timezone",
+      dataIndex: "timezone",
+    },
+  ];
+
+  const viewData = event.view.map((v) => {
+    return {
+      id: v.id,
+      city: v.city,
+      country: v.country,
+      region: v.region,
+      timezone: v.timezone,
+    };
+  });
+
   return (
     <React.Fragment>
       <Button style={{ float: "right" }} type="secondary">
@@ -155,6 +191,9 @@ export default function ViewEvent() {
       <br /> */}
       <h3>Transactions</h3>
       <Table rowKey="id" columns={columns} dataSource={transactionData} />
+
+      <h3>Views</h3>
+      <Table rowKey="id" columns={viewColumns} dataSource={viewData} />
     </React.Fragment>
   );
 }

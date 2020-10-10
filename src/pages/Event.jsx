@@ -90,9 +90,9 @@ const GET_EVENT_AUTH = gql`
 `;
 
 const TRACK_VIEW = gql`
-  mutation TrackView($event_id: uuid!, $created_by: String!) {
-    insert_views(objects: { event_id: $event_id, created_by: $created_by }) {
-      affected_rows
+  mutation TrackView($object: views_insert_input!) {
+    insert_views_one(object: $object) {
+      id
     }
   }
 `;
@@ -110,14 +110,41 @@ export default function Event() {
     }
   );
 
+  console.log({ user });
+
   const event = { ...data?.events_report[0] };
   const userId = user?.sub;
 
   useEffect(() => {
     if (event?.id && userId) {
-      trackView({ variables: { created_by: userId, event_id: event.id } });
+      trackView({
+        variables: {
+          object: {
+            created_by: userId,
+            event_id: event.id,
+            city: user.geo.city,
+            country: user.geo.country,
+            ip: user.geo.ip,
+            loc: user.geo.loc,
+            postal: user.geo.postal,
+            region: user.geo.region,
+            timezone: user.geo.timezone,
+          },
+        },
+      });
     }
-  }, [event.id, trackView, userId]);
+  }, [
+    event.id,
+    trackView,
+    user.geo.city,
+    user.geo.country,
+    user.geo.ip,
+    user.geo.loc,
+    user.geo.postal,
+    user.geo.region,
+    user.geo.timezone,
+    userId,
+  ]);
 
   if (loading) {
     return (

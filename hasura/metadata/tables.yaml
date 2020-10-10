@@ -309,6 +309,14 @@
           name: transactions
         column_mapping:
           id: event_id
+  - name: view
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: views
+        column_mapping:
+          id: event_id
   select_permissions:
   - role: public
     permission:
@@ -530,13 +538,58 @@
     permission:
       check: {}
       columns:
+      - city
+      - country
       - created_by
       - event_id
+      - ip
+      - loc
+      - postal
+      - region
+      - timezone
       backend_only: false
   - role: user
     permission:
       check: {}
       columns:
+      - city
+      - country
       - created_by
       - event_id
+      - ip
+      - loc
+      - postal
+      - region
+      - timezone
       backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - event_id
+      - created
+      - created_by
+      - city
+      - region
+      - country
+      - timezone
+      - loc
+      - ip
+      - postal
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - city
+      - country
+      - event_id
+      - id
+      - ip
+      - loc
+      - postal
+      - region
+      - timezone
+      filter: {}
+      check: null

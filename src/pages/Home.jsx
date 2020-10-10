@@ -53,7 +53,7 @@ const GET_EVENTS_AUTH = gql`
 `;
 
 const GET_EVENTS_UNAUTH = gql`
-  query MyQuery {
+  query AnonGetEvents {
     events {
       id
       name
