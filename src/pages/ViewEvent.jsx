@@ -145,14 +145,14 @@ export default function ViewEvent() {
 
       <Divider />
 
-      <h3>Statistics</h3>
+      {/* <h3>Statistics</h3>
       <img
         src="https://dam-media.s3.amazonaws.com/muxgraph.png"
         style={{ width: "100%" }}
         alt="graph"
       />
       <br />
-      <br />
+      <br /> */}
       <h3>Transactions</h3>
       <Table rowKey="id" columns={columns} dataSource={transactionData} />
     </React.Fragment>

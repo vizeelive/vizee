@@ -58,7 +58,7 @@ export default function AddAccount(props) {
   const [replacePhoto, setReplacePhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [loadAccount, { loading, error, data }] = useLazyQuery(GET_ACCOUNT, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: "cache-and-network",
     variables: {
       id: params.id,
     },
@@ -85,24 +85,19 @@ export default function AddAccount(props) {
 
   if (error) return "Error";
 
-  const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 16 },
-  };
-
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
+  const account = data?.accounts_by_pk;
+  const isSubmitDisabled = !photoUrl && !account?.photo;
 
   const onFinish = async (values) => {
-    if (!photoUrl) {
+    let photo = photoUrl || account?.photo;
+    if (!photo) {
       message.error("Photo is required to create an account");
       return;
     }
-    let account;
+    let result;
     try {
       if (params.id) {
-        account = await updateAccount({
+        result = await updateAccount({
           variables: {
             pk_columns: { id: params.id },
             _set: {
@@ -112,12 +107,12 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo: photoUrl,
+              photo,
             },
           },
         });
       } else {
-        account = await createAccount({
+        result = await createAccount({
           variables: {
             object: {
               name: values.name,
@@ -126,7 +121,7 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo: photoUrl,
+              photo,
             },
           },
         });
@@ -142,10 +137,10 @@ export default function AddAccount(props) {
       }
     }
 
-    if (account) {
+    if (result) {
       message.success("Successfully created account");
       if (props.redirect) {
-        history.push(`/${account.data.CreateAccount.username}`);
+        history.push(`/${result.data.CreateAccount.username}`);
       } else {
         history.push("/admin/accounts");
       }
@@ -172,8 +167,14 @@ export default function AddAccount(props) {
     allowedFileTypes: ["image/*"],
   };
 
-  const account = data?.accounts_by_pk;
-  const isSubmitDisabled = !photoUrl;
+  const layout = {
+    labelCol: { span: 2 },
+    wrapperCol: { span: 16 },
+  };
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
 
   return (
     <Form
@@ -258,7 +259,7 @@ export default function AddAccount(props) {
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit" disabled={isSubmitDisabled}>
-          { params?.id ? 'Update' : 'Add'}
+          {params?.id ? "Update" : "Add"}
         </Button>
       </Form.Item>
     </Form>

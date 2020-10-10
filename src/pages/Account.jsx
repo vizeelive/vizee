@@ -20,7 +20,7 @@ import {
   LogoutOutlined,
   UserAddOutlined,
   ThunderboltOutlined,
-  AreaChartOutlined,
+  // AreaChartOutlined,
   YoutubeOutlined,
   SettingOutlined
 } from "@ant-design/icons";
@@ -254,12 +254,12 @@ export default function Account() {
                   </Link>
                 </Menu.Item>
               )}
-              <Menu.Item
+              {/* <Menu.Item
                 key={`/${username}/reports`}
                 icon={<AreaChartOutlined />}
               >
                 <Link to={`/${username}/reports`}>Reports</Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item
                 key={`/${username}/settings`}
                 icon={<SettingOutlined />}

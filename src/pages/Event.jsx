@@ -82,6 +82,9 @@ const GET_EVENT_AUTH = gql`
       transaction {
         id
       }
+      favorite {
+        id
+      }
     }
   }
 `;
