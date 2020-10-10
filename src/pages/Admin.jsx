@@ -1,14 +1,19 @@
-import { CalendarOutlined, LogoutOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
-import React from 'react';
-import { Link, Route, Switch, useLocation } from 'react-router-dom';
+import {
+  CalendarOutlined,
+  LogoutOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Layout, Menu } from "antd";
+import React from "react";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
 
-import useAuth from '../hooks/useAuth';
-import AddAccount from './AddAccount';
-import AddEvent from './AddEvent';
-import Accounts from './Accounts';
-import Calendar from './Calendar';
-import Events from './Events';
+import useAuth from "../hooks/useAuth";
+import AddAccount from "./AddAccount";
+import AddEvent from "./AddEvent";
+import Accounts from "./Accounts";
+import Calendar from "./Calendar";
+import Events from "./Events";
 
 const { Header, Content, Sider } = Layout;
 
@@ -62,14 +67,26 @@ export default function Admin() {
             }}
           >
             <Switch>
-              <Route path="/admin" exact component={Events} />
-              <Route path="/admin/accounts" exact><Accounts /></Route>
-              <Route path="/admin/events" exact component={Events} />
+              <Route path="/admin" exact>
+                <Events admin={true} />
+              </Route>
+              <Route path="/admin/accounts" exact>
+                <Accounts />
+              </Route>
+              <Route path="/admin/events" exact>
+                <Events admin={true} />
+              </Route>
               <Route path="/admin/calendar" exact component={Calendar} />
-              <Route path="/admin/events/add" exact component={AddEvent} />
+              <Route path="/admin/events/add" exact>
+                <AddEvent redirect={`/admin/events`} />
+              </Route>
               <Route path="/admin/events/edit/:id" exact component={AddEvent} />
               <Route path="/admin/accounts/add" exact component={AddAccount} />
-              <Route path="/admin/accounts/edit/:id" exact component={AddAccount} />
+              <Route
+                path="/admin/accounts/edit/:id"
+                exact
+                component={AddAccount}
+              />
             </Switch>
           </Content>
         </Layout>

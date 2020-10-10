@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Popconfirm, Button, message, Table } from "antd";
@@ -39,8 +39,8 @@ export default function Events(props) {
   const { loading, error, data, refetch } = useQuery(GET_EVENTS, {
     fetchPolicy: "cache-and-network",
     variables: {
-      username
-    }
+      username,
+    },
   });
 
   const [deleteEvent] = useMutation(DELETE_EVENT);
@@ -159,5 +159,5 @@ export default function Events(props) {
 }
 
 Events.propTypes = {
-  admin: PropTypes.bool
+  admin: PropTypes.bool,
 };

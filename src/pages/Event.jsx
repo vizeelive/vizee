@@ -156,8 +156,6 @@ export default function Event() {
 
   if (error) return "Error";
 
-  event.link = `https://us.meething.space/?room=${event.id}&mesh=false`;
-
   const handleBuy = async () => {
     let ref = btoa(
       JSON.stringify({
