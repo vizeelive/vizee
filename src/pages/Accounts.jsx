@@ -1,11 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Popconfirm, Button, Table, message } from "antd";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import styled from 'styled-components';
 
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
 
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { UserOutlined } from "@ant-design/icons";
+
+import {
+  Typography,
+  Popconfirm,
+  Button,
+  Table,
+  message
+} from "antd";
+
+const { Title } = Typography;
+
+const Header = styled.header`
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+    }
+  }
+`;
+
+const Actions = styled.div`
+  > * {
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+  }
+`;
+
+const Description = styled.span`
+  display: block;
+  max-width: 40rem;
+`;
 
 const GET_ACCOUNTS = gql`
   query GetAccount {
@@ -64,6 +102,7 @@ export default function Events() {
     {
       title: "Account Name",
       key: "name",
+      width: 240,
       render: (account) => {
         return <Link to={`/${account.username}`}>{account.name}</Link>;
       },
@@ -72,18 +111,28 @@ export default function Events() {
       title: "Username",
       dataIndex: "username",
       key: "username",
+      width: 240,
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      render: (text) => (
+        <Description>{text}</Description>
+      )
     },
     {
       title: "Actions",
       key: "id",
+      align: 'center',
+      width: 180,
       render: (account) => {
         return (
-          <React.Fragment>
+          <Actions>
+            <Link to={`/admin/accounts/edit/${account.id}`}>
+              <Button>Edit</Button>
+            </Link>
+
             <Popconfirm
               title="Are you sure?"
               onConfirm={() => handleDeleteAcount(account)}
@@ -91,14 +140,11 @@ export default function Events() {
               okText="Yes"
               cancelText="No"
             >
-              <Button danger size="small">
+              <Button danger>
                 Delete
               </Button>
             </Popconfirm>
-            <Link to={`/admin/accounts/edit/${account.id}`}>
-              <Button size="small">Edit</Button>
-            </Link>
-          </React.Fragment>
+          </Actions>
         );
       },
     },
@@ -106,11 +152,25 @@ export default function Events() {
 
   return (
     <React.Fragment>
-      <Button style={{ float: "right" }} type="primary">
-        <Link to={"/admin/accounts/add"}>Create Account</Link>
-      </Button>
-      <h2>Accounts</h2>
-      <Table rowKey="id" columns={columns} dataSource={tableData} />
+      <Header>
+        <Title level={2}>Accounts</Title>
+        <Link to={"/admin/accounts/add"}>
+          <Button
+            icon={<UserOutlined />}
+            type="primary"
+            size="large"
+          >
+            Create Account
+          </Button>
+        </Link>
+      </Header>
+      
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={tableData}
+        scroll={{ x: 1200 }}
+      />
     </React.Fragment>
   );
 }

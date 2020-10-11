@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useParams, useHistory } from "react-router-dom";
-import { Form, Input, Button, message, DatePicker, Select, Radio } from "antd";
-
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
-
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 import FileUpload from "../components/FileUpload";
 import CurrencyInput from "../components/CurrencyInput";
+import useBreakpoint from '../hooks/useBreakpoint';
+import Spinner from "../components/ui/Spinner";
 
+import {
+  Centered,
+  FormContainer
+} from "../components/styled/common";
+
+import {
+  Typography,
+  Form,
+  Input,
+  Button,
+  message,
+  DatePicker,
+  Select,
+  Radio
+} from "antd";
+
+const { Title } = Typography;
 const { Option } = Select;
-
 const { RangePicker } = DatePicker;
 
 const GET_ACCOUNTS = gql`
@@ -138,6 +151,9 @@ export default function AddEvent(props) {
     }
   }, [event]);
 
+  // to determine form layout
+  const isLargeScreen = useBreakpoint('lg');
+
   if (loading) {
     return (
       <Centered padded>
@@ -239,24 +255,30 @@ export default function AddEvent(props) {
     allowedFileTypes: ["video/*"],
   };
 
-  const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 16 },
-  };
+  const layout = isLargeScreen ? 'horizontal' : 'vertical';
 
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
+  const formLayout =
+    isLargeScreen
+      ? {
+          labelCol: { span: 4 },
+          wrapperCol: { span: 20 },
+        }
+      : null;
+
+  const tailLayout =
+    isLargeScreen
+      ? {
+          wrapperCol: { offset: 4, span: 20 }
+        }
+      : null;
 
   return (
-    <React.Fragment>
-      <h2>{title}</h2>
-      <hr />
-      <br />
-
+    <FormContainer>
+      <Title level={2}>{title}</Title>
       <Form
-        {...layout}
+        {...formLayout}
         name="basic"
+        layout={layout}
         initialValues={eventData}
         onFinish={onFinish}
       >
@@ -273,7 +295,7 @@ export default function AddEvent(props) {
           name="price"
           rules={[{ required: true, message: "Required" }]}
         >
-          <CurrencyInput />
+          <CurrencyInput className="ant-input" style={{ maxWidth: '10rem' }} />
         </Form.Item>
 
         <Form.Item label="Location" name="location">
@@ -285,7 +307,7 @@ export default function AddEvent(props) {
           name="description"
           rules={[{ required: true, message: "Required" }]}
         >
-          <Input />
+          <Input.TextArea rows={4} />
         </Form.Item>
 
         <Form.Item name="range" label="Event Times" {...rangeConfig}>
@@ -414,18 +436,20 @@ export default function AddEvent(props) {
           )}
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
-          {isSubmitDisabled ? (
-            <Button type="primary" htmlType="submit" disabled>
+        <Form.Item { ...tailLayout }>
+          <Centered style={{ padding: '1rem' }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={isSubmitDisabled}
+              size="large"
+            >
               {buttonLabel}
             </Button>
-          ) : (
-            <Button type="primary" htmlType="submit">
-              {buttonLabel}
-            </Button>
-          )}
+          </Centered>
         </Form.Item>
+        
       </Form>
-    </React.Fragment>
+    </FormContainer>
   );
 }

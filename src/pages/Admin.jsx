@@ -5,7 +5,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
@@ -15,11 +15,20 @@ import Accounts from "./Accounts";
 import Calendar from "./Calendar";
 import Events from "./Events";
 
+import useBreakpoint from '../hooks/useBreakpoint';
+
 const { Header, Content, Sider } = Layout;
 
 export default function Admin() {
   const { logout } = useAuth();
   const location = useLocation();
+
+  const isLargeScreen = useBreakpoint('lg');
+  const [collapsed, setCollapsed] = useState(!isLargeScreen);
+
+  useEffect(() => {
+    setCollapsed(!isLargeScreen);
+  }, [isLargeScreen]);
 
   return (
     <Layout>
@@ -32,12 +41,19 @@ export default function Admin() {
         </div>
       </Header>
       <Layout>
-        <Sider width={200} className="site-layout-background">
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(collapse) => setCollapsed(collapse)}
+          width={200}
+          className="site-layout-background"
+        >
           <Menu
             mode="inline"
             defaultSelectedKeys={location.pathname}
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0 }}
+            theme="dark"
           >
             <Menu.Item key="/admin/events" icon={<VideoCameraOutlined />}>
               <Link to={"/admin/events"}>Events</Link>
@@ -57,7 +73,7 @@ export default function Admin() {
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>
+        <Layout style={{ padding: "0 24px 24px", minHeight: "calc(100vh - 64px)" }}>
           <Content
             className="site-layout-background"
             style={{

@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Form, Input, Button, message } from "antd";
-
-import FileUpload from "../components/FileUpload";
-
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 
-import { Centered } from "../components/styled/common";
+import FileUpload from "../components/FileUpload";
+import useBreakpoint from '../hooks/useBreakpoint';
 import Spinner from "../components/ui/Spinner";
+
+import {
+  Centered,
+  FormContainer
+} from "../components/styled/common";
+
+import {
+  Typography,
+  Form,
+  Input,
+  Button,
+  message
+} from "antd";
+
+const { Title } = Typography;
 
 const CREATE_ACCOUNT = gql`
   mutation CreateAccount($object: CreateAccountInput!) {
@@ -74,6 +86,9 @@ export default function AddAccount(props) {
       getData();
     }
   }, [loadAccount, params]);
+
+  // to determine form layout
+  const isLargeScreen = useBreakpoint('lg');
 
   if (loading) {
     return (
@@ -167,101 +182,121 @@ export default function AddAccount(props) {
     allowedFileTypes: ["image/*"],
   };
 
-  const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 16 },
-  };
+  const layout = isLargeScreen ? 'horizontal' : 'vertical';
 
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
+  const formLayout =
+    isLargeScreen
+      ? {
+          labelCol: { span: 4 },
+          wrapperCol: { span: 20 },
+        }
+      : null;
+
+  const tailLayout =
+    isLargeScreen
+      ? {
+          wrapperCol: { offset: 4, span: 20 }
+        }
+      : null;
 
   return (
-    <Form
-      {...layout}
-      name="basic"
-      initialValues={account}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-    >
-      <Form.Item
-        label="Name"
-        name="name"
-        rules={[{ required: true, message: "Required" }]}
+    <FormContainer>
+      <Title level={2}>Add An Account</Title>
+      <Form
+        {...formLayout}
+        name="basic"
+        layout={layout}
+        initialValues={account}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
       >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Username"
-        name="username"
-        validateStatus={validationErrors.username ? "error" : "success"}
-        help={validationErrors.username ?? null}
-        rules={[{ required: true, message: "Required" }]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item label="Description" name="description">
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Instagram"
-        name="instagram"
-        validateStatus={validationErrors.instagram ? "error" : "success"}
-        help={validationErrors.instagram ?? null}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Twitter"
-        name="twitter"
-        validateStatus={validationErrors.twitter ? "error" : "success"}
-        help={validationErrors.twitter ?? null}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Facebook"
-        name="facebook"
-        validateStatus={validationErrors.facebook ? "error" : "success"}
-        help={validationErrors.facebook ?? null}
-      >
-        <Input />
-      </Form.Item>
-
-      {!replacePhoto && !photoUrl && account?.photo && (
-        <Form.Item label="Photo">
-          <img src={account.photo} alt="Account" width="300" />
-          <Button onClick={() => handleReplacePhoto()}>Replace Photo</Button>
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Required" }]}
+        >
+          <Input />
         </Form.Item>
-      )}
 
-      {!replacePhoto && photoUrl && (
-        <Form.Item label="Photo">
-          <img src={photoUrl} alt="Account" width="300" />
-          <Button onClick={() => handleReplacePhoto()}>Replace Photo</Button>
+        <Form.Item
+          label="Username"
+          name="username"
+          validateStatus={validationErrors.username ? "error" : "success"}
+          help={validationErrors.username ?? null}
+          rules={[{ required: true, message: "Required" }]}
+        >
+          <Input />
         </Form.Item>
-      )}
 
-      {(replacePhoto || (!photoUrl && !account?.photo)) && (
-        <Form.Item label="Photo">
-          <FileUpload
-            id="photo"
-            callback={handleFileUpload}
-            options={options}
-          />
+        <Form.Item label="Description" name="description">
+          <Input.TextArea rows={4} />
         </Form.Item>
-      )}
 
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" disabled={isSubmitDisabled}>
-          {params?.id ? "Update" : "Add"}
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          label="Instagram"
+          name="instagram"
+          validateStatus={validationErrors.instagram ? "error" : "success"}
+          help={validationErrors.instagram ?? null}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Twitter"
+          name="twitter"
+          validateStatus={validationErrors.twitter ? "error" : "success"}
+          help={validationErrors.twitter ?? null}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Facebook"
+          name="facebook"
+          validateStatus={validationErrors.facebook ? "error" : "success"}
+          help={validationErrors.facebook ?? null}
+        >
+          <Input />
+        </Form.Item>
+
+        {!replacePhoto && !photoUrl && account?.photo && (
+          <Form.Item label="Photo">
+            <img src={account.photo} alt="Account" width="300" />
+            <Button onClick={() => handleReplacePhoto()}>Replace Photo</Button>
+          </Form.Item>
+        )}
+
+        {!replacePhoto && photoUrl && (
+          <Form.Item label="Photo">
+            <img src={photoUrl} alt="Account" width="300" />
+            <Button onClick={() => handleReplacePhoto()}>Replace Photo</Button>
+          </Form.Item>
+        )}
+
+        {(replacePhoto || (!photoUrl && !account?.photo)) && (
+          <Form.Item label="Photo">
+            <FileUpload
+              id="photo"
+              callback={handleFileUpload}
+              options={options}
+            />
+          </Form.Item>
+        )}
+
+        <Form.Item { ...tailLayout }>
+          <Centered>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={isSubmitDisabled}
+              size="large"
+            >
+              {`${params?.id ? "Update" : "Add"} Account`}
+            </Button>
+          </Centered>
+        </Form.Item>
+
+      </Form>
+    </FormContainer>
   );
 }

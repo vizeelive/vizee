@@ -26,6 +26,7 @@ function FileUpload(props) {
       .use(Dashboard, {
         proudlyDisplayPoweredByUppy: false,
         inline: true,
+        height: 300,
         target: `#${props.id}`
       })
       .use(Transloadit, {

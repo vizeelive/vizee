@@ -1,13 +1,46 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Popconfirm, Button, message, Table } from "antd";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
+import styled from 'styled-components';
 
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
+
+import { VideoCameraOutlined } from "@ant-design/icons";
+
+import {
+  Typography,
+  Popconfirm,
+  Button,
+  message,
+  Table
+} from "antd";
+
+const { Title } = Typography;
+
+const Header = styled.header`
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+    }
+  }
+`;
+
+const Actions = styled.div`
+  > * {
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+  }
+`;
 
 const GET_EVENTS = gql`
   query GetEvents($username: String) {
@@ -123,9 +156,15 @@ export default function Events(props) {
     {
       title: "Actions",
       key: "id",
+      align: 'center',
+      width: 180,
       render: (event) => {
         return (
-          <React.Fragment>
+          <Actions>
+            <Link to={`${ui.editUrl}/${event.id}`}>
+              <Button>Edit</Button>
+            </Link>
+
             <Popconfirm
               title="Are you sure?"
               onConfirm={() => handleDeleteEvent(event)}
@@ -133,15 +172,11 @@ export default function Events(props) {
               okText="Yes"
               cancelText="No"
             >
-              <Button danger size="small">
+              <Button danger>
                 Delete
               </Button>
             </Popconfirm>
-
-            <Link to={`${ui.editUrl}/${event.id}`}>
-              <Button size="small">Edit</Button>
-            </Link>
-          </React.Fragment>
+          </Actions>
         );
       },
     },
@@ -149,11 +184,25 @@ export default function Events(props) {
 
   return (
     <React.Fragment>
-      <Button style={{ float: "right" }} type="primary">
-        <Link to={ui.addUrl}>Create Event</Link>
-      </Button>
-      <h2>Events</h2>
-      <Table rowKey="id" columns={columns} dataSource={tableData} />
+      <Header>
+        <Title level={2}>Events</Title>
+        <Link to={ui.addUrl}>
+          <Button
+            icon={<VideoCameraOutlined />}
+            type="primary"
+            size="large"
+          >
+            Create Event
+          </Button>
+        </Link>
+      </Header>
+      
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={tableData}
+        scroll={{ x: 1200 }}
+      />
     </React.Fragment>
   );
 }
