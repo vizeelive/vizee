@@ -12,7 +12,7 @@ import { onError } from "@apollo/client/link/error";
 // import posthog from "posthog-js";
 
 export default function useAuth() {
-  const {
+  let {
     isLoading,
     logout,
     loginWithRedirect,
@@ -81,6 +81,8 @@ export default function useAuth() {
 
   if (user && geo) {
     user.geo = geo;
+  } else if (geo) {
+    user = { geo };
   }
 
   return {

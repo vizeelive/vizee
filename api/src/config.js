@@ -5,11 +5,11 @@ let config = {
   },
   staging: {
     api: "https://cool-teal-29.hasura.app/v1/graphql",
-    ui: "https://muse-staging.onrender.com",
+    ui: "https://staging.vizee.live",
   },
   production: {
     api: "https://sterling-swan-51.hasura.app/v1/graphql",
-    ui: "https://muse.onrender.com",
+    ui: "https://www.vizee.live",
   },
 };
 

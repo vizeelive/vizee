@@ -27,7 +27,7 @@ export default function Admin() {
         <div className="logo">
           <Link to="/">
             {" "}
-            <img width="20" src="/favicon.ico" alt="Muse" />
+            <img width="20" src="/favicon.ico" alt="Vizee" />
           </Link>
         </div>
       </Header>

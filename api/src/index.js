@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require("./config");
 const fetch = require("cross-fetch");
 const express = require("express");
@@ -22,7 +23,7 @@ var {
 } = require("@apollo/client");
 
 const httpLink = createHttpLink({
-  uri: process.env.GRAPHQL_API,
+  uri: config.api,
   fetch,
 });
 
@@ -48,7 +49,8 @@ const stripe = require("stripe")(
 );
 
 // Find your endpoint's secret in your Dashboard's webhook settings
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const endpointSecret =
+  process.env.STRIPE_WEBHOOK_SECRET ?? "whsec_9of3uLueSwo7XrZjqyXrdPcptqxeSxIU";
 
 /**
  * Hasura Actions interceptor
@@ -64,19 +66,38 @@ app.post("/", async (req, res) => {
 app.get("/session", async function (req, res) {
   let ref = JSON.parse(atob(req.query.ref));
 
-  let event = await client.query({
-    variables: {
-      id: ref.event_id,
-    },
-    query: gql`
-      query MyQuery($id: uuid!) {
-        events_by_pk(id: $id) {
-          id
-          price
+  let event;
+  try {
+    event = await client.query({
+      variables: {
+        id: ref.event_id,
+      },
+      query: gql`
+        query MyQuery($id: uuid!) {
+          events_by_pk(id: $id) {
+            id
+            price
+          }
         }
-      }
-    `,
-  });
+      `,
+    });
+  } catch (e) {
+    console.log("Failed to fetch event");
+    console.log(e);
+    console.log({
+      variables: {
+        id: ref.event_id,
+      },
+      query: gql`
+        query MyQuery($id: uuid!) {
+          events_by_pk(id: $id) {
+            id
+            price
+          }
+        }
+      `,
+    });
+  }
 
   const session = await stripe.checkout.sessions.create({
     client_reference_id: req.query.ref,
@@ -102,6 +123,7 @@ app.get("/session", async function (req, res) {
     success_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
     cancel_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
   });
+  console.log({ session });
   res.send(session);
 });
 
@@ -116,6 +138,8 @@ app.post(
 
     let event;
 
+    console.log('WEBHOOK!!!!');
+
     try {
       event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     } catch (err) {
@@ -125,23 +149,30 @@ app.post(
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 
+      console.log("session", { session });
+
       let ref = JSON.parse(atob(session.client_reference_id));
 
-      let result = await client.mutate({
-        variables: {
-          object: {
-            event_id: ref.event_id,
-            user_id: ref.user_id
+      try {
+        let result = await client.mutate({
+          variables: {
+            object: {
+              event_id: ref.event_id,
+              user_id: ref.user_id,
+              price: 4000,
+            },
           },
-        },
-        mutation: gql`
-          mutation MyMutation($object: transactions_insert_input!) {
-            insert_transactions_one(object: $object) {
-              id
+          mutation: gql`
+            mutation MyMutation($object: transactions_insert_input!) {
+              insert_transactions_one(object: $object) {
+                id
+              }
             }
-          }
-        `,
-      });
+          `,
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
 
     response.json({ received: true });

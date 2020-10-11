@@ -61,7 +61,7 @@ export default function User() {
     <Layout>
       <Header>
         <Link to="/" style={{ float: "left", paddingRight: "40px" }}>
-          <img src="/favicon.ico" alt="Muse" width="20px" />
+          <img src="/favicon.ico" alt="Vizee" width="20px" />
         </Link>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
           {user?.isAdmin && (
