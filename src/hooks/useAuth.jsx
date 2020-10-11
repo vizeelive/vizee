@@ -1,6 +1,5 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import config from "../config";
-import { useEffect, useState, useMemo } from "react";
 
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 
