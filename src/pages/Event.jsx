@@ -113,22 +113,22 @@ export default function Event() {
   console.log({ user });
 
   const event = { ...data?.events_report[0] };
-  const userId = user?.sub;
+  const userId = user?.sub || null;
 
   useEffect(() => {
-    if (event?.id && userId) {
+    if (event?.id) {
       trackView({
         variables: {
           object: {
             created_by: userId,
             event_id: event.id,
-            city: user.geo.city,
-            country: user.geo.country,
-            ip: user.geo.ip,
-            loc: user.geo.loc,
-            postal: user.geo.postal,
-            region: user.geo.region,
-            timezone: user.geo.timezone,
+            city: user?.geo.city,
+            country: user?.geo.country,
+            ip: user?.geo.ip,
+            loc: user?.geo.loc,
+            postal: user?.geo.postal,
+            region: user?.geo.region,
+            timezone: user?.geo.timezone,
           },
         },
       });
@@ -136,13 +136,7 @@ export default function Event() {
   }, [
     event.id,
     trackView,
-    user.geo.city,
-    user.geo.country,
-    user.geo.ip,
-    user.geo.loc,
-    user.geo.postal,
-    user.geo.region,
-    user.geo.timezone,
+    user,
     userId,
   ]);
 

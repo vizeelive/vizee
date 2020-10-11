@@ -563,6 +563,21 @@
       - timezone
       backend_only: false
   select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - event_id
+      - created
+      - created_by
+      - city
+      - region
+      - country
+      - timezone
+      - loc
+      - ip
+      - postal
+      filter: {}
   - role: user
     permission:
       columns:
