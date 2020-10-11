@@ -130,7 +130,7 @@ export default function Events(props) {
       title: "Event Name",
       key: "name",
       render: (event) => {
-        return <Link to={`/${username}/events/${event.id}`}>{event.name}</Link>;
+        return <Link to={`/${event.username}/events/${event.id}`}>{event.name}</Link>;
       },
     },
     {
@@ -196,7 +196,7 @@ export default function Events(props) {
           </Button>
         </Link>
       </Header>
-      
+
       <Table
         rowKey="id"
         columns={columns}
