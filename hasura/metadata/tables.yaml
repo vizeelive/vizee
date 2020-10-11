@@ -477,12 +477,18 @@
       - price
       - user_id
       filter:
-        event:
-          account:
-            users:
-              user:
-                id:
-                  _eq: X-Hasura-User-Id
+        _or:
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+        - user_id:
+            _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: transactions_report
 - table:
     schema: public
     name: users
