@@ -6,11 +6,11 @@ let config = {
   },
   staging: {
     graphql: 'https://cool-teal-29.hasura.app/v1/graphql',
-    api: "https://staging.vizee.live",
+    api: "https://staging-api.vizee.live",
   },
   production: {
     graphql: 'https://sterling-swan-51.hasura.app/v1/graphql',
-    api: "https://www.vizee.live",
+    api: "https://api.vizee.live",
   },
 };
 
