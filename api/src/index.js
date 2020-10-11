@@ -9,10 +9,8 @@ const bodyParser = require("body-parser");
 const { setContext } = require("@apollo/link-context");
 
 const actions = require("./actions");
-const execute = require("./execute");
 
 app.use(cors({ origin: "*" }));
-app.use(bodyParser.json());
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 var {
@@ -43,23 +41,24 @@ const client = new ApolloClient({
 
 const port = 3001;
 
-const stripe = require("stripe")(
-  "sk_test_51GxNPWFN46jAxE7QAgehRwQRt8kAwpoAPgbG42RWFmFn7VtE4a2TvgQqhDuxI5TR4yeSOFU4nbt6GzsmqmHss9DL00IUKUl7da",
-  { apiVersion: "" }
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "",
+});
 
 // Find your endpoint's secret in your Dashboard's webhook settings
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
-  ? process.env.STRIPE_WEBHOOK_SECRET
-  : "whsec_9of3uLueSwo7XrZjqyXrdPcptqxeSxIU";
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 /**
  * Hasura Actions interceptor
  */
-app.post("/", async (req, res) => {
-  let action = req.body.action.name;
-  return actions[action](req, res);
-});
+app.post(
+  "/",
+  bodyParser.json({ type: "application/json" }),
+  async (req, res) => {
+    let action = req.body.action.name;
+    return actions[action](req, res);
+  }
+);
 
 /**
  * Stripe Session
@@ -139,18 +138,15 @@ app.post(
 
     let event;
 
-    console.log("WEBHOOK!!!!");
-
     try {
       event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     } catch (err) {
+      console.log(err);
       return response.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
-
-      console.log("session", { session });
 
       let ref = JSON.parse(atob(session.client_reference_id));
 
@@ -160,7 +156,7 @@ app.post(
             object: {
               event_id: ref.event_id,
               user_id: ref.user_id,
-              price: 4000,
+              price: session.amount_total / 100,
             },
           },
           mutation: gql`

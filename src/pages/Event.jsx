@@ -184,7 +184,7 @@ export default function Event() {
   let end = moment(event.end);
   let isFree = event.price === "$0.00";
   let isLive = time.isBetween(start, end);
-  let isPurchased = event?.transactions?.length;
+  let isPurchased = event?.transaction?.length;
   let isBroadcast = event.type === "live";
   let isVideo = event.type === "video";
 
