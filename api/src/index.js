@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const config = require("./config");
 const fetch = require("cross-fetch");
 const express = require("express");
@@ -49,8 +49,9 @@ const stripe = require("stripe")(
 );
 
 // Find your endpoint's secret in your Dashboard's webhook settings
-const endpointSecret =
-  process.env.STRIPE_WEBHOOK_SECRET ?? "whsec_9of3uLueSwo7XrZjqyXrdPcptqxeSxIU";
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
+  ? process.env.STRIPE_WEBHOOK_SECRET
+  : "whsec_9of3uLueSwo7XrZjqyXrdPcptqxeSxIU";
 
 /**
  * Hasura Actions interceptor
@@ -138,7 +139,7 @@ app.post(
 
     let event;
 
-    console.log('WEBHOOK!!!!');
+    console.log("WEBHOOK!!!!");
 
     try {
       event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
