@@ -43,6 +43,7 @@ const GET_FAVORITE_EVENTS = gql`
 
 const MainContent = styled(Content)`
   margin: 20px;
+	min-height: calc(100vh - 64px);
 `;
 
 const Cal = (props) => {

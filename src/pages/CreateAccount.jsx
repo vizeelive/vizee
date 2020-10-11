@@ -5,6 +5,7 @@ import AddAccount from "../pages/AddAccount";
 
 const Content = styled.div`
   margin: 20px;
+	min-height: calc(100vh - 64px);
 `;
 
 export default function CreateAccount() {

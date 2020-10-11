@@ -6,6 +6,10 @@ import useAuth from "../hooks/useAuth";
 import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
 
+import {
+  SearchOutlined
+} from "@ant-design/icons";
+
 import { Tabs, Input  } from "antd";
 
 import { Centered } from "../components/styled/common";
@@ -171,7 +175,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <Centered padded>
+      <Centered height="calc(100vh - 64px)">
         <Spinner />
       </Centered>
     );
@@ -206,7 +210,10 @@ export default function Home() {
       </Hero> */}
       <Input
         placeholder="Search"
-        onChange={(e) => search(e.currentTarget.value)}
+				onChange={(e) => search(e.currentTarget.value)}
+				style={{ maxWidth: '40rem' }}
+				prefix={<SearchOutlined />}
+				size="large"
       />
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
       {/* <Divider /> */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { Badge, Layout, Menu } from "antd";
@@ -13,6 +13,7 @@ import Events from "./Events";
 import Calendar from "./Calendar";
 import Users from "./Users";
 import useAuth from "../hooks/useAuth";
+import useBreakpoint from '../hooks/useBreakpoint';
 
 import {
   UserOutlined,
@@ -182,6 +183,13 @@ export default function Account() {
     variables,
   });
 
+  const isLargeScreen = useBreakpoint('lg');
+  const [collapsed, setCollapsed] = useState(!isLargeScreen);
+
+  useEffect(() => {
+    setCollapsed(!isLargeScreen);
+  }, [isLargeScreen]);
+
   if (loading) {
     return (
       <Centered padded>
@@ -207,8 +215,14 @@ export default function Account() {
     <React.Fragment>
       <Layout>
         {isMyAccount ? (
-          <Sider width={200} className="site-layout-background">
-            <Menu>
+					<Sider
+						collapsible
+						collapsed={collapsed}
+						onCollapse={(collapse) => setCollapsed(collapse)}
+						width={200}
+						className="site-layout-background"
+					>
+            <Menu theme="dark">
               <SubMenu key="accounts" icon={<UserOutlined />} title="Accounts">
                 {myAccounts.map((account) => (
                   <Menu.Item key={`/${account.username}`}>
@@ -225,6 +239,7 @@ export default function Account() {
               defaultSelectedKeys={location.pathname}
               defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0 }}
+							theme="dark"
             >
               <Menu.Item key={`/${username}`} icon={<YoutubeOutlined />}>
                 <Link to={`/${username}`}>Profile</Link>
@@ -276,7 +291,7 @@ export default function Account() {
             </Menu>
           </Sider>
         ) : null}
-        <Layout style={{ padding: "0 24px 24px" }}>
+        <Layout style={{ padding: "0 24px 24px", minHeight: 'calc(100vh - 64px)' }}>
           <Content
             className="site-layout-background"
             style={{
