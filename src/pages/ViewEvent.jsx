@@ -161,7 +161,7 @@ export default function ViewEvent() {
         <Col span={4}>
           <Statistic
             title="Revenue (USD)"
-            value={event.revenue}
+            value={event.revenue || "$0"}
             precision={2}
           />
           <Button style={{ marginTop: 16 }} type="primary">
