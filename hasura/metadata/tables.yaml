@@ -471,7 +471,6 @@
   - role: user
     permission:
       columns:
-      - created
       - event_id
       - id
       - price
