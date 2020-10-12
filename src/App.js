@@ -15,6 +15,8 @@ import Theme from "./Theme";
 import { Centered } from "./components/styled/common";
 import Spinner from "./components/ui/Spinner";
 
+import './App.css';
+
 LogRocket.init("muse/muse");
 
 function App() {
