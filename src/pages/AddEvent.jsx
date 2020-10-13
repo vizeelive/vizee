@@ -5,13 +5,10 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 
 import FileUpload from "../components/FileUpload";
 import CurrencyInput from "../components/CurrencyInput";
-import useBreakpoint from '../hooks/useBreakpoint';
+import useBreakpoint from "../hooks/useBreakpoint";
 import Spinner from "../components/ui/Spinner";
 
-import {
-  Centered,
-  FormContainer
-} from "../components/styled/common";
+import { Centered, FormContainer } from "../components/styled/common";
 
 import {
   Typography,
@@ -21,7 +18,7 @@ import {
   message,
   DatePicker,
   Select,
-  Radio
+  Radio,
 } from "antd";
 
 const { Title } = Typography;
@@ -152,7 +149,7 @@ export default function AddEvent(props) {
   }, [event]);
 
   // to determine form layout
-  const isLargeScreen = useBreakpoint('lg');
+  const isLargeScreen = useBreakpoint("lg");
 
   if (loading) {
     return (
@@ -255,22 +252,20 @@ export default function AddEvent(props) {
     allowedFileTypes: ["video/*"],
   };
 
-  const layout = isLargeScreen ? 'horizontal' : 'vertical';
+  const layout = isLargeScreen ? "horizontal" : "vertical";
 
-  const formLayout =
-    isLargeScreen
-      ? {
-          labelCol: { span: 4 },
-          wrapperCol: { span: 20 },
-        }
-      : null;
+  const formLayout = isLargeScreen
+    ? {
+        labelCol: { span: 4 },
+        wrapperCol: { span: 20 },
+      }
+    : null;
 
-  const tailLayout =
-    isLargeScreen
-      ? {
-          wrapperCol: { offset: 4, span: 20 }
-        }
-      : null;
+  const tailLayout = isLargeScreen
+    ? {
+        wrapperCol: { offset: 4, span: 20 },
+      }
+    : null;
 
   return (
     <FormContainer>
@@ -295,7 +290,7 @@ export default function AddEvent(props) {
           name="price"
           rules={[{ required: true, message: "Required" }]}
         >
-          <CurrencyInput className="ant-input" style={{ maxWidth: '10rem' }} />
+          <CurrencyInput className="ant-input" style={{ maxWidth: "10rem" }} />
         </Form.Item>
 
         <Form.Item label="Location" name="location">
@@ -436,8 +431,8 @@ export default function AddEvent(props) {
           )}
         </Form.Item>
 
-        <Form.Item { ...tailLayout }>
-          <Centered style={{ padding: '1rem' }}>
+        <Form.Item {...tailLayout}>
+          <Centered style={{ padding: "1rem" }}>
             <Button
               type="primary"
               htmlType="submit"
@@ -448,7 +443,6 @@ export default function AddEvent(props) {
             </Button>
           </Centered>
         </Form.Item>
-        
       </Form>
     </FormContainer>
   );

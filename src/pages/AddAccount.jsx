@@ -3,21 +3,12 @@ import { useHistory, useParams } from "react-router-dom";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 
 import FileUpload from "../components/FileUpload";
-import useBreakpoint from '../hooks/useBreakpoint';
+import useBreakpoint from "../hooks/useBreakpoint";
 import Spinner from "../components/ui/Spinner";
 
-import {
-  Centered,
-  FormContainer
-} from "../components/styled/common";
+import { Centered, FormContainer } from "../components/styled/common";
 
-import {
-  Typography,
-  Form,
-  Input,
-  Button,
-  message
-} from "antd";
+import { Typography, Form, Input, Button, message } from "antd";
 
 const { Title } = Typography;
 
@@ -88,7 +79,7 @@ export default function AddAccount(props) {
   }, [loadAccount, params]);
 
   // to determine form layout
-  const isLargeScreen = useBreakpoint('lg');
+  const isLargeScreen = useBreakpoint("lg");
 
   if (loading) {
     return (
@@ -182,22 +173,20 @@ export default function AddAccount(props) {
     allowedFileTypes: ["image/*"],
   };
 
-  const layout = isLargeScreen ? 'horizontal' : 'vertical';
+  const layout = isLargeScreen ? "horizontal" : "vertical";
 
-  const formLayout =
-    isLargeScreen
-      ? {
-          labelCol: { span: 4 },
-          wrapperCol: { span: 20 },
-        }
-      : null;
+  const formLayout = isLargeScreen
+    ? {
+        labelCol: { span: 4 },
+        wrapperCol: { span: 20 },
+      }
+    : null;
 
-  const tailLayout =
-    isLargeScreen
-      ? {
-          wrapperCol: { offset: 4, span: 20 }
-        }
-      : null;
+  const tailLayout = isLargeScreen
+    ? {
+        wrapperCol: { offset: 4, span: 20 },
+      }
+    : null;
 
   return (
     <FormContainer>
@@ -228,7 +217,11 @@ export default function AddAccount(props) {
           <Input />
         </Form.Item>
 
-        <Form.Item label="Description" name="description">
+        <Form.Item
+          label="Description"
+          name="description"
+          rules={[{ required: true, message: "Required" }]}
+        >
           <Input.TextArea rows={4} />
         </Form.Item>
 
@@ -283,7 +276,7 @@ export default function AddAccount(props) {
           </Form.Item>
         )}
 
-        <Form.Item { ...tailLayout }>
+        <Form.Item {...tailLayout}>
           <Centered>
             <Button
               type="primary"
@@ -295,7 +288,6 @@ export default function AddAccount(props) {
             </Button>
           </Centered>
         </Form.Item>
-
       </Form>
     </FormContainer>
   );
