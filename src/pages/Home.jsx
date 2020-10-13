@@ -5,16 +5,20 @@ import useAuth from "../hooks/useAuth";
 
 import FinishSignup from "../components/FinishSignup";
 import Events from "../components/Events";
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 import {
   SearchOutlined
 } from "@ant-design/icons";
 
-import { Tabs, Input  } from "antd";
+import {
+	Typography,
+	Tabs,
+	Input 
+} from "antd";
 
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
-
+const { Title } = Typography;
 const { TabPane } = Tabs;
 
 const GET_EVENTS_AUTH = gql`
@@ -145,7 +149,7 @@ const SEARCH_EVENTS_AUTH = gql`
 `;
 
 const MainContent = styled.main`
-  padding: 20px;
+  padding: 0 20px 20px;
 `;
 
 // const Hero = styled.div`
@@ -208,13 +212,6 @@ export default function Home() {
           your audience is waiting.
         </h1>
       </Hero> */}
-      <Input
-        placeholder="Search"
-				onChange={(e) => search(e.currentTarget.value)}
-				style={{ maxWidth: '40rem' }}
-				prefix={<SearchOutlined />}
-				size="large"
-      />
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
       {/* <Divider /> */}
       {/* <Tag color="magenta">Live Now!</Tag><br /> */}
@@ -239,7 +236,14 @@ export default function Home() {
           if (!count.length) return null;
           return (
             <TabPane tab={category.name} key={category.name}>
-              <h1>{category.name}</h1>
+              <Title level={2}>{category.name}</Title>
+							<Input
+								placeholder="Search"
+								onChange={(e) => search(e.currentTarget.value)}
+								style={{ maxWidth: '40rem', marginBottom: '20px' }}
+								prefix={<SearchOutlined />}
+								size="large"
+							/>
               <Events
                 events={events}
                 category={category.id}
