@@ -1,4 +1,4 @@
-const config = "./config";
+const config = require('./config');
 const fetch = require("node-fetch");
 
 const execute = async (gql, variables, headers) => {
