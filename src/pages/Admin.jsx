@@ -7,6 +7,9 @@ import {
 import { Layout, Menu } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
+import styled from 'styled-components';
+
+import Logo from '../components/Logo';
 
 import useAuth from "../hooks/useAuth";
 import AddAccount from "./AddAccount";
@@ -17,7 +20,26 @@ import Events from "./Events";
 
 import useBreakpoint from '../hooks/useBreakpoint';
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
+
+const Header = styled(Layout.Header)`
+	height: 64px;
+	padding: 0;
+	color: rgba(0, 0, 0, 0.85);
+	line-height: 64px;
+	background: #001529;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 64px;
+		padding: 0 20px;
+	}
+`;
 
 export default function Admin() {
   const { logout } = useAuth();
@@ -33,12 +55,9 @@ export default function Admin() {
   return (
     <Layout>
       <Header className="header">
-        <div className="logo">
-          <Link to="/">
-            {" "}
-            <img width="20" src="/favicon.ico" alt="Vizee" />
-          </Link>
-        </div>
+				<Link to="/" className="logo">
+					<Logo size={2} />
+				</Link>
       </Header>
       <Layout>
         <Sider

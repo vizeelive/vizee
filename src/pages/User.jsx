@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { gql, useQuery } from "@apollo/client";
+import styled from 'styled-components';
 
 import Home from "./Home";
 import Calendar from "./Calendar";
@@ -11,10 +12,28 @@ import Account from "./Account";
 import Event from "./Event";
 import useAuth from "../hooks/useAuth";
 
+import Logo from '../components/Logo';
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
 
-const { Header } = Layout;
+const Header = styled(Layout.Header)`
+	height: 64px;
+	padding: 0;
+	color: rgba(0, 0, 0, 0.85);
+	line-height: 64px;
+	background: #001529;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 64px;
+		padding: 0 20px;
+	}
+`;
 
 const GET_ACCOUNTS_UNAUTH = gql`
   query Accounts {
@@ -60,9 +79,9 @@ export default function User() {
   return (
     <Layout>
       <Header>
-        <Link to="/" style={{ float: "left", paddingRight: "40px" }}>
-          <img src="/favicon.ico" alt="Vizee" width="20px" />
-        </Link>
+				<Link to="/" className="logo">
+					<Logo size={2} />
+				</Link>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
           {user?.isAdmin && (
             <Menu.Item key="/admin">
