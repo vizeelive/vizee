@@ -4,28 +4,29 @@ const VideoConference = (props) => {
   const jitsiContainerId = 'jitsi-container-id';
   // const [jitsi, setJitsi] = React.useState({});
 
-  const loadJitsiScript = () => {
-    let resolveLoadJitsiScriptPromise = null;
+  // const loadJitsiScript = () => {
+  //   let resolveLoadJitsiScriptPromise = null;
 
-    const loadJitsiScriptPromise = new Promise((resolve) => {
-      resolveLoadJitsiScriptPromise = resolve;
-    });
+  //   const loadJitsiScriptPromise = new Promise((resolve) => {
+  //     resolveLoadJitsiScriptPromise = resolve;
+  //   });
 
-    const script = document.createElement('script');
-    script.src = 'https://meet.jit.si/external_api.js';
-    script.async = true;
-    script.onload = () => resolveLoadJitsiScriptPromise(true);
-    document.body.appendChild(script);
+  //   const script = document.createElement('script');
+  //   script.src = 'https://meet.jit.si/external_api.js';
+  //   script.async = true;
+  //   script.onload = () => resolveLoadJitsiScriptPromise(true);
+  //   document.body.appendChild(script);
 
-    return loadJitsiScriptPromise;
-  };
+  //   return loadJitsiScriptPromise;
+  // };
 
   React.useEffect(() => {
     let jitsi;
     const initialiseJitsi = async () => {
-      if (!window.JitsiMeetExternalAPI) {
-        await loadJitsiScript();
-      }
+      // if (!window.JitsiMeetExternalAPI) {
+      //   console.log('JITSI-LOAD');
+      //   await loadJitsiScript();
+      // }
 
       jitsi = new window.JitsiMeetExternalAPI('meet.jit.si', {
         roomName: props.roomName,
@@ -39,9 +40,10 @@ const VideoConference = (props) => {
 
       // setJitsi(_jitsi);
     };
+    console.log('JITSI-ON');
     initialiseJitsi();
 
-    return () => jitsi?.dispose?.();
+    return () => { console.log('JITSI-OFF'); return jitsi?.dispose?.() };
   }, [props]);
 
   return <div id={jitsiContainerId} style={{ height: 500, width: '100%' }} />;
