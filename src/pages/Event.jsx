@@ -127,7 +127,7 @@ export default function Event() {
 
   const event = { ...data?.events_report[0] };
   const userId = user?.sub || null;
-  const isMyAccount = !!data?.myaccounts.filter(
+  const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === event.account.username
   ).length;
 
