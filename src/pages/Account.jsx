@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
-import { Link, useParams, useLocation } from "react-router-dom";
-import { Badge, Layout, Menu } from "antd";
+import React from "react";
+import { Switch, Route, useParams } from "react-router-dom";
+import { Layout } from "antd";
 
 import { gql, useQuery } from "@apollo/client";
 
@@ -13,23 +12,11 @@ import Events from "./Events";
 import Calendar from "./Calendar";
 import Users from "./Users";
 import useAuth from "../hooks/useAuth";
-import useBreakpoint from '../hooks/useBreakpoint';
 
-import {
-  UserOutlined,
-  CalendarOutlined,
-  LogoutOutlined,
-  UserAddOutlined,
-  ThunderboltOutlined,
-  // AreaChartOutlined,
-  YoutubeOutlined,
-  SettingOutlined
-} from "@ant-design/icons";
-
+import AccountMenu from '../components/AccountMenu';
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
 
-const { SubMenu } = Menu;
 const { Sider, Content } = Layout;
 
 const GET_ACCOUNT_UNAUTH = gql`
@@ -160,9 +147,8 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
 `;
 
 export default function Account() {
-  const location = useLocation();
-  let { username } = useParams();
-  const { user, logout } = useAuth();
+  const { username } = useParams();
+  const { user } = useAuth();
 
   let query;
   let variables;
@@ -182,13 +168,6 @@ export default function Account() {
     fetchPolicy: "cache-and-network",
     variables,
   });
-
-  const isLargeScreen = useBreakpoint('lg');
-  const [collapsed, setCollapsed] = useState(!isLargeScreen);
-
-  useEffect(() => {
-    setCollapsed(!isLargeScreen);
-  }, [isLargeScreen]);
 
   if (loading) {
     return (
@@ -215,80 +194,20 @@ export default function Account() {
     <React.Fragment>
       <Layout>
         {isMyAccount ? (
-					<Sider
-						collapsible
-						collapsed={collapsed}
-						onCollapse={(collapse) => setCollapsed(collapse)}
-						width={200}
-						className="site-layout-background"
-					>
-            <Menu theme="dark">
-              <SubMenu key="accounts" icon={<UserOutlined />} title="Accounts">
-                {myAccounts.map((account) => (
-                  <Menu.Item key={`/${account.username}`}>
-                    <Link to={`/${account.username}`}>{account.name}</Link>
-                  </Menu.Item>
-                ))}
-                <Menu.Item key="/account">
-                  <Link to="/account">Create Account</Link>
-                </Menu.Item>
-              </SubMenu>
-            </Menu>
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={location.pathname}
-              defaultOpenKeys={["sub1"]}
-              style={{ height: "100%", borderRight: 0 }}
-							theme="dark"
-            >
-              <Menu.Item key={`/${username}`} icon={<YoutubeOutlined />}>
-                <Link to={`/${username}`}>Profile</Link>
-              </Menu.Item>
-              <Menu.Item
-                key={`/${username}/calendar`}
-                icon={<CalendarOutlined />}
-              >
-                <Link to={`/${username}/calendar`}>Calendar</Link>
-              </Menu.Item>
-              <Menu.Item
-                key={`/${username}/events`}
-                icon={<ThunderboltOutlined />}
-              >
-                <Link to={`/${username}/events`}>
-                  Events <Badge count={data.events_aggregate.aggregate.count} />
-                </Link>
-              </Menu.Item>
-              {(user.isAdmin || account.created_by === user.sub) && (
-                <Menu.Item
-                  key={`/${username}/users`}
-                  icon={<UserAddOutlined />}
-                >
-                  <Link to={`/${username}/users`}>
-                    Users{" "}
-                    <Badge count={data.events_aggregate.aggregate.count} />
-                  </Link>
-                </Menu.Item>
-              )}
-              {/* <Menu.Item
-                key={`/${username}/reports`}
-                icon={<AreaChartOutlined />}
-              >
-                <Link to={`/${username}/reports`}>Reports</Link>
-              </Menu.Item> */}
-              <Menu.Item
-                key={`/${username}/settings`}
-                icon={<SettingOutlined />}
-              >
-                <Link to={`/${username}/settings/${account.id}`}>Settings</Link>
-              </Menu.Item>
-              <Menu.Item
-                key="/logout"
-                icon={<LogoutOutlined />}
-                onClick={() => logout({ returnTo: window.location.origin })}
-              >
-                Logout
-              </Menu.Item>
-            </Menu>
+          <Sider
+            breakpoint="lg"
+            collapsedWidth="0"
+            width={200}
+            theme="light"
+          >
+            <AccountMenu
+              user={user}
+              username={username}
+              account={account}
+              myAccounts={myAccounts}
+              eventCount={data.events_aggregate.aggregate.count}
+              userCount={data.events_aggregate.aggregate.count}
+            />
           </Sider>
         ) : null}
         <Layout style={{ padding: "0 24px 24px", minHeight: 'calc(100vh - 64px)' }}>

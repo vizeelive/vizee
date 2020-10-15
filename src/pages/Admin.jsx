@@ -1,15 +1,7 @@
-import {
-  CalendarOutlined,
-  LogoutOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import React, { useState, useEffect } from "react";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
-import styled from 'styled-components';
-
-import Logo from '../components/Logo';
+import { Layout } from "antd";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client";
 
 import useAuth from "../hooks/useAuth";
 import AddAccount from "./AddAccount";
@@ -18,79 +10,60 @@ import Accounts from "./Accounts";
 import Calendar from "./Calendar";
 import Events from "./Events";
 
-import useBreakpoint from '../hooks/useBreakpoint';
+import Header from '../components/Header';
+import AdminMenu from '../components/AdminMenu';
+import { Centered } from "../components/styled/common";
+import Spinner from "../components/ui/Spinner";
 
 const { Content, Sider } = Layout;
 
-const Header = styled(Layout.Header)`
-	height: 64px;
-	padding: 0;
-	color: rgba(0, 0, 0, 0.85);
-	line-height: 64px;
-	background: #001529;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-
-	.logo {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		height: 64px;
-		padding: 0 20px;
-	}
+const GET_ACCOUNTS_AUTH = gql`
+  query MyAccounts($user_id: String) {
+    accounts_users(where: { user_id: { _eq: $user_id } }) {
+      account {
+        id
+        name
+        username
+      }
+    }
+  }
 `;
 
 export default function Admin() {
-  const { logout } = useAuth();
-  const location = useLocation();
+  const { user, logout, loginWithRedirect } = useAuth();
 
-  const isLargeScreen = useBreakpoint('lg');
-  const [collapsed, setCollapsed] = useState(!isLargeScreen);
+  const { loading, error, data } = useQuery(GET_ACCOUNTS_AUTH, {
+    variables: { user_id: user?.sub },
+  });
 
-  useEffect(() => {
-    setCollapsed(!isLargeScreen);
-  }, [isLargeScreen]);
+  if (loading) {
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
+
+  if (error) return "Error";
+
+  const account = data?.accounts_users?.[0]?.account || data?.accounts
 
   return (
     <Layout>
-      <Header className="header">
-				<Link to="/" className="logo">
-					<Logo size={2} />
-				</Link>
-      </Header>
-      <Layout>
+      <Header
+        user={user}
+        account={account}
+        onLogin={loginWithRedirect}
+        onLogout={logout}
+      />
+      <Layout className="test">
         <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(collapse) => setCollapsed(collapse)}
+          breakpoint="lg"
+          collapsedWidth="0"
           width={200}
-          className="site-layout-background"
+          theme="light"
         >
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={location.pathname}
-            defaultOpenKeys={["sub1"]}
-            style={{ height: "100%", borderRight: 0 }}
-            theme="dark"
-          >
-            <Menu.Item key="/admin/events" icon={<VideoCameraOutlined />}>
-              <Link to={"/admin/events"}>Events</Link>
-            </Menu.Item>
-            <Menu.Item key="/admin/calendar" icon={<CalendarOutlined />}>
-              <Link to={"/admin/calendar"}>Calendar</Link>
-            </Menu.Item>
-            <Menu.Item key="/admin/accounts" icon={<UserOutlined />}>
-              <Link to={"/admin/accounts"}>Accounts</Link>
-            </Menu.Item>
-            <Menu.Item
-              key="3"
-              icon={<LogoutOutlined />}
-              onClick={() => logout({ returnTo: window.location.origin })}
-            >
-              Logout
-            </Menu.Item>
-          </Menu>
+          <AdminMenu />
         </Sider>
         <Layout style={{ padding: "0 24px 24px", minHeight: "calc(100vh - 64px)" }}>
           <Content

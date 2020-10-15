@@ -1,9 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { gql, useQuery } from "@apollo/client";
-import styled from 'styled-components';
 
 import Home from "./Home";
 import Calendar from "./Calendar";
@@ -12,28 +10,9 @@ import Account from "./Account";
 import Event from "./Event";
 import useAuth from "../hooks/useAuth";
 
-import Logo from '../components/Logo';
+import Header from '../components/Header';
 import { Centered } from "../components/styled/common";
 import Spinner from "../components/ui/Spinner";
-
-const Header = styled(Layout.Header)`
-	height: 64px;
-	padding: 0;
-	color: rgba(0, 0, 0, 0.85);
-	line-height: 64px;
-	background: #001529;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-
-	.logo {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		height: 64px;
-		padding: 0 20px;
-	}
-`;
 
 const GET_ACCOUNTS_UNAUTH = gql`
   query Accounts {
@@ -78,46 +57,12 @@ export default function User() {
 
   return (
     <Layout>
-      <Header>
-				<Link to="/" className="logo">
-					<Logo size={2} />
-				</Link>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-          {user?.isAdmin && (
-            <Menu.Item key="/admin">
-              <Link to="/admin">Admin</Link>
-            </Menu.Item>
-          )}
-          {user && (
-            <Menu.Item key="/calendar">
-              <Link to="/calendar">Calendar</Link>
-            </Menu.Item>
-          )}
-          {user && account && (
-            <Menu.Item key={`/${account.username}`}>
-              <Link to={`/${account.username}`}>Account</Link>
-            </Menu.Item>
-          )}
-          {user && (
-            <Menu.Item key="/account">
-              <Link to="/account">Create Account</Link>
-            </Menu.Item>
-          )}
-          {!user && (
-            <Menu.Item key="/login" onClick={() => loginWithRedirect()}>
-              Login
-            </Menu.Item>
-          )}
-          {user && (
-            <Menu.Item
-              key="/logout"
-              onClick={() => logout({ returnTo: window.location.origin })}
-            >
-              Logout ({`${user.email}`})
-            </Menu.Item>
-          )}
-        </Menu>
-      </Header>
+      <Header
+        user={user}
+        account={account}
+        onLogin={loginWithRedirect}
+        onLogout={logout}
+      />
       <Switch>
         <Route path="/events/:id" exact component={Event} />
         <Route path="/calendar" exact>
