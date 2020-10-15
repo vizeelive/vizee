@@ -28,7 +28,7 @@ function MainMenu(props) {
 
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
-  
+
   useEffect(() => {
     if (location.pathname === '/') {
       setCurrent('/');
