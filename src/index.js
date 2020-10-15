@@ -7,8 +7,8 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Auth0Provider
-    domain="bemused.us.auth0.com"
-    clientId="s3NxLHMB2cDuf0ZjTNvLM8rgs8IqJztz"
+    domain="vizee.us.auth0.com"
+    clientId="yBd4I8kocR6k1RU9rt9t8VqXPB3qsHL7"
     redirectUri={window.location.origin}
   >
     <App />
