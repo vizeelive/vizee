@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Link, useLocation } from "react-router-dom";
-import { Badge, Menu } from "antd";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
+import { Badge, Menu } from 'antd';
 
 import {
   UserOutlined,
@@ -11,17 +11,12 @@ import {
   // AreaChartOutlined,
   YoutubeOutlined,
   SettingOutlined
-} from "@ant-design/icons";
+} from '@ant-design/icons';
+
+import posthog from 'posthog-js';
 
 function AccountMenu(props) {
-  const {
-    user,
-    username,
-    account,
-    myAccounts,
-    eventCount,
-    userCount
-  } = props;
+  const { user, username, account, myAccounts, eventCount, userCount } = props;
 
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
@@ -48,25 +43,18 @@ function AccountMenu(props) {
         <Menu.Item key={`/${username}`} icon={<YoutubeOutlined />}>
           <Link to={`/${username}`}>Profile</Link>
         </Menu.Item>
-        <Menu.Item
-          key={`/${username}/calendar`}
-          icon={<CalendarOutlined />}
-        >
-          <Link to={`/${username}/calendar`}>Calendar</Link>
-        </Menu.Item>
-        <Menu.Item
-          key={`/${username}/events`}
-          icon={<ThunderboltOutlined />}
-        >
+        {posthog.isFeatureEnabled('dev') && (
+          <Menu.Item key={`/${username}/calendar`} icon={<CalendarOutlined />}>
+            <Link to={`/${username}/calendar`}>Calendar</Link>
+          </Menu.Item>
+        )}
+        <Menu.Item key={`/${username}/events`} icon={<ThunderboltOutlined />}>
           <Link to={`/${username}/events`}>
             Events <Badge count={eventCount} />
           </Link>
         </Menu.Item>
         {(user.isAdmin || account.created_by === user.sub) && (
-          <Menu.Item
-            key={`/${username}/users`}
-            icon={<UserAddOutlined />}
-          >
+          <Menu.Item key={`/${username}/users`} icon={<UserAddOutlined />}>
             <Link to={`/${username}/users`}>
               Users <Badge count={userCount} />
             </Link>
@@ -78,15 +66,12 @@ function AccountMenu(props) {
         >
           <Link to={`/${username}/reports`}>Reports</Link>
         </Menu.Item> */}
-        <Menu.Item
-          key={`/${username}/settings`}
-          icon={<SettingOutlined />}
-        >
+        <Menu.Item key={`/${username}/settings`} icon={<SettingOutlined />}>
           <Link to={`/${username}/settings/${account.id}`}>Settings</Link>
         </Menu.Item>
       </Menu>
     </React.Fragment>
-  )
+  );
 }
 
 AccountMenu.propTypes = {
@@ -99,4 +84,3 @@ AccountMenu.propTypes = {
 };
 
 export default AccountMenu;
-

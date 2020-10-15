@@ -31,7 +31,7 @@ export default function useAuth() {
       api_host: 'https://vizee-posthog.herokuapp.com'
     });
     posthog.identify(user.sub);
-    // posthog.people.set({ email: user.email });
+    posthog.people.set({ email: user.email });
   }
 
   useEffect(() => {
