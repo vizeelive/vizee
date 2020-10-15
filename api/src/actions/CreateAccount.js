@@ -2,11 +2,13 @@ const Joi = require('joi');
 const execute = require('../execute');
 const hasValidationErrors = require('../validate');
 
-const gql = `
-mutation MyMutation($object: accounts_insert_input!) {
-  insert_accounts_one(object: $object) {
-    id
-    username
+const CREATE_ACCOUNT = `
+  mutation CreateAccount($objects: [accounts_insert_input!]!) {
+  insert_accounts(objects: $objects) {
+    returning {
+      id
+      username
+    }
   }
 }
 `;
@@ -20,6 +22,7 @@ const schema = Joi.object({
   twitter: Joi.string(),
   facebook: Joi.string(),
   instagram: Joi.string(),
+  user_id: Joi.string(),
   photo: Joi.string().uri()
 });
 
@@ -31,13 +34,20 @@ module.exports = async function CreateAccount(req, res) {
     return validationErrors;
   }
 
-  const { data, errors } = await execute(gql, { object }, req.headers);
+  object.users = { data: { user_id: object.user_id } };
+  delete object.user_id;
+
+  const { data, errors } = await execute(
+    CREATE_ACCOUNT,
+    { objects: object },
+    req.headers
+  );
 
   if (errors) {
     return res.status(400).json(errors[0]);
   }
 
   return res.json({
-    ...data.insert_accounts_one
+    ...data.insert_accounts.returning[0]
   });
 };
