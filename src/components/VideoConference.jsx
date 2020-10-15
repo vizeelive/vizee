@@ -47,4 +47,4 @@ const VideoConference = (props) => {
   return <div id={jitsiContainerId} style={{ height: 500, width: '100%' }} />;
 };
 
-export default React.memo(VideoConference);
+export default React.memo(VideoConference, () => true);
