@@ -67,7 +67,17 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 const GET_EVENT_AUTH = gql`
-  query UserEventsReport($id: uuid!) {
+  query UserEventsReport($id: uuid!, $user_id: String!) {
+    myaccounts: accounts_users(
+      order_by: { account: { name: asc } }
+      where: { user_id: { _eq: $user_id } }
+    ) {
+      account {
+        id
+        name
+        username
+      }
+    }
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -111,14 +121,15 @@ export default function Event() {
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
-      variables: { id }
+      variables: { id, user_id: user?.sub }
     }
   );
 
-  console.log({ user });
-
   const event = { ...data?.events_report[0] };
   const userId = user?.sub || null;
+  const isMyAccount = !!data?.myaccounts.filter(
+    (acc) => acc.account.username === event.account.username
+  ).length;
 
   useEffect(() => {
     if (event?.id) {
@@ -282,6 +293,13 @@ export default function Event() {
             <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
               <Button>Copy Link</Button>
             </CopyToClipboard>
+            {isMyAccount && (
+              <Link to={`/${event.account.username}/events/${event.id}`}>
+                <Button type="secondary" role="link">
+                  Manage
+                </Button>
+              </Link>
+            )}
           </Col>
         </Row>
         <Divider />
