@@ -1,23 +1,23 @@
-import "antd/dist/antd.css";
-import "antd/dist/dark-theme.js";
+import 'antd/dist/antd.css';
+import 'antd/dist/dark-theme.js';
 
-import { ApolloProvider } from "@apollo/client";
-import LogRocket from "logrocket";
-import React, { useMemo } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ApolloProvider } from '@apollo/client';
+import LogRocket from 'logrocket';
+import React, { useMemo } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import PrivateRoute from "./components/PrivateRoute";
-import useAuth from "./hooks/useAuth";
-import Admin from "./pages/Admin";
-import User from "./pages/User";
-import Theme from "./Theme";
+import PrivateRoute from './components/PrivateRoute';
+import useAuth from './hooks/useAuth';
+import Admin from './pages/Admin';
+import User from './pages/User';
+import Theme from './Theme';
 
-import { Centered } from "./components/styled/common";
-import Spinner from "./components/ui/Spinner";
+import { Centered } from './components/styled/common';
+import Spinner from './components/ui/Spinner';
 
 import './App.css';
 
-LogRocket.init("muse/muse");
+LogRocket.init('muse/muse');
 
 function App() {
   const { isLoading, user, setGeo, client, error } = useAuth();
@@ -25,7 +25,7 @@ function App() {
   useMemo(() => {
     async function fetchData() {
       let geo = {};
-      let response = await fetch("https://ipinfo.io/?token=61a3ecaa16294f");
+      let response = await fetch('https://ipinfo.io/?token=61a3ecaa16294f');
 
       if (response.ok) {
         geo = await response.json();
@@ -52,7 +52,7 @@ function App() {
   if (user) {
     LogRocket.identify(user.sub, {
       name: user.name,
-      email: user.email,
+      email: user.email
     });
   }
 

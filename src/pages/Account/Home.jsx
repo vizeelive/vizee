@@ -1,13 +1,13 @@
-import React from "react";
-import { Layout, Typography } from "antd";
-import styled from "styled-components";
-import Events from "../../components/Events";
+import React from 'react';
+import { Layout, Typography } from 'antd';
+import styled from 'styled-components';
+import Events from '../../components/Events';
 
 import {
   InstagramOutlined,
   TwitterOutlined,
-  FacebookOutlined,
-} from "@ant-design/icons";
+  FacebookOutlined
+} from '@ant-design/icons';
 
 const { Text } = Typography;
 const { Content } = Layout;
@@ -30,7 +30,7 @@ export default function Home(props) {
   return (
     <MainContent>
       <img
-        style={{ objectFit: "cover", height: "62vh" }}
+        style={{ objectFit: 'cover', height: '62vh' }}
         src={account.photo}
         alt={account.name}
         width="100%"

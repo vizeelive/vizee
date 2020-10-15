@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { gql, useMutation, useLazyQuery } from "@apollo/client";
+import React, { useState, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { gql, useMutation, useLazyQuery } from '@apollo/client';
 
-import FileUpload from "../components/FileUpload";
-import useBreakpoint from "../hooks/useBreakpoint";
-import Spinner from "../components/ui/Spinner";
+import FileUpload from '../components/FileUpload';
+import useBreakpoint from '../hooks/useBreakpoint';
+import Spinner from '../components/ui/Spinner';
 
-import { Centered, FormContainer } from "../components/styled/common";
+import { Centered, FormContainer } from '../components/styled/common';
 
-import { Typography, Form, Input, Button, message } from "antd";
+import { Typography, Form, Input, Button, message } from 'antd';
 
 const { Title } = Typography;
 
@@ -61,10 +61,10 @@ export default function AddAccount(props) {
   const [replacePhoto, setReplacePhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [loadAccount, { loading, error, data }] = useLazyQuery(GET_ACCOUNT, {
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
     variables: {
-      id: params.id,
-    },
+      id: params.id
+    }
   });
   const [createAccount] = useMutation(CREATE_ACCOUNT);
   const [updateAccount] = useMutation(UPDATE_ACCOUNT);
@@ -79,7 +79,7 @@ export default function AddAccount(props) {
   }, [loadAccount, params]);
 
   // to determine form layout
-  const isLargeScreen = useBreakpoint("lg");
+  const isLargeScreen = useBreakpoint('lg');
 
   if (loading) {
     return (
@@ -89,7 +89,7 @@ export default function AddAccount(props) {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   const account = data?.accounts_by_pk;
   const isSubmitDisabled = !photoUrl && !account?.photo;
@@ -97,7 +97,7 @@ export default function AddAccount(props) {
   const onFinish = async (values) => {
     let photo = photoUrl || account?.photo;
     if (!photo) {
-      message.error("Photo is required to create an account");
+      message.error('Photo is required to create an account');
       return;
     }
     let result;
@@ -113,9 +113,9 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo,
-            },
-          },
+              photo
+            }
+          }
         });
       } else {
         result = await createAccount({
@@ -127,36 +127,36 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo,
-            },
-          },
+              photo
+            }
+          }
         });
       }
     } catch (e) {
-      if (e.graphQLErrors[0].message.includes("duplicate")) {
-        setValidationErrors({ username: "Username is already taken" });
+      if (e.graphQLErrors[0].message.includes('duplicate')) {
+        setValidationErrors({ username: 'Username is already taken' });
         return;
       }
-      if (e.graphQLErrors[0].extensions.code.includes("validation-error")) {
+      if (e.graphQLErrors[0].extensions.code.includes('validation-error')) {
         setValidationErrors(JSON.parse(e.graphQLErrors[0].message));
         return;
       }
     }
 
     if (result) {
-      message.success("Successfully created account");
+      message.success('Successfully created account');
       if (props.redirect) {
         history.push(`/${result.data.CreateAccount.username}`);
       } else {
-        history.push("/admin/accounts");
+        history.push('/admin/accounts');
       }
     } else {
-      message.error("Failed to create account");
+      message.error('Failed to create account');
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   const handleFileUpload = (step) => {
@@ -170,21 +170,21 @@ export default function AddAccount(props) {
   };
 
   let options = {
-    allowedFileTypes: ["image/*"],
+    allowedFileTypes: ['image/*']
   };
 
-  const layout = isLargeScreen ? "horizontal" : "vertical";
+  const layout = isLargeScreen ? 'horizontal' : 'vertical';
 
   const formLayout = isLargeScreen
     ? {
         labelCol: { span: 4 },
-        wrapperCol: { span: 20 },
+        wrapperCol: { span: 20 }
       }
     : null;
 
   const tailLayout = isLargeScreen
     ? {
-        wrapperCol: { offset: 4, span: 20 },
+        wrapperCol: { offset: 4, span: 20 }
       }
     : null;
 
@@ -202,7 +202,7 @@ export default function AddAccount(props) {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: "Required" }]}
+          rules={[{ required: true, message: 'Required' }]}
         >
           <Input />
         </Form.Item>
@@ -210,9 +210,9 @@ export default function AddAccount(props) {
         <Form.Item
           label="Username"
           name="username"
-          validateStatus={validationErrors.username ? "error" : "success"}
+          validateStatus={validationErrors.username ? 'error' : 'success'}
           help={validationErrors.username ?? null}
-          rules={[{ required: true, message: "Required" }]}
+          rules={[{ required: true, message: 'Required' }]}
         >
           <Input />
         </Form.Item>
@@ -220,7 +220,7 @@ export default function AddAccount(props) {
         <Form.Item
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Required" }]}
+          rules={[{ required: true, message: 'Required' }]}
         >
           <Input.TextArea rows={4} />
         </Form.Item>
@@ -228,7 +228,7 @@ export default function AddAccount(props) {
         <Form.Item
           label="Instagram"
           name="instagram"
-          validateStatus={validationErrors.instagram ? "error" : "success"}
+          validateStatus={validationErrors.instagram ? 'error' : 'success'}
           help={validationErrors.instagram ?? null}
         >
           <Input />
@@ -237,7 +237,7 @@ export default function AddAccount(props) {
         <Form.Item
           label="Twitter"
           name="twitter"
-          validateStatus={validationErrors.twitter ? "error" : "success"}
+          validateStatus={validationErrors.twitter ? 'error' : 'success'}
           help={validationErrors.twitter ?? null}
         >
           <Input />
@@ -246,7 +246,7 @@ export default function AddAccount(props) {
         <Form.Item
           label="Facebook"
           name="facebook"
-          validateStatus={validationErrors.facebook ? "error" : "success"}
+          validateStatus={validationErrors.facebook ? 'error' : 'success'}
           help={validationErrors.facebook ?? null}
         >
           <Input />
@@ -284,7 +284,7 @@ export default function AddAccount(props) {
               disabled={isSubmitDisabled}
               size="large"
             >
-              {`${params?.id ? "Update" : "Add"} Account`}
+              {`${params?.id ? 'Update' : 'Add'} Account`}
             </Button>
           </Centered>
         </Form.Item>

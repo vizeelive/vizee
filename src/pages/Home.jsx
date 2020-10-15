@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
-import useAuth from "../hooks/useAuth";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import useAuth from '../hooks/useAuth';
 
-import FinishSignup from "../components/FinishSignup";
-import Events from "../components/Events";
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import FinishSignup from '../components/FinishSignup';
+import Events from '../components/Events';
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
-import {
-  SearchOutlined
-} from "@ant-design/icons";
+import { SearchOutlined } from '@ant-design/icons';
 
-import {
-	Typography,
-	Tabs,
-	Input 
-} from "antd";
+import { Typography, Tabs, Input } from 'antd';
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -185,7 +179,7 @@ export default function Home() {
     );
   }
 
-  if (error) return "Error.";
+  if (error) return 'Error.';
 
   const search = async (val) => {
     searchEvents({ variables: { q: `%${val}%` } });
@@ -237,13 +231,13 @@ export default function Home() {
           return (
             <TabPane tab={category.name} key={category.name}>
               <Title level={2}>{category.name}</Title>
-							<Input
-								placeholder="Search"
-								onChange={(e) => search(e.currentTarget.value)}
-								style={{ maxWidth: '40rem', marginBottom: '20px' }}
-								prefix={<SearchOutlined />}
-								size="large"
-							/>
+              <Input
+                placeholder="Search"
+                onChange={(e) => search(e.currentTarget.value)}
+                style={{ maxWidth: '40rem', marginBottom: '20px' }}
+                prefix={<SearchOutlined />}
+                size="large"
+              />
               <Events
                 events={events}
                 category={category.id}

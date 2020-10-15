@@ -1,22 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { Link, useParams } from "react-router-dom";
-import moment from "moment";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { Link, useParams } from 'react-router-dom';
+import moment from 'moment';
 import styled from 'styled-components';
 
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
-import { VideoCameraOutlined } from "@ant-design/icons";
+import { VideoCameraOutlined } from '@ant-design/icons';
 
-import {
-  Typography,
-  Popconfirm,
-  Button,
-  message,
-  Table
-} from "antd";
+import { Typography, Popconfirm, Button, message, Table } from 'antd';
 
 const { Title } = Typography;
 
@@ -70,10 +64,10 @@ const DELETE_EVENT = gql`
 export default function Events(props) {
   let { username } = useParams();
   const { loading, error, data, refetch } = useQuery(GET_EVENTS, {
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
     variables: {
-      username,
-    },
+      username
+    }
   });
 
   const [deleteEvent] = useMutation(DELETE_EVENT);
@@ -86,7 +80,7 @@ export default function Events(props) {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   let ui = {};
   if (props?.admin) {
@@ -103,7 +97,7 @@ export default function Events(props) {
     return {
       ...event,
       username: event?.account?.username,
-      account: event?.account?.name,
+      account: event?.account?.name
     };
   });
 
@@ -111,8 +105,8 @@ export default function Events(props) {
     try {
       await deleteEvent({ variables: { id: event.id } });
     } catch (e) {
-      if (e.message.includes("Foreign key violation")) {
-        message.error("Unable to delete due to dependent records");
+      if (e.message.includes('Foreign key violation')) {
+        message.error('Unable to delete due to dependent records');
       }
     }
     refetch();
@@ -120,42 +114,44 @@ export default function Events(props) {
 
   const columns = [
     {
-      title: "Account Name",
-      key: "account",
+      title: 'Account Name',
+      key: 'account',
       render: (event) => {
         return <Link to={`/${event.username}`}>{event.account}</Link>;
-      },
+      }
     },
     {
-      title: "Event Name",
-      key: "name",
+      title: 'Event Name',
+      key: 'name',
       render: (event) => {
-        return <Link to={`/${event.username}/events/${event.id}`}>{event.name}</Link>;
-      },
+        return (
+          <Link to={`/${event.username}/events/${event.id}`}>{event.name}</Link>
+        );
+      }
     },
     {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type'
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price'
     },
     {
-      title: "Start",
-      key: "Start",
-      render: (event) => moment(event.start).format("MMMM Do h:mm:ss a"),
+      title: 'Start',
+      key: 'Start',
+      render: (event) => moment(event.start).format('MMMM Do h:mm:ss a')
     },
     {
-      title: "End",
-      key: "end",
-      render: (event) => moment(event.end).format("MMMM Do h:mm:ss a"),
+      title: 'End',
+      key: 'end',
+      render: (event) => moment(event.end).format('MMMM Do h:mm:ss a')
     },
     {
-      title: "Actions",
-      key: "id",
+      title: 'Actions',
+      key: 'id',
       align: 'center',
       width: 180,
       render: (event) => {
@@ -172,14 +168,12 @@ export default function Events(props) {
               okText="Yes"
               cancelText="No"
             >
-              <Button danger>
-                Delete
-              </Button>
+              <Button danger>Delete</Button>
             </Popconfirm>
           </Actions>
         );
-      },
-    },
+      }
+    }
   ];
 
   return (
@@ -187,11 +181,7 @@ export default function Events(props) {
       <Header>
         <Title level={2}>Events</Title>
         <Link to={ui.addUrl}>
-          <Button
-            icon={<VideoCameraOutlined />}
-            type="primary"
-            size="large"
-          >
+          <Button icon={<VideoCameraOutlined />} type="primary" size="large">
             Create Event
           </Button>
         </Link>
@@ -208,5 +198,5 @@ export default function Events(props) {
 }
 
 Events.propTypes = {
-  admin: PropTypes.bool,
+  admin: PropTypes.bool
 };

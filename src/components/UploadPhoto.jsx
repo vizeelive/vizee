@@ -1,15 +1,15 @@
-import React from 'react'
-import Uppy from '@uppy/core'
-import Tus from '@uppy/tus'
-import { DragDrop } from '@uppy/react'
+import React from 'react';
+import Uppy from '@uppy/core';
+import Tus from '@uppy/tus';
+import { DragDrop } from '@uppy/react';
 
 const uppy = new Uppy({
   meta: { type: 'avatar' },
   restrictions: { maxNumberOfFiles: 1 },
   autoProceed: true
-})
+});
 
-uppy.use(Tus, { endpoint: '/upload' })
+uppy.use(Tus, { endpoint: '/upload' });
 
 // uppy.on('complete', (result) => {
 //   const url = result.successful[0].uploadURL
@@ -36,7 +36,7 @@ const UploadPhoto = ({ currentAvatar }) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
 export default UploadPhoto;

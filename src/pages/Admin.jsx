@@ -1,19 +1,19 @@
-import { Layout } from "antd";
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { gql, useQuery } from "@apollo/client";
+import { Layout } from 'antd';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
 
-import useAuth from "../hooks/useAuth";
-import AddAccount from "./AddAccount";
-import AddEvent from "./AddEvent";
-import Accounts from "./Accounts";
-import Calendar from "./Calendar";
-import Events from "./Events";
+import useAuth from '../hooks/useAuth';
+import AddAccount from './AddAccount';
+import AddEvent from './AddEvent';
+import Accounts from './Accounts';
+import Calendar from './Calendar';
+import Events from './Events';
 
 import Header from '../components/Header';
 import AdminMenu from '../components/AdminMenu';
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
 const { Content, Sider } = Layout;
 
@@ -33,7 +33,7 @@ export default function Admin() {
   const { user, logout, loginWithRedirect } = useAuth();
 
   const { loading, error, data } = useQuery(GET_ACCOUNTS_AUTH, {
-    variables: { user_id: user?.sub },
+    variables: { user_id: user?.sub }
   });
 
   if (loading) {
@@ -44,9 +44,9 @@ export default function Admin() {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
-  const account = data?.accounts_users?.[0]?.account || data?.accounts
+  const account = data?.accounts_users?.[0]?.account || data?.accounts;
 
   return (
     <Layout>
@@ -57,21 +57,18 @@ export default function Admin() {
         onLogout={logout}
       />
       <Layout className="test">
-        <Sider
-          breakpoint="lg"
-          collapsedWidth="0"
-          width={200}
-          theme="light"
-        >
+        <Sider breakpoint="lg" collapsedWidth="0" width={200} theme="light">
           <AdminMenu />
         </Sider>
-        <Layout style={{ padding: "0 24px 24px", minHeight: "calc(100vh - 64px)" }}>
+        <Layout
+          style={{ padding: '0 24px 24px', minHeight: 'calc(100vh - 64px)' }}
+        >
           <Content
             className="site-layout-background"
             style={{
               padding: 24,
               margin: 0,
-              minHeight: 280,
+              minHeight: 280
             }}
           >
             <Switch>

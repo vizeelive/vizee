@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Typography, Button, Tag } from 'antd';
 
 export const Container = styled.div`
-	.ant-card-bordered {
+  .ant-card-bordered {
     margin: 5px;
-    height: ${({ loggedIn }) => loggedIn ? '35rem' : '29rem'};
+    height: ${({ loggedIn }) => (loggedIn ? '35rem' : '29rem')};
     overflow: hidden;
   }
 
@@ -28,29 +28,27 @@ export const Container = styled.div`
 `;
 
 export const EventName = styled(Typography.Title)`
-	display: -webkit-box;
-	overflow: hidden;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	margin-bottom: 0;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 0;
 `;
 
 export const AccountName = styled(Typography.Title)`
-	display: -webkit-box;
-	overflow: hidden;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	margin-top: 0 !important;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  margin-top: 0 !important;
 `;
 
-export const DateText = styled(Typography.Text)`
-	
-`;
+export const DateText = styled(Typography.Text)``;
 
 export const TagsContainer = styled.div`
-	padding: 1rem 0 0.5rem;
+  padding: 1rem 0 0.5rem;
 
-	.ant-tag {
+  .ant-tag {
     margin-bottom: 0.5rem;
   }
 `;
@@ -59,8 +57,8 @@ export const Favorite = styled.div`
   position: absolute;
   bottom: 10px;
   right: 10px;
-	font-size: 1.5rem;
-	color: ${({ isActive }) => isActive ? '#ffd666' : '#d9d9d9'};
+  font-size: 1.5rem;
+  color: ${({ isActive }) => (isActive ? '#ffd666' : '#d9d9d9')};
 `;
 
 export const EditLink = styled(Button)`
@@ -70,8 +68,8 @@ export const EditLink = styled(Button)`
 `;
 
 export const LiveTag = styled(Tag)`
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-weight: 700;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: 700;
 `;

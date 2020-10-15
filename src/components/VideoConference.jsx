@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const VideoConference = (props) => {
-  const jitsiContainerId = "jitsi-container-id";
+  const jitsiContainerId = 'jitsi-container-id';
   // const [jitsi, setJitsi] = React.useState({});
 
   const loadJitsiScript = () => {
@@ -11,8 +11,8 @@ const VideoConference = (props) => {
       resolveLoadJitsiScriptPromise = resolve;
     });
 
-    const script = document.createElement("script");
-    script.src = "https://meet.jit.si/external_api.js";
+    const script = document.createElement('script');
+    script.src = 'https://meet.jit.si/external_api.js';
     script.async = true;
     script.onload = () => resolveLoadJitsiScriptPromise(true);
     document.body.appendChild(script);
@@ -27,14 +27,14 @@ const VideoConference = (props) => {
         await loadJitsiScript();
       }
 
-      jitsi = new window.JitsiMeetExternalAPI("meet.jit.si", {
+      jitsi = new window.JitsiMeetExternalAPI('meet.jit.si', {
         roomName: props.roomName,
         disableInviteFunctions: true,
         parentNode: document.getElementById(jitsiContainerId),
         userInfo: {
           email: props?.user?.email,
           displayName: props?.user?.name
-        },
+        }
       });
 
       // setJitsi(_jitsi);
@@ -44,7 +44,7 @@ const VideoConference = (props) => {
     return () => jitsi?.dispose?.();
   }, [props]);
 
-  return <div id={jitsiContainerId} style={{ height: 500, width: "100%" }} />;
+  return <div id={jitsiContainerId} style={{ height: 500, width: '100%' }} />;
 };
 
 export default React.memo(VideoConference);

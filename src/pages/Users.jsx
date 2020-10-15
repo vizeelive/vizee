@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Layout,
   Button,
@@ -8,14 +8,14 @@ import {
   Select,
   message,
   Table,
-  Popconfirm,
-} from "antd";
-import styled from "styled-components";
-import moment from "moment";
+  Popconfirm
+} from 'antd';
+import styled from 'styled-components';
+import moment from 'moment';
 
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation } from '@apollo/client';
 
-import useAuth from "../hooks/useAuth";
+import useAuth from '../hooks/useAuth';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -108,26 +108,26 @@ export default function Users() {
   if (!user.isAdmin) {
     variables = {
       user_id: user.sub,
-      username: username,
+      username: username
     };
   } else {
     variables = {
-      username: username,
+      username: username
     };
   }
 
   const { loading, error, data, refetch } = useQuery(
     user?.isAdmin ? GET_USERS_ADMIN : GET_USERS,
     {
-      fetchPolicy: "cache-and-network",
-      variables,
+      fetchPolicy: 'cache-and-network',
+      variables
     }
   );
   const [addUser] = useMutation(ADD_USER);
   const [deleteAccountUser] = useMutation(DELETE_ACCOUNTUSER);
 
-  if (loading) return "Loading...";
-  if (error) return "Error.";
+  if (loading) return 'Loading...';
+  if (error) return 'Error.';
 
   let account;
   if (user.isAdmin) {
@@ -152,14 +152,14 @@ export default function Users() {
     try {
       await addUser({
         variables: {
-          object: { user_id: values.user_id, account_id: account.id },
-        },
+          object: { user_id: values.user_id, account_id: account.id }
+        }
       });
-      message.success("Successfully added user");
+      message.success('Successfully added user');
       setShowModal(false);
       refetch();
     } catch (e) {
-      message.error("An error occurred");
+      message.error('An error occurred');
       console.log(e);
     }
   };
@@ -167,31 +167,31 @@ export default function Users() {
   const handleDeleteAccountUser = async (accountUser) => {
     await deleteAccountUser({ variables: { id: accountUser.id } });
     refetch();
-    message.success("Successfully deleted account user");
+    message.success('Successfully deleted account user');
   };
 
   const columns = [
     {
-      title: "First Name",
-      dataIndex: ["user", "first_name"],
-      key: "username",
+      title: 'First Name',
+      dataIndex: ['user', 'first_name'],
+      key: 'username'
     },
     {
-      title: "Last Name",
-      dataIndex: ["user", "last_name"],
-      key: "last_name",
+      title: 'Last Name',
+      dataIndex: ['user', 'last_name'],
+      key: 'last_name'
     },
     {
-      title: "Date Added",
+      title: 'Date Added',
       dataIndex: 'created',
-      key: "created",
+      key: 'created',
       render: (created) => {
-        return moment(created).format("MMMM Do h:mm:ss a");
-      },
+        return moment(created).format('MMMM Do h:mm:ss a');
+      }
     },
     {
-      title: "Actions",
-      key: "id",
+      title: 'Actions',
+      key: 'id',
       render: (accountUser) => {
         return (
           <React.Fragment>
@@ -208,8 +208,8 @@ export default function Users() {
             </Popconfirm>
           </React.Fragment>
         );
-      },
-    },
+      }
+    }
   ];
 
   return (
@@ -240,7 +240,7 @@ export default function Users() {
         </Form>
       </Modal>
       <Button
-        style={{ float: "right" }}
+        style={{ float: 'right' }}
         type="primary"
         onClick={() => setShowModal(true)}
       >

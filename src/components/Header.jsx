@@ -9,7 +9,7 @@ import MainMenu from '../components/MainMenu';
 
 const StyledHeader = styled(Layout.Header)`
   padding-left: 0;
-  
+
   .logo {
     display: inline-flex;
     align-items: center;
@@ -21,12 +21,7 @@ const StyledHeader = styled(Layout.Header)`
 `;
 
 function Header(props) {
-  const {
-    user,
-    account,
-    onLogin,
-    onLogout
-  } = props;
+  const { user, account, onLogin, onLogout } = props;
 
   return (
     <StyledHeader>
@@ -50,5 +45,4 @@ Header.propTypes = {
   onLogout: PropTypes.func.isRequired
 };
 
-export default Header
-
+export default Header;

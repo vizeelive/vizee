@@ -24,7 +24,7 @@ export default function useBreakpoints(toMatch) {
         lg: window.matchMedia('(min-width: 992px)').matches,
         xl: window.matchMedia('(min-width: 1200px)').matches,
         xxl: window.matchMedia('(min-width: 1600px)').matches
-      })
+      });
     }
 
     window.addEventListener('resize', handleResize);

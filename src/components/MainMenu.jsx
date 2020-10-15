@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from "react-router-dom";
-import { Menu } from "antd";
+import { Link, useLocation } from 'react-router-dom';
+import { Menu } from 'antd';
 import styled from 'styled-components';
 
 const StyledMenu = styled(Menu)`
@@ -10,7 +10,7 @@ const StyledMenu = styled(Menu)`
       & > .ant-menu-item {
         &:not(.ant-menu-item-selected) {
           &:hover {
-            background-color: rgba(255,255,255, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
           }
         }
       }
@@ -19,12 +19,7 @@ const StyledMenu = styled(Menu)`
 `;
 
 function MainMenu(props) {
-  const {
-    user,
-    account,
-    onLogin,
-    onLogout
-  } = props;
+  const { user, account, onLogin, onLogout } = props;
 
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
@@ -87,4 +82,3 @@ MainMenu.propTypes = {
 };
 
 export default MainMenu;
-

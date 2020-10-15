@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import MaskedInput from 'react-text-mask'
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import React from 'react';
+import PropTypes from 'prop-types';
+import MaskedInput from 'react-text-mask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 const defaultMaskOptions = {
   prefix: '$',
@@ -13,22 +13,22 @@ const defaultMaskOptions = {
   decimalLimit: 2, // how many digits allowed after the decimal
   integerLimit: 7, // limit length of integer numbers
   allowNegative: false,
-  allowLeadingZeroes: false,
-}
+  allowLeadingZeroes: false
+};
 
 const CurrencyInput = ({ maskOptions, ...inputProps }) => {
   const currencyMask = createNumberMask({
     ...defaultMaskOptions,
-    ...maskOptions,
-  })
+    ...maskOptions
+  });
 
-  return <MaskedInput mask={currencyMask} {...inputProps} />
-}
+  return <MaskedInput mask={currencyMask} {...inputProps} />;
+};
 
 CurrencyInput.defaultProps = {
   inputMode: 'numeric',
-  maskOptions: {},
-}
+  maskOptions: {}
+};
 
 CurrencyInput.propTypes = {
   inputmode: PropTypes.string,
@@ -43,8 +43,8 @@ CurrencyInput.propTypes = {
     requireDecimal: PropTypes.bool,
     allowNegative: PropTypes.bool,
     allowLeadingZeroes: PropTypes.bool,
-    integerLimit: PropTypes.number,
-  }),
-}
+    integerLimit: PropTypes.number
+  })
+};
 
-export default CurrencyInput
+export default CurrencyInput;

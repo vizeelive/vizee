@@ -1,20 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from '@ant-design/icons';
 
-import {
-  Typography,
-  Popconfirm,
-  Button,
-  Table,
-  message
-} from "antd";
+import { Typography, Popconfirm, Button, Table, message } from 'antd';
 
 const { Title } = Typography;
 
@@ -66,7 +60,7 @@ const DELETE_ACCOUNT = gql`
 
 export default function Events() {
   const { loading, error, data, refetch } = useQuery(GET_ACCOUNTS, {
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network'
   });
   const [deleteAccount] = useMutation(DELETE_ACCOUNT);
 
@@ -78,12 +72,12 @@ export default function Events() {
     );
   }
 
-  if (error) return "Error.";
+  if (error) return 'Error.';
 
   let tableData = data.accounts.map((account) => {
     return {
       ...account,
-      account: account.name,
+      account: account.name
     };
   });
 
@@ -92,38 +86,36 @@ export default function Events() {
       await deleteAccount({ variables: { id: account.id } });
       refetch();
     } catch (e) {
-      if (e.message.includes("Foreign key violation")) {
-        message.error("Unable to delete due to dependent records");
+      if (e.message.includes('Foreign key violation')) {
+        message.error('Unable to delete due to dependent records');
       }
     }
   };
 
   const columns = [
     {
-      title: "Account Name",
-      key: "name",
+      title: 'Account Name',
+      key: 'name',
       width: 240,
       render: (account) => {
         return <Link to={`/${account.username}`}>{account.name}</Link>;
-      },
+      }
     },
     {
-      title: "Username",
-      dataIndex: "username",
-      key: "username",
-      width: 240,
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username',
+      width: 240
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (text) => (
-        <Description>{text}</Description>
-      )
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+      render: (text) => <Description>{text}</Description>
     },
     {
-      title: "Actions",
-      key: "id",
+      title: 'Actions',
+      key: 'id',
       align: 'center',
       width: 180,
       render: (account) => {
@@ -140,31 +132,25 @@ export default function Events() {
               okText="Yes"
               cancelText="No"
             >
-              <Button danger>
-                Delete
-              </Button>
+              <Button danger>Delete</Button>
             </Popconfirm>
           </Actions>
         );
-      },
-    },
+      }
+    }
   ];
 
   return (
     <React.Fragment>
       <Header>
         <Title level={2}>Accounts</Title>
-        <Link to={"/admin/accounts/add"}>
-          <Button
-            icon={<UserOutlined />}
-            type="primary"
-            size="large"
-          >
+        <Link to={'/admin/accounts/add'}>
+          <Button icon={<UserOutlined />} type="primary" size="large">
             Create Account
           </Button>
         </Link>
       </Header>
-      
+
       <Table
         rowKey="id"
         columns={columns}

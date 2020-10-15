@@ -1,15 +1,15 @@
-import React from "react";
-import moment from "moment";
-import { Layout, Alert } from "antd";
-import styled from "styled-components";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import { gql, useQuery } from "@apollo/client";
-import useAuth from "../hooks/useAuth";
+import React from 'react';
+import moment from 'moment';
+import { Layout, Alert } from 'antd';
+import styled from 'styled-components';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { gql, useQuery } from '@apollo/client';
+import useAuth from '../hooks/useAuth';
 
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const { Content } = Layout;
 
@@ -43,7 +43,7 @@ const GET_FAVORITE_EVENTS = gql`
 
 const MainContent = styled(Content)`
   margin: 20px;
-	min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
 `;
 
 const Cal = (props) => {
@@ -68,7 +68,7 @@ const Cal = (props) => {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   let events = data?.favorite_events || data?.events;
 
@@ -77,7 +77,7 @@ const Cal = (props) => {
       id: event.id,
       title: event.name,
       start: event.start,
-      end: event.end,
+      end: event.end
     };
   });
 
@@ -90,7 +90,7 @@ const Cal = (props) => {
           type="info"
           showIcon
         />
-        <div style={{ marginTop: "20px", height: "800px" }}>
+        <div style={{ marginTop: '20px', height: '800px' }}>
           <h1>Calendar</h1>
           <Calendar
             localizer={localizer}

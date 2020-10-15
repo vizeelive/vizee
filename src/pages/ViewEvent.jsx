@@ -1,14 +1,14 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { Statistic, Row, Col, Button, Divider, Table } from "antd";
-import moment from "moment";
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Statistic, Row, Col, Button, Divider, Table } from 'antd';
+import moment from 'moment';
 
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 
-import { CalendarOutlined, ThunderboltOutlined } from "@ant-design/icons";
+import { CalendarOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
 // @TODO only let certain roles select revenue..
 const GET_EVENT_AUTH = gql`
@@ -59,8 +59,8 @@ export default function ViewEvent() {
   let { id, username } = useParams();
 
   const { loading, error, data } = useQuery(GET_EVENT_AUTH, {
-    fetchPolicy: "cache-and-network",
-    variables: { id },
+    fetchPolicy: 'cache-and-network',
+    variables: { id }
   });
 
   if (loading) {
@@ -71,31 +71,31 @@ export default function ViewEvent() {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   const event = { ...data?.events_report[0] };
 
   const columns = [
     {
-      title: "First Name",
-      dataIndex: "first_name",
+      title: 'First Name',
+      dataIndex: 'first_name'
     },
     {
-      title: "Last Name",
-      dataIndex: "last_name",
+      title: 'Last Name',
+      dataIndex: 'last_name'
     },
     {
-      title: "City",
-      dataIndex: "city",
+      title: 'City',
+      dataIndex: 'city'
     },
     {
-      title: "Country",
-      dataIndex: "country",
+      title: 'Country',
+      dataIndex: 'country'
     },
     {
-      title: "Price",
-      dataIndex: "price",
-    },
+      title: 'Price',
+      dataIndex: 'price'
+    }
   ];
 
   const transactionData = event.transaction.map((t) => {
@@ -105,27 +105,27 @@ export default function ViewEvent() {
       first_name: t.user.first_name,
       last_name: t.user.last_name,
       city: t.user.city,
-      country: t.user.country,
+      country: t.user.country
     };
   });
 
   const viewColumns = [
     {
-      title: "City",
-      dataIndex: "city",
+      title: 'City',
+      dataIndex: 'city'
     },
     {
-      title: "Region",
-      dataIndex: "region",
+      title: 'Region',
+      dataIndex: 'region'
     },
     {
-      title: "Country",
-      dataIndex: "country",
+      title: 'Country',
+      dataIndex: 'country'
     },
     {
-      title: "Timezone",
-      dataIndex: "timezone",
-    },
+      title: 'Timezone',
+      dataIndex: 'timezone'
+    }
   ];
 
   const viewData = event.view.map((v) => {
@@ -134,24 +134,24 @@ export default function ViewEvent() {
       city: v.city,
       country: v.country,
       region: v.region,
-      timezone: v.timezone,
+      timezone: v.timezone
     };
   });
 
   return (
     <React.Fragment>
-      <Button style={{ float: "right" }} type="secondary">
+      <Button style={{ float: 'right' }} type="secondary">
         <Link to={`/${username}/events/edit/${event.id}`}>Edit Event</Link>
       </Button>
       <h2>
-        <ThunderboltOutlined />{" "}
+        <ThunderboltOutlined />{' '}
         <Link to={`/events/${event.id}`}>{event.name}</Link>
       </h2>
       <div>
-        <CalendarOutlined /> {moment(event.start).format("MMMM Do h:mm:ss a")}
+        <CalendarOutlined /> {moment(event.start).format('MMMM Do h:mm:ss a')}
       </div>
       <div>
-        <CalendarOutlined /> {moment(event.end).format("MMMM Do h:mm:ss a")}
+        <CalendarOutlined /> {moment(event.end).format('MMMM Do h:mm:ss a')}
       </div>
       <div>Location: {event.location}</div>
       <Divider />
@@ -161,7 +161,7 @@ export default function ViewEvent() {
         <Col span={4}>
           <Statistic
             title="Revenue (USD)"
-            value={event.revenue || "$0"}
+            value={event.revenue || '$0'}
             precision={2}
           />
           <Button style={{ marginTop: 16 }} type="primary">

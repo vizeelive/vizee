@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { useParams, useHistory } from "react-router-dom";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useParams, useHistory } from 'react-router-dom';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
-import FileUpload from "../components/FileUpload";
-import CurrencyInput from "../components/CurrencyInput";
-import useBreakpoint from "../hooks/useBreakpoint";
-import Spinner from "../components/ui/Spinner";
+import FileUpload from '../components/FileUpload';
+import CurrencyInput from '../components/CurrencyInput';
+import useBreakpoint from '../hooks/useBreakpoint';
+import Spinner from '../components/ui/Spinner';
 
-import { Centered, FormContainer } from "../components/styled/common";
+import { Centered, FormContainer } from '../components/styled/common';
 
 import {
   Typography,
@@ -18,8 +18,8 @@ import {
   message,
   DatePicker,
   Select,
-  Radio,
-} from "antd";
+  Radio
+} from 'antd';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -116,16 +116,16 @@ export default function AddEvent(props) {
   if (params.id) {
     query = GET_EVENT;
     options = {
-      fetchPolicy: "cache-and-network",
-      variables: { id: params.id, username: params.username },
+      fetchPolicy: 'cache-and-network',
+      variables: { id: params.id, username: params.username }
     };
-    title = "Edit Event";
-    buttonLabel = "Update Event";
+    title = 'Edit Event';
+    buttonLabel = 'Update Event';
   } else {
     query = GET_ACCOUNTS;
     options = { variables: { username: params.username } };
-    title = "Add An Event";
-    buttonLabel = "Save Event";
+    title = 'Add An Event';
+    buttonLabel = 'Save Event';
   }
 
   const [event, setEvent] = useState();
@@ -141,15 +141,15 @@ export default function AddEvent(props) {
   useEffect(() => {
     if (event) {
       if (event.preview) {
-        setCoverType("Video");
+        setCoverType('Video');
       } else {
-        setCoverType("Photo");
+        setCoverType('Photo');
       }
     }
   }, [event]);
 
   // to determine form layout
-  const isLargeScreen = useBreakpoint("lg");
+  const isLargeScreen = useBreakpoint('lg');
 
   if (loading) {
     return (
@@ -159,7 +159,7 @@ export default function AddEvent(props) {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   const { accounts, categories } = data;
   const account = data.account[0];
@@ -183,9 +183,9 @@ export default function AddEvent(props) {
             preview: event?.preview,
             photo: event?.photo,
             start,
-            end,
-          },
-        },
+            end
+          }
+        }
       });
     } else {
       newEvent = await createEvent({
@@ -201,17 +201,17 @@ export default function AddEvent(props) {
             preview: event?.preview,
             photo: event?.photo,
             start,
-            end,
-          },
-        },
+            end
+          }
+        }
       });
     }
 
     if (newEvent) {
-      message.success("Successfully created event");
+      message.success('Successfully created event');
       history.push(props.redirect);
     } else {
-      message.error("Failed to create event");
+      message.error('Failed to create event');
     }
   };
 
@@ -228,42 +228,42 @@ export default function AddEvent(props) {
   };
 
   // prevents form creation because it doesn't like to re-render
-  if (params.id && !event) return "Loading...";
+  if (params.id && !event) return 'Loading...';
 
   // preloads date range
   let eventData = {
     ...event,
-    range: [moment(event?.start), moment(event?.end)],
+    range: [moment(event?.start), moment(event?.end)]
   };
 
   const isSubmitDisabled =
-    (event?.type === "Video" && !event?.video) ||
+    (event?.type === 'Video' && !event?.video) ||
     (!event?.preview && !event?.photo);
 
   const rangeConfig = {
-    rules: [{ type: "array", required: true, message: "Please select time!" }],
+    rules: [{ type: 'array', required: true, message: 'Please select time!' }]
   };
 
   let uploadPhotoOptions = {
-    allowedFileTypes: ["image/*"],
+    allowedFileTypes: ['image/*']
   };
 
   let uploadVideoOptions = {
-    allowedFileTypes: ["video/*"],
+    allowedFileTypes: ['video/*']
   };
 
-  const layout = isLargeScreen ? "horizontal" : "vertical";
+  const layout = isLargeScreen ? 'horizontal' : 'vertical';
 
   const formLayout = isLargeScreen
     ? {
         labelCol: { span: 4 },
-        wrapperCol: { span: 20 },
+        wrapperCol: { span: 20 }
       }
     : null;
 
   const tailLayout = isLargeScreen
     ? {
-        wrapperCol: { offset: 4, span: 20 },
+        wrapperCol: { offset: 4, span: 20 }
       }
     : null;
 
@@ -280,7 +280,7 @@ export default function AddEvent(props) {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: "Required" }]}
+          rules={[{ required: true, message: 'Required' }]}
         >
           <Input />
         </Form.Item>
@@ -288,9 +288,9 @@ export default function AddEvent(props) {
         <Form.Item
           label="Price"
           name="price"
-          rules={[{ required: true, message: "Required" }]}
+          rules={[{ required: true, message: 'Required' }]}
         >
-          <CurrencyInput className="ant-input" style={{ maxWidth: "10rem" }} />
+          <CurrencyInput className="ant-input" style={{ maxWidth: '10rem' }} />
         </Form.Item>
 
         <Form.Item label="Location" name="location">
@@ -300,7 +300,7 @@ export default function AddEvent(props) {
         <Form.Item
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Required" }]}
+          rules={[{ required: true, message: 'Required' }]}
         >
           <Input.TextArea rows={4} />
         </Form.Item>
@@ -351,14 +351,14 @@ export default function AddEvent(props) {
         <Form.Item label="Event Type">
           <Radio.Group
             options={[
-              { label: "Live", value: "live" },
-              { label: "Video", value: "video" },
+              { label: 'Live', value: 'live' },
+              { label: 'Video', value: 'video' }
             ]}
             onChange={(e) => setEvent({ ...event, type: e.target.value })}
             optionType="button"
             value={event?.type}
           />
-          {event?.type === "video" && (
+          {event?.type === 'video' && (
             <React.Fragment>
               {event?.video ? (
                 <React.Fragment>
@@ -381,14 +381,14 @@ export default function AddEvent(props) {
         <Form.Item label="Preview">
           <Radio.Group
             options={[
-              { label: "Photo", value: "Photo" },
-              { label: "Video", value: "Video" },
+              { label: 'Photo', value: 'Photo' },
+              { label: 'Video', value: 'Video' }
             ]}
             onChange={(e) => setCoverType(e.target.value)}
             optionType="button"
             value={coverType}
           />
-          {coverType === "Photo" && (
+          {coverType === 'Photo' && (
             <Form.Item>
               {event?.photo ? (
                 <React.Fragment>
@@ -406,7 +406,7 @@ export default function AddEvent(props) {
               )}
             </Form.Item>
           )}
-          {coverType === "Video" && (
+          {coverType === 'Video' && (
             <React.Fragment>
               {event?.preview ? (
                 <React.Fragment>
@@ -432,7 +432,7 @@ export default function AddEvent(props) {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Centered style={{ padding: "1rem" }}>
+          <Centered style={{ padding: '1rem' }}>
             <Button
               type="primary"
               htmlType="submit"

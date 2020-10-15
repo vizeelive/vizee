@@ -1,23 +1,23 @@
-import config from "../config";
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Button, Typography, Tag, message, Modal } from "antd";
-import styled from "styled-components";
-import moment from "moment";
-import { Helmet } from "react-helmet";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import config from '../config';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Button, Typography, Tag, message, Modal } from 'antd';
+import styled from 'styled-components';
+import moment from 'moment';
+import { Helmet } from 'react-helmet';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation } from '@apollo/client';
 
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from '@stripe/stripe-js';
 
-import VideoConference from "../components/VideoConference";
-import useAuth from "../hooks/useAuth";
+import VideoConference from '../components/VideoConference';
+import useAuth from '../hooks/useAuth';
 
-import { StarFilled } from "@ant-design/icons";
+import { StarFilled } from '@ant-design/icons';
 
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
 import {
   FacebookShareButton,
@@ -25,13 +25,13 @@ import {
   TwitterShareButton,
   TwitterIcon,
   EmailShareButton,
-  EmailIcon,
-} from "react-share";
+  EmailIcon
+} from 'react-share';
 
 const { Text } = Typography;
 
 const stripePromise = loadStripe(
-  "pk_test_51GxNPWFN46jAxE7Qjk2k8EvqQyVBsaq9TZ2NXcEtBfqWpKlilZWUuAoggjDXYaPjMogzejgajC7InSicHwXSRS4x006DpoBHJl"
+  'pk_test_51GxNPWFN46jAxE7Qjk2k8EvqQyVBsaq9TZ2NXcEtBfqWpKlilZWUuAoggjDXYaPjMogzejgajC7InSicHwXSRS4x006DpoBHJl'
 );
 
 const GET_EVENT_UNAUTH = gql`
@@ -106,7 +106,7 @@ export default function Event() {
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
-      variables: { id },
+      variables: { id }
     }
   );
 
@@ -128,17 +128,12 @@ export default function Event() {
             loc: user?.geo.loc,
             postal: user?.geo.postal,
             region: user?.geo.region,
-            timezone: user?.geo.timezone,
-          },
-        },
+            timezone: user?.geo.timezone
+          }
+        }
       });
     }
-  }, [
-    event.id,
-    trackView,
-    user,
-    userId,
-  ]);
+  }, [event.id, trackView, user, userId]);
 
   if (loading) {
     return (
@@ -148,26 +143,26 @@ export default function Event() {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   const handleBuy = async () => {
     let ref = btoa(
       JSON.stringify({
         user_id: user.sub,
-        event_id: event.id,
+        event_id: event.id
       })
     );
 
     const stripe = await stripePromise;
 
     const response = await fetch(`${config.api}/session?ref=${ref}`, {
-      method: "GET",
+      method: 'GET'
     });
 
     const session = await response.json();
 
     const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
+      sessionId: session.id
     });
 
     if (result.error) {
@@ -182,11 +177,11 @@ export default function Event() {
   let time = moment();
   let start = moment(event.start);
   let end = moment(event.end);
-  let isFree = event.price === "$0.00";
+  let isFree = event.price === '$0.00';
   let isLive = time.isBetween(start, end);
   let isPurchased = event?.transaction?.length;
-  let isBroadcast = event.type === "live";
-  let isVideo = event.type === "video";
+  let isBroadcast = event.type === 'live';
+  let isVideo = event.type === 'video';
 
   const Content = styled.div`
     margin: 20px;
@@ -207,7 +202,7 @@ export default function Event() {
   const canWatch = isLive && (isFree || isPurchased);
 
   const handleCopy = () => {
-    message.success("Copied link");
+    message.success('Copied link');
   };
 
   return (
@@ -283,8 +278,8 @@ export default function Event() {
         <StarFilled /> {event.favorite.length}
         {!isPurchased && <h2>{event.price}</h2>}
         <h2>{event.description}</h2>
-        <div>{moment(event.start).format("MMMM Do h:mm:ss a")}</div>
-        <div>{moment(event.end).format("MMMM Do h:mm:ss a")}</div>
+        <div>{moment(event.start).format('MMMM Do h:mm:ss a')}</div>
+        <div>{moment(event.end).format('MMMM Do h:mm:ss a')}</div>
         <Modal
           title="Share"
           visible={shareModalVisible}

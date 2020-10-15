@@ -1,21 +1,21 @@
-import React from "react";
-import { Switch, Route, useParams } from "react-router-dom";
-import { Layout } from "antd";
+import React from 'react';
+import { Switch, Route, useParams } from 'react-router-dom';
+import { Layout } from 'antd';
 
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 
-import Home from "./Account/Home";
-import AddAccount from "./AddAccount";
-import AddEvent from "./AddEvent";
-import ViewEvent from "./ViewEvent";
-import Events from "./Events";
-import Calendar from "./Calendar";
-import Users from "./Users";
-import useAuth from "../hooks/useAuth";
+import Home from './Account/Home';
+import AddAccount from './AddAccount';
+import AddEvent from './AddEvent';
+import ViewEvent from './ViewEvent';
+import Events from './Events';
+import Calendar from './Calendar';
+import Users from './Users';
+import useAuth from '../hooks/useAuth';
 
 import AccountMenu from '../components/AccountMenu';
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
 const { Sider, Content } = Layout;
 
@@ -165,8 +165,8 @@ export default function Account() {
 
   // @TODO would probably be better to use named actions rather than variables queries in order to track which one gets called, or give them different query names above
   const { loading, error, data, refetch } = useQuery(query, {
-    fetchPolicy: "cache-and-network",
-    variables,
+    fetchPolicy: 'cache-and-network',
+    variables
   });
 
   if (loading) {
@@ -177,7 +177,7 @@ export default function Account() {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
   // @TODO find by pk, no need for [0]
   const account = data?.account?.[0].account || data?.accounts[0];
@@ -194,12 +194,7 @@ export default function Account() {
     <React.Fragment>
       <Layout>
         {isMyAccount ? (
-          <Sider
-            breakpoint="lg"
-            collapsedWidth="0"
-            width={200}
-            theme="light"
-          >
+          <Sider breakpoint="lg" collapsedWidth="0" width={200} theme="light">
             <AccountMenu
               user={user}
               username={username}
@@ -210,13 +205,15 @@ export default function Account() {
             />
           </Sider>
         ) : null}
-        <Layout style={{ padding: "0 24px 24px", minHeight: 'calc(100vh - 64px)' }}>
+        <Layout
+          style={{ padding: '0 24px 24px', minHeight: 'calc(100vh - 64px)' }}
+        >
           <Content
             className="site-layout-background"
             style={{
               padding: 24,
               margin: 0,
-              minHeight: 280,
+              minHeight: 280
             }}
           >
             <Switch>
@@ -233,7 +230,11 @@ export default function Account() {
               <Route path="/:username/events/edit/:id" exact>
                 <AddEvent redirect={`/${username}/events`} />
               </Route>
-              <Route path="/:username/settings/:id" exact component={AddAccount} />
+              <Route
+                path="/:username/settings/:id"
+                exact
+                component={AddAccount}
+              />
               <Route path="/:username/calendar" exact component={Calendar} />
               <Route path="/:username" exact>
                 <Home account={account} refetch={refetch} />
