@@ -1,7 +1,16 @@
 import config from '../config';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button, Typography, Tag, message, Modal } from 'antd';
+import {
+  Button,
+  Typography,
+  Tag,
+  message,
+  Modal,
+  Row,
+  Col,
+  Divider
+} from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Helmet } from 'react-helmet';
@@ -46,13 +55,12 @@ const GET_EVENT_UNAUTH = gql`
       photo
       preview
       video
+      favorites
+      views
       account {
         name
         username
         photo
-      }
-      favorite {
-        id
       }
     }
   }
@@ -80,9 +88,6 @@ const GET_EVENT_AUTH = gql`
         photo
       }
       transaction {
-        id
-      }
-      favorite {
         id
       }
     }
@@ -255,31 +260,38 @@ export default function Event() {
         })()}
       </MainContent>
       <Content>
-        {!isFree && !isPurchased && (
-          <Button type="primary" role="link" onClick={handleClick}>
-            Buy Ticket
-          </Button>
-        )}
-        <Button onClick={() => setShareModalVisible(true)}>Share</Button>
-        <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
-          <Button>Copy Link</Button>
-        </CopyToClipboard>
+        <Row>
+          <Col span={12}>
+            <h1>{event.name}</h1>
+            <div>
+              <Link to={`/${event.account.username}`}>
+                <Text type="secondary">by {event.account.name}</Text>
+              </Link>
+            </div>
+            <div>{moment(event.start).format('MMMM Do h:mm:ss a')}</div>
+            <div>{event.views} Views</div>
+            <div>{event.favorites} Favorites</div>
+          </Col>
+          <Col span={12}>
+            {!isFree && !isPurchased && (
+              <Button type="primary" role="link" onClick={handleClick}>
+                Buy Ticket ({event.price})
+              </Button>
+            )}
+            <Button onClick={() => setShareModalVisible(true)}>Share</Button>
+            <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
+              <Button>Copy Link</Button>
+            </CopyToClipboard>
+          </Col>
+        </Row>
+        <Divider />
+        <div>{event.description}</div>
+        <br />
         {isPurchased ? <Tag color="green">Purchased</Tag> : null}
         {isLive && <Tag color="magenta">Live Now!</Tag>}
         {isFree && <Tag color="blue">Free!</Tag>}
         {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
         {isVideo && <Tag color="gold">Video</Tag>}
-        <h1>{event.name}</h1>
-        <h2>
-          <Link to={`/${event.account.username}`}>
-            <Text type="secondary">{event.account.name}</Text>
-          </Link>
-        </h2>
-        <StarFilled /> {event.favorite.length}
-        {!isPurchased && <h2>{event.price}</h2>}
-        <h2>{event.description}</h2>
-        <div>{moment(event.start).format('MMMM Do h:mm:ss a')}</div>
-        <div>{moment(event.end).format('MMMM Do h:mm:ss a')}</div>
         <Modal
           title="Share"
           visible={shareModalVisible}
