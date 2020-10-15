@@ -174,6 +174,7 @@ export default function AddEvent(props) {
           pk_columns: { id: params.id },
           _set: {
             name: values.name,
+            type: event.type,
             location: values.location,
             price: values.price,
             description: values.description,
@@ -192,6 +193,7 @@ export default function AddEvent(props) {
         variables: {
           object: {
             name: values.name,
+            type: event.type,
             location: values.location,
             price: values.price,
             description: values.description,
@@ -348,7 +350,7 @@ export default function AddEvent(props) {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Event Type">
+        <Form.Item label="Event Type" name="type">
           <Radio.Group
             options={[
               { label: 'Live', value: 'live' },
