@@ -380,6 +380,7 @@ input CreateAccountInput {
   photo : String
   twitter : String
   username : String
+  user_id : String
 }
 
 type MyMutationOutput {

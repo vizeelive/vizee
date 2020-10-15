@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { gql, useMutation, useLazyQuery } from '@apollo/client';
+import useAuth from '../hooks/useAuth';
 
 import FileUpload from '../components/FileUpload';
 import useBreakpoint from '../hooks/useBreakpoint';
@@ -56,6 +57,7 @@ const UPDATE_ACCOUNT = gql`
 
 export default function AddAccount(props) {
   const params = useParams();
+  const { user } = useAuth();
   const history = useHistory();
   const [validationErrors, setValidationErrors] = useState({});
   const [replacePhoto, setReplacePhoto] = useState(false);
@@ -127,7 +129,8 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo
+              photo,
+              user_id: user.sub
             }
           }
         });
