@@ -139,7 +139,9 @@ export default function Users() {
   }
 
   const users = data?.users;
-  const accountUsers = data?.accounts_users;
+  const accountUsers = data?.accounts_users.filter(
+    (u) => u.user.id !== user.sub
+  );
 
   const addableUsers = users.filter((user) => {
     let match = accountUsers.filter((accountUser) => {
