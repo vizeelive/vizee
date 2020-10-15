@@ -1,18 +1,18 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import { Layout } from "antd";
-import { gql, useQuery } from "@apollo/client";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { Layout } from 'antd';
+import { gql, useQuery } from '@apollo/client';
 
-import Home from "./Home";
-import Calendar from "./Calendar";
-import CreateAccount from "./CreateAccount";
-import Account from "./Account";
-import Event from "./Event";
-import useAuth from "../hooks/useAuth";
+import Home from './Home';
+import Calendar from './Calendar';
+import CreateAccount from './CreateAccount';
+import Account from './Account';
+import Event from './Event';
+import useAuth from '../hooks/useAuth';
 
 import Header from '../components/Header';
-import { Centered } from "../components/styled/common";
-import Spinner from "../components/ui/Spinner";
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
 
 const GET_ACCOUNTS_UNAUTH = gql`
   query Accounts {
@@ -39,9 +39,12 @@ const GET_ACCOUNTS_AUTH = gql`
 export default function User() {
   const { user, logout, loginWithRedirect } = useAuth();
 
-  const { loading, error, data } = useQuery(user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH, {
-    variables: { user_id: user?.sub },
-  });
+  const { loading, error, data } = useQuery(
+    user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
+    {
+      variables: { user_id: user?.sub }
+    }
+  );
 
   if (loading) {
     return (
@@ -51,9 +54,9 @@ export default function User() {
     );
   }
 
-  if (error) return "Error";
+  if (error) return 'Error';
 
-  const account = data?.accounts_users?.[0]?.account || data?.accounts
+  const account = data?.accounts_users?.[0]?.account || data?.accounts;
 
   return (
     <Layout>
