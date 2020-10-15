@@ -52,7 +52,7 @@ function MainMenu(props) {
           <Link to={`/${account.username}`}>Account</Link>
         </Menu.Item>
       )}
-      {user && (
+      {user && !account && (
         <Menu.Item key="/account">
           <Link to="/account">Create Account</Link>
         </Menu.Item>
