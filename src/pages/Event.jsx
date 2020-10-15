@@ -121,6 +121,7 @@ export default function Event() {
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
+      fetchPolicy: 'cache-and-network',
       variables: { id, user_id: user?.sub }
     }
   );
