@@ -276,6 +276,7 @@ export default function Event() {
   const videoJsOptions = {
     autoplay: true,
     controls: true,
+    aspectRatio: '16:9',
     sources: [
       {
         src: `https://stream.mux.com/${eventExtra?.mux_livestream?.playback_ids[0]?.id}.m3u8`,
