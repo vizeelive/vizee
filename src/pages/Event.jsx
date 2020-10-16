@@ -288,7 +288,16 @@ export default function Event() {
                 />
               );
             } else {
-              return <video src={event.video} width="100%" muted controls />;
+              return (
+                <video
+                  src={event.video}
+                  poster={event.photo}
+                  width="100%"
+                  autoPlay
+                  muted
+                  controls
+                />
+              );
             }
           } else {
             if (event.preview) {
