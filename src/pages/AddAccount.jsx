@@ -176,7 +176,7 @@ export default function AddAccount(props) {
     allowedFileTypes: ['image/*']
   };
 
-  const layout = isLargeScreen ? 'horizontal' : 'vertical';
+  const layout = 'vertical';
 
   const formLayout = isLargeScreen
     ? {
