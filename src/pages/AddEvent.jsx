@@ -354,6 +354,7 @@ export default function AddEvent(props) {
           <Radio.Group
             options={[
               { label: 'Live', value: 'live' },
+              { label: 'Conference', value: 'conference' },
               { label: 'Video', value: 'video' }
             ]}
             onChange={(e) => setEvent({ ...event, type: e.target.value })}

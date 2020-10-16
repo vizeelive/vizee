@@ -161,8 +161,8 @@ export default function Event() {
     }
   );
 
-  const event = { ...data?.events_report[0] };
-  const eventExtra = { ...data?.events[0] };
+  const event = { ...data?.events_report?.[0] };
+  const eventExtra = { ...data?.events?.[0] };
   const userId = user?.sub || null;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === event.account.username
@@ -233,6 +233,7 @@ export default function Event() {
   let isFree = event.price === '$0.00';
   let isLive = time.isBetween(start, end);
   let isPurchased = event?.transaction?.length;
+  let isConference = event.type === 'conference';
   let isBroadcast = event.type === 'live';
   let isVideo = event.type === 'video';
 
@@ -306,12 +307,15 @@ export default function Event() {
             if (isBroadcast) {
               return (
                 <VideoPlayer {...videoJsOptions} style={{ width: '100%' }} />
-                // <VideoConference
-                //   roomName={`${event.id}-23kjh23kjh232kj3h`}
-                //   user={user}
-                // />
               );
-            } else {
+            } else if (isConference) {
+              return (
+                <VideoConference
+                  roomName={`${event.id}-23kjh23kjh232kj3h`}
+                  user={user}
+                />
+              );
+            } else
               return (
                 <video
                   src={event.video}
@@ -322,7 +326,6 @@ export default function Event() {
                   controls
                 />
               );
-            }
           } else {
             if (event.preview) {
               return (
@@ -387,13 +390,15 @@ export default function Event() {
             <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
               <Button>Copy Link</Button>
             </CopyToClipboard>
-            <Button
-              type="secondary"
-              role="link"
-              onClick={handleStartLivestream}
-            >
-              Start Live Stream
-            </Button>
+            {isMyAccount && (
+              <Button
+                type="secondary"
+                role="link"
+                onClick={handleStartLivestream}
+              >
+                Start Live Stream
+              </Button>
+            )}
             {isMyAccount && (
               <Link to={`/${event.account.username}/events/${event.id}`}>
                 <Button type="secondary" role="link">
@@ -403,8 +408,12 @@ export default function Event() {
             )}
           </Col>
         </Row>
-        <pre>RTMP URL: rtmp://global-live.mux.com:5222/app</pre>
-        <pre>Stream Key: {eventExtra?.mux_livestream?.stream_key}</pre>
+        {isMyAccount && (
+          <React.Fragment>
+            <pre>RTMP URL: rtmp://global-live.mux.com:5222/app</pre>
+            <pre>Stream Key: {eventExtra?.mux_livestream?.stream_key}</pre>
+          </React.Fragment>
+        )}
         <EventDescription>{event.description}</EventDescription>
         {user?.isAdmin && (
           <EditButton type="primary" ghost onClick={handleEditClick}>
