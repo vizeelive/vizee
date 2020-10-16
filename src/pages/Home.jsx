@@ -230,7 +230,7 @@ export default function Home() {
           if (!count.length) return null;
           return (
             <TabPane tab={category.name} key={category.name}>
-              <Title level={2}>{category.name}</Title>
+              <Title>{category.name}</Title>
               <Input
                 placeholder="Search"
                 onChange={(e) => search(e.currentTarget.value)}

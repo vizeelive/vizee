@@ -20,7 +20,7 @@ const Header = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    h2 {
+    h1 {
       margin: 0;
     }
   }
@@ -143,7 +143,7 @@ export default function Events() {
   return (
     <React.Fragment>
       <Header>
-        <Title level={2}>Accounts</Title>
+        <Title>Accounts</Title>
         <Link to={'/admin/accounts/add'}>
           <Button icon={<UserOutlined />} type="primary" size="large">
             Create Account

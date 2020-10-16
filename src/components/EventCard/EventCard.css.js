@@ -32,7 +32,7 @@ export const EventName = styled(Typography.Title)`
   overflow: hidden;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 `;
 
 export const AccountName = styled(Typography.Title)`
@@ -72,4 +72,7 @@ export const LiveTag = styled(Tag)`
   top: 10px;
   left: 10px;
   font-weight: 700;
+  font-size: 18px;
+  padding: 3px 7px;
+  font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 `;

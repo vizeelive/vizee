@@ -22,7 +22,7 @@ const Header = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    h2 {
+    h1 {
       margin: 0;
     }
   }
@@ -179,7 +179,7 @@ export default function Events(props) {
   return (
     <React.Fragment>
       <Header>
-        <Title level={2}>Events</Title>
+        <Title>Events</Title>
         <Link to={ui.addUrl}>
           <Button icon={<VideoCameraOutlined />} type="primary" size="large">
             Create Event

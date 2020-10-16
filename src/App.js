@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css';
 import 'antd/dist/dark-theme.js';
 
 import { ApolloProvider } from '@apollo/client';
@@ -15,7 +14,7 @@ import Theme from './Theme';
 import { Centered } from './components/styled/common';
 import Spinner from './components/ui/Spinner';
 
-import './App.css';
+import './App.less';
 
 LogRocket.init('muse/muse');
 

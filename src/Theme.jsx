@@ -4,6 +4,9 @@ import { ThemeProvider } from 'styled-components';
 // Ant Design palette
 const theme = {
   colors: {
+    primary: {
+      base: '#ee326e'
+    },
     blue: {
       base: '#1890ff'
     },
