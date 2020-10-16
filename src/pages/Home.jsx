@@ -10,9 +10,8 @@ import Spinner from '../components/ui/Spinner';
 
 import { SearchOutlined } from '@ant-design/icons';
 
-import { Typography, Tabs, Input } from 'antd';
+import { Tabs, Input } from 'antd';
 
-const { Title } = Typography;
 const { TabPane } = Tabs;
 
 const GET_EVENTS_AUTH = gql`
@@ -231,7 +230,7 @@ export default function Home() {
           if (!count.length) return null;
           return (
             <TabPane tab={category.name} key={category.name}>
-              <Title>{category.name}</Title>
+              {/* <Title>{category.name}</Title> */}
               <Input
                 placeholder="Search"
                 onChange={(e) => search(e.currentTarget.value)}
