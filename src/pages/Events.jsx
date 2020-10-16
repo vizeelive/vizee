@@ -114,13 +114,6 @@ export default function Events(props) {
 
   const columns = [
     {
-      title: 'Account Name',
-      key: 'account',
-      render: (event) => {
-        return <Link to={`/${event.username}`}>{event.account}</Link>;
-      }
-    },
-    {
       title: 'Event Name',
       key: 'name',
       render: (event) => {
@@ -175,6 +168,16 @@ export default function Events(props) {
       }
     }
   ];
+
+  if (props.admin) {
+    columns.unshift({
+      title: 'Account Name',
+      key: 'account',
+      render: (event) => {
+        return <Link to={`/${event.username}`}>{event.account}</Link>;
+      }
+    });
+  }
 
   return (
     <React.Fragment>
