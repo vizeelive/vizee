@@ -269,6 +269,7 @@ export default function Event() {
 
     const stream = await response.json();
     console.log({ stream });
+    refetch();
   };
 
   const videoJsOptions = {
