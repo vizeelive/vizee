@@ -142,12 +142,12 @@ export default function Events(props) {
     {
       title: 'Start',
       key: 'Start',
-      render: (event) => moment(event.start).format('MMMM Do h:mm:ss a')
+      render: (event) => moment(event.start).format('MMMM Do h:mm a')
     },
     {
       title: 'End',
       key: 'end',
-      render: (event) => moment(event.end).format('MMMM Do h:mm:ss a')
+      render: (event) => moment(event.end).format('MMMM Do h:mm a')
     },
     {
       title: 'Actions',

@@ -51,7 +51,7 @@ function EventCard(props) {
   };
 
   const renderDates = () => {
-    const startDate = moment(event.start).format('MMMM Do h:mm:ss a');
+    const startDate = moment(event.start).format('MMMM Do h:mm a');
 
     return (
       <React.Fragment>
