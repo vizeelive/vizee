@@ -9,9 +9,7 @@ import Spinner from '../components/ui/Spinner';
 
 import { Centered, FormContainer } from '../components/styled/common';
 
-import { Typography, Form, Input, Button, message } from 'antd';
-
-const { Title } = Typography;
+import { Form, Input, Button, message } from 'antd';
 
 const CREATE_ACCOUNT = gql`
   mutation CreateAccount($object: CreateAccountInput!) {
@@ -193,7 +191,6 @@ export default function AddAccount(props) {
 
   return (
     <FormContainer>
-      <Title>Add An Account</Title>
       <Form
         {...formLayout}
         name="basic"

@@ -5,7 +5,8 @@ import { Layout } from 'antd';
 import { gql, useQuery } from '@apollo/client';
 
 import Home from './Account/Home';
-import AddAccount from './AddAccount';
+import Settings from './Settings';
+
 import AddEvent from './AddEvent';
 import ViewEvent from './ViewEvent';
 import Events from './Events';
@@ -231,9 +232,8 @@ export default function Account() {
                 <AddEvent redirect={`/${username}/events`} />
               </Route>
               <Route
-                path="/:username/settings/:id"
-                exact
-                component={AddAccount}
+                path="/:username/settings/:id/:tab/:status?"
+                component={Settings}
               />
               <Route path="/:username/calendar" exact component={Calendar} />
               <Route path="/:username" exact>

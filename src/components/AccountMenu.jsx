@@ -55,13 +55,21 @@ function AccountMenu(props) {
         )}
         <Menu.Item key={`/${username}/events`} icon={<ThunderboltOutlined />}>
           <Link to={`/${username}/events`}>
-            Events <CountBadge style={{ backgroundColor: '#ee326e' }} count={eventCount} />
+            Events{' '}
+            <CountBadge
+              style={{ backgroundColor: '#ee326e' }}
+              count={eventCount}
+            />
           </Link>
         </Menu.Item>
         {(user.isAdmin || account.created_by === user.sub) && (
           <Menu.Item key={`/${username}/users`} icon={<UserAddOutlined />}>
             <Link to={`/${username}/users`}>
-              Users <CountBadge style={{ backgroundColor: '#ee326e' }} count={userCount} />
+              Users{' '}
+              <CountBadge
+                style={{ backgroundColor: '#ee326e' }}
+                count={userCount}
+              />
             </Link>
           </Menu.Item>
         )}
@@ -72,7 +80,9 @@ function AccountMenu(props) {
           <Link to={`/${username}/reports`}>Reports</Link>
         </Menu.Item> */}
         <Menu.Item key={`/${username}/settings`} icon={<SettingOutlined />}>
-          <Link to={`/${username}/settings/${account.id}`}>Settings</Link>
+          <Link to={`/${username}/settings/${account.id}/account`}>
+            Settings
+          </Link>
         </Menu.Item>
       </Menu>
     </React.Fragment>
