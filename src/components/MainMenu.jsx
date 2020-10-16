@@ -43,11 +43,11 @@ function MainMenu(props) {
           <Link to="/admin">Admin</Link>
         </Menu.Item>
       )}
-      {user && (
+      {/* {user && (
         <Menu.Item key="/calendar">
           <Link to="/calendar">Calendar</Link>
         </Menu.Item>
-      )}
+      )} */}
       {user && account && (
         <Menu.Item key={`/${account.username}`}>
           <Link to={`/${account.username}`}>Account</Link>
