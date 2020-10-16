@@ -144,6 +144,7 @@ const SEARCH_EVENTS_AUTH = gql`
 
 const MainContent = styled.main`
   padding: 0 20px 20px;
+  min-height: calc(100vh - 64px);
 `;
 
 // const Hero = styled.div`
