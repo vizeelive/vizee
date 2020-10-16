@@ -17,7 +17,14 @@ app.get('/stripe/account/create', async function (req, res) {
   let username = req.query.username;
 
   const account = await stripe.accounts.create({
-    type: 'express'
+    type: 'express',
+    settings: {
+      payouts: {
+        schedule: {
+          interval: 'manual'
+        }
+      }
+    }
   });
 
   try {
@@ -93,6 +100,8 @@ app.get('/session', async function (req, res) {
       `
     });
   }
+
+  console.log({ event });
 
   const session = await stripe.checkout.sessions.create({
     client_reference_id: req.query.ref,

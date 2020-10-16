@@ -1,15 +1,7 @@
 import config from '../config';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
-import {
-  Button,
-  Typography,
-  Tag,
-  message,
-  Modal,
-  Row,
-  Col
-} from 'antd';
+import { Button, Typography, Tag, message, Modal, Row, Col } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Helmet } from 'react-helmet';
@@ -19,6 +11,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 
 import { loadStripe } from '@stripe/stripe-js';
 
+import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
 import useAuth from '../hooks/useAuth';
 
@@ -43,7 +36,7 @@ const EventName = styled(Typography.Title)`
 `;
 
 const EventDescription = styled.p`
-  border-top: 1px solid ${( { theme } ) => theme.colors.gray.light};
+  border-top: 1px solid ${({ theme }) => theme.colors.gray.light};
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   max-width: 40rem;
@@ -53,7 +46,8 @@ const LiveTag = styled(Tag)`
   font-weight: 700;
   font-size: 18px;
   padding: 3px 7px;
-  font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial;
   margin-left: 1rem;
   position: relative;
   top: -0.5rem;
@@ -70,7 +64,7 @@ const Counts = styled.div`
   }
 `;
 
-const EditButton = styled( Button )`
+const EditButton = styled(Button)`
   margin-top: 0.5rem;
   float: none !important;
 `;
@@ -114,6 +108,9 @@ const GET_EVENT_AUTH = gql`
         username
       }
     }
+    events(where: { id: { _eq: $id } }) {
+      mux_livestream
+    }
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -156,7 +153,7 @@ export default function Event() {
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
-  const { loading, error, data } = useQuery(
+  const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       fetchPolicy: 'cache-and-network',
@@ -165,6 +162,7 @@ export default function Event() {
   );
 
   const event = { ...data?.events_report[0] };
+  const eventExtra = { ...data?.events[0] };
   const userId = user?.sub || null;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === event.account.username
@@ -264,6 +262,30 @@ export default function Event() {
     history.push(`/admin/events/edit/${event.id}`);
   };
 
+  const handleStartLivestream = async () => {
+    const response = await fetch(`${config.api}/mux/stream/create?id=${id}`, {
+      method: 'GET'
+    });
+
+    const stream = await response.json();
+    console.log({ stream });
+  };
+
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    sources: [
+      {
+        src: `https://stream.mux.com/${eventExtra?.mux_livestream?.playback_ids[0]?.id}.m3u8`,
+        type: 'audio/mpegURL'
+      }
+      // {
+      //   src: 'https://dam-media.s3.amazonaws.com/movement.mp4',
+      //   type: 'video/mp4'
+      // }
+    ]
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -282,10 +304,11 @@ export default function Event() {
           if (canWatch) {
             if (isBroadcast) {
               return (
-                <VideoConference
-                  roomName={`${event.id}-23kjh23kjh232kj3h`}
-                  user={user}
-                />
+                <VideoPlayer {...videoJsOptions} style={{ width: '100%' }} />
+                // <VideoConference
+                //   roomName={`${event.id}-23kjh23kjh232kj3h`}
+                //   user={user}
+                // />
               );
             } else {
               return (
@@ -331,24 +354,26 @@ export default function Event() {
             </EventName>
             <div>
               <Title level={3}>
-                <Link to={`/${event.account.username}`}>{event.account.name}</Link>
+                <Link to={`/${event.account.username}`}>
+                  {event.account.name}
+                </Link>
               </Title>
             </div>
-            <Date>
-              {moment( event.start ).format( 'MMMM Do h:mma' )}
-            </Date>
-            <br/>
+            <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
+            <br />
             {isPurchased ? <Tag color="green">Purchased</Tag> : null}
             {isFree && <Tag color="blue">Free!</Tag>}
             {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
             {isVideo && <Tag color="gold">Video</Tag>}
-            <br/>
-            <br/>
+            <br />
+            <br />
             <Counts>
-              <EyeOutlined />{event.views} Views
+              <EyeOutlined />
+              {event.views} Views
             </Counts>
             <Counts>
-              <StarFilled />{event.favorites} Favorites
+              <StarFilled />
+              {event.favorites} Favorites
             </Counts>
           </Col>
           <Col span={12}>
@@ -361,6 +386,13 @@ export default function Event() {
             <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
               <Button>Copy Link</Button>
             </CopyToClipboard>
+            <Button
+              type="secondary"
+              role="link"
+              onClick={handleStartLivestream}
+            >
+              Start Live Stream
+            </Button>
             {isMyAccount && (
               <Link to={`/${event.account.username}/events/${event.id}`}>
                 <Button type="secondary" role="link">
@@ -370,13 +402,11 @@ export default function Event() {
             )}
           </Col>
         </Row>
+        <pre>RTMP URL: rtmp://global-live.mux.com:5222/app</pre>
+        <pre>Stream Key: {eventExtra?.mux_livestream?.stream_key}</pre>
         <EventDescription>{event.description}</EventDescription>
         {user?.isAdmin && (
-          <EditButton
-            type="primary"
-            ghost
-            onClick={handleEditClick}
-          >
+          <EditButton type="primary" ghost onClick={handleEditClick}>
             Edit
           </EditButton>
         )}

@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.0.0-rc.8",
     "@apollo/link-context": "^2.0.0-beta.3",
+    "@mux/mux-node": "^3.0.4",
     "@stripe/stripe-js": "^1.7.0",
     "atob": "^2.1.2",
     "body-parser": "^1.19.0",
@@ -24,6 +25,7 @@
     "joi": "^17.2.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
-    "stripe": "^8.66.0"
+    "stripe": "^8.66.0",
+    "video.js": "^7.9.7"
   }
 }

@@ -3,6 +3,7 @@ const app = require('./app');
 const bodyParser = require('body-parser');
 
 require('./controllers/stripe');
+require('./controllers/mux');
 const actions = require('./actions');
 
 /**
