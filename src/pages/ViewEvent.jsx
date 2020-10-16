@@ -164,9 +164,6 @@ export default function ViewEvent() {
             value={event.revenue || '$0'}
             precision={2}
           />
-          <Button style={{ marginTop: 16 }} type="primary">
-            Withdraw
-          </Button>
         </Col>
         <Col span={4}>
           <Statistic title="Tickets Purchased" value={event.transactions} />
