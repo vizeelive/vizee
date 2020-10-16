@@ -146,8 +146,10 @@ export default function AddAccount(props) {
 
     if (result) {
       message.success('Successfully created account');
-      if (props.redirect) {
+      if (props.redirect === true) {
         history.push(`/${result.data.CreateAccount.username}`);
+      } else if (props.redirect) {
+        history.push(props.redirect);
       } else {
         history.push('/admin/accounts');
       }
