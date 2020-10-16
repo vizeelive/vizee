@@ -308,7 +308,7 @@ export default function AddEvent(props) {
         </Form.Item>
 
         <Form.Item name="range" label="Event Times" {...rangeConfig}>
-          <RangePicker showTime format="MM-DD-YYYY HH:mm:ss" />
+          <RangePicker showTime format="MM-DD-YYYY HH:mm a" />
         </Form.Item>
 
         {!params.username && (

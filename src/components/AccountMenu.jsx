@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { Badge, Menu } from 'antd';
+import styled from 'styled-components';
 
 import {
   UserOutlined,
@@ -14,6 +15,10 @@ import {
 } from '@ant-design/icons';
 
 import posthog from 'posthog-js';
+
+const CountBadge = styled(Badge)`
+  margin-left: 0.25rem;
+`;
 
 function AccountMenu(props) {
   const { user, username, account, myAccounts, eventCount, userCount } = props;
@@ -50,13 +55,13 @@ function AccountMenu(props) {
         )}
         <Menu.Item key={`/${username}/events`} icon={<ThunderboltOutlined />}>
           <Link to={`/${username}/events`}>
-            Events <Badge count={eventCount} />
+            Events <CountBadge style={{ backgroundColor: '#ee326e' }} count={eventCount} />
           </Link>
         </Menu.Item>
         {(user.isAdmin || account.created_by === user.sub) && (
           <Menu.Item key={`/${username}/users`} icon={<UserAddOutlined />}>
             <Link to={`/${username}/users`}>
-              Users <Badge count={userCount} />
+              Users <CountBadge style={{ backgroundColor: '#ee326e' }} count={userCount} />
             </Link>
           </Menu.Item>
         )}

@@ -193,7 +193,7 @@ export default function AddAccount(props) {
 
   return (
     <FormContainer>
-      <Title level={2}>Add An Account</Title>
+      <Title>Add An Account</Title>
       <Form
         {...formLayout}
         name="basic"

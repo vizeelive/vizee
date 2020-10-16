@@ -9,11 +9,13 @@ import {
   FacebookOutlined
 } from '@ant-design/icons';
 
-const { Text } = Typography;
+const { Title } = Typography;
 const { Content } = Layout;
 
 const MainContent = styled(Content)`
-  margin: 20px;
+  img {
+    margin-bottom: 1rem;
+  }
 `;
 
 const EventsContainer = styled.div`
@@ -23,6 +25,10 @@ const EventsContainer = styled.div`
 const Social = styled.div`
   float: right;
   margin-right: 10px;
+`;
+
+const AccountDescription = styled.p`
+  max-width: 40rem;
 `;
 
 export default function Home(props) {
@@ -59,11 +65,15 @@ export default function Home(props) {
         </Social>
       )}
 
-      <h1>{account.name}</h1>
-      <Text type="secondary">{account.description}</Text>
+      <Title>
+        {account.name}
+      </Title>
+      <AccountDescription>
+        {account.description}
+      </AccountDescription>
 
       <EventsContainer>
-        <h2>Events</h2>
+        <Title level={3}>Events</Title>
         <Events events={account.events} refetch={refetch} />
       </EventsContainer>
     </MainContent>

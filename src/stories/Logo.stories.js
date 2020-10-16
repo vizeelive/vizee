@@ -11,5 +11,7 @@ const Template = (args) => <Logo {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  size: 10
+  size: 10,
+  hasText: false,
+  textColor: 'black'
 };

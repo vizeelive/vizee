@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Layout,
   Button,
   Modal,
   Form,
   Select,
   message,
   Table,
-  Popconfirm
+  Popconfirm,
+  Typography
 } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -17,11 +17,26 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 
 import useAuth from '../hooks/useAuth';
 
-const { Content } = Layout;
-const { Option } = Select;
+import { UserAddOutlined } from '@ant-design/icons';
 
-const MainContent = styled(Content)`
-  margin: 20px;
+import { Centered } from '../components/styled/common';
+import Spinner from '../components/ui/Spinner';
+
+const { Option } = Select;
+const { Title } = Typography;
+
+const Header = styled.header`
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      margin: 0;
+    }
+  }
 `;
 
 const GET_USERS = gql`
@@ -126,7 +141,13 @@ export default function Users() {
   const [addUser] = useMutation(ADD_USER);
   const [deleteAccountUser] = useMutation(DELETE_ACCOUNTUSER);
 
-  if (loading) return 'Loading...';
+  if (loading) {
+    return (
+      <Centered padded>
+        <Spinner />
+      </Centered>
+    );
+  }
   if (error) return 'Error.';
 
   let account;
@@ -188,12 +209,13 @@ export default function Users() {
       dataIndex: 'created',
       key: 'created',
       render: (created) => {
-        return moment(created).format('MMMM Do h:mm:ss a');
+        return moment(created).format('MMMM Do h:mm a');
       }
     },
     {
       title: 'Actions',
       key: 'id',
+      align: 'center',
       render: (accountUser) => {
         return (
           <React.Fragment>
@@ -204,9 +226,7 @@ export default function Users() {
               okText="Yes"
               cancelText="No"
             >
-              <Button danger size="small">
-                Delete
-              </Button>
+              <Button danger>Delete</Button>
             </Popconfirm>
           </React.Fragment>
         );
@@ -215,7 +235,26 @@ export default function Users() {
   ];
 
   return (
-    <MainContent>
+    <React.Fragment>
+      <Header>
+        <Title>Users</Title>
+        <Button
+          type="primary"
+          size="large"
+          onClick={() => setShowModal( true )}
+          icon={<UserAddOutlined />}
+        >
+          Add Users
+        </Button>
+      </Header>
+
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={accountUsers}
+        scroll={{ x: 800 }}
+      />
+
       <Modal
         title="Add User"
         visible={showModal}
@@ -236,20 +275,16 @@ export default function Users() {
               ))}
             </Select>
           </Form.Item>
-          <Button key="submit" htmlType="submit" type="primary">
-            Add
+          <Button
+            key="submit"
+            htmlType="submit"
+            type="primary"
+            size="large"
+          >
+            Add User
           </Button>
         </Form>
       </Modal>
-      <Button
-        style={{ float: 'right' }}
-        type="primary"
-        onClick={() => setShowModal(true)}
-      >
-        Add Users
-      </Button>
-      <h2>Users</h2>
-      <Table rowKey="id" columns={columns} dataSource={accountUsers} />
-    </MainContent>
+    </React.Fragment>
   );
 }

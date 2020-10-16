@@ -1,6 +1,6 @@
 import config from '../config';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import {
   Button,
   Typography,
@@ -8,8 +8,7 @@ import {
   message,
   Modal,
   Row,
-  Col,
-  Divider
+  Col
 } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -23,7 +22,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import VideoConference from '../components/VideoConference';
 import useAuth from '../hooks/useAuth';
 
-import { StarFilled } from '@ant-design/icons';
+import { EyeOutlined, StarFilled } from '@ant-design/icons';
 
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
@@ -37,7 +36,44 @@ import {
   EmailIcon
 } from 'react-share';
 
-const { Text } = Typography;
+const { Title } = Typography;
+
+const EventName = styled(Typography.Title)`
+  margin-bottom: 0 !important;
+`;
+
+const EventDescription = styled.p`
+  border-top: 1px solid ${( { theme } ) => theme.colors.gray.light};
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  max-width: 40rem;
+`;
+
+const LiveTag = styled(Tag)`
+  font-weight: 700;
+  font-size: 18px;
+  padding: 3px 7px;
+  font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  margin-left: 1rem;
+  position: relative;
+  top: -0.5rem;
+`;
+
+const Date = styled.time`
+  display: inline-block;
+  margin-bottom: 1rem;
+`;
+
+const Counts = styled.div`
+  svg {
+    margin-right: 0.25rem;
+  }
+`;
+
+const EditButton = styled( Button )`
+  margin-top: 0.5rem;
+  float: none !important;
+`;
 
 const stripePromise = loadStripe(
   'pk_test_51GxNPWFN46jAxE7Qjk2k8EvqQyVBsaq9TZ2NXcEtBfqWpKlilZWUuAoggjDXYaPjMogzejgajC7InSicHwXSRS4x006DpoBHJl'
@@ -113,7 +149,9 @@ const TRACK_VIEW = gql`
 `;
 
 export default function Event() {
-  let { id } = useParams();
+  const { id } = useParams();
+
+  const history = useHistory();
 
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
@@ -222,6 +260,10 @@ export default function Event() {
     message.success('Copied link');
   };
 
+  const handleEditClick = () => {
+    history.push(`/admin/events/edit/${event.id}`);
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -274,15 +316,31 @@ export default function Event() {
       <Content>
         <Row>
           <Col span={12}>
-            <h1>{event.name}</h1>
+            <EventName>
+              {event.name}
+              {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
+            </EventName>
             <div>
-              <Link to={`/${event.account.username}`}>
-                <Text type="secondary">by {event.account.name}</Text>
-              </Link>
+              <Title level={3}>
+                <Link to={`/${event.account.username}`}>{event.account.name}</Link>
+              </Title>
             </div>
-            <div>{moment(event.start).format('MMMM Do h:mm:ss a')}</div>
-            <div>{event.views} Views</div>
-            <div>{event.favorites} Favorites</div>
+            <Date>
+              {moment( event.start ).format( 'MMMM Do h:mma' )}
+            </Date>
+            <br/>
+            {isPurchased ? <Tag color="green">Purchased</Tag> : null}
+            {isFree && <Tag color="blue">Free!</Tag>}
+            {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
+            {isVideo && <Tag color="gold">Video</Tag>}
+            <br/>
+            <br/>
+            <Counts>
+              <EyeOutlined />{event.views} Views
+            </Counts>
+            <Counts>
+              <StarFilled />{event.favorites} Favorites
+            </Counts>
           </Col>
           <Col span={12}>
             {!isFree && !isPurchased && (
@@ -303,14 +361,16 @@ export default function Event() {
             )}
           </Col>
         </Row>
-        <Divider />
-        <div>{event.description}</div>
-        <br />
-        {isPurchased ? <Tag color="green">Purchased</Tag> : null}
-        {isLive && <Tag color="magenta">Live Now!</Tag>}
-        {isFree && <Tag color="blue">Free!</Tag>}
-        {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
-        {isVideo && <Tag color="gold">Video</Tag>}
+        <EventDescription>{event.description}</EventDescription>
+        {user?.isAdmin && (
+          <EditButton
+            type="primary"
+            ghost
+            onClick={handleEditClick}
+          >
+            Edit
+          </EditButton>
+        )}
         <Modal
           title="Share"
           visible={shareModalVisible}
@@ -327,9 +387,6 @@ export default function Event() {
             <EmailIcon />
           </EmailShareButton>
         </Modal>
-        {user?.isAdmin && (
-          <Link to={`/admin/events/edit/${event.id}`}>Edit</Link>
-        )}
       </Content>
     </React.Fragment>
   );

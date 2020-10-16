@@ -51,7 +51,7 @@ function EventCard(props) {
   };
 
   const renderDates = () => {
-    const startDate = moment(event.start).format('MMMM Do h:mm:ss a');
+    const startDate = moment(event.start).format('MMMM Do h:mm a');
 
     return (
       <React.Fragment>
@@ -72,7 +72,7 @@ function EventCard(props) {
     return (
       <TagsContainer>
         {isPurchased ? <Tag color="green">Purchased</Tag> : null}
-        {isLive && <LiveTag color="#eb2f96">Live Now!</LiveTag>}
+        {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
         {isFree && <Tag color="blue">Free!</Tag>}
         {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
         {isVideo && <Tag color="gold">Video</Tag>}
@@ -97,8 +97,8 @@ function EventCard(props) {
   return (
     <Container loggedIn={!!user}>
       <Card onClick={handleCardClick} hoverable cover={renderCover()}>
-        <EventName level={4}>{event.name}</EventName>
-        <AccountName level={5}>
+        <EventName level={3}>{event.name}</EventName>
+        <AccountName level={4}>
           <Link to={`/${event.account.username}`}>{event?.account?.name}</Link>
         </AccountName>
         {renderDates()}

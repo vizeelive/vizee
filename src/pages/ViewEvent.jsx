@@ -148,10 +148,10 @@ export default function ViewEvent() {
         <Link to={`/events/${event.id}`}>{event.name}</Link>
       </h2>
       <div>
-        <CalendarOutlined /> {moment(event.start).format('MMMM Do h:mm:ss a')}
+        <CalendarOutlined /> {moment(event.start).format('MMMM Do h:mm a')}
       </div>
       <div>
-        <CalendarOutlined /> {moment(event.end).format('MMMM Do h:mm:ss a')}
+        <CalendarOutlined /> {moment(event.end).format('MMMM Do h:mm a')}
       </div>
       <div>Location: {event.location}</div>
       <Divider />

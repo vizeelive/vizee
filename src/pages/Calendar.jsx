@@ -1,9 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-import { Layout, Alert } from 'antd';
+import { Layout, Alert, Typography } from 'antd';
 import styled from 'styled-components';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { gql, useQuery } from '@apollo/client';
+import { useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 import { Centered } from '../components/styled/common';
@@ -11,7 +12,7 @@ import Spinner from '../components/ui/Spinner';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-const { Content } = Layout;
+const { Title } = Typography;
 
 const localizer = momentLocalizer(moment);
 
@@ -41,13 +42,15 @@ const GET_FAVORITE_EVENTS = gql`
   }
 `;
 
-const MainContent = styled(Content)`
-  margin: 20px;
+const MainContent = styled.div`
+  margin: ${({ isAdmin }) => isAdmin ? '0' : '20px'};
   min-height: calc(100vh - 64px);
 `;
 
 const Cal = (props) => {
   const { user } = useAuth();
+  const location = useLocation();
+  const isAdmin = location.pathname.includes('admin');
 
   let query;
   let options;
@@ -83,7 +86,7 @@ const Cal = (props) => {
 
   return (
     <Layout>
-      <MainContent>
+      <MainContent isAdmin={isAdmin}>
         <Alert
           message="How The Calendar Works"
           description="Events will appear on the calendar when you favorite events, or purchase access to events. It's so easy!"
@@ -91,7 +94,7 @@ const Cal = (props) => {
           showIcon
         />
         <div style={{ marginTop: '20px', height: '800px' }}>
-          <h1>Calendar</h1>
+          <Title>Calendar</Title>
           <Calendar
             localizer={localizer}
             events={events}

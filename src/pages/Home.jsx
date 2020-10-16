@@ -144,6 +144,7 @@ const SEARCH_EVENTS_AUTH = gql`
 
 const MainContent = styled.main`
   padding: 0 20px 20px;
+  min-height: calc(100vh - 64px);
 `;
 
 // const Hero = styled.div`
@@ -230,7 +231,7 @@ export default function Home() {
           if (!count.length) return null;
           return (
             <TabPane tab={category.name} key={category.name}>
-              <Title level={2}>{category.name}</Title>
+              <Title>{category.name}</Title>
               <Input
                 placeholder="Search"
                 onChange={(e) => search(e.currentTarget.value)}
