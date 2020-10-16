@@ -156,7 +156,7 @@ export default function Users() {
   } else {
     account = data.myaccounts.filter(
       (acc) => acc.account.username === username
-    );
+    )[0].account;
   }
 
   const users = data?.users;
