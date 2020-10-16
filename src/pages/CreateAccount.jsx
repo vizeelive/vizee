@@ -17,7 +17,7 @@ export default function CreateAccount() {
   return (
     <Content>
       <CreateMessage level={3}>Let's create an account.</CreateMessage>
-      <AddAccount redirect="account" />
+      <AddAccount redirect={true} />
     </Content>
   );
 }
