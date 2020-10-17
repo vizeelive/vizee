@@ -24,7 +24,7 @@ function MainMenu(props) {
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
 
-  useEffect( () => {
+  useEffect(() => {
     const { pathname } = location;
     if (pathname === '/' || pathname === '/account') {
       setCurrent(pathname);
@@ -77,7 +77,7 @@ function MainMenu(props) {
 
 MainMenu.propTypes = {
   user: PropTypes.object,
-  account: PropTypes.array,
+  account: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired
 };
