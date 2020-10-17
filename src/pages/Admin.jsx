@@ -1,7 +1,8 @@
-import { Layout } from 'antd';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
+import { Layout } from 'antd';
+import styled from 'styled-components';
 
 import useAuth from '../hooks/useAuth';
 import AddAccount from './AddAccount';
@@ -15,7 +16,28 @@ import AdminMenu from '../components/AdminMenu';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
+
+const Sider = styled(Layout.Sider)`
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  z-index: 5;
+
+  .ant-layout-sider-zero-width-trigger {
+    top: 24px;
+    box-shadow: inset 4px 0 2px -2px rgba(0, 0, 0, 0.05);
+  }
+`;
+
+const SiderLayout = styled(Layout)`
+  padding: 0 24px 24px;
+  min-height: calc(100vh - 64px);
+
+  @media (min-width: 992px) {
+    margin-left: 200px;
+  }
+`;
 
 const GET_ACCOUNTS_AUTH = gql`
   query MyAccounts($user_id: String) {
@@ -56,13 +78,11 @@ export default function Admin() {
         onLogin={loginWithRedirect}
         onLogout={logout}
       />
-      <Layout className="test">
+      <Layout style={{ marginTop: 64 }}>
         <Sider breakpoint="lg" collapsedWidth="0" width={200} theme="light">
           <AdminMenu />
         </Sider>
-        <Layout
-          style={{ padding: '0 24px 24px', minHeight: 'calc(100vh - 64px)' }}
-        >
+        <SiderLayout>
           <Content
             className="site-layout-background"
             style={{
@@ -94,7 +114,7 @@ export default function Admin() {
               />
             </Switch>
           </Content>
-        </Layout>
+        </SiderLayout>
       </Layout>
     </Layout>
   );

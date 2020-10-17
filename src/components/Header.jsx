@@ -9,6 +9,9 @@ import MainMenu from '../components/MainMenu';
 import useBreakpoint from '../hooks/useBreakpoint';
 
 const StyledHeader = styled(Layout.Header)`
+  position: fixed;
+  z-index: 2;
+  width: 100%;
   padding-left: 0;
 `;
 
@@ -23,7 +26,7 @@ const LogoLink = styled(Link)`
 
 function Header(props) {
   const { user, account, onLogin, onLogout } = props;
-  const isLargeScreen = useBreakpoint( 'lg' );
+  const isLargeScreen = useBreakpoint('lg');
 
   return (
     <StyledHeader>

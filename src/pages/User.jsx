@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import { gql, useQuery } from '@apollo/client';
+import styled from 'styled-components';
 
 import Home from './Home';
 import Calendar from './Calendar';
@@ -13,6 +14,10 @@ import useAuth from '../hooks/useAuth';
 import Header from '../components/Header';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
+
+const UserContent = styled.div`
+  margin-top: 64px;
+`;
 
 const GET_ACCOUNTS_UNAUTH = gql`
   query Accounts {
@@ -66,15 +71,17 @@ export default function User() {
         onLogin={loginWithRedirect}
         onLogout={logout}
       />
-      <Switch>
-        <Route path="/events/:id" exact component={Event} />
-        <Route path="/calendar" exact>
-          <Calendar favorite="true" />
-        </Route>
-        <Route path="/account" exact component={CreateAccount} />
-        <Route path="/:username" component={Account} />
-        <Route path="/" component={Home} />
-      </Switch>
+      <UserContent>
+        <Switch>
+          <Route path="/events/:id" exact component={Event} />
+          <Route path="/calendar" exact>
+            <Calendar favorite="true" />
+          </Route>
+          <Route path="/account" exact component={CreateAccount} />
+          <Route path="/:username" component={Account} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </UserContent>
     </Layout>
   );
 }
