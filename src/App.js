@@ -16,7 +16,7 @@ import Spinner from './components/ui/Spinner';
 
 import './App.less';
 
-LogRocket.init('muse/muse');
+LogRocket.init('vizee/vizee');
 
 function App() {
   const { isLoading, user, setGeo, client, error } = useAuth();
