@@ -299,11 +299,7 @@ export default function AddEvent(props) {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Description"
-          name="description"
-          rules={[{ required: true, message: 'Required' }]}
-        >
+        <Form.Item label="Description" name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
 
