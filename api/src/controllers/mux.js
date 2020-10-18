@@ -1,9 +1,62 @@
 const app = require('../app');
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
+const bodyParser = require('body-parser');
 
 const Mux = require('@mux/mux-node');
 const { Video } = new Mux();
+
+app.post(
+  '/mux/webhook',
+  bodyParser.json({ type: 'application/json' }),
+  async function (req, res) {
+    let data = req.body;
+    console.log('body', req.body);
+
+    let status;
+    if (data.type === 'video.live_stream.active') {
+      status = 'live';
+    }
+
+    if (data.type === 'video.live_stream.idle') {
+      status = 'idle';
+    }
+
+    if (!status) {
+      return res.send('OK');
+    }
+
+    try {
+      await client.mutate({
+        variables: {
+          mux_id: data.object.id,
+          status: status,
+          data: data
+        },
+        mutation: gql`
+          mutation UpdateMuxLivestream(
+            $mux_id: String
+            $status: String
+            $data: jsonb
+          ) {
+            update_events(
+              where: { mux_id: { _eq: $mux_id } }
+              _set: { mux_livestream: $data, status: $status }
+            ) {
+              returning {
+                id
+              }
+            }
+          }
+        `
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    res.send('OK');
+  }
+);
 
 app.get('/mux/stream/create', async function (req, res) {
   let id = req.query.id;
