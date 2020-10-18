@@ -49,7 +49,7 @@ function Header(props) {
 
 Header.propTypes = {
   user: PropTypes.object,
-  account: PropTypes.array,
+  account: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired
 };
