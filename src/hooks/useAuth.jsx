@@ -50,7 +50,7 @@ export default function useAuth() {
   }, [getIdTokenClaims]);
 
   const wsLink = new WebSocketLink({
-    uri: config.api.replace('https', 'wss'),
+    uri: config.graphql.replace('https', 'wss'),
     options: {
       reconnect: true,
       connectionParams: {
