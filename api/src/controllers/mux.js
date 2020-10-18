@@ -19,13 +19,18 @@ app.get('/mux/stream/create', async function (req, res) {
     await client.mutate({
       variables: {
         id,
+        mux_id: result.id,
         data: result
       },
       mutation: gql`
-        mutation UpdateMuxLivestream($id: uuid!, $data: jsonb!) {
+        mutation UpdateMuxLivestream(
+          $id: uuid!
+          $mux_id: String
+          $data: jsonb!
+        ) {
           update_events_by_pk(
             pk_columns: { id: $id }
-            _set: { mux_livestream: $data }
+            _set: { mux_id: $mux_id, mux_livestream: $data }
           ) {
             id
           }

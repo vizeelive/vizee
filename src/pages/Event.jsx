@@ -335,17 +335,15 @@ export default function Event() {
     autoplay: true,
     controls: true,
     aspectRatio: '16:9',
-    sources: [
-      {
-        src: `https://stream.mux.com/${eventExtra?.mux_livestream?.playback_ids[0]?.id}.m3u8`,
-        type: 'audio/mpegURL'
-      }
-      // {
-      //   src: 'https://dam-media.s3.amazonaws.com/movement.mp4',
-      //   type: 'video/mp4'
-      // }
-    ]
+    sources: []
   };
+
+  if (event.status === 'live') {
+    videoJsOptions.sources.push({
+      src: `https://stream.mux.com/${eventExtra?.mux_livestream?.playback_ids[0]?.id}.m3u8`,
+      type: 'audio/mpegURL'
+    });
+  }
 
   return (
     <React.Fragment>
