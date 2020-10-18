@@ -31,7 +31,7 @@ app.post(
         variables: {
           mux_id: data.object.id,
           status: status,
-          data: data
+          data: data.data
         },
         mutation: gql`
           mutation UpdateMuxLivestream(
