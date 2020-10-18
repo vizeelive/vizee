@@ -165,6 +165,7 @@ const GET_EVENT_UNAUTH = gql`
         name
         username
         photo
+        stripe_id
       }
     }
   }
@@ -200,6 +201,7 @@ const GET_EVENT_AUTH = gql`
         name
         username
         photo
+        stripe_id
       }
       transaction {
         id
@@ -447,7 +449,7 @@ export default function Event() {
 
             <Col xs={24} lg={8}>
               <ActionsContainer>
-                {!isFree && !isPurchased && (
+                {event.account.stripe_id && !isFree && !isPurchased && (
                   <Button
                     type="primary"
                     size="large"

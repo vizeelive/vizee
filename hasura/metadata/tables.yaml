@@ -51,6 +51,7 @@
       - instagram
       - name
       - photo
+      - stripe_id
       - twitter
       - username
       filter: {}
