@@ -50,7 +50,7 @@ export default function useAuth() {
   }, [getIdTokenClaims]);
 
   const wsLink = new WebSocketLink({
-    uri: 'wss://cool-teal-29.hasura.app/v1/graphql',
+    uri: config.api.replace('https', 'wss'),
     options: {
       reconnect: true,
       connectionParams: {
