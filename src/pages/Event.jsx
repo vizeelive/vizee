@@ -323,7 +323,7 @@ export default function Event() {
   let isBroadcast = event.type === 'live';
   let isVideo = event.type === 'video';
 
-  const canWatch = isLive && (isFree || isPurchased);
+  const canWatch = isMyAccount || (isLive && (isFree || isPurchased));
   const liveEvent = liveData?.events_by_pk;
 
   const handleCopy = () => {
@@ -449,17 +449,20 @@ export default function Event() {
 
             <Col xs={24} lg={8}>
               <ActionsContainer>
-                {event.account.stripe_id && !isFree && !isPurchased && (
-                  <Button
-                    type="primary"
-                    size="large"
-                    icon={<TagOutlined />}
-                    onClick={handleClick}
-                  >
-                    Buy Ticket ({event.price})
-                  </Button>
-                )}
-                {isMyAccount && (
+                {!isMyAccount &&
+                  event.account.stripe_id &&
+                  !isFree &&
+                  !isPurchased && (
+                    <Button
+                      type="primary"
+                      size="large"
+                      icon={<TagOutlined />}
+                      onClick={handleClick}
+                    >
+                      Buy Ticket ({event.price})
+                    </Button>
+                  )}
+                {isMyAccount && isBroadcast && (
                   <Button
                     type="primary"
                     size="large"
@@ -488,7 +491,7 @@ export default function Event() {
           </Row>
           <Row>
             <Col xs={24} lg={16}>
-              {isMyAccount && (
+              {isMyAccount && isBroadcast && (
                 <Alert
                   type="info"
                   message={
