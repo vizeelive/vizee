@@ -358,7 +358,7 @@ export default function Event() {
       sources: []
     };
     videoJsOptions.sources.push({
-      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.data.playback_ids?.[0]?.id}.m3u8`,
+      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
       type: 'audio/mpegURL'
     });
   }
@@ -495,8 +495,7 @@ export default function Event() {
                         RTMP URL: rtmp://global-live.mux.com:5222/app
                       </pre>
                       <pre style={{ margin: 0, fontSize: '14px' }}>
-                        Stream Key:{' '}
-                        {liveEvent?.mux_livestream?.data?.stream_key}
+                        Stream Key: {liveEvent?.mux_livestream?.stream_key}
                       </pre>
                     </React.Fragment>
                   }
