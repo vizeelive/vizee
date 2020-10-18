@@ -11,6 +11,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 
 // Find your endpoint's secret in your Dashboard's webhook settings
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const connectEndpointSecret = process.env.STRIPE_CONNET_WEBHOOK_SECRET;
 
 app.get('/stripe/account/create', async function (req, res) {
   let id = req.query.id;
@@ -62,7 +63,7 @@ app.get('/stripe/account/create', async function (req, res) {
 /**
  * Stripe Session
  */
-app.get('/session', async function (req, res) {
+app.get('/stripe/session', async function (req, res) {
   let ref = JSON.parse(atob(req.query.ref));
 
   let event;
@@ -141,19 +142,24 @@ app.get('/session', async function (req, res) {
  * Stripe Webhook
  */
 app.post(
-  '/webhook',
+  '/stripe/webhook',
   bodyParser.raw({ type: 'application/json' }),
   async (request, response) => {
     const sig = request.headers['stripe-signature'];
 
     let event;
 
+    let secret =
+      event.type === 'account.updated' ? connectEndpointSecret : endpointSecret;
+
     try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      event = stripe.webhooks.constructEvent(request.body, sig, secret);
     } catch (err) {
       console.log(err);
       return response.status(400).send(`Webhook Error: ${err.message}`);
     }
+
+    console.log({ event });
 
     if (event.type === 'account.updated') {
       try {

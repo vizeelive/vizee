@@ -294,7 +294,7 @@ export default function Event() {
 
     const stripe = await stripePromise;
 
-    const response = await fetch(`${config.api}/session?ref=${ref}`, {
+    const response = await fetch(`${config.api}/stripe/session?ref=${ref}`, {
       method: 'GET'
     });
 
