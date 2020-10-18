@@ -1,7 +1,6 @@
 import config from '../config';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
-import { Button, Typography, Tag, message, Modal, Row, Col } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Helmet } from 'react-helmet';
@@ -15,7 +14,16 @@ import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
 import useAuth from '../hooks/useAuth';
 
-import { EyeOutlined, StarFilled } from '@ant-design/icons';
+import { Button, Typography, Tag, message, Modal, Row, Col, Alert } from 'antd';
+
+import {
+  EyeOutlined,
+  StarFilled,
+  SettingOutlined,
+  ShareAltOutlined,
+  PlayCircleOutlined,
+  TagOutlined
+} from '@ant-design/icons';
 
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
@@ -31,6 +39,26 @@ import {
 
 const { Title } = Typography;
 
+const Content = styled.div`
+  margin: 20px 20px 50px;
+  min-height: calc(50vh - 64px);
+  display: flex;
+  justify-content: center;
+
+  & > div {
+    flex: 1 1 0;
+    max-width: 960px;
+  }
+`;
+
+const MainContent = styled.div`
+  img,
+  video {
+    height: 50vh;
+    object-fit: cover;
+  }
+`;
+
 const EventName = styled(Typography.Title)`
   margin-bottom: 0 !important;
 `;
@@ -39,7 +67,6 @@ const EventDescription = styled.p`
   border-top: 1px solid ${({ theme }) => theme.colors.gray.light};
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  max-width: 40rem;
 `;
 
 const LiveTag = styled(Tag)`
@@ -49,13 +76,34 @@ const LiveTag = styled(Tag)`
   font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial;
   margin-left: 1rem;
-  position: relative;
-  top: -0.5rem;
 `;
 
 const Date = styled.time`
   display: inline-block;
   margin-bottom: 1rem;
+`;
+
+const ActionsContainer = styled.div`
+  margin: 0.75rem 0;
+
+  & > button,
+  & > a {
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  @media (min-width: 992px) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    & > button,
+    & > a {
+      margin-left: 0.5rem;
+      margin-right: 0;
+    }
+  }
 `;
 
 const Counts = styled.div`
@@ -67,6 +115,32 @@ const Counts = styled.div`
 const EditButton = styled(Button)`
   margin-top: 0.5rem;
   float: none !important;
+`;
+
+const CopyButton = styled.button.attrs({
+  'aria-label': 'copy link'
+})`
+  background-color: #aaa;
+  border: none;
+  padding: 0px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-20px);
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  path {
+    fill: #fff;
+  }
 `;
 
 const stripePromise = loadStripe(
@@ -237,22 +311,6 @@ export default function Event() {
   let isBroadcast = event.type === 'live';
   let isVideo = event.type === 'video';
 
-  const Content = styled.div`
-    margin: 20px;
-    height: 100vh;
-    button {
-      float: right;
-    }
-  `;
-
-  const MainContent = styled.div`
-    img,
-    video {
-      height: 50vh;
-      object-fit: cover;
-    }
-  `;
-
   const canWatch = isLive && (isFree || isPurchased);
 
   const handleCopy = () => {
@@ -316,7 +374,7 @@ export default function Event() {
                   user={user}
                 />
               );
-            } else
+            } else {
               return (
                 <video
                   src={event.video}
@@ -327,6 +385,7 @@ export default function Event() {
                   controls
                 />
               );
+            }
           } else {
             if (event.preview) {
               return (
@@ -351,93 +410,131 @@ export default function Event() {
         })()}
       </MainContent>
       <Content>
-        <Row>
-          <Col span={12}>
-            <EventName>
-              {event.name}
+        <div>
+          <Row gutter={32}>
+            <Col xs={24} lg={16}>
+              <EventName>{event.name}</EventName>
+              <div>
+                <Title level={3}>
+                  <Link to={`/${event.account.username}`}>
+                    {event.account.name}
+                  </Link>
+                </Title>
+              </div>
+              <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
               {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
-            </EventName>
-            <div>
-              <Title level={3}>
-                <Link to={`/${event.account.username}`}>
-                  {event.account.name}
-                </Link>
-              </Title>
-            </div>
-            <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
-            <br />
-            {isPurchased ? <Tag color="green">Purchased</Tag> : null}
-            {isFree && <Tag color="blue">Free!</Tag>}
-            {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
-            {isVideo && <Tag color="gold">Video</Tag>}
-            <br />
-            <br />
-            <Counts>
-              <EyeOutlined />
-              {event.views} Views
-            </Counts>
-            <Counts>
-              <StarFilled />
-              {event.favorites} Favorites
-            </Counts>
-          </Col>
-          <Col span={12}>
-            {!isFree && !isPurchased && (
-              <Button type="primary" role="link" onClick={handleClick}>
-                Buy Ticket ({event.price})
-              </Button>
-            )}
-            <Button onClick={() => setShareModalVisible(true)}>Share</Button>
-            <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
-              <Button>Copy Link</Button>
-            </CopyToClipboard>
-            {isMyAccount && (
-              <Button
-                type="secondary"
-                role="link"
-                onClick={handleStartLivestream}
-              >
-                Start Live Stream
-              </Button>
-            )}
-            {isMyAccount && (
-              <Link to={`/${event.account.username}/events/${event.id}`}>
-                <Button type="secondary" role="link">
-                  Manage
+            </Col>
+
+            <Col xs={24} lg={8}>
+              <ActionsContainer>
+                {!isFree && !isPurchased && (
+                  <Button
+                    type="primary"
+                    size="large"
+                    icon={<TagOutlined />}
+                    onClick={handleClick}
+                  >
+                    Buy Ticket ({event.price})
+                  </Button>
+                )}
+                {isMyAccount && (
+                  <Button
+                    type="primary"
+                    size="large"
+                    icon={<PlayCircleOutlined />}
+                    onClick={handleStartLivestream}
+                  >
+                    Start Live Stream
+                  </Button>
+                )}
+                <Button
+                  size="large"
+                  icon={<ShareAltOutlined />}
+                  onClick={() => setShareModalVisible(true)}
+                >
+                  Share
                 </Button>
-              </Link>
-            )}
-          </Col>
-        </Row>
-        {isMyAccount && (
-          <React.Fragment>
-            <pre>RTMP URL: rtmp://global-live.mux.com:5222/app</pre>
-            <pre>Stream Key: {eventExtra?.mux_livestream?.stream_key}</pre>
-          </React.Fragment>
-        )}
-        <EventDescription>{event.description}</EventDescription>
-        {user?.isAdmin && (
-          <EditButton type="primary" ghost onClick={handleEditClick}>
-            Edit
-          </EditButton>
-        )}
-        <Modal
-          title="Share"
-          visible={shareModalVisible}
-          footer={null}
-          onCancel={() => setShareModalVisible(false)}
-        >
-          <FacebookShareButton url={window.location.href}>
-            <FacebookIcon />
-          </FacebookShareButton>
-          <TwitterShareButton url={window.location.href}>
-            <TwitterIcon />
-          </TwitterShareButton>
-          <EmailShareButton url={window.location.href}>
-            <EmailIcon />
-          </EmailShareButton>
-        </Modal>
+                {isMyAccount && (
+                  <Link to={`/${event.account.username}/events/${event.id}`}>
+                    <Button size="large" icon={<SettingOutlined />}>
+                      Manage
+                    </Button>
+                  </Link>
+                )}
+              </ActionsContainer>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={24} lg={16}>
+              {isMyAccount && (
+                <Alert
+                  type="info"
+                  message={
+                    <React.Fragment>
+                      <pre style={{ margin: 0, fontSize: '14px' }}>
+                        RTMP URL: rtmp://global-live.mux.com:5222/app
+                      </pre>
+                      <pre style={{ margin: 0, fontSize: '14px' }}>
+                        Stream Key: {eventExtra?.mux_livestream?.stream_key}
+                      </pre>
+                    </React.Fragment>
+                  }
+                  style={{ marginBottom: '1.5rem' }}
+                />
+              )}
+              {isPurchased ? <Tag color="green">Purchased</Tag> : null}
+              {isFree && <Tag color="blue">Free!</Tag>}
+              {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
+              {isVideo && <Tag color="gold">Video</Tag>}
+              <br />
+              <br />
+              <Counts>
+                <EyeOutlined />
+                {event.views} Views
+              </Counts>
+              <Counts>
+                <StarFilled />
+                {event.favorites} Favorites
+              </Counts>
+              <EventDescription>{event.description}</EventDescription>
+              {user?.isAdmin && (
+                <EditButton
+                  type="primary"
+                  size="large"
+                  ghost
+                  onClick={handleEditClick}
+                >
+                  Edit Event
+                </EditButton>
+              )}
+            </Col>
+          </Row>
+        </div>
       </Content>
+
+      <Modal
+        title="Share"
+        visible={shareModalVisible}
+        footer={null}
+        onCancel={() => setShareModalVisible(false)}
+      >
+        <FacebookShareButton url={window.location.href}>
+          <FacebookIcon />
+        </FacebookShareButton>
+        <TwitterShareButton url={window.location.href}>
+          <TwitterIcon />
+        </TwitterShareButton>
+        <EmailShareButton url={window.location.href}>
+          <EmailIcon />
+        </EmailShareButton>
+        <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
+          <CopyButton className="react-share__ShareButton">
+            <svg viewBox="0 0 24 24">
+              <path d="M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z" />
+            </svg>
+          </CopyButton>
+        </CopyToClipboard>
+      </Modal>
     </React.Fragment>
   );
 }
