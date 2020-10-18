@@ -149,11 +149,63 @@ app.post(
 
     let event;
 
-    let secret =
-      event.type === 'account.updated' ? connectEndpointSecret : endpointSecret;
+    try {
+      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+      console.log(err);
+      return response.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    console.log({ event });
+
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+
+      let ref = JSON.parse(atob(session.client_reference_id));
+
+      try {
+        await client.mutate({
+          variables: {
+            object: {
+              event_id: ref.event_id,
+              user_id: ref.user_id,
+              price: session.amount_total / 100
+            }
+          },
+          mutation: gql`
+            mutation InsertTransaction($object: transactions_insert_input!) {
+              insert_transactions_one(object: $object) {
+                id
+              }
+            }
+          `
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    response.json({ received: true });
+  }
+);
+
+/**
+ * Stripe Webhook
+ */
+app.post(
+  '/stripe/connect/webhook',
+  bodyParser.raw({ type: 'application/json' }),
+  async (request, response) => {
+    const sig = request.headers['stripe-signature'];
+
+    let event;
 
     try {
-      event = stripe.webhooks.constructEvent(request.body, sig, secret);
+      event = stripe.webhooks.constructEvent(
+        request.body,
+        sig,
+        connectEndpointSecret
+      );
     } catch (err) {
       console.log(err);
       return response.status(400).send(`Webhook Error: ${err.message}`);
@@ -177,33 +229,6 @@ app.post(
                 returning {
                   id
                 }
-              }
-            }
-          `
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object;
-
-      let ref = JSON.parse(atob(session.client_reference_id));
-
-      try {
-        await client.mutate({
-          variables: {
-            object: {
-              event_id: ref.event_id,
-              user_id: ref.user_id,
-              price: session.amount_total / 100
-            }
-          },
-          mutation: gql`
-            mutation InsertTransaction($object: transactions_insert_input!) {
-              insert_transactions_one(object: $object) {
-                id
               }
             }
           `
