@@ -11,7 +11,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 
 // Find your endpoint's secret in your Dashboard's webhook settings
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-const connectEndpointSecret = process.env.STRIPE_CONNET_WEBHOOK_SECRET;
+const connectEndpointSecret = process.env.STRIPE_CONNECT_WEBHOOK_SECRET;
 
 app.get('/stripe/account/create', async function (req, res) {
   let id = req.query.id;
