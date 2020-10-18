@@ -8,6 +8,7 @@ const { Video } = new Mux();
 app.get('/mux/stream/create', async function (req, res) {
   let id = req.query.id;
 
+  // TODO super insecure
   let result = await Video.LiveStreams.create({
     playback_policy: 'public',
     new_asset_settings: { playback_policy: 'public' }

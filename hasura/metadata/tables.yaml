@@ -243,12 +243,14 @@
       - end
       - id
       - location
+      - mux_id
       - mux_livestream
       - name
       - photo
       - preview
       - price
       - start
+      - status
       - type
       - video
       filter: {}

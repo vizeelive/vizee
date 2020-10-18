@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
 import config from '../config';
 
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloLink,
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache
+} from '@apollo/client';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { setContext } from '@apollo/link-context';
 import { onError } from '@apollo/client/link/error';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 
 import posthog from 'posthog-js';
 
@@ -42,6 +49,18 @@ export default function useAuth() {
     fetchData();
   }, [getIdTokenClaims]);
 
+  const wsLink = new WebSocketLink({
+    uri: 'wss://cool-teal-29.hasura.app/v1/graphql',
+    options: {
+      reconnect: true,
+      connectionParams: {
+        headers: {
+          Authorization: `Bearer ${claims?.__raw}`
+        }
+      }
+    }
+  });
+
   const httpLink = createHttpLink({
     uri: config.graphql
   });
@@ -76,9 +95,20 @@ export default function useAuth() {
     if (networkError) console.log(`[Network error]: ${networkError}`);
   });
 
+  const link = ApolloLink.split(
+    // split based on operation type
+    ({ query }) => {
+      const { kind, operation } = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
+    },
+    wsLink,
+    httpLink
+  );
+
   let client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(errorLink).concat(httpLink)
+    link: ApolloLink.from([authLink, errorLink, link]),
+    defaultHttpLink: false
   });
 
   if (user && geo) {

@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Helmet } from 'react-helmet';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -182,9 +182,6 @@ const GET_EVENT_AUTH = gql`
         username
       }
     }
-    events(where: { id: { _eq: $id } }) {
-      mux_livestream
-    }
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -211,6 +208,16 @@ const GET_EVENT_AUTH = gql`
   }
 `;
 
+const WATCH_MUX = gql`
+  subscription WatchEventLiveStatus($id: uuid!) {
+    events_by_pk(id: $id) {
+      mux_livestream
+      mux_id
+      status
+    }
+  }
+`;
+
 const TRACK_VIEW = gql`
   mutation TrackView($object: views_insert_input!) {
     insert_views_one(object: $object) {
@@ -227,7 +234,7 @@ export default function Event() {
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
-  const { loading, error, data, refetch } = useQuery(
+  const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       fetchPolicy: 'cache-and-network',
@@ -235,8 +242,11 @@ export default function Event() {
     }
   );
 
+  const { data: liveData } = useSubscription(WATCH_MUX, {
+    variables: { id }
+  });
+
   const event = { ...data?.events_report?.[0] };
-  const eventExtra = { ...data?.events?.[0] };
   const userId = user?.sub || null;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === event.account.username
@@ -312,6 +322,7 @@ export default function Event() {
   let isVideo = event.type === 'video';
 
   const canWatch = isLive && (isFree || isPurchased);
+  const liveEvent = liveData?.events_by_pk;
 
   const handleCopy = () => {
     message.success('Copied link');
@@ -328,19 +339,26 @@ export default function Event() {
 
     const stream = await response.json();
     console.log({ stream });
-    refetch();
   };
 
-  const videoJsOptions = {
+  let videoJsOptions = {
     autoplay: true,
     controls: true,
     aspectRatio: '16:9',
     sources: []
   };
 
-  if (event.status === 'live') {
+  let playerKey = liveData?.mux_id;
+  if (liveEvent?.status === 'live') {
+    playerKey = Math.random();
+    videoJsOptions = {
+      autoplay: true,
+      controls: true,
+      aspectRatio: '16:9',
+      sources: []
+    };
     videoJsOptions.sources.push({
-      src: `https://stream.mux.com/${eventExtra?.mux_livestream?.playback_ids[0]?.id}.m3u8`,
+      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.data.playback_ids?.[0]?.id}.m3u8`,
       type: 'audio/mpegURL'
     });
   }
@@ -363,7 +381,11 @@ export default function Event() {
           if (canWatch) {
             if (isBroadcast) {
               return (
-                <VideoPlayer {...videoJsOptions} style={{ width: '100%' }} />
+                <VideoPlayer
+                  key={playerKey}
+                  {...videoJsOptions}
+                  style={{ width: '100%' }}
+                />
               );
             } else if (isConference) {
               return (
@@ -473,7 +495,8 @@ export default function Event() {
                         RTMP URL: rtmp://global-live.mux.com:5222/app
                       </pre>
                       <pre style={{ margin: 0, fontSize: '14px' }}>
-                        Stream Key: {eventExtra?.mux_livestream?.stream_key}
+                        Stream Key:{' '}
+                        {liveEvent?.mux_livestream?.data?.stream_key}
                       </pre>
                     </React.Fragment>
                   }
