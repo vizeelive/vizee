@@ -104,12 +104,19 @@ app.get('/stripe/session', async function (req, res) {
 
   console.log({ event });
 
+  let unit_amount = parseInt(
+    event.data.events_by_pk.price.replace('$', '').replace('.', '')
+  );
+
+  let amount = unit_amount * 0.2;
+
   const session = await stripe.checkout.sessions.create({
     client_reference_id: req.query.ref,
     payment_method_types: ['card'],
     payment_intent_data: {
-      application_fee_amount: 100,
+      // application_fee_amount: 100,
       transfer_data: {
+        amount,
         destination: event.data.events_by_pk.account.stripe_id
       }
     },
@@ -123,9 +130,8 @@ app.get('/stripe/session', async function (req, res) {
               'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
             ]
           },
-          unit_amount: parseInt(
-            event.data.events_by_pk.price.replace('$', '').replace('.', '')
-          ) // FIXME create a real product
+          unit_amount
+          // FIXME create a real product
         },
         quantity: 1
       }
