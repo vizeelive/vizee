@@ -7,6 +7,7 @@ import FileUpload from '../components/FileUpload';
 import CurrencyInput from '../components/CurrencyInput';
 import useBreakpoint from '../hooks/useBreakpoint';
 import Spinner from '../components/ui/Spinner';
+import LocationSearchInput from '../components/LocationSearchInput';
 
 import { Centered, FormContainer } from '../components/styled/common';
 
@@ -175,7 +176,8 @@ export default function AddEvent(props) {
           _set: {
             name: values.name,
             type: event.type,
-            location: values.location,
+            location: values.location.address,
+            location_pos: `${values.location.pos.lat},${values.location.pos.lng}`,
             price: values.price,
             description: values.description,
             category_id: values.category_id,
@@ -194,7 +196,8 @@ export default function AddEvent(props) {
           object: {
             name: values.name,
             type: event.type,
-            location: values.location,
+            location: values.location.address,
+            location_pos: `${values.location.pos.lat},${values.location.pos.lng}`,
             price: values.price,
             description: values.description,
             category_id: values.category_id,
@@ -296,7 +299,7 @@ export default function AddEvent(props) {
         </Form.Item>
 
         <Form.Item label="Location" name="location">
-          <Input />
+          <LocationSearchInput />
         </Form.Item>
 
         <Form.Item label="Description" name="description">

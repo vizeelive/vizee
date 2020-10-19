@@ -212,6 +212,7 @@
       - description
       - end
       - location
+      - location_pos
       - name
       - photo
       - preview
@@ -271,6 +272,7 @@
       - description
       - end
       - location
+      - location_pos
       - name
       - photo
       - preview
