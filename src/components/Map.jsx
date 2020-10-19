@@ -20,6 +20,7 @@ var maxRadius = 18;
 // https://dev.to/laney/react-mapbox-beginner-tutorial-2e35
 // https://bl.ocks.org/danswick/2f72bc392b65e77f6a9c
 const Map = (props) => {
+  const timeout = useRef();
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
@@ -86,14 +87,17 @@ const Map = (props) => {
       });
 
       function animateMarker(timestamp) {
-        setTimeout(function () {
+        timeout.current = setTimeout(function () {
           requestAnimationFrame(animateMarker);
 
           radius += (maxRadius - radius) / framesPerSecond;
           opacity -= 0.9 / framesPerSecond;
+          if (opacity < 0) opacity = 0;
 
-          map.setPaintProperty('point', 'circle-radius', radius);
-          map.setPaintProperty('point', 'circle-opacity', opacity);
+          if (map) {
+            map.setPaintProperty('point', 'circle-radius', radius);
+            map.setPaintProperty('point', 'circle-opacity', opacity);
+          }
 
           if (opacity <= 0) {
             radius = initialRadius;
@@ -105,7 +109,10 @@ const Map = (props) => {
       animateMarker(0);
     });
 
-    return () => map.remove();
+    return () => {
+      clearTimeout(timeout.current);
+      map.remove();
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <MapContainer className="map-container" ref={mapContainerRef} />;
