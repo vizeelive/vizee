@@ -251,6 +251,7 @@
       - end
       - id
       - location
+      - location_pos
       - mux_id
       - mux_livestream
       - name

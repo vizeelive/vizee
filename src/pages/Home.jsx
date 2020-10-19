@@ -4,6 +4,7 @@ import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import useAuth from '../hooks/useAuth';
 
 import FinishSignup from '../components/FinishSignup';
+import Map from '../components/Map';
 import Events from '../components/Events';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
@@ -30,6 +31,8 @@ const GET_EVENTS_AUTH = gql`
       type
       price
       end
+      location
+      location_pos
       account {
         name
         username
@@ -64,6 +67,8 @@ const GET_EVENTS_UNAUTH = gql`
       type
       price
       end
+      location
+      location_pos
       account {
         name
         username
@@ -207,6 +212,7 @@ export default function Home() {
         </h1>
       </Hero> */}
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
+      <Map events={events} />
       {/* <Divider /> */}
       {/* <Tag color="magenta">Live Now!</Tag><br /> */}
       {/* <Carousel afterChange={onChange}>
