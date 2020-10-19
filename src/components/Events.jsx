@@ -50,7 +50,9 @@ export default function Events(props) {
           key={event.id}
           event={event}
           user={user}
-          onFavoriteClick={(e) => handleFavorite(e, event)}
+          onFavoriteClick={(e) =>
+            event?.favorites?.length ? () => {} : handleFavorite(e, event)
+          }
         />
       ))}
     </Grid>
