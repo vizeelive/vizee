@@ -43,6 +43,11 @@ function MainMenu(props) {
           <Link to="/admin">Admin</Link>
         </Menu.Item>
       )}
+      {user && (
+        <Menu.Item key="/tickets">
+          <Link to="/tickets">My Tickets</Link>
+        </Menu.Item>
+      )}
       {/* {user && (
         <Menu.Item key="/calendar">
           <Link to="/calendar">Calendar</Link>

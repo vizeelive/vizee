@@ -1,5 +1,8 @@
 - table:
     schema: public
+    name: access_codes
+- table:
+    schema: public
     name: accounts
   array_relationships:
   - name: events

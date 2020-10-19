@@ -5,6 +5,7 @@ import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import Home from './Home';
+import Tickets from './Tickets';
 import Calendar from './Calendar';
 import CreateAccount from './CreateAccount';
 import Account from './Account';
@@ -74,6 +75,7 @@ export default function User() {
       <UserContent>
         <Switch>
           <Route path="/events/:id" exact component={Event} />
+          <Route path="/tickets" exact component={Tickets} />
           <Route path="/calendar" exact>
             <Calendar favorite="true" />
           </Route>
