@@ -95,8 +95,10 @@ const Map = (props) => {
           if (opacity < 0) opacity = 0;
 
           if (map) {
-            map.setPaintProperty('point', 'circle-radius', radius);
-            map.setPaintProperty('point', 'circle-opacity', opacity);
+            try {
+              map.setPaintProperty('point', 'circle-radius', radius);
+              map.setPaintProperty('point', 'circle-opacity', opacity);
+            } catch (e) {}
           }
 
           if (opacity <= 0) {
