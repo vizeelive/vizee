@@ -109,7 +109,7 @@ const Map = (props) => {
       clearTimeout(timeout.current);
       map.remove();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.views]);
 
   return <MapContainer className="map-container" ref={mapContainerRef} />;
 };
