@@ -63,7 +63,6 @@ const Tickets = (props) => {
   if (error) return 'Error';
 
   let events = data?.transactions.map((t) => t.event);
-  console.log({ events });
 
   return (
     <Layout>
