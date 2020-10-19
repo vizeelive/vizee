@@ -3,6 +3,9 @@
     name: access_codes
 - table:
     schema: public
+    name: account_revenue
+- table:
+    schema: public
     name: accounts
   array_relationships:
   - name: events
