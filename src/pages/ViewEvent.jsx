@@ -1,18 +1,33 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Statistic, Row, Col, Button, Divider, Table } from 'antd';
+import { Statistic, Row, Col, Button, Divider, Table, Tabs } from 'antd';
 import moment from 'moment';
 
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 
 import { CalendarOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
+import TrafficMap from '../components/TrafficMap';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
+
+const { TabPane } = Tabs;
 
 // @TODO only let certain roles select revenue..
 const GET_EVENT_AUTH = gql`
   query UserEventsReport($id: uuid!) {
+    view_report(where: { event_id: { _eq: $id } }) {
+      city
+      count
+      country
+      event_id
+      region
+    }
+  }
+`;
+
+const WATCH_EVENT_REPORT = gql`
+  subscription WatchEventReport($id: uuid!) {
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -50,6 +65,7 @@ const GET_EVENT_AUTH = gql`
         region
         country
         timezone
+        loc
       }
     }
   }
@@ -63,7 +79,12 @@ export default function ViewEvent() {
     variables: { id }
   });
 
-  if (loading) {
+  const {
+    loading: eventLoading,
+    data: eventData
+  } = useSubscription(WATCH_EVENT_REPORT, { variables: { id } });
+
+  if (loading || eventLoading) {
     return (
       <Centered padded>
         <Spinner />
@@ -73,7 +94,9 @@ export default function ViewEvent() {
 
   if (error) return 'Error';
 
-  const event = { ...data?.events_report[0] };
+  const event = { ...eventData?.events_report[0] };
+  const views = event?.view;
+  const view_report = data?.view_report;
 
   const columns = [
     {
@@ -88,7 +111,7 @@ export default function ViewEvent() {
       title: 'City',
       dataIndex: 'city'
     },
-    {
+   {
       title: 'Country',
       dataIndex: 'country'
     },
@@ -123,18 +146,18 @@ export default function ViewEvent() {
       dataIndex: 'country'
     },
     {
-      title: 'Timezone',
-      dataIndex: 'timezone'
+      title: 'Total',
+      dataIndex: 'total'
     }
   ];
 
-  const viewData = event.view.map((v) => {
+  const viewData = view_report.map((v) => {
     return {
-      id: v.id,
+      id: Math.random(),
       city: v.city,
       country: v.country,
       region: v.region,
-      timezone: v.timezone
+      total: v.count
     };
   });
 
@@ -153,7 +176,7 @@ export default function ViewEvent() {
       <div>
         <CalendarOutlined /> {moment(event.end).format('MMMM Do h:mm a')}
       </div>
-      <div>Location: {event.location}</div>
+      <div>{event.location}</div>
       <Divider />
       {/* <div>{event.description}</div> */}
 
@@ -178,19 +201,17 @@ export default function ViewEvent() {
 
       <Divider />
 
-      {/* <h3>Statistics</h3>
-      <img
-        src="https://dam-media.s3.amazonaws.com/muxgraph.png"
-        style={{ width: "100%" }}
-        alt="graph"
-      />
-      <br />
-      <br /> */}
-      <h3>Transactions</h3>
-      <Table rowKey="id" columns={columns} dataSource={transactionData} />
-
-      <h3>Views</h3>
-      <Table rowKey="id" columns={viewColumns} dataSource={viewData} />
+      <Tabs>
+        <TabPane tab="Traffic" key="traffic">
+          {' '}
+          <TrafficMap views={views} />
+          <Table rowKey="id" columns={viewColumns} dataSource={viewData} />
+        </TabPane>
+        <TabPane tab="Transactions" key="account">
+          <Table rowKey="id" columns={columns} dataSource={transactionData} />
+        </TabPane>
+        <TabPane tab="Access Codes" key="codes"></TabPane>
+      </Tabs>
     </React.Fragment>
   );
 }

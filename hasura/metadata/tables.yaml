@@ -1,6 +1,35 @@
 - table:
     schema: public
     name: access_codes
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: from
+    using:
+      foreign_key_constraint_on: created_by
+  - name: recipient
+    using:
+      foreign_key_constraint_on: user_id
+  - name: transaction
+    using:
+      foreign_key_constraint_on: transaction_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+      columns:
+      - event_id
+      - price
+      - transaction_id
+      - user_id
+      backend_only: false
 - table:
     schema: public
     name: account_revenue
@@ -552,6 +581,34 @@
         id:
           _eq: X-Hasura-User-Id
       check: null
+- table:
+    schema: public
+    name: view_report
+  object_relationships:
+  - name: event
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: events
+        column_mapping:
+          event_id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - city
+      - count
+      - country
+      - event_id
+      - region
+      filter:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: views
