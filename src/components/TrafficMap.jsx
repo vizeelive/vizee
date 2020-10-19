@@ -20,11 +20,27 @@ var maxRadius = 18;
 // https://dev.to/laney/react-mapbox-beginner-tutorial-2e35
 // https://bl.ocks.org/danswick/2f72bc392b65e77f6a9c
 const Map = (props) => {
+  const map = useRef();
   const timeout = useRef();
   const mapContainerRef = useRef(null);
 
+  let data = props.views.map((view) => {
+    let [lat, lng] = view.loc.replace('(', '').replace(')', '').split(',');
+    return {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [parseFloat(lng), parseFloat(lat)]
+      },
+      properties: {
+        id: view.id,
+        name: view.city
+      }
+    };
+  });
+
   useEffect(() => {
-    const map = new mapboxgl.Map({
+    map.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       // See style options here: https://docs.mapbox.com/api/maps/#styles
       style: 'mapbox://styles/mapbox/dark-v10',
@@ -32,25 +48,10 @@ const Map = (props) => {
       zoom: 1
     });
 
-    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+    map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-    let data = props.views.map((view) => {
-      let [lat, lng] = view.loc.replace('(', '').replace(')', '').split(',');
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [parseFloat(lng), parseFloat(lat)]
-        },
-        properties: {
-          id: view.id,
-          name: view.city
-        }
-      };
-    });
-
-    map.on('load', () => {
-      map.addSource('events', {
+    map.current.on('load', () => {
+      map.current.addSource('events', {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
@@ -58,7 +59,7 @@ const Map = (props) => {
         }
       });
 
-      map.addLayer({
+      map.current.addLayer({
         id: 'point',
         source: 'events',
         type: 'circle',
@@ -70,7 +71,7 @@ const Map = (props) => {
         }
       });
 
-      map.addLayer({
+      map.current.addLayer({
         id: 'point1',
         source: 'events',
         type: 'circle',
@@ -90,8 +91,8 @@ const Map = (props) => {
 
           if (map) {
             try {
-              map.setPaintProperty('point', 'circle-radius', radius);
-              map.setPaintProperty('point', 'circle-opacity', opacity);
+              map.current.setPaintProperty('point', 'circle-radius', radius);
+              map.current.setPaintProperty('point', 'circle-opacity', opacity);
             } catch (e) {}
           }
 
@@ -107,9 +108,17 @@ const Map = (props) => {
 
     return () => {
       clearTimeout(timeout.current);
-      map.remove();
+      map.current.remove();
     };
-  }, [props.views]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    map.current.getSource('events') &&
+      map.current.getSource('events').setData({
+          type: 'FeatureCollection',
+          features: data
+        });
+  }, [data]);
 
   return <MapContainer className="map-container" ref={mapContainerRef} />;
 };
