@@ -85,7 +85,7 @@ export default function User() {
   if (error) return 'Error';
 
   const account = data?.accounts_users?.[0]?.account || data?.accounts;
-  const hasTickets = !!data?.transactions.length;
+  const hasTickets = !!data?.transactions?.length;
 
   return (
     <Layout>

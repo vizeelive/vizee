@@ -48,6 +48,28 @@ const GET_ACCOUNTS_AUTH = gql`
         username
       }
     }
+    transactions(where: { user_id: { _eq: $user_id } }) {
+      event {
+        id
+        account {
+          name
+          photo
+          username
+        }
+        favorites {
+          id
+        }
+        name
+        photo
+        preview
+        price
+        start
+        type
+        video
+        location
+        description
+      }
+    }
   }
 `;
 
@@ -69,12 +91,14 @@ export default function Admin() {
   if (error) return 'Error';
 
   const account = data?.accounts_users?.[0]?.account || data?.accounts;
+  const hasTickets = !!data?.transactions?.length;
 
   return (
     <Layout>
       <Header
         user={user}
         account={account}
+        hasTickets={hasTickets}
         onLogin={loginWithRedirect}
         onLogout={logout}
       />
