@@ -19,7 +19,7 @@ const StyledMenu = styled(Menu)`
 `;
 
 function MainMenu(props) {
-  const { user, account, onLogin, onLogout } = props;
+  const { user, account, hasTickets, onLogin, onLogout } = props;
 
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
@@ -43,7 +43,7 @@ function MainMenu(props) {
           <Link to="/admin">Admin</Link>
         </Menu.Item>
       )}
-      {user && (
+      {hasTickets && (
         <Menu.Item key="/tickets">
           <Link to="/tickets">My Tickets</Link>
         </Menu.Item>
@@ -83,6 +83,7 @@ function MainMenu(props) {
 MainMenu.propTypes = {
   user: PropTypes.object,
   account: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  hasTickets: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired
 };

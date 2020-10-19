@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Alert, Typography } from 'antd';
+import { Layout, Typography } from 'antd';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';

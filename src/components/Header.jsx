@@ -25,7 +25,7 @@ const LogoLink = styled(Link)`
 `;
 
 function Header(props) {
-  const { user, account, onLogin, onLogout } = props;
+  const { user, account, hasTickets, onLogin, onLogout } = props;
   const isLargeScreen = useBreakpoint('lg');
 
   return (
@@ -39,6 +39,7 @@ function Header(props) {
       </LogoLink>
       <MainMenu
         user={user}
+        hasTickets={hasTickets}
         account={account}
         onLogin={onLogin}
         onLogout={onLogout}
@@ -50,6 +51,7 @@ function Header(props) {
 Header.propTypes = {
   user: PropTypes.object,
   account: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  hasTickets: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired
 };
