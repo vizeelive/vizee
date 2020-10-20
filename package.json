@@ -30,6 +30,7 @@
     "react": "^16.13.1",
     "react-big-calendar": "^0.28.0",
     "react-copy-to-clipboard": "^5.0.2",
+    "react-device-detect": "^1.14.0",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-places-autocomplete": "^7.3.0",

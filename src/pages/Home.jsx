@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import useAuth from '../hooks/useAuth';
 
+import { isMobile } from 'react-device-detect';
+
 import FinishSignup from '../components/FinishSignup';
 import Map from '../components/Map';
 import Events from '../components/Events';
@@ -212,7 +214,7 @@ export default function Home() {
         </h1>
       </Hero> */}
       {user && showModal && <FinishSignup setShowModal={setShowModal} />}
-      <Map events={events} />
+      {!isMobile && <Map events={events} />}
       {/* <Divider /> */}
       {/* <Tag color="magenta">Live Now!</Tag><br /> */}
       {/* <Carousel afterChange={onChange}>
