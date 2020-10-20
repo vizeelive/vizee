@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { find } from 'lodash';
 import { useParams } from 'react-router-dom';
 import {
   Button,
@@ -40,53 +41,22 @@ const Header = styled.header`
 `;
 
 const GET_USERS = gql`
-  query GetUsers($user_id: String!, $username: String!) {
-    myaccounts: accounts_users(where: { user_id: { _eq: $user_id } }) {
-      account {
-        id
-        name
-        username
-      }
-    }
-    accounts_users(where: { account: { username: { _eq: $username } } }) {
-      id
-      created
-      user {
-        id
-        name
-        last_name
-        first_name
-      }
-    }
-    users {
-      id
-      name
-      first_name
-      last_name
-    }
-  }
-`;
-
-const GET_USERS_ADMIN = gql`
-  query AdminGetUsers($username: String!) {
-    myaccounts: accounts {
+  query GetAccountUsers($username: String!) {
+    accounts(where: { username: { _eq: $username } }) {
       id
       name
       username
-    }
-    accounts_users(where: { account: { username: { _eq: $username } } }) {
-      id
-      created
-      user {
+      users {
         id
-        name
-        last_name
-        first_name
+        user {
+          id
+          last_name
+          first_name
+        }
       }
     }
     users {
       id
-      name
       first_name
       last_name
     }
@@ -119,25 +89,11 @@ export default function Users() {
   let { username } = useParams();
   const [showModal, setShowModal] = useState(false);
 
-  let variables;
-  if (!user.isAdmin) {
-    variables = {
-      user_id: user.sub,
-      username: username
-    };
-  } else {
-    variables = {
-      username: username
-    };
-  }
+  const { loading, error, data, refetch } = useQuery(GET_USERS, {
+    fetchPolicy: 'cache-and-network',
+    variables: { username }
+  });
 
-  const { loading, error, data, refetch } = useQuery(
-    user?.isAdmin ? GET_USERS_ADMIN : GET_USERS,
-    {
-      fetchPolicy: 'cache-and-network',
-      variables
-    }
-  );
   const [addUser] = useMutation(ADD_USER);
   const [deleteAccountUser] = useMutation(DELETE_ACCOUNTUSER);
 
@@ -150,26 +106,13 @@ export default function Users() {
   }
   if (error) return 'Error.';
 
-  let account;
-  if (user.isAdmin) {
-    account = data.myaccounts.filter((acc) => acc.username === username)[0];
-  } else {
-    account = data.myaccounts.filter(
-      (acc) => acc.account.username === username
-    )[0].account;
-  }
+  let account = data?.accounts?.[0];
+  let accountUsers = account?.users.filter((u) => u.user.id !== user.sub);
+  let users = data?.users;
 
-  const users = data?.users;
-  const accountUsers = data?.accounts_users.filter(
-    (u) => u.user.id !== user.sub
-  );
-
-  const addableUsers = users.filter((user) => {
-    let match = accountUsers.filter((accountUser) => {
-      return accountUser.user.id === user.id;
-    });
-    return !match.length;
-  });
+  const addableUsers = users
+    .filter((u) => u.id !== user.sub)
+    .filter((u) => !!!find(accountUsers, (au) => au.user.id === u.id));
 
   const onFinish = async (values) => {
     try {
@@ -241,7 +184,7 @@ export default function Users() {
         <Button
           type="primary"
           size="large"
-          onClick={() => setShowModal( true )}
+          onClick={() => setShowModal(true)}
           icon={<UserAddOutlined />}
         >
           Add Users
@@ -275,12 +218,7 @@ export default function Users() {
               ))}
             </Select>
           </Form.Item>
-          <Button
-            key="submit"
-            htmlType="submit"
-            type="primary"
-            size="large"
-          >
+          <Button key="submit" htmlType="submit" type="primary" size="large">
             Add User
           </Button>
         </Form>
