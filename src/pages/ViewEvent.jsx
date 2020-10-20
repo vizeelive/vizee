@@ -146,8 +146,8 @@ export default function ViewEvent() {
       dataIndex: 'country'
     },
     {
-      title: 'Total',
-      dataIndex: 'total'
+      title: 'Visits',
+      dataIndex: 'visits'
     }
   ];
 
@@ -157,7 +157,7 @@ export default function ViewEvent() {
       city: v.city,
       country: v.country,
       region: v.region,
-      total: v.count
+      visits: v.count
     };
   });
 
@@ -183,13 +183,13 @@ export default function ViewEvent() {
       <Row gutter={16}>
         <Col span={4}>
           <Statistic
-            title="Revenue (USD)"
+            title="Revenue"
             value={event.revenue || '$0'}
             precision={2}
           />
         </Col>
         <Col span={4}>
-          <Statistic title="Tickets Purchased" value={event.transactions} />
+          <Statistic title="Tickets" value={event.transactions} />
         </Col>
         <Col span={4}>
           <Statistic title="Views" value={event.views || 0} />
