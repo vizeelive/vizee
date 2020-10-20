@@ -206,18 +206,20 @@ export default function Home() {
   // };
 
   return (
-    <MainContent>
-      {/* <Hero>
+    <React.Fragment>
+      {!isMobile && <Map events={events} />}
+
+          <MainContent>
+            {/* <Hero>
         <h1>
           An event platform for accounts, creators, and educators. Go ahead,
           your audience is waiting.
         </h1>
       </Hero> */}
-      {user && showModal && <FinishSignup setShowModal={setShowModal} />}
-      {!isMobile && <Map events={events} />}
-      {/* <Divider /> */}
-      {/* <Tag color="magenta">Live Now!</Tag><br /> */}
-      {/* <Carousel afterChange={onChange}>
+            {user && showModal && <FinishSignup setShowModal={setShowModal} />}
+            {/* <Divider /> */}
+            {/* <Tag color="magenta">Live Now!</Tag><br /> */}
+            {/* <Carousel afterChange={onChange}>
         <div>
           <img src="https://dam-media.s3.amazonaws.com/0b/7631c4ad0a400ba9fe5da4d2cdbc01/Damian-Marley-and-Third-World-2019-billboard-1548-1024x677.jpg" alt="thangs" />
         </div>
@@ -231,30 +233,31 @@ export default function Home() {
           <h3 style={contentStyle}>4</h3>
         </div>
       </Carousel> */}
-      <Tabs defaultActiveKey="Music">
-        {categories.map((category) => {
-          // @TODO use view count once we have pagination here
-          let count = events.filter((e) => e.category.id === category.id);
-          if (!count.length) return null;
-          return (
-            <TabPane tab={category.name} key={category.name}>
-              {/* <Title>{category.name}</Title> */}
-              <Input
-                placeholder="Search"
-                onChange={(e) => search(e.currentTarget.value)}
-                style={{ maxWidth: '40rem', marginBottom: '20px' }}
-                prefix={<SearchOutlined />}
-                size="large"
-              />
-              <Events
-                events={events}
-                category={category.id}
-                refetch={refetch}
-              />
-            </TabPane>
-          );
-        })}
-      </Tabs>
-    </MainContent>
+            <Tabs defaultActiveKey="Music">
+              {categories.map((category) => {
+                // @TODO use view count once we have pagination here
+                let count = events.filter((e) => e.category.id === category.id);
+                if (!count.length) return null;
+                return (
+                  <TabPane tab={category.name} key={category.name}>
+                    {/* <Title>{category.name}</Title> */}
+                    <Input
+                      placeholder="Search"
+                      onChange={(e) => search(e.currentTarget.value)}
+                      style={{ maxWidth: '40rem', marginBottom: '20px' }}
+                      prefix={<SearchOutlined />}
+                      size="large"
+                    />
+                    <Events
+                      events={events}
+                      category={category.id}
+                      refetch={refetch}
+                    />
+                  </TabPane>
+                );
+              })}
+            </Tabs>
+          </MainContent>
+    </React.Fragment>
   );
 }
