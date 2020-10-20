@@ -16,7 +16,7 @@ import Spinner from './components/ui/Spinner';
 
 import './App.less';
 
-LogRocket.init('vizee/vizee');
+process.env.NODE_ENV !== 'development' && LogRocket.init('vizee/vizee');
 
 function App() {
   const { isLoading, user, setGeo, client, error } = useAuth();
@@ -50,7 +50,7 @@ function App() {
     return <div>Oops... {error.message}</div>;
   }
 
-  if (user) {
+  if (process.env.NODE_ENV !== 'development' && user) {
     LogRocket.identify(user.sub, {
       name: user.name,
       email: user.email
