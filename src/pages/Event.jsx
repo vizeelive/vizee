@@ -324,8 +324,10 @@ export default function Event() {
   let isBroadcast = event.type === 'live';
   let isVideo = event.type === 'video';
 
-  const canWatch = isMyAccount || (isLive && (isFree || isPurchased));
   const liveEvent = liveData?.events_by_pk;
+  const canWatch =
+    (liveEvent?.status !== 'idle' && isMyAccount) ||
+    (isLive && (isFree || isPurchased));
 
   const handleCopy = () => {
     message.success('Copied link');
