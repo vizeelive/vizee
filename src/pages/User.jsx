@@ -98,13 +98,13 @@ export default function User() {
       />
       <UserContent>
         <Switch>
-          <Route path="/events/:id" exact component={Event} />
+          <Route path="/:username/:id" exact component={Event} />
           <Route path="/tickets" exact component={Tickets} />
           <Route path="/calendar" exact>
             <Calendar favorite="true" />
           </Route>
           <Route path="/account" exact component={CreateAccount} />
-          <Route path="/:username" component={Account} />
+          <Route path="/:username/manage" component={Account} />
           <Route path="/" component={Home} />
         </Switch>
       </UserContent>

@@ -52,6 +52,13 @@
         table:
           schema: public
           name: favorites
+  - name: subscriptions
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          schema: public
+          name: subscriptions
   - name: users
     using:
       foreign_key_constraint_on:
@@ -494,7 +501,10 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
-    name: followers
+    name: members
+- table:
+    schema: public
+    name: subscriptions
   object_relationships:
   - name: account
     using:
@@ -505,16 +515,32 @@
   insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
       set:
-        created_by: x-hasura-User-Id
+        user_id: x-hasura-User-Id
       columns:
       - account_id
       - user_id
       backend_only: false
-- table:
-    schema: public
-    name: members
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - account_id
+      - created
+      - id
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: transactions
@@ -564,6 +590,13 @@
         table:
           schema: public
           name: events
+  - name: subscriptions
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: subscriptions
   - name: transactions
     using:
       foreign_key_constraint_on:

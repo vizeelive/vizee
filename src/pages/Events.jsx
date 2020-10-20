@@ -88,9 +88,9 @@ export default function Events(props) {
     ui.editUrl = `/admin/events/edit`;
     ui.redirect = `/admin/events`;
   } else {
-    ui.addUrl = `/${username}/events/add`;
-    ui.editUrl = `/${username}/events/edit`;
-    ui.redirect = `/${username}/events`;
+    ui.addUrl = `/${username}/manage/events/add`;
+    ui.editUrl = `/${username}/manage/events/edit`;
+    ui.redirect = `/${username}/manage/events`;
   }
 
   let tableData = data.events.map((event) => {

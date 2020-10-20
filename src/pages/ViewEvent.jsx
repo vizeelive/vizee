@@ -164,7 +164,9 @@ export default function ViewEvent() {
   return (
     <React.Fragment>
       <Button style={{ float: 'right' }} type="primary">
-        <Link to={`/${username}/events/edit/${event.id}`}>Edit Event</Link>
+        <Link to={`/${username}/manage/events/edit/${event.id}`}>
+          Edit Event
+        </Link>
       </Button>
       <h2>
         <ThunderboltOutlined />{' '}

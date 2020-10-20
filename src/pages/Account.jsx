@@ -226,25 +226,29 @@ export default function Account() {
             }}
           >
             <Switch>
-              <Route path="/:username/users" exact component={Users} />
-              <Route path="/:username/events" exact>
+              <Route path="/:username/manage/users" exact component={Users} />
+              <Route path="/:username/manage/events" exact>
                 <Events />
               </Route>
-              <Route path="/:username/events/add" exact>
-                <AddEvent redirect={`/${username}/events`} />
+              <Route path="/:username/manage/events/add" exact>
+                <AddEvent redirect={`/${username}/manage/events`} />
               </Route>
-              <Route path="/:username/events/:id" exact>
+              <Route path="/:username/manage/events/:id" exact>
                 <ViewEvent />
               </Route>
-              <Route path="/:username/events/edit/:id" exact>
-                <AddEvent redirect={`/${username}/events`} />
+              <Route path="/:username/manage/events/edit/:id" exact>
+                <AddEvent redirect={`/${username}/manage/events`} />
               </Route>
               <Route
-                path="/:username/settings/:id/:tab/:status?"
+                path="/:username/manage/settings/:id/:tab/:status?"
                 component={Settings}
               />
-              <Route path="/:username/calendar" exact component={Calendar} />
-              <Route path="/:username" exact>
+              <Route
+                path="/:username/manage/calendar"
+                exact
+                component={Calendar}
+              />
+              <Route path="/:username/manage" exact>
                 <Home account={account} refetch={refetch} />
               </Route>
             </Switch>

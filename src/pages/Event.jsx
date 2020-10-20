@@ -75,7 +75,6 @@ const LiveTag = styled(Tag)`
   padding: 3px 7px;
   font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial;
-  margin-left: 1rem;
 `;
 
 const Date = styled.time`
@@ -170,7 +169,7 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 const GET_EVENT_AUTH = gql`
-  query UserEventsReport($id: uuid!, $user_id: String!) {
+  query UserEventsReport($id: uuid!, $user_id: String!, $username: String!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -179,6 +178,14 @@ const GET_EVENT_AUTH = gql`
         id
         name
         username
+        subscriptions {
+          id
+        }
+      }
+    }
+    accounts(where: { username: { _eq: $username } }) {
+      subscriptions {
+        id
       }
     }
     events_report(where: { id: { _eq: $id } }) {
@@ -196,6 +203,7 @@ const GET_EVENT_AUTH = gql`
       favorites
       views
       account {
+        id
         name
         username
         photo
@@ -226,19 +234,37 @@ const TRACK_VIEW = gql`
   }
 `;
 
+const SUBSCRIBE = gql`
+  mutation AccountSubscribe($account_id: uuid!) {
+    insert_subscriptions(objects: { account_id: $account_id }) {
+      affected_rows
+    }
+  }
+`;
+
+const UNSUBSCRIBE = gql`
+  mutation Unsubscribe($subscription_id: uuid!) {
+    delete_subscriptions_by_pk(id: $subscription_id) {
+      id
+    }
+  }
+`;
+
 export default function Event() {
-  const { id } = useParams();
+  const { id, username } = useParams();
 
   const history = useHistory();
 
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
-  const { loading, error, data } = useQuery(
+  const [subscribe] = useMutation(SUBSCRIBE);
+  const [unsubscribe] = useMutation(UNSUBSCRIBE);
+  const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { id, user_id: user?.sub }
+      variables: { id, user_id: user?.sub, username }
     }
   );
 
@@ -246,6 +272,8 @@ export default function Event() {
     variables: { id }
   });
 
+  const account = data?.accounts?.[0];
+  console.log({ account });
   const event = { ...data?.events_report?.[0] };
   const userId = user?.sub || null;
   const isMyAccount = !!data?.myaccounts?.filter(
@@ -334,6 +362,18 @@ export default function Event() {
     history.push(`/admin/events/edit/${event.id}`);
   };
 
+  const handleSubscribe = async () => {
+    await subscribe({ variables: { account_id: event.account.id } });
+    refetch();
+  };
+
+  const handleUnsubscribe = async () => {
+    await unsubscribe({
+      variables: { subscription_id: account.subscriptions[0].id }
+    });
+    refetch();
+  };
+
   const handleStartLivestream = async () => {
     const response = await fetch(`${config.api}/mux/stream/create?id=${id}`, {
       method: 'GET'
@@ -375,6 +415,8 @@ export default function Event() {
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`
     });
   }
+
+  console.log({ event });
 
   return (
     <React.Fragment>
@@ -454,8 +496,8 @@ export default function Event() {
                   </Link>
                 </Title>
               </div>
-              <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
               {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
+              <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
             </Col>
 
             <Col xs={24} lg={8}>
@@ -490,8 +532,20 @@ export default function Event() {
                 >
                   Share
                 </Button>
+                {!account?.subscriptions?.[0]?.id && (
+                  <Button size="large" onClick={handleSubscribe}>
+                    Subscribe
+                  </Button>
+                )}
+                {account?.subscriptions?.[0]?.id && (
+                  <Button size="large" onClick={handleUnsubscribe}>
+                    Unsubscribe
+                  </Button>
+                )}
                 {isMyAccount && (
-                  <Link to={`/${event.account.username}/events/${event.id}`}>
+                  <Link
+                    to={`/${event.account.username}/manage/events/${event.id}`}
+                  >
                     <Button size="large" icon={<SettingOutlined />}>
                       Manage
                     </Button>

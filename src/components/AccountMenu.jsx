@@ -26,8 +26,8 @@ function AccountMenu(props) {
       <Menu>
         <Menu.SubMenu key="accounts" icon={<UserOutlined />} title="Accounts">
           {myAccounts.map((account) => (
-            <Menu.Item key={`/${account.username}`}>
-              <Link to={`/${account.username}`}>{account.name}</Link>
+            <Menu.Item key={`/${account.username}/manage`}>
+              <Link to={`/${account.username}/manage`}>{account.name}</Link>
             </Menu.Item>
           ))}
           <Menu.Item key="/account">
@@ -43,21 +43,32 @@ function AccountMenu(props) {
         <Menu.Item key={`/${username}`} icon={<YoutubeOutlined />}>
           <Link to={`/${username}`}>Profile</Link>
         </Menu.Item>
+        <Menu.Item
+          key={`/${username}/manage/dashboard`}
+          icon={<YoutubeOutlined />}
+        >
+          <Link to={`/${username}/manage/dashboard`}>Dashboard</Link>
+        </Menu.Item>
         {posthog.isFeatureEnabled('dev') && (
-          <Menu.Item key={`/${username}/calendar`} icon={<CalendarOutlined />}>
-            <Link to={`/${username}/calendar`}>Calendar</Link>
+          <Menu.Item
+            key={`/${username}/manage/calendar`}
+            icon={<CalendarOutlined />}
+          >
+            <Link to={`/${username}/manage/calendar`}>Calendar</Link>
           </Menu.Item>
         )}
-        <Menu.Item key={`/${username}/events`} icon={<ThunderboltOutlined />}>
-          <Link to={`/${username}/events`}>
-            Events{' '}
-          </Link>
+        <Menu.Item
+          key={`/${username}/manage/events`}
+          icon={<ThunderboltOutlined />}
+        >
+          <Link to={`/${username}/manage/events`}>Events </Link>
         </Menu.Item>
         {(user.isAdmin || account.created_by === user.sub) && (
-          <Menu.Item key={`/${username}/users`} icon={<UserAddOutlined />}>
-            <Link to={`/${username}/users`}>
-              Users{' '}
-            </Link>
+          <Menu.Item
+            key={`/${username}/manage/users`}
+            icon={<UserAddOutlined />}
+          >
+            <Link to={`/${username}/manage/users`}>Users </Link>
           </Menu.Item>
         )}
         {/* <Menu.Item
@@ -66,8 +77,11 @@ function AccountMenu(props) {
         >
           <Link to={`/${username}/reports`}>Reports</Link>
         </Menu.Item> */}
-        <Menu.Item key={`/${username}/settings`} icon={<SettingOutlined />}>
-          <Link to={`/${username}/settings/${account.id}/account`}>
+        <Menu.Item
+          key={`/${username}/manage/settings`}
+          icon={<SettingOutlined />}
+        >
+          <Link to={`/${username}/manage/settings/${account.id}/account`}>
             Settings
           </Link>
         </Menu.Item>

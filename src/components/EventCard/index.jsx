@@ -30,7 +30,7 @@ function EventCard(props) {
       !editRef.current?.contains(e.target) &&
       !favRef.current?.contains(e.target)
     ) {
-      history.push(`/events/${event.id}`);
+      history.push(`/${event.account.username}/${event.id}`);
     }
   };
 

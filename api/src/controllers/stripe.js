@@ -51,8 +51,8 @@ app.get('/stripe/account/create', async function (req, res) {
 
   const accountLinks = await stripe.accountLinks.create({
     account: account.id,
-    refresh_url: `${config.ui}/${username}/settings/${id}/payment/refresh`,
-    return_url: `${config.ui}/${username}/settings/${id}/payment`,
+    refresh_url: `${config.ui}/${username}/manage/settings/${id}/payment/refresh`,
+    return_url: `${config.ui}/${username}/manage/settings/${id}/payment`,
     type: 'account_onboarding'
   });
 
