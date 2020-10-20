@@ -14,12 +14,16 @@ app.post(
     console.log('body', req.body);
 
     let status;
+    let mux_id;
+    
     if (data.type === 'video.live_stream.active') {
       status = 'live';
+      mux_id = data.object.id;
     }
-
-    if (data.type === 'video.live_stream.idle') {
-      status = 'idle';
+    
+    if (data.type === 'video.asset.live_stream_completed') {
+      status = 'completed';
+      mux_id = data.data.live_stream_id;
     }
 
     if (!status) {
@@ -29,8 +33,8 @@ app.post(
     try {
       await client.mutate({
         variables: {
-          mux_id: data.object.id,
-          status: status,
+          mux_id,
+          status,
           data: data.data
         },
         mutation: gql`
@@ -51,7 +55,7 @@ app.post(
         `
       });
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
 
     res.send('OK');
