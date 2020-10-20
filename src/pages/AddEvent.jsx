@@ -72,6 +72,7 @@ const GET_EVENT = gql`
       price
       account_id
       category_id
+      published
     }
     accounts {
       name
@@ -346,6 +347,25 @@ export default function AddEvent(props) {
                 {category.name}
               </Option>
             ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item name="published" label="Published">
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a publish status"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option key="published" value="true">
+              Published
+            </Option>
+            <Option key="unpublished" value="false">
+              Unpublished
+            </Option>
           </Select>
         </Form.Item>
 
