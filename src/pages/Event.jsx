@@ -143,6 +143,7 @@ const CopyButton = styled.button.attrs({
   }
 `;
 
+// FIXME not production shit
 const stripePromise = loadStripe(
   'pk_test_51GxNPWFN46jAxE7Qjk2k8EvqQyVBsaq9TZ2NXcEtBfqWpKlilZWUuAoggjDXYaPjMogzejgajC7InSicHwXSRS4x006DpoBHJl'
 );

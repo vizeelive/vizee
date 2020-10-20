@@ -28,6 +28,8 @@ function App() {
 
       if (response.ok) {
         geo = await response.json();
+        let [lat, lng] = geo.loc.split(',');
+        geo.loc = `${lng},${lat}`;
         setGeo(geo);
       }
     }

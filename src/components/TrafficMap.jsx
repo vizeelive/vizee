@@ -25,7 +25,7 @@ const Map = (props) => {
   const mapContainerRef = useRef(null);
 
   let data = props.views.map((view) => {
-    let [lat, lng] = view.loc.replace('(', '').replace(')', '').split(',');
+    let [lng, lat] = view.loc.replace('(', '').replace(')', '').split(',');
     return {
       type: 'Feature',
       geometry: {
