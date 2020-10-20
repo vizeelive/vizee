@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 import styled from 'styled-components';
+const turf = require('@turf/turf');
 
 const MapContainer = styled.div`
   width: 100%;
@@ -88,7 +89,9 @@ const Map = (props) => {
 
       if (data.length > 1) {
         let coords = data?.map((d) => d.geometry.coordinates);
-        map.fitBounds(coords, { padding: 50 });
+        var line = turf.lineString(coords);
+        var box = turf.bbox(line);
+        map.fitBounds(box, { padding: 50 });
       }
 
       function animateMarker(timestamp) {

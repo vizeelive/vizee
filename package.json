@@ -12,6 +12,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@turf/bbox": "^6.0.1",
+    "@turf/turf": "^5.1.6",
     "@uppy/core": "^1.13.2",
     "@uppy/dashboard": "^1.12.7",
     "@uppy/drag-drop": "^1.4.19",
