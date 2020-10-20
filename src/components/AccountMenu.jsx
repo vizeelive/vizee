@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { Badge, Menu } from 'antd';
-import styled from 'styled-components';
+import { Menu } from 'antd';
 
 import {
   UserOutlined,
@@ -16,12 +15,8 @@ import {
 
 import posthog from 'posthog-js';
 
-const CountBadge = styled(Badge)`
-  margin-left: 0.25rem;
-`;
-
 function AccountMenu(props) {
-  const { user, username, account, myAccounts, eventCount, userCount } = props;
+  const { user, username, account, myAccounts } = props;
 
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
@@ -56,20 +51,12 @@ function AccountMenu(props) {
         <Menu.Item key={`/${username}/events`} icon={<ThunderboltOutlined />}>
           <Link to={`/${username}/events`}>
             Events{' '}
-            <CountBadge
-              style={{ backgroundColor: '#ee326e' }}
-              count={eventCount}
-            />
           </Link>
         </Menu.Item>
         {(user.isAdmin || account.created_by === user.sub) && (
           <Menu.Item key={`/${username}/users`} icon={<UserAddOutlined />}>
             <Link to={`/${username}/users`}>
               Users{' '}
-              <CountBadge
-                style={{ backgroundColor: '#ee326e' }}
-                count={userCount}
-              />
             </Link>
           </Menu.Item>
         )}
@@ -93,9 +80,7 @@ AccountMenu.propTypes = {
   user: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   account: PropTypes.object.isRequired,
-  myAccounts: PropTypes.array.isRequired,
-  eventCount: PropTypes.number,
-  userCount: PropTypes.number
+  myAccounts: PropTypes.array.isRequired
 };
 
 export default AccountMenu;

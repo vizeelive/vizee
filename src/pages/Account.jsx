@@ -86,11 +86,6 @@ const GET_ACCOUNT_AUTH = gql`
         username
       }
     }
-    events_aggregate(where: { account: { username: { _eq: $username } } }) {
-      aggregate {
-        count
-      }
-    }
     accounts(where: { username: { _eq: $username } }) {
       id
       name
@@ -130,11 +125,6 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
       id
       name
       username
-    }
-    events_aggregate(where: { account: { username: { _eq: $username } } }) {
-      aggregate {
-        count
-      }
     }
     accounts(where: { username: { _eq: $username } }) {
       id
@@ -223,8 +213,6 @@ export default function Account() {
               username={username}
               account={account}
               myAccounts={myAccounts}
-              eventCount={data.events_aggregate.aggregate.count}
-              userCount={data.events_aggregate.aggregate.count}
             />
           </Sider>
         ) : null}
