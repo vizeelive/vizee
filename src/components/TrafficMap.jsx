@@ -81,6 +81,11 @@ const Map = (props) => {
         }
       });
 
+      if (data.length > 1) {
+        let coords = data?.map((d) => d.geometry.coordinates);
+        map.current.fitBounds(coords, { padding: 50 });
+      }
+
       function animateMarker(timestamp) {
         timeout.current = setTimeout(function () {
           requestAnimationFrame(animateMarker);
