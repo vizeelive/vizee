@@ -34,7 +34,6 @@ const Sider = styled(Layout.Sider)`
 `;
 
 const SiderLayout = styled(Layout)`
-  padding: 0 24px 24px;
   min-height: calc(100vh - 64px);
 
   @media (min-width: 992px) {

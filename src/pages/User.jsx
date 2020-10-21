@@ -5,6 +5,7 @@ import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import Home from './Home';
+import AccountHome from './Account/Home';
 import Tickets from './Tickets';
 import Calendar from './Calendar';
 import CreateAccount from './CreateAccount';
@@ -37,6 +38,19 @@ const GET_ACCOUNTS_AUTH = gql`
         id
         name
         username
+        photo
+        events {
+          id
+          name
+          start
+          location
+          photo
+          account {
+            name
+            username
+            photo
+          }
+        }
       }
     }
     transactions(where: { user_id: { _eq: $user_id } }) {
@@ -98,6 +112,9 @@ export default function User() {
       />
       <UserContent>
         <Switch>
+          <Route path="/:username" exact>
+            <AccountHome />
+          </Route>
           <Route path="/:username/manage" component={Account} />
           <Route path="/:username/:id" exact component={Event} />
           <Route path="/tickets" exact component={Tickets} />

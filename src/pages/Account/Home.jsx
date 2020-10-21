@@ -1,7 +1,13 @@
 import React from 'react';
-import { Layout, Typography } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 import styled from 'styled-components';
 import Events from '../../components/Events';
+import { Link, useParams } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
+import SubscribeButton from '../../components/SubscribeButton';
+import useAuth from '../../hooks/useAuth';
 
 import {
   InstagramOutlined,
@@ -13,6 +19,7 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 const MainContent = styled(Content)`
+  padding: 20px;
   img {
     margin-bottom: 1rem;
   }
@@ -31,51 +38,170 @@ const AccountDescription = styled.p`
   max-width: 40rem;
 `;
 
-export default function Home(props) {
-  let { account, refetch } = props;
+const GET_ACCOUNT_ANON = gql`
+  query GetAccount($username: String!) {
+    accounts(where: { username: { _eq: $username } }) {
+      id
+      name
+      photo
+      username
+      subscriptions {
+        id
+      }
+      events {
+        id
+        location
+        name
+        photo
+        start
+        account {
+          name
+          username
+          photo
+        }
+        favorites {
+          id
+        }
+      }
+    }
+    subscriptions_aggregate(
+      where: { account: { username: { _eq: $username } } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
+const GET_ACCOUNT_USER = gql`
+  query GetAccount($username: String!, $user_id: String!) {
+    myaccounts: accounts_users(
+      order_by: { account: { name: asc } }
+      where: { user_id: { _eq: $user_id } }
+    ) {
+      account {
+        id
+        name
+        username
+        subscriptions {
+          id
+        }
+      }
+    }
+    accounts(where: { username: { _eq: $username } }) {
+      id
+      name
+      photo
+      username
+      subscriptions {
+        id
+      }
+      events {
+        id
+        location
+        name
+        photo
+        start
+        account {
+          name
+          username
+          photo
+        }
+        favorites {
+          id
+        }
+      }
+    }
+    subscriptions_aggregate(
+      where: { account: { username: { _eq: $username } } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
+export default function Home() {
+  const { username } = useParams();
+  const { user } = useAuth();
+
+  const { loading, error, data, refetch } = useQuery(
+    user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
+    {
+      variables: user ? { username, user_id: user.sub } : { username }
+    }
+  );
+
+  if (loading) {
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
+
+  if (error) return 'Error';
+
+  const account = data?.accounts?.[0];
+  const subscribers = data?.subscriptions_aggregate?.aggregate?.count;
+  const isMyAccount = !!data?.myaccounts?.filter(
+    (acc) => acc.account.username === username
+  ).length;
+
   return (
-    <MainContent>
+    <React.Fragment>
       <img
-        style={{ objectFit: 'cover', height: '62vh' }}
+        style={{ objectFit: 'cover', height: '17vh' }}
         src={account.photo}
         alt={account.name}
         width="100%"
       />
+      <MainContent>
+        {account.instagram && (
+          <Social>
+            <a href={`https://instagram.com/${account.instagram}`}>
+              <InstagramOutlined />
+              {account.instagram}
+            </a>
+          </Social>
+        )}
+        {account.twitter && (
+          <Social>
+            <a href={`https://twitter.com/${account.twitter}`}>
+              <TwitterOutlined /> {account.twitter}
+            </a>
+          </Social>
+        )}
+        {account.facebook && (
+          <Social>
+            <a href={`https://facebook.com/${account.facebook}`}>
+              <FacebookOutlined /> {account.facebook}
+            </a>
+          </Social>
+        )}
 
-      {account.instagram && (
-        <Social>
-          <a href={`https://instagram.com/${account.instagram}`}>
-            <InstagramOutlined />
-            {account.instagram}
-          </a>
-        </Social>
-      )}
-      {account.twitter && (
-        <Social>
-          <a href={`https://twitter.com/${account.twitter}`}>
-            <TwitterOutlined /> {account.twitter}
-          </a>
-        </Social>
-      )}
-      {account.facebook && (
-        <Social>
-          <a href={`https://facebook.com/${account.facebook}`}>
-            <FacebookOutlined /> {account.facebook}
-          </a>
-        </Social>
-      )}
+        <Title style={{ lineHeight: 0, marginTop: '0.5em' }}>
+          {account.name}
+        </Title>
+        <div>{subscribers} subscribers</div>
+        <SubscribeButton
+          account_id={account.id}
+          subscription_id={account?.subscriptions?.[0]?.id}
+        />
+        {isMyAccount && (
+          <Link to={`/${account.username}/manage`}>
+            <Button size="large">Manage</Button>
+          </Link>
+        )}
+        <AccountDescription>{account.description}</AccountDescription>
 
-      <Title>
-        {account.name}
-      </Title>
-      <AccountDescription>
-        {account.description}
-      </AccountDescription>
-
-      <EventsContainer>
-        <Title level={3}>Events</Title>
-        <Events events={account.events} refetch={refetch} />
-      </EventsContainer>
-    </MainContent>
+        <EventsContainer>
+          <Title level={3}>Events</Title>
+          <Events events={account.events} refetch={refetch} />
+        </EventsContainer>
+      </MainContent>
+    </React.Fragment>
   );
 }

@@ -525,6 +525,11 @@
       - user_id
       backend_only: false
   select_permissions:
+  - role: public
+    permission:
+      columns: []
+      filter: {}
+      allow_aggregations: true
   - role: user
     permission:
       columns:
@@ -535,6 +540,7 @@
       filter:
         user_id:
           _eq: X-Hasura-User-Id
+      allow_aggregations: true
   delete_permissions:
   - role: user
     permission:

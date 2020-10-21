@@ -10,6 +10,7 @@ import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import { loadStripe } from '@stripe/stripe-js';
 
+import SubscribeButton from '../components/SubscribeButton';
 import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
 import useAuth from '../hooks/useAuth';
@@ -17,8 +18,6 @@ import useAuth from '../hooks/useAuth';
 import { Button, Typography, Tag, message, Modal, Row, Col, Alert } from 'antd';
 
 import {
-  EyeOutlined,
-  StarFilled,
   SettingOutlined,
   ShareAltOutlined,
   PlayCircleOutlined,
@@ -102,12 +101,6 @@ const ActionsContainer = styled.div`
       margin-left: 0.5rem;
       margin-right: 0;
     }
-  }
-`;
-
-const Counts = styled.div`
-  svg {
-    margin-right: 0.25rem;
   }
 `;
 
@@ -234,22 +227,6 @@ const TRACK_VIEW = gql`
   }
 `;
 
-const SUBSCRIBE = gql`
-  mutation AccountSubscribe($account_id: uuid!) {
-    insert_subscriptions(objects: { account_id: $account_id }) {
-      affected_rows
-    }
-  }
-`;
-
-const UNSUBSCRIBE = gql`
-  mutation Unsubscribe($subscription_id: uuid!) {
-    delete_subscriptions_by_pk(id: $subscription_id) {
-      id
-    }
-  }
-`;
-
 export default function Event() {
   const { id, username } = useParams();
 
@@ -258,12 +235,10 @@ export default function Event() {
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
-  const [subscribe] = useMutation(SUBSCRIBE);
-  const [unsubscribe] = useMutation(UNSUBSCRIBE);
 
   const variables = user ? { id, user_id: user?.sub, username } : { id };
 
-  const { loading, error, data, refetch } = useQuery(
+  const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       fetchPolicy: 'cache-and-network',
@@ -339,7 +314,9 @@ export default function Event() {
     }
   };
 
-  const handleClick = user ? handleBuy : loginWithRedirect;
+  const handleClick = user
+    ? handleBuy
+    : () => loginWithRedirect({ redirect_uri: window.location.href });
 
   let time = moment();
   let start = moment(event.start);
@@ -362,18 +339,6 @@ export default function Event() {
 
   const handleEditClick = () => {
     history.push(`/admin/events/edit/${event.id}`);
-  };
-
-  const handleSubscribe = async () => {
-    await subscribe({ variables: { account_id: event.account.id } });
-    refetch();
-  };
-
-  const handleUnsubscribe = async () => {
-    await unsubscribe({
-      variables: { subscription_id: account.subscriptions[0].id }
-    });
-    refetch();
   };
 
   const handleStartLivestream = async () => {
@@ -528,16 +493,10 @@ export default function Event() {
                 >
                   Share
                 </Button>
-                {user && !account?.subscriptions?.[0]?.id && (
-                  <Button size="large" onClick={handleSubscribe}>
-                    Subscribe
-                  </Button>
-                )}
-                {user && account?.subscriptions?.[0]?.id && (
-                  <Button size="large" onClick={handleUnsubscribe}>
-                    Unsubscribe
-                  </Button>
-                )}
+                <SubscribeButton
+                  account_id={event.account.id}
+                  subscription_id={account?.subscriptions?.[0]?.id}
+                />
                 {isMyAccount && (
                   <Link
                     to={`/${event.account.username}/manage/events/${event.id}`}
