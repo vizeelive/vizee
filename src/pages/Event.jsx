@@ -567,7 +567,7 @@ export default function Event() {
                   message={
                     <React.Fragment>
                       <pre style={{ margin: 0, fontSize: '14px' }}>
-                        RTMP URL: rtmp://global-live.mux.com:5222/app
+                        RTMP URL: rtmp://stream.vizee.live:5222/app
                       </pre>
                       <pre style={{ margin: 0, fontSize: '14px' }}>
                         Stream Key: {liveEvent?.mux_livestream?.stream_key}
