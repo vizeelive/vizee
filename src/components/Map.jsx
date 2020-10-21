@@ -30,7 +30,7 @@ const Map = (props) => {
       // See style options here: https://docs.mapbox.com/api/maps/#styles
       style: 'mapbox://styles/mapbox/dark-v10',
       center: [-97.33005299999999, 37.68717609999999],
-      zoom: 3.5
+      zoom: 1
     });
 
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
