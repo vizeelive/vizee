@@ -9,13 +9,14 @@ import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import { loadStripe } from '@stripe/stripe-js';
 
+import StartStreamButton from '../components/StartStreamButton';
 import ShareButton from '../components/ShareButton';
 import SubscribeButton from '../components/SubscribeButton';
 import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
 import useAuth from '../hooks/useAuth';
 
-import { Button, Typography, Tag, Row, Col, Alert } from 'antd';
+import { Button, Typography, Tag, Row, Col } from 'antd';
 
 import {
   SettingOutlined,
@@ -304,12 +305,6 @@ export default function Event() {
     history.push(`/admin/events/edit/${event.id}`);
   };
 
-  const handleStartLivestream = async () => {
-    await fetch(`${config.api}/mux/stream/create?id=${id}`, {
-      method: 'GET'
-    });
-  };
-
   let videoJsOptions = {
     autoplay: true,
     controls: true,
@@ -439,21 +434,17 @@ export default function Event() {
                       Buy Ticket ({event.price})
                     </Button>
                   )}
-                {user && (
+                {!isMyAccount && (
                   <SubscribeButton
                     account_id={event.account.id}
                     subscription_id={account?.subscriptions?.[0]?.id}
                   />
                 )}
                 {isMyAccount && isBroadcast && (
-                  <Button
-                    type="primary"
-                    size="large"
-                    icon={<PlayCircleOutlined />}
-                    onClick={handleStartLivestream}
-                  >
-                    Start Live Stream
-                  </Button>
+                  <StartStreamButton
+                    event_id={event.id}
+                    streamKey={liveData?.mux_livestream?.streamKey}
+                  />
                 )}
                 <ShareButton />
                 {isMyAccount && (
@@ -479,22 +470,6 @@ export default function Event() {
           </Row>
           <Row>
             <Col xs={24} lg={16}>
-              {isMyAccount && isBroadcast && (
-                <Alert
-                  type="info"
-                  message={
-                    <React.Fragment>
-                      <pre style={{ margin: 0, fontSize: '14px' }}>
-                        RTMP URL: rtmp://stream.vizee.live:5222/app
-                      </pre>
-                      <pre style={{ margin: 0, fontSize: '14px' }}>
-                        Stream Key: {liveEvent?.mux_livestream?.stream_key}
-                      </pre>
-                    </React.Fragment>
-                  }
-                  style={{ marginBottom: '1.5rem' }}
-                />
-              )}
               {isPurchased ? <Tag color="green">Purchased</Tag> : null}
               {isFree && <Tag color="blue">Free!</Tag>}
               {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
