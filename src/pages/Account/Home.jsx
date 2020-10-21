@@ -182,19 +182,25 @@ export default function Home() {
           </Social>
         )}
 
+        <div style={{ float: 'right' }}>
+          {user && (
+            <SubscribeButton
+              account_id={account.id}
+              subscription_id={account?.subscriptions?.[0]?.id}
+            />
+          )}
+          {isMyAccount && (
+            <Link to={`/${account.username}/manage`}>
+              <Button size="large">Manage</Button>
+            </Link>
+          )}
+        </div>
+
         <Title style={{ lineHeight: 0, marginTop: '0.5em' }}>
           {account.name}
         </Title>
         <div>{subscribers} subscribers</div>
-        <SubscribeButton
-          account_id={account.id}
-          subscription_id={account?.subscriptions?.[0]?.id}
-        />
-        {isMyAccount && (
-          <Link to={`/${account.username}/manage`}>
-            <Button size="large">Manage</Button>
-          </Link>
-        )}
+
         <AccountDescription>{account.description}</AccountDescription>
 
         <EventsContainer>
