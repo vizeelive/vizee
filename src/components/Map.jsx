@@ -91,7 +91,7 @@ const Map = (props) => {
         let coords = data?.map((d) => d.geometry.coordinates);
         var line = turf.lineString(coords);
         var box = turf.bbox(line);
-        map.fitBounds(box, { padding: 50 });
+        map.fitBounds(box, { padding: 50, maxZoom: 5 });
       }
 
       function animateMarker(timestamp) {
