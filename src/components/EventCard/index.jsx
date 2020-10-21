@@ -102,7 +102,9 @@ function EventCard(props) {
           <Link to={`/${event.account.username}`}>{event?.account?.name}</Link>
         </AccountName>
         {renderDates()}
-        {/* <div>{event.description}</div> */}
+        <div>
+          <small>{event.location}</small>
+        </div>
         {renderTags()}
         {user?.isAdmin && (
           <EditLink

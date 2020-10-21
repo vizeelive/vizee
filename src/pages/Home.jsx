@@ -129,6 +129,7 @@ const SEARCH_EVENTS_AUTH = gql`
       type
       price
       end
+      location
       account {
         name
         username

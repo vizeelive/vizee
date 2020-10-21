@@ -260,11 +260,14 @@ export default function Event() {
   const [trackView] = useMutation(TRACK_VIEW);
   const [subscribe] = useMutation(SUBSCRIBE);
   const [unsubscribe] = useMutation(UNSUBSCRIBE);
+
+  const variables = user ? { id, user_id: user?.sub, username } : { id };
+
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { id, user_id: user?.sub, username }
+      variables
     }
   );
 
@@ -273,7 +276,6 @@ export default function Event() {
   });
 
   const account = data?.accounts?.[0];
-  console.log({ account });
   const event = { ...data?.events_report?.[0] };
   const userId = user?.sub || null;
   const isMyAccount = !!data?.myaccounts?.filter(
@@ -375,12 +377,9 @@ export default function Event() {
   };
 
   const handleStartLivestream = async () => {
-    const response = await fetch(`${config.api}/mux/stream/create?id=${id}`, {
+    await fetch(`${config.api}/mux/stream/create?id=${id}`, {
       method: 'GET'
     });
-
-    const stream = await response.json();
-    console.log({ stream });
   };
 
   let videoJsOptions = {
@@ -415,8 +414,6 @@ export default function Event() {
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`
     });
   }
-
-  console.log({ event });
 
   return (
     <React.Fragment>
@@ -532,12 +529,12 @@ export default function Event() {
                 >
                   Share
                 </Button>
-                {!account?.subscriptions?.[0]?.id && (
+                {user && !account?.subscriptions?.[0]?.id && (
                   <Button size="large" onClick={handleSubscribe}>
                     Subscribe
                   </Button>
                 )}
-                {account?.subscriptions?.[0]?.id && (
+                {user && account?.subscriptions?.[0]?.id && (
                   <Button size="large" onClick={handleUnsubscribe}>
                     Unsubscribe
                   </Button>
