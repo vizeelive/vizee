@@ -12,6 +12,7 @@ import LocationSearchInput from '../components/LocationSearchInput';
 import { Centered, FormContainer } from '../components/styled/common';
 
 import {
+  Divider,
   Typography,
   Form,
   Input,
@@ -73,6 +74,7 @@ const GET_EVENT = gql`
       account_id
       category_id
       published
+      location
     }
     accounts {
       name
@@ -144,8 +146,6 @@ export default function AddEvent(props) {
     if (event) {
       if (event.preview) {
         setCoverType('Video');
-      } else {
-        setCoverType('Photo');
       }
     }
   }, [event]);
@@ -170,45 +170,41 @@ export default function AddEvent(props) {
     let [start, end] = values.range;
 
     let newEvent;
+
+    let data = {
+      name: values.name,
+      type: values.type,
+      price: values.price,
+      description: values.description,
+      category_id: values.category_id,
+      account_id: account.id,
+      video: event?.video,
+      preview: event?.preview,
+      photo: event?.photo,
+      start,
+      end
+    };
+
+    if (values?.location?.address) {
+      data.location = values.location.address;
+      data.location_pos = `${values.location.pos.lng},${values.location.pos.lat}`;
+    }
+
+    if (values?.location?.pos) {
+      data.location_pos = `${values.location.pos.lng},${values.location.pos.lat}`;
+    }
+
     if (params.id) {
       newEvent = await updateEvent({
         variables: {
           pk_columns: { id: params.id },
-          _set: {
-            name: values.name,
-            type: event.type,
-            location: values.location.address,
-            location_pos: `${values.location.pos.lng},${values.location.pos.lat}`,
-            price: values.price,
-            description: values.description,
-            category_id: values.category_id,
-            account_id: account.id,
-            video: event?.video,
-            preview: event?.preview,
-            photo: event?.photo,
-            start,
-            end
-          }
+          _set: data
         }
       });
     } else {
       newEvent = await createEvent({
         variables: {
-          object: {
-            name: values.name,
-            type: event.type,
-            location: values.location.address,
-            location_pos: `${values.location.pos.lng},${values.location.pos.lat}`,
-            price: values.price,
-            description: values.description,
-            category_id: values.category_id,
-            account_id: account.id,
-            video: event?.video,
-            preview: event?.preview,
-            photo: event?.photo,
-            start,
-            end
-          }
+          object: data
         }
       });
     }
@@ -236,15 +232,18 @@ export default function AddEvent(props) {
   // prevents form creation because it doesn't like to re-render
   if (params.id && !event) return 'Loading...';
 
-  // preloads date range
+  // form data does not necessarily match db model. we have to reformat
   let eventData = {
     ...event,
+    type: event?.type || 'live',
     range: [moment(event?.start), moment(event?.end)]
   };
 
-  const isSubmitDisabled =
-    (event?.type === 'Video' && !event?.video) ||
-    (!event?.preview && !event?.photo);
+  let isSubmitDisabled = false;
+
+  if (event?.type === 'video' && !event?.video) {
+    isSubmitDisabled = true;
+  }
 
   const rangeConfig = {
     rules: [{ type: 'array', required: true, message: 'Please select time!' }]
@@ -258,7 +257,8 @@ export default function AddEvent(props) {
     allowedFileTypes: ['video/*']
   };
 
-  const layout = isLargeScreen ? 'horizontal' : 'vertical';
+  const layout = 'vertical';
+  // const layout = isLargeScreen ? 'horizontal' : 'vertical';
 
   const formLayout = isLargeScreen
     ? {
@@ -276,6 +276,8 @@ export default function AddEvent(props) {
   return (
     <FormContainer>
       <Title level={2}>{title}</Title>
+      <Divider />
+
       <Form
         {...formLayout}
         name="basic"
@@ -283,92 +285,6 @@ export default function AddEvent(props) {
         initialValues={eventData}
         onFinish={onFinish}
       >
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: 'Required' }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Price"
-          name="price"
-          rules={[{ required: true, message: 'Required' }]}
-        >
-          <CurrencyInput className="ant-input" style={{ maxWidth: '10rem' }} />
-        </Form.Item>
-
-        <Form.Item label="Location" name="location">
-          <LocationSearchInput />
-        </Form.Item>
-
-        <Form.Item label="Description" name="description">
-          <Input.TextArea rows={4} />
-        </Form.Item>
-
-        <Form.Item name="range" label="Event Times" {...rangeConfig}>
-          <RangePicker showTime format="MM-DD-YYYY HH:mm a" />
-        </Form.Item>
-
-        {!params.username && (
-          <Form.Item name="account_id" label="Account">
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select an account"
-              optionFilterProp="children"
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {accounts.map((account) => (
-                <Option key={account.id} value={account.id}>
-                  {account.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        )}
-
-        <Form.Item name="category_id" label="Category">
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select a category"
-            optionFilterProp="children"
-            // defaultValue={event?.category_id}
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-          >
-            {categories.map((category) => (
-              <Option key={category.id} value={category.id}>
-                {category.name}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
-
-        <Form.Item name="published" label="Published">
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select a publish status"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-          >
-            <Option key="published" value="true">
-              Published
-            </Option>
-            <Option key="unpublished" value="false">
-              Unpublished
-            </Option>
-          </Select>
-        </Form.Item>
-
         <Form.Item label="Event Type" name="type">
           <Radio.Group
             options={[
@@ -376,9 +292,10 @@ export default function AddEvent(props) {
               { label: 'Conference', value: 'conference' },
               { label: 'Video', value: 'video' }
             ]}
+            style={{ marginBottom: '10px' }}
             onChange={(e) => setEvent({ ...event, type: e.target.value })}
             optionType="button"
-            value={event?.type}
+            value={eventData?.type}
           />
           {event?.type === 'video' && (
             <React.Fragment>
@@ -403,12 +320,14 @@ export default function AddEvent(props) {
         <Form.Item label="Preview">
           <Radio.Group
             options={[
+              { label: 'None', value: '' },
               { label: 'Photo', value: 'Photo' },
               { label: 'Video', value: 'Video' }
             ]}
             onChange={(e) => setCoverType(e.target.value)}
             optionType="button"
-            value={coverType}
+            value={coverType || ''}
+            style={{ marginBottom: '10px' }}
           />
           {coverType === 'Photo' && (
             <Form.Item>
@@ -451,6 +370,96 @@ export default function AddEvent(props) {
               )}
             </React.Fragment>
           )}
+        </Form.Item>
+
+        <Form.Item name="range" label="Event Times" {...rangeConfig}>
+          <RangePicker showTime format="MM-DD-YYYY HH:mm a" />
+        </Form.Item>
+
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: 'Required' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Price"
+          name="price"
+          rules={[{ required: true, message: 'Required' }]}
+        >
+          <CurrencyInput className="ant-input" style={{ maxWidth: '10rem' }} />
+        </Form.Item>
+
+        <Form.Item
+          name="category_id"
+          label="Category"
+          rules={[{ required: true, message: 'Required' }]}
+        >
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a category"
+            optionFilterProp="children"
+            // defaultValue={event?.category_id}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {categories.map((category) => (
+              <Option key={category.id} value={category.id}>
+                {category.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Location" name="location">
+          <LocationSearchInput address={eventData.location} />
+        </Form.Item>
+
+        <Form.Item label="Description" name="description">
+          <Input.TextArea rows={4} />
+        </Form.Item>
+
+        {!params.username && (
+          <Form.Item name="account_id" label="Account">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select an account"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {accounts.map((account) => (
+                <Option key={account.id} value={account.id}>
+                  {account.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
+
+        <Form.Item name="published" label="Published">
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a publish status"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option key="published" value={true}>
+              Yes
+            </Option>
+            <Option key="unpublished" value={false}>
+              No
+            </Option>
+          </Select>
         </Form.Item>
 
         <Form.Item {...tailLayout}>

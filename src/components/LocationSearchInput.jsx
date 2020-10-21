@@ -7,7 +7,7 @@ import PlacesAutocomplete, {
 export default class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: '' };
+    this.state = { address: props.address || '' };
   }
 
   handleChange = (address) => {
@@ -34,7 +34,7 @@ export default class LocationSearchInput extends React.Component {
             <input
               {...getInputProps({
                 placeholder: 'Search Places ...',
-                className: 'location-search-input'
+                className: 'ant-input location-search-input'
               })}
             />
             <div className="autocomplete-dropdown-container">

@@ -12,4 +12,7 @@ export const Centered = styled.div`
 
 export const FormContainer = styled.div`
   max-width: 40rem;
+  .ant-form-item-label {
+    font-weight: bold;
+  }
 `;
