@@ -108,7 +108,7 @@ app.get('/stripe/session', async function (req, res) {
     event.data.events_by_pk.price.replace('$', '').replace('.', '')
   );
 
-  let amount = unit_amount * 0.2;
+  let amount = unit_amount * 0.8;
 
   const session = await stripe.checkout.sessions.create({
     client_reference_id: req.query.ref,
