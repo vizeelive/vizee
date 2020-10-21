@@ -11,6 +11,7 @@ import Settings from './Settings';
 import AddEvent from './AddEvent';
 import ViewEvent from './ViewEvent';
 import Events from './Events';
+import Dashboard from './Dashboard';
 import Calendar from './Calendar';
 import Users from './Users';
 import useAuth from '../hooks/useAuth';
@@ -225,6 +226,11 @@ export default function Account() {
             }}
           >
             <Switch>
+              <Route
+                path="/:username/manage/dashboard"
+                exact
+                component={Dashboard}
+              />
               <Route path="/:username/manage/users" exact component={Users} />
               <Route path="/:username/manage/events" exact>
                 <Events />

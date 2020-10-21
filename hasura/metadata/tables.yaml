@@ -32,6 +32,39 @@
       backend_only: false
 - table:
     schema: public
+    name: account_favorites
+- table:
+    schema: public
+    name: account_report
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - username
+      - name
+      - revenue
+      - views
+      - subscriptions
+      - favorites
+      - events
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: account_revenue
 - table:
     schema: public
@@ -549,6 +582,9 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: subscriptions_report
+- table:
+    schema: public
     name: transactions
   object_relationships:
   - name: event
@@ -648,6 +684,7 @@
   - role: user
     permission:
       columns:
+      - account_id
       - city
       - count
       - country
@@ -668,6 +705,7 @@
     permission:
       check: {}
       columns:
+      - account_id
       - city
       - country
       - created_by
@@ -682,6 +720,7 @@
     permission:
       check: {}
       columns:
+      - account_id
       - city
       - country
       - created_by

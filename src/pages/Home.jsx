@@ -36,6 +36,7 @@ const GET_EVENTS_AUTH = gql`
       location
       location_pos
       account {
+        id
         name
         username
         photo
@@ -72,6 +73,7 @@ const GET_EVENTS_UNAUTH = gql`
       location
       location_pos
       account {
+        id
         name
         username
         photo
@@ -103,6 +105,7 @@ const SEARCH_EVENTS_UNAUTH = gql`
       price
       end
       account {
+        id
         name
         username
         photo
@@ -131,6 +134,7 @@ const SEARCH_EVENTS_AUTH = gql`
       end
       location
       account {
+        id
         name
         username
         photo

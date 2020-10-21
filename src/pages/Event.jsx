@@ -116,6 +116,7 @@ const GET_EVENT_UNAUTH = gql`
       favorites
       views
       account {
+        id
         name
         username
         photo
@@ -220,12 +221,15 @@ export default function Event() {
     (acc) => acc.account.username === event.account.username
   ).length;
 
+  const account_id = event?.account?.id;
+
   useEffect(() => {
     if (event?.id) {
       trackView({
         variables: {
           object: {
             created_by: userId,
+            account_id: account_id,
             event_id: event.id,
             city: user?.geo.city,
             country: user?.geo.country,
@@ -238,7 +242,7 @@ export default function Event() {
         }
       });
     }
-  }, [event.id, trackView, user, userId]);
+  }, [account_id, event.id, trackView, user, userId]);
 
   if (loading) {
     return (
@@ -446,10 +450,12 @@ export default function Event() {
                   </Button>
                 )}
                 <ShareButton />
-                <SubscribeButton
-                  account_id={event.account.id}
-                  subscription_id={account?.subscriptions?.[0]?.id}
-                />
+                {user && (
+                  <SubscribeButton
+                    account_id={event.account.id}
+                    subscription_id={account?.subscriptions?.[0]?.id}
+                  />
+                )}
                 {isMyAccount && (
                   <Link
                     to={`/${event.account.username}/manage/events/${event.id}`}

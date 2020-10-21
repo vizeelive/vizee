@@ -27,7 +27,8 @@ export default function Events(props) {
     await createFavorite({
       variables: {
         object: {
-          event_id: event.id
+          event_id: event.id,
+          account_id: event.account.id
         }
       }
     });

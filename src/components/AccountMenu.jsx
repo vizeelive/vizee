@@ -8,7 +8,7 @@ import {
   CalendarOutlined,
   UserAddOutlined,
   ThunderboltOutlined,
-  // AreaChartOutlined,
+  AreaChartOutlined,
   YoutubeOutlined,
   SettingOutlined
 } from '@ant-design/icons';
@@ -45,7 +45,7 @@ function AccountMenu(props) {
         </Menu.Item>
         <Menu.Item
           key={`/${username}/manage/dashboard`}
-          icon={<YoutubeOutlined />}
+          icon={<AreaChartOutlined />}
         >
           <Link to={`/${username}/manage/dashboard`}>Dashboard</Link>
         </Menu.Item>

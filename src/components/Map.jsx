@@ -35,26 +35,26 @@ const Map = (props) => {
 
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-    let filteredEvents = props.events.filter((event) => !!event.location_pos);
-
-    let data = filteredEvents.map((event) => {
-      let [lng, lat] = event.location_pos
-        .replace('(', '')
-        .replace(')', '')
-        .split(',');
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [parseFloat(lng), parseFloat(lat)]
-        },
-        properties: {
-          id: event.id,
-          name: event.name,
-          description: event.description
-        }
-      };
-    });
+    let data = props.events
+      .filter((event) => !!event.location_pos)
+      .map((event) => {
+        let [lng, lat] = event.location_pos
+          .replace('(', '')
+          .replace(')', '')
+          .split(',');
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [parseFloat(lng), parseFloat(lat)]
+          },
+          properties: {
+            id: event.id,
+            name: event.name,
+            description: event.description
+          }
+        };
+      });
 
     map.on('load', () => {
       map.addSource('events', {
