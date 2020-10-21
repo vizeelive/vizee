@@ -2,11 +2,13 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Statistic, Row, Col, Button, Divider, Table, Tabs } from 'antd';
 import moment from 'moment';
+import styled from 'styled-components';
 
 import { gql, useQuery, useSubscription } from '@apollo/client';
 
 import { CalendarOutlined } from '@ant-design/icons';
 
+import ShareButton from '../components/ShareButton';
 import TrafficMap from '../components/TrafficMap';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
@@ -71,6 +73,13 @@ const WATCH_EVENT_REPORT = gql`
   }
 `;
 
+const Menu = styled.div`
+  float: right;
+  button {
+    margin-right: 10px;
+  }
+`;
+
 export default function ViewEvent() {
   let { id, username } = useParams();
 
@@ -111,7 +120,7 @@ export default function ViewEvent() {
       title: 'City',
       dataIndex: 'city'
     },
-   {
+    {
       title: 'Country',
       dataIndex: 'country'
     },
@@ -163,11 +172,14 @@ export default function ViewEvent() {
 
   return (
     <React.Fragment>
-      <Button style={{ float: 'right' }} type="primary">
-        <Link to={`/${username}/manage/events/edit/${event.id}`}>
-          Edit Event
-        </Link>
-      </Button>
+      <Menu>
+        <ShareButton />
+        <Button type="primary">
+          <Link to={`/${username}/manage/events/edit/${event.id}`}>
+            Edit Event
+          </Link>
+        </Button>
+      </Menu>
       <h2>
         <Link to={`/events/${event.id}`}>{event.name}</Link>
       </h2>
