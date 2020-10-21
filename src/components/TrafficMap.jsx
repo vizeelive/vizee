@@ -25,20 +25,22 @@ const Map = (props) => {
   const timeout = useRef();
   const mapContainerRef = useRef(null);
 
-  let data = props.views.map((view) => {
-    let [lng, lat] = view.loc.replace('(', '').replace(')', '').split(',');
-    return {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [parseFloat(lng), parseFloat(lat)]
-      },
-      properties: {
-        id: view.id,
-        name: view.city
-      }
-    };
-  });
+  let data = props.views
+    .filter((v) => v.loc)
+    .map((view) => {
+      let [lng, lat] = view.loc.replace('(', '').replace(')', '').split(',');
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [parseFloat(lng), parseFloat(lat)]
+        },
+        properties: {
+          id: view.id,
+          name: view.city
+        }
+      };
+    });
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
