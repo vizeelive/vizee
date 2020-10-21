@@ -1,40 +1,30 @@
 import config from '../config';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Helmet } from 'react-helmet';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import { loadStripe } from '@stripe/stripe-js';
 
+import ShareButton from '../components/ShareButton';
 import SubscribeButton from '../components/SubscribeButton';
 import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
 import useAuth from '../hooks/useAuth';
 
-import { Button, Typography, Tag, message, Modal, Row, Col, Alert } from 'antd';
+import { Button, Typography, Tag, Row, Col, Alert } from 'antd';
 
 import {
   SettingOutlined,
-  ShareAltOutlined,
   PlayCircleOutlined,
   TagOutlined
 } from '@ant-design/icons';
 
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
-
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  EmailShareButton,
-  EmailIcon
-} from 'react-share';
 
 const { Title } = Typography;
 
@@ -107,32 +97,6 @@ const ActionsContainer = styled.div`
 const EditButton = styled(Button)`
   margin-top: 0.5rem;
   float: none !important;
-`;
-
-const CopyButton = styled.button.attrs({
-  'aria-label': 'copy link'
-})`
-  background-color: #aaa;
-  border: none;
-  padding: 0px;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  width: 64px;
-  height: 64px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-20px);
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  path {
-    fill: #fff;
-  }
 `;
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
@@ -232,7 +196,6 @@ export default function Event() {
 
   const history = useHistory();
 
-  const [shareModalVisible, setShareModalVisible] = useState(false);
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
 
@@ -332,10 +295,6 @@ export default function Event() {
   const canWatch =
     (liveEvent?.status !== 'idle' && isMyAccount) ||
     (isLive && (isFree || isPurchased));
-
-  const handleCopy = () => {
-    message.success('Copied link');
-  };
 
   const handleEditClick = () => {
     history.push(`/admin/events/edit/${event.id}`);
@@ -486,13 +445,7 @@ export default function Event() {
                     Start Live Stream
                   </Button>
                 )}
-                <Button
-                  size="large"
-                  icon={<ShareAltOutlined />}
-                  onClick={() => setShareModalVisible(true)}
-                >
-                  Share
-                </Button>
+                <ShareButton />
                 <SubscribeButton
                   account_id={event.account.id}
                   subscription_id={account?.subscriptions?.[0]?.id}
@@ -558,30 +511,6 @@ export default function Event() {
           </Row>
         </div>
       </Content>
-
-      <Modal
-        title="Share"
-        visible={shareModalVisible}
-        footer={null}
-        onCancel={() => setShareModalVisible(false)}
-      >
-        <FacebookShareButton url={window.location.href}>
-          <FacebookIcon />
-        </FacebookShareButton>
-        <TwitterShareButton url={window.location.href}>
-          <TwitterIcon />
-        </TwitterShareButton>
-        <EmailShareButton url={window.location.href}>
-          <EmailIcon />
-        </EmailShareButton>
-        <CopyToClipboard text={window.location.href} onCopy={handleCopy}>
-          <CopyButton className="react-share__ShareButton">
-            <svg viewBox="0 0 24 24">
-              <path d="M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z" />
-            </svg>
-          </CopyButton>
-        </CopyToClipboard>
-      </Modal>
     </React.Fragment>
   );
 }
