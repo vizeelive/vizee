@@ -73,7 +73,7 @@ function MainMenu(props) {
           key="/logout"
           onClick={() => onLogout({ returnTo: window.location.origin })}
         >
-          Logout ({`${user.email}`})
+          Logout
         </Menu.Item>
       )}
     </StyledMenu>
