@@ -439,6 +439,12 @@ export default function Event() {
                       Buy Ticket ({event.price})
                     </Button>
                   )}
+                {user && (
+                  <SubscribeButton
+                    account_id={event.account.id}
+                    subscription_id={account?.subscriptions?.[0]?.id}
+                  />
+                )}
                 {isMyAccount && isBroadcast && (
                   <Button
                     type="primary"
@@ -450,12 +456,6 @@ export default function Event() {
                   </Button>
                 )}
                 <ShareButton />
-                {user && (
-                  <SubscribeButton
-                    account_id={event.account.id}
-                    subscription_id={account?.subscriptions?.[0]?.id}
-                  />
-                )}
                 {isMyAccount && (
                   <Link
                     to={`/${event.account.username}/manage/events/${event.id}`}
