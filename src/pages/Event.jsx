@@ -483,21 +483,20 @@ export default function Event() {
       </MainContent>
       <Content>
         <div>
+          <Row>
+            <EventName>
+              {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}{' '}
+              {event.name}
+            </EventName>
+          </Row>
           <Row gutter={32}>
-            <Col xs={24} lg={16}>
-              <EventName>{event.name}</EventName>
-              <div>
-                <Title level={3}>
-                  <Link to={`/${event.account.username}`}>
-                    {event.account.name}
-                  </Link>
-                </Title>
-              </div>
-              {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
+            <Col xs={24} lg={8}>
+              <span>{event.views} Views</span> •
+              <span>{event.favorites} Favorites</span>
               <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
             </Col>
 
-            <Col xs={24} lg={8}>
+            <Col xs={24} lg={16}>
               <ActionsContainer>
                 {!isMyAccount &&
                   event.account.stripe_id &&
@@ -552,6 +551,15 @@ export default function Event() {
             </Col>
           </Row>
           <Row>
+            <div>
+              <Title level={3}>
+                <Link to={`/${event.account.username}`}>
+                  {event.account.name}
+                </Link>
+              </Title>
+            </div>
+          </Row>
+          <Row>
             <Col xs={24} lg={16}>
               {isMyAccount && isBroadcast && (
                 <Alert
@@ -575,14 +583,7 @@ export default function Event() {
               {isVideo && <Tag color="gold">Video</Tag>}
               <br />
               <br />
-              <Counts>
-                <EyeOutlined />
-                {event.views} Views
-              </Counts>
-              <Counts>
-                <StarFilled />
-                {event.favorites} Favorites
-              </Counts>
+
               <EventDescription>{event.description}</EventDescription>
               {user?.isAdmin && (
                 <EditButton
