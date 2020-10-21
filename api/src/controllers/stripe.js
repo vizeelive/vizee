@@ -175,7 +175,8 @@ app.post(
             object: {
               event_id: ref.event_id,
               user_id: ref.user_id,
-              price: session.amount_total / 100
+              price: session.amount_total / 100,
+              ref: session.payment_intent
             }
           },
           mutation: gql`

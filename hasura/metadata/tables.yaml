@@ -695,19 +695,9 @@
   select_permissions:
   - role: public
     permission:
-      columns:
-      - id
-      - event_id
-      - created
-      - created_by
-      - city
-      - region
-      - country
-      - timezone
-      - loc
-      - ip
-      - postal
+      columns: []
       filter: {}
+      allow_aggregations: true
   - role: user
     permission:
       columns:

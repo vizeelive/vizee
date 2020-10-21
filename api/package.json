@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js & stripe listen --forward-to localhost:3001/webhook & wait",
-    "debug": "node --inspect-brk ./src/index.js & stripe listen --forward-to localhost:3001/webhook & wait"
+    "start": "nodemon ./src/index.js & stripe listen --forward-to localhost:3001/stripe/webhook & wait",
+    "debug": "node --inspect-brk ./src/index.js & stripe listen --forward-to localhost:3001/stripe/webhook & wait"
   },
   "author": "",
   "license": "UNLICENSED",

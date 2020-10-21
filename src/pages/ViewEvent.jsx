@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import { gql, useQuery, useSubscription } from '@apollo/client';
 
-import { CalendarOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { CalendarOutlined } from '@ant-design/icons';
 
 import TrafficMap from '../components/TrafficMap';
 import { Centered } from '../components/styled/common';
@@ -169,7 +169,6 @@ export default function ViewEvent() {
         </Link>
       </Button>
       <h2>
-        <ThunderboltOutlined />{' '}
         <Link to={`/events/${event.id}`}>{event.name}</Link>
       </h2>
       <div>
