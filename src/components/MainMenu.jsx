@@ -54,8 +54,8 @@ function MainMenu(props) {
         </Menu.Item>
       )} */}
       {user && account && (
-        <Menu.Item key={`/${account.username}`}>
-          <Link to={`/${account.username}`}>Account</Link>
+        <Menu.Item key={`/${account.username}/manage`}>
+          <Link to={`/${account.username}/manage`}>Account</Link>
         </Menu.Item>
       )}
       {user && !account && (

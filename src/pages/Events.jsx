@@ -118,7 +118,9 @@ export default function Events(props) {
       key: 'name',
       render: (event) => {
         return (
-          <Link to={`/${event.username}/events/${event.id}`}>{event.name}</Link>
+          <Link to={`/${event.username}/manage/events/${event.id}`}>
+            {event.name}
+          </Link>
         );
       }
     },

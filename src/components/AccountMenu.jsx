@@ -40,8 +40,8 @@ function AccountMenu(props) {
         onClick={(e) => setCurrent(e.key)}
         selectedKeys={[current]}
       >
-        <Menu.Item key={`/${username}`} icon={<YoutubeOutlined />}>
-          <Link to={`/${username}`}>Profile</Link>
+        <Menu.Item key={`/${username}/manage`} icon={<YoutubeOutlined />}>
+          <Link to={`/${username}/manage`}>Profile</Link>
         </Menu.Item>
         <Menu.Item
           key={`/${username}/manage/dashboard`}
