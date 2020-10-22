@@ -259,6 +259,7 @@ export default function Event() {
     let ref = btoa(
       JSON.stringify({
         user_id: user.sub,
+        account_id: event.account.id,
         event_id: event.id
       })
     );
@@ -419,9 +420,10 @@ export default function Event() {
           </Row>
           <Row gutter={32}>
             <Col xs={24} lg={8}>
-              <span>{event.views} Views</span> •
-              <span>{event.favorites} Favorites</span>
               <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
+              <div>
+                {event.views} Views • {event.favorites} Favorites
+              </div>
             </Col>
 
             <Col xs={24} lg={16}>

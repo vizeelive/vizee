@@ -15,12 +15,12 @@ app.post(
 
     let status;
     let mux_id;
-    
+
     if (data.type === 'video.live_stream.active') {
       status = 'live';
       mux_id = data.object.id;
     }
-    
+
     if (data.type === 'video.asset.live_stream_completed') {
       status = 'completed';
       mux_id = data.data.live_stream_id;
