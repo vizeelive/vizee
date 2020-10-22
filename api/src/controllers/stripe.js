@@ -70,16 +70,21 @@ app.get('/stripe/session', async function (req, res) {
   try {
     event = await client.query({
       variables: {
-        id: ref.event_id
+        id: ref.event_id,
+        account_id: ref.account_id
       },
       query: gql`
-        query MyQuery($id: uuid!) {
+        query MyQuery($id: uuid!, $account_id: uuid!) {
           events_by_pk(id: $id) {
             id
             price
             account {
               stripe_id
             }
+          }
+          accounts_by_pk(id: $account_id) {
+            fee_percent
+            subscription_rate
           }
         }
       `
@@ -104,11 +109,13 @@ app.get('/stripe/session', async function (req, res) {
 
   console.log({ event });
 
+  const account_percent = 1 - event.data.accounts_by_pk.fee_percent / 100;
+
   let unit_amount = parseInt(
     event.data.events_by_pk.price.replace('$', '').replace('.', '')
   );
 
-  let amount = unit_amount * 0.8;
+  let amount = unit_amount * account_percent;
 
   const session = await stripe.checkout.sessions.create({
     client_reference_id: req.query.ref,
