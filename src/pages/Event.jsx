@@ -49,7 +49,7 @@ const MainContent = styled.div`
   }
 `;
 
-const EventName = styled(Typography.Title)`
+const EventName = styled.h1`
   margin-bottom: 0 !important;
 `;
 
@@ -406,11 +406,16 @@ export default function Event() {
       </MainContent>
       <Content>
         <div>
+          <Row>{isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>} </Row>
           <Row>
-            <EventName>
-              {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}{' '}
-              {event.name}
-            </EventName>
+            <EventName>{event.name}</EventName>
+          </Row>
+          <Row>
+            <h2>
+              <Link to={`/${event.account.username}`}>
+                {event.account.name}
+              </Link>
+            </h2>
           </Row>
           <Row gutter={32}>
             <Col xs={24} lg={8}>
@@ -458,15 +463,6 @@ export default function Event() {
                 )}
               </ActionsContainer>
             </Col>
-          </Row>
-          <Row>
-            <div>
-              <Title level={3}>
-                <Link to={`/${event.account.username}`}>
-                  {event.account.name}
-                </Link>
-              </Title>
-            </div>
           </Row>
           <Row>
             <Col xs={24} lg={16}>
