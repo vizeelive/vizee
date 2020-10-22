@@ -108,7 +108,20 @@ export default function useAuth() {
   let client = new ApolloClient({
     cache: new InMemoryCache(),
     link: ApolloLink.from([authLink, errorLink, link]),
-    defaultHttpLink: false
+    defaultHttpLink: false,
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'cache-and-network',
+        errorPolicy: 'ignore'
+      },
+      query: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+      },
+      mutate: {
+        errorPolicy: 'all'
+      }
+    }
   });
 
   if (user && geo) {
