@@ -106,6 +106,7 @@ function EventCard(props) {
           <small>{event.location}</small>
         </div>
         {renderTags()}
+        {!event?.published && 'Unpublished'}
         {user?.isAdmin && (
           <EditLink
             type="primary"

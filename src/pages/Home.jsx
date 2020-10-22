@@ -35,6 +35,7 @@ const GET_EVENTS_AUTH = gql`
       end
       location
       location_pos
+      published
       account {
         id
         name
