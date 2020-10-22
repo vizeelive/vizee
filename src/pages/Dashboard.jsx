@@ -38,6 +38,7 @@ const ACCOUNT_REPORT = gql`
         stripe_id
         events {
           id
+          type
           name
           video
           mux_id
@@ -88,6 +89,8 @@ export default function Dashboard() {
   }
 
   let stepsComplete = step === 5 && eventComplete;
+  let firstEventIsLive = account?.account?.events?.[0]?.type === 'live';
+  let firstEventLink = `/${username}/${account?.account?.events?.[0]?.id}`;
 
   return (
     <React.Fragment>
@@ -104,7 +107,9 @@ export default function Dashboard() {
             description={
               <React.Fragment>
                 <div>Fill out your bank details to receive payments.</div>
-                <StripeAccount id={account.id} username={username} />
+                {step === 1 && (
+                  <StripeAccount id={account.id} username={username} />
+                )}
               </React.Fragment>
             }
           />
@@ -113,9 +118,13 @@ export default function Dashboard() {
             description={
               <React.Fragment>
                 <div>Create your first event to sell</div>
-                <Link to={`/${username}/manage/events/add?redirect=dashboard`}>
-                  <Button>Create Event</Button>
-                </Link>
+                {step === 2 && (
+                  <Link
+                    to={`/${username}/manage/events/add?redirect=dashboard`}
+                  >
+                    <Button type="primary">Create Event</Button>
+                  </Link>
+                )}
               </React.Fragment>
             }
           />
@@ -125,7 +134,18 @@ export default function Dashboard() {
           />
           <Step
             title="Go Live!"
-            description="If your event is a livestream, go live at the correct time!"
+            description={
+              <React.Fragment>
+                <div>
+                  If your event is a livestream, go live at the correct time!
+                </div>
+                {step === 4 && firstEventIsLive && (
+                  <Link to={firstEventLink}>
+                    <Button type="primary">View Event</Button>
+                  </Link>
+                )}
+              </React.Fragment>
+            }
           />
         </Steps>
       )}
