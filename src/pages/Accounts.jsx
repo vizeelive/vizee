@@ -59,9 +59,7 @@ const DELETE_ACCOUNT = gql`
 `;
 
 export default function Events() {
-  const { loading, error, data, refetch } = useQuery(GET_ACCOUNTS, {
-    fetchPolicy: 'cache-and-network'
-  });
+  const { loading, error, data, refetch } = useQuery(GET_ACCOUNTS);
   const [deleteAccount] = useMutation(DELETE_ACCOUNT);
 
   if (loading) {

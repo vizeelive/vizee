@@ -51,8 +51,10 @@ app.get('/stripe/account/create', async function (req, res) {
 
   const accountLinks = await stripe.accountLinks.create({
     account: account.id,
-    refresh_url: `${config.ui}/${username}/manage/settings/${id}/payment/refresh`,
-    return_url: `${config.ui}/${username}/manage/settings/${id}/payment`,
+    refresh_url: `${config.ui}/${username}/manage/dashboard`,
+    return_url: `${config.ui}/${username}/manage/dashboard`,
+    // refresh_url: `${config.ui}/${username}/manage/settings/${id}/payment/refresh`,
+    // return_url: `${config.ui}/${username}/manage/settings/${id}/payment`,
     type: 'account_onboarding'
   });
 
@@ -225,10 +227,14 @@ app.post(
       return response.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    console.log({ event });
+    console.log('/stripe/connect/webhook', { event });
 
     if (event.type === 'account.updated') {
       try {
+        console.log('input', {
+          id: event.data.object.id,
+          data: event.data.object
+        });
         await client.mutate({
           variables: {
             id: event.data.object.id,

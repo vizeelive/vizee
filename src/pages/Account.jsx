@@ -178,7 +178,6 @@ export default function Account() {
 
   // @TODO would probably be better to use named actions rather than variables queries in order to track which one gets called, or give them different query names above
   const { loading, error, data, refetch } = useQuery(query, {
-    fetchPolicy: 'cache-and-network',
     variables
   });
 

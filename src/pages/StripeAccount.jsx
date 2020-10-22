@@ -18,8 +18,11 @@ const GET_ACCOUNT = gql`
   }
 `;
 
-export default function StripeAccount() {
-  const { id, username, status } = useParams();
+export default function StripeAccount(props) {
+  let { id, username, status } = useParams();
+
+  id = props.id || id;
+  username = props.username || username;
 
   const { loading, error, data } = useQuery(GET_ACCOUNT, {
     variables: { id }

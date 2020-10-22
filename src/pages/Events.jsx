@@ -45,6 +45,7 @@ const GET_EVENTS = gql`
       start
       end
       price
+      published
       account {
         name
         username
@@ -64,7 +65,6 @@ const DELETE_EVENT = gql`
 export default function Events(props) {
   let { username } = useParams();
   const { loading, error, data, refetch } = useQuery(GET_EVENTS, {
-    fetchPolicy: 'cache-and-network',
     variables: {
       username
     }
@@ -128,6 +128,11 @@ export default function Events(props) {
       title: 'Type',
       dataIndex: 'type',
       key: 'type'
+    },
+    {
+      title: 'Published',
+      dataIndex: 'published',
+      key: 'published'
     },
     {
       title: 'Price',

@@ -61,7 +61,6 @@ export default function AddAccount(props) {
   const [replacePhoto, setReplacePhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [loadAccount, { loading, error, data }] = useLazyQuery(GET_ACCOUNT, {
-    fetchPolicy: 'cache-and-network',
     variables: {
       id: params.id
     }
@@ -147,7 +146,7 @@ export default function AddAccount(props) {
     if (result) {
       message.success('Successfully created account');
       if (props.redirect === true) {
-        history.push(`/${result.data.CreateAccount.username}`);
+        history.push(`/${result.data.CreateAccount.username}/manage/dashboard`);
       } else if (props.redirect) {
         history.push(props.redirect);
       } else {

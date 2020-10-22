@@ -90,7 +90,6 @@ export default function Users() {
   const [showModal, setShowModal] = useState(false);
 
   const { loading, error, data, refetch } = useQuery(GET_USERS, {
-    fetchPolicy: 'cache-and-network',
     variables: { username }
   });
 

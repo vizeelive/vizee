@@ -84,7 +84,6 @@ export default function ViewEvent() {
   let { id, username } = useParams();
 
   const { loading, error, data } = useQuery(GET_EVENT_AUTH, {
-    fetchPolicy: 'cache-and-network',
     variables: { id }
   });
 

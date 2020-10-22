@@ -206,7 +206,6 @@ export default function Event() {
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
-      fetchPolicy: 'cache-and-network',
       variables
     }
   );
@@ -225,7 +224,7 @@ export default function Event() {
   const account_id = event?.account?.id;
 
   useEffect(() => {
-    if (event?.id) {
+    if (event?.id && !isMyAccount) {
       trackView({
         variables: {
           object: {
@@ -243,7 +242,7 @@ export default function Event() {
         }
       });
     }
-  }, [account_id, event.id, trackView, user, userId]);
+  }, [account_id, event.id, isMyAccount, trackView, user, userId]);
 
   if (loading) {
     return (

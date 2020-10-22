@@ -112,6 +112,13 @@ export default function AddEvent(props) {
   const params = useParams();
   const history = useHistory();
 
+  let redirect;
+  let qs = new URLSearchParams(window.location.search);
+  if (qs.get('redirect') === 'dashboard') {
+    redirect = `/${params.username}/manage/dashboard`;
+  }
+  redirect = redirect || props.redirect;
+
   let query;
   let options;
   let title;
@@ -120,7 +127,6 @@ export default function AddEvent(props) {
   if (params.id) {
     query = GET_EVENT;
     options = {
-      fetchPolicy: 'cache-and-network',
       variables: { id: params.id, username: params.username }
     };
     title = 'Edit Event';
@@ -211,7 +217,7 @@ export default function AddEvent(props) {
 
     if (newEvent) {
       message.success('Successfully created event');
-      history.push(props.redirect);
+      history.push(redirect);
     } else {
       message.error('Failed to create event');
     }
