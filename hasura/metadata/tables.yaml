@@ -537,6 +537,12 @@
     name: members
 - table:
     schema: public
+    name: presence
+- table:
+    schema: public
+    name: presence_events
+- table:
+    schema: public
     name: subscriptions
   object_relationships:
   - name: account
@@ -719,6 +725,8 @@
   - role: user
     permission:
       check: {}
+      set:
+        user_id: x-hasura-User-Id
       columns:
       - account_id
       - city

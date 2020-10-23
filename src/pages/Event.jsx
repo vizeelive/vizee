@@ -18,16 +18,10 @@ import useAuth from '../hooks/useAuth';
 
 import { Button, Typography, Tag, Row, Col } from 'antd';
 
-import {
-  SettingOutlined,
-  PlayCircleOutlined,
-  TagOutlined
-} from '@ant-design/icons';
+import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
-
-const { Title } = Typography;
 
 const Content = styled.div`
   margin: 20px 20px 50px;
@@ -44,7 +38,7 @@ const Content = styled.div`
 const MainContent = styled.div`
   img,
   video {
-    height: 50vh;
+    height: 30vh;
     object-fit: cover;
   }
 `;
@@ -297,9 +291,15 @@ export default function Event() {
   let isVideo = event.type === 'video';
 
   const liveEvent = liveData?.events_by_pk;
-  const canWatch =
-    (liveEvent?.status !== 'idle' && isMyAccount) ||
-    (isLive && (isFree || isPurchased));
+
+  let canWatch;
+  if (event.type === 'video') {
+    canWatch = isMyAccount || (isLive && (isFree || isPurchased));
+  } else {
+    canWatch =
+      (liveEvent?.status !== 'idle' && isMyAccount) ||
+      (isLive && (isFree || isPurchased));
+  }
 
   const handleEditClick = () => {
     history.push(`/admin/events/edit/${event.id}`);
