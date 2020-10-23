@@ -1,0 +1,16 @@
+name: Tests
+
+on: [pull_request]
+
+jobs:
+  ui-tests:
+    name: Jest Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install packages
+        run: npx yarn
+      - name: Run tests
+        run: npx yarn test
+

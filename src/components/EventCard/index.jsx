@@ -89,7 +89,7 @@ function EventCard(props) {
 
     return (
       <Favorite ref={favRef} isActive={isFavorite}>
-        <Icon onClick={onFavoriteClick} />
+        <Icon data-testid="favorite" onClick={onFavoriteClick} />
       </Favorite>
     );
   };
