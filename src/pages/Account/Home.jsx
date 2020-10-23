@@ -204,7 +204,7 @@ export default function Home() {
         <AccountDescription>{account.description}</AccountDescription>
 
         <EventsContainer>
-          <Title level={3}>Events</Title>
+          {account.events.length ? <Title level={3}>Events</Title> : null}
           <Events events={account.events} refetch={refetch} />
         </EventsContainer>
       </MainContent>

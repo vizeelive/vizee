@@ -242,6 +242,7 @@ export default function AddEvent(props) {
   let eventData = {
     ...event,
     type: event?.type || 'live',
+    preview: '',
     range: [moment(event?.start), moment(event?.end)]
   };
 
@@ -264,7 +265,6 @@ export default function AddEvent(props) {
   };
 
   const layout = 'vertical';
-  // const layout = isLargeScreen ? 'horizontal' : 'vertical';
 
   const formLayout = isLargeScreen
     ? {
@@ -293,90 +293,82 @@ export default function AddEvent(props) {
       >
         <Form.Item label="Event Type" name="type">
           <Radio.Group
-            options={[
-              { label: 'Live', value: 'live' },
-              { label: 'Conference', value: 'conference' },
-              { label: 'Video', value: 'video' }
-            ]}
-            style={{ marginBottom: '10px' }}
+            value={layout}
             onChange={(e) => setEvent({ ...event, type: e.target.value })}
-            optionType="button"
-            value={eventData?.type}
-          />
-          {event?.type === 'video' && (
-            <React.Fragment>
-              {event?.video ? (
-                <React.Fragment>
-                  <video src={event.video} width="300px" alt="event" controls />
-                  <Button onClick={() => setEvent({ ...event, video: null })}>
-                    Replace Video
-                  </Button>
-                </React.Fragment>
-              ) : (
-                <FileUpload
-                  id="video"
-                  callback={handleVideoUpload}
-                  options={uploadVideoOptions}
-                />
-              )}
-            </React.Fragment>
-          )}
+          >
+            <Radio.Button value="live">Live</Radio.Button>
+            <Radio.Button value="conference">Conference</Radio.Button>
+            <Radio.Button value="video">Video</Radio.Button>
+          </Radio.Group>
         </Form.Item>
 
-        <Form.Item label="Preview">
+        {event?.type === 'video' && (
+          <Form.Item>
+            {event?.video ? (
+              <React.Fragment>
+                <video src={event.video} width="300px" alt="event" controls />
+                <Button onClick={() => setEvent({ ...event, video: null })}>
+                  Replace Video
+                </Button>
+              </React.Fragment>
+            ) : (
+              <FileUpload
+                id="video"
+                callback={handleVideoUpload}
+                options={uploadVideoOptions}
+              />
+            )}
+          </Form.Item>
+        )}
+
+        <Form.Item label="Preview" name="preview">
           <Radio.Group
-            options={[
-              { label: 'None', value: '' },
-              { label: 'Photo', value: 'Photo' },
-              { label: 'Video', value: 'Video' }
-            ]}
             onChange={(e) => setCoverType(e.target.value)}
             optionType="button"
             value={coverType || ''}
-            style={{ marginBottom: '10px' }}
-          />
-          {coverType === 'Photo' && (
-            <Form.Item>
-              {event?.photo ? (
-                <React.Fragment>
-                  <img src={event.photo} width="300px" alt="event" />
-                  <Button onClick={() => setEvent({ ...event, photo: null })}>
-                    Replace Photo
-                  </Button>
-                </React.Fragment>
-              ) : (
-                <FileUpload
-                  id="photo"
-                  callback={handlePhotoUpload}
-                  options={uploadPhotoOptions}
-                />
-              )}
-            </Form.Item>
-          )}
-          {coverType === 'Video' && (
-            <React.Fragment>
-              {event?.preview ? (
-                <React.Fragment>
-                  <video
-                    src={event.preview}
-                    width="300px"
-                    alt="event"
-                    controls
-                  />
-                  <Button onClick={() => setEvent({ ...event, preview: null })}>
-                    Replace Preview
-                  </Button>
-                </React.Fragment>
-              ) : (
-                <FileUpload
-                  id="preview"
-                  callback={handlePreviewUpload}
-                  options={uploadVideoOptions}
-                />
-              )}
-            </React.Fragment>
-          )}
+          >
+            <Radio.Button value="">None</Radio.Button>
+            <Radio.Button value="Photo">Photo</Radio.Button>
+            <Radio.Button value="Video">Video</Radio.Button>
+          </Radio.Group>
         </Form.Item>
+
+        {coverType === 'Photo' && (
+          <Form.Item>
+            {event?.photo ? (
+              <React.Fragment>
+                <img src={event.photo} width="300px" alt="event" />
+                <Button onClick={() => setEvent({ ...event, photo: null })}>
+                  Replace Photo
+                </Button>
+              </React.Fragment>
+            ) : (
+              <FileUpload
+                id="photo"
+                callback={handlePhotoUpload}
+                options={uploadPhotoOptions}
+              />
+            )}
+          </Form.Item>
+        )}
+        {coverType === 'Video' && (
+          <Form.Item>
+            {event?.preview ? (
+              <React.Fragment>
+                <video src={event.preview} width="300px" alt="event" controls />
+                <Button onClick={() => setEvent({ ...event, preview: null })}>
+                  Replace Preview
+                </Button>
+              </React.Fragment>
+            ) : (
+              <FileUpload
+                id="preview"
+                callback={handlePreviewUpload}
+                options={uploadVideoOptions}
+              />
+            )}
+          </Form.Item>
+        )}
 
         <Form.Item name="range" label="Event Times" {...rangeConfig}>
           <RangePicker showTime format="MM-DD-YYYY HH:mm a" />
@@ -408,7 +400,6 @@ export default function AddEvent(props) {
             style={{ width: 200 }}
             placeholder="Select a category"
             optionFilterProp="children"
-            // defaultValue={event?.category_id}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }

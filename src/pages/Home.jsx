@@ -159,10 +159,6 @@ const MainContent = styled.main`
   min-height: calc(100vh - 64px);
 `;
 
-// const Hero = styled.div`
-//   margin: 100px;
-// `;
-
 export default function Home() {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
@@ -201,44 +197,12 @@ export default function Home() {
   const categories = data?.categories;
   const events = searchData?.events || data.events;
 
-  // const onChange = () => {};
-
-  // const contentStyle = {
-  //   height: "160px",
-  //   color: "#fff",
-  //   lineHeight: "160px",
-  //   textAlign: "center",
-  //   background: "#364d79",
-  // };
-
   return (
     <React.Fragment>
       {!isMobile && <Map events={events} />}
 
       <MainContent>
-        {/* <Hero>
-        <h1>
-          An event platform for accounts, creators, and educators. Go ahead,
-          your audience is waiting.
-        </h1>
-      </Hero> */}
         {user && showModal && <FinishSignup setShowModal={setShowModal} />}
-        {/* <Divider /> */}
-        {/* <Tag color="magenta">Live Now!</Tag><br /> */}
-        {/* <Carousel afterChange={onChange}>
-        <div>
-          <img src="https://dam-media.s3.amazonaws.com/0b/7631c4ad0a400ba9fe5da4d2cdbc01/Damian-Marley-and-Third-World-2019-billboard-1548-1024x677.jpg" alt="thangs" />
-        </div>
-        <div>
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>4</h3>
-        </div>
-      </Carousel> */}
         <Tabs defaultActiveKey="Music">
           {categories.map((category) => {
             // @TODO use view count once we have pagination here
@@ -246,7 +210,6 @@ export default function Home() {
             if (!count.length) return null;
             return (
               <TabPane tab={category.name} key={category.name}>
-                {/* <Title>{category.name}</Title> */}
                 <Input
                   placeholder="Search"
                   onChange={(e) => search(e.currentTarget.value)}
