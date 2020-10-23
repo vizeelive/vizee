@@ -5,6 +5,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import EventCard from './index';
 
+jest.mock('moment', () => () => ({
+  format: () => 'October 22nd 4:19 pm',
+  isBetween: () => true
+}));
+
 let event;
 let user;
 
@@ -75,6 +80,7 @@ describe('EventCard', () => {
       expect(screen.getByTestId('favorite')).toBeInTheDocument();
 
       // tags
+      expect(screen.getByText('LIVE NOW')).toBeInTheDocument();
       expect(screen.getByText('Broadcast')).toBeInTheDocument();
       expect(screen.getByText('Purchased')).toBeInTheDocument();
       expect(screen.getByText('Free!')).toBeInTheDocument();
