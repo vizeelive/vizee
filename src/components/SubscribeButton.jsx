@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from 'antd';
 
@@ -56,3 +57,8 @@ export default function SubscribeButton(props) {
     </React.Fragment>
   );
 }
+
+SubscribeButton.propTypes = {
+  account_id: PropTypes.string,
+  subscription_id: PropTypes.string
+};
