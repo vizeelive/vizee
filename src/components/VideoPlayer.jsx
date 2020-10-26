@@ -1,5 +1,6 @@
 import React from 'react';
 import videojs from 'video.js';
+import 'videojs-mux';
 import 'video.js/dist/video-js.min.css';
 import styled from 'styled-components';
 
@@ -15,7 +16,27 @@ const VideoContainer = styled.div`
 export default class VideoPlayer extends React.Component {
   componentDidMount() {
     // instantiate Video.js
-    this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
+    var playerInitTime = Date.now();
+    let options = Object.assign(
+      {
+        plugins: {
+          mux: {
+            debug: true,
+            data: {
+              env_key: process.env.REACT_APP_MUX_ENVIRONMENT, // required
+
+              // Metadata
+              player_name: 'Vizee', // ex: 'My Main Player'
+              player_init_time: playerInitTime // ex: 1451606400000
+
+              // ... and other metadata
+            }
+          }
+        }
+      },
+      this.props
+    );
+    this.player = videojs(this.videoNode, options, function onPlayerReady() {
       // console.log('onPlayerReady', this);
     });
   }

@@ -336,6 +336,18 @@ export default function Event() {
     videoJsOptions.sources.push({
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`
     });
+  } else {
+   playerKey = Math.random();
+   videoJsOptions = {
+     autoplay: true,
+     controls: true,
+     aspectRatio: '16:9',
+     sources: []
+   };
+   videoJsOptions.sources.push({
+     src: event.video,
+     type: 'video/mp4'
+   });
   }
 
   return (
@@ -371,13 +383,10 @@ export default function Event() {
               );
             } else {
               return (
-                <video
-                  src={event.video}
-                  poster={event.photo}
-                  width="100%"
-                  autoPlay
-                  muted
-                  controls
+                <VideoPlayer
+                  key={playerKey}
+                  {...videoJsOptions}
+                  style={{ width: '100%' }}
                 />
               );
             }

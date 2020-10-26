@@ -23,6 +23,7 @@
     "antd": "^4.6.6",
     "assert": "^2.0.0",
     "craco-less": "^1.17.0",
+    "cypress": "^5.4.0",
     "graphql": "^15.3.0",
     "lodash": "^4.17.20",
     "logrocket": "^1.0.13",
@@ -43,7 +44,8 @@
     "styled-components": "^5.2.0",
     "subscriptions-transport-ws": "^0.9.18",
     "text-mask-addons": "^3.8.0",
-    "video.js": "^7.9.7"
+    "video.js": "^7.9.7",
+    "videojs-mux": "^3.1.1"
   },
   "scripts": {
     "start": "craco start",
