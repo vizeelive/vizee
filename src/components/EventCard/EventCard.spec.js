@@ -54,6 +54,17 @@ describe('EventCard', () => {
       ]
     };
   });
+  describe('as anonymous', () => {
+    it('should not render unpublished', () => {
+      event.published = false;
+      render(
+        <Router>
+          <EventCard user={null} event={event} />
+        </Router>
+      );
+      expect(screen.queryByText('Unpublished')).not.toBeInTheDocument();
+    });
+  });
   describe('as an admin', () => {
     it('should render an edit button', () => {
       user.isAdmin = true;

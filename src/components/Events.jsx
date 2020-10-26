@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { gql, useMutation } from '@apollo/client';
+import PropTypes from 'prop-types';
 import useAuth from '../hooks/useAuth';
 import EventCard from './EventCard';
 
@@ -59,3 +60,9 @@ export default function Events(props) {
     </Grid>
   );
 }
+
+Events.propTypes = {
+  refetch: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  events: PropTypes.array.isRequired
+};

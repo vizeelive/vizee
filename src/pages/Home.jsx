@@ -5,6 +5,8 @@ import useAuth from '../hooks/useAuth';
 
 import { isMobile } from 'react-device-detect';
 
+import Mapper from '../services/mapper';
+
 import FinishSignup from '../components/FinishSignup';
 import Map from '../components/Map';
 import Events from '../components/Events';
@@ -41,6 +43,11 @@ const GET_EVENTS_AUTH = gql`
         name
         username
         photo
+        users {
+          user {
+            id
+          }
+        }
       }
       category {
         id
@@ -195,7 +202,7 @@ export default function Home() {
   };
 
   const categories = data?.categories;
-  const events = searchData?.events || data.events;
+  const events = Mapper(searchData?.events || data.events);
 
   return (
     <React.Fragment>
