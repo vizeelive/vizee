@@ -9,6 +9,8 @@ import Spinner from '../../components/ui/Spinner';
 import SubscribeButton from '../../components/SubscribeButton';
 import useAuth from '../../hooks/useAuth';
 
+import Mapper from '../../services/mapper';
+
 import {
   InstagramOutlined,
   TwitterOutlined,
@@ -144,7 +146,7 @@ export default function Home() {
 
   if (error) return 'Error';
 
-  const account = data?.accounts?.[0];
+  const account = Mapper(data?.accounts?.[0]);
   const subscribers = data?.subscriptions_aggregate?.aggregate?.count;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === username
