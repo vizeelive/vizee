@@ -111,8 +111,8 @@ export default function useAuth() {
     defaultHttpLink: false,
     defaultOptions: {
       watchQuery: {
-        fetchPolicy: 'cache-and-network',
-        errorPolicy: 'ignore'
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
       },
       query: {
         fetchPolicy: 'network-only',
