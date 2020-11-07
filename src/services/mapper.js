@@ -7,7 +7,8 @@ import users from './models/User';
 const models = {
   accounts,
   events,
-  users
+  users,
+  events_report: events
 };
 
 export default function Mapper(data) {

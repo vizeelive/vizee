@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import EventCard from './index';
+import Mapper from '../../services/mapper';
 
 jest.mock('moment', () => () => ({
   format: () => 'October 22nd 4:19 pm',
@@ -16,9 +17,10 @@ let user;
 describe('EventCard', () => {
   beforeEach(() => {
     user = {
+      sub: 'auth0|5f882bfe4361420078ecdcc0',
       isAdmin: false
     };
-    event = {
+    event = Mapper({
       __typename: 'events',
       id: '6a6ec6d1-93cc-4b71-9e0e-845253ab0dbd',
       name: 'Live',
@@ -38,7 +40,30 @@ describe('EventCard', () => {
         name: 'Trey Anastasio Band',
         username: 'treyanastasio',
         photo:
-          'https://dam-media.s3.amazonaws.com/d8/f20511775243f5b07698c05276ced9/39_Original.png'
+          'https://dam-media.s3.amazonaws.com/d8/f20511775243f5b07698c05276ced9/39_Original.png',
+        users: [
+          {
+            __typename: 'accounts_users',
+            user: {
+              __typename: 'users',
+              id: 'auth0|5f882bfe4361420078ecdcc0'
+            }
+          },
+          {
+            __typename: 'accounts_users',
+            user: {
+              __typename: 'users',
+              id: 'auth0|5f8838b47119bc007640b4af'
+            }
+          },
+          {
+            __typename: 'accounts_users',
+            user: {
+              __typename: 'users',
+              id: 'google-oauth2|112768500105429624141'
+            }
+          }
+        ]
       },
       category: {
         __typename: 'categories',
@@ -52,7 +77,7 @@ describe('EventCard', () => {
           id: 'c6e23e10-9b5a-4671-851c-62d5f531584e'
         }
       ]
-    };
+    });
   });
   describe('as anonymous', () => {
     it('should not render unpublished', () => {
