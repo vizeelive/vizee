@@ -143,13 +143,13 @@ export default function Event() {
             created_by: userId,
             account_id: account_id,
             event_id: event.id,
-            city: user?.geo.city,
-            country: user?.geo.country,
-            ip: user?.geo.ip,
-            loc: user?.geo.loc,
-            postal: user?.geo.postal,
-            region: user?.geo.region,
-            timezone: user?.geo.timezone
+            city: user?.geo?.city,
+            country: user?.geo?.country,
+            ip: user?.geo?.ip,
+            loc: user?.geo?.loc,
+            postal: user?.geo?.postal,
+            region: user?.geo?.region,
+            timezone: user?.geo?.timezone
           }
         }
       });
