@@ -2,6 +2,7 @@ import 'antd/dist/dark-theme.js';
 
 import { ApolloProvider } from '@apollo/client';
 import LogRocket from 'logrocket';
+import * as Sentry from '@sentry/react';
 import React, { useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -54,6 +55,12 @@ function App() {
     LogRocket.identify(user.sub, {
       name: user.name,
       email: user.email
+    });
+    LogRocket.getSessionURL((sessionURL) => {
+      console.log('LogRocket Link', sessionURL);
+      Sentry.configureScope((scope) => {
+        scope.setExtra('sessionURL', sessionURL);
+      });
     });
   }
 
