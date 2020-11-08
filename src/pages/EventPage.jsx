@@ -269,13 +269,13 @@ export default function EventPage(props) {
 
 EventPage.propTypes = {
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
+  error: PropTypes.bool,
   event: PropTypes.object.isRequired,
-  account: PropTypes.object.isRequired,
+  account: PropTypes.object,
   user: PropTypes.object,
-  playerKey: PropTypes.string.isRequired,
+  playerKey: PropTypes.number.isRequired,
   videoJsOptions: PropTypes.object.isRequired,
-  liveData: PropTypes.object.isRequired,
+  liveData: PropTypes.object,
   handleClickBuy: PropTypes.func.isRequired,
   handleEditClick: PropTypes.func.isRequired
 };

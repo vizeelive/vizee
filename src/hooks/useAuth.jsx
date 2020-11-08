@@ -92,7 +92,9 @@ export default function useAuth() {
         return null;
       });
 
-    if (networkError) console.log(`[Network error]: ${networkError}`);
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`, networkError);
+    }
   });
 
   const link = ApolloLink.split(
