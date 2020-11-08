@@ -214,7 +214,7 @@ export default function EventPage(props) {
                       Buy Ticket ({event.price})
                     </Button>
                   )}
-                {user && !isMyAccount && (
+                {user && !user.isAdmin && !isMyAccount && (
                   <SubscribeButton
                     account_id={event.account.id}
                     subscription_id={account?.subscriptions?.[0]?.id}
