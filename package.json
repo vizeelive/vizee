@@ -7,6 +7,8 @@
     "@apollo/link-context": "^2.0.0-beta.3",
     "@auth0/auth0-react": "^1.1.0",
     "@craco/craco": "^5.7.0",
+    "@sentry/react": "^5.27.3",
+    "@sentry/tracing": "^5.27.3",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.9.0",
     "@testing-library/jest-dom": "^4.2.4",
