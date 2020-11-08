@@ -37,16 +37,18 @@ const Social = styled.div`
 `;
 
 const AccountDescription = styled.p`
+  margin-top: 20px;
   max-width: 40rem;
 `;
 
-const GET_ACCOUNT_ANON = gql`
+export const GET_ACCOUNT_ANON = gql`
   query GetAccount($username: String!) {
     accounts(where: { username: { _eq: $username } }) {
       id
       name
       photo
       username
+      description
       subscriptions {
         id
       }
@@ -96,6 +98,7 @@ const GET_ACCOUNT_USER = gql`
       name
       photo
       username
+      description
       subscriptions {
         id
       }
