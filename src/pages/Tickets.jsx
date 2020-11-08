@@ -5,6 +5,7 @@ import { gql, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
+import Mapper from '../services/mapper';
 import Events from '../components/Events';
 
 import { Centered } from '../components/styled/common';
@@ -62,7 +63,7 @@ const Tickets = (props) => {
 
   if (error) return 'Error';
 
-  let events = data?.transactions.map((t) => t.event);
+  let events = Mapper(data?.transactions.map((t) => t.event));
 
   return (
     <Layout>
