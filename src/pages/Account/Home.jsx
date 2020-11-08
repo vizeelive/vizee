@@ -195,7 +195,7 @@ export default function Home() {
         )}
 
         <div style={{ float: 'right' }}>
-          {user && (
+          {user && !user.isAdmin && (
             <SubscribeButton
               account_id={account.id}
               subscription_id={account?.subscriptions?.[0]?.id}
