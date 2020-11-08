@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Events from '../../components/Events';
 import { Link, useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
+import { Helmet } from 'react-helmet';
+
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
 import SubscribeButton from '../../components/SubscribeButton';
@@ -157,6 +159,11 @@ export default function Home() {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <meta property="og:image" content={account.photo} />
+        <meta property="og:title" content={`${account.name}`} />
+        <meta property="og:description" content={account.description} />
+      </Helmet>
       <img
         style={{ objectFit: 'cover', height: '17vh' }}
         src={account.photo}
