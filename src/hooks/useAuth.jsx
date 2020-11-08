@@ -114,14 +114,14 @@ export default function useAuth() {
     defaultOptions: {
       watchQuery: {
         fetchPolicy: 'network-only',
-        errorPolicy: 'all'
+        // errorPolicy: 'all'
       },
       query: {
         fetchPolicy: 'network-only',
-        errorPolicy: 'all'
+        // errorPolicy: 'all'
       },
       mutate: {
-        errorPolicy: 'all'
+        // errorPolicy: 'all'
       }
     }
   });
