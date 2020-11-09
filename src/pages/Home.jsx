@@ -69,7 +69,7 @@ const GET_EVENTS_AUTH = gql`
 
 const GET_EVENTS_UNAUTH = gql`
   query AnonGetEvents {
-    events {
+    events(where: { account: { stripe_id: { _is_null: false } } }) {
       id
       name
       start
