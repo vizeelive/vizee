@@ -26,7 +26,7 @@ const GET_EVENTS_AUTH = gql`
       first_name
       last_name
     }
-    events {
+    events(where: { account: { stripe_id: { _is_null: false } } }) {
       id
       name
       start
