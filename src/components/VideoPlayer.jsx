@@ -21,7 +21,7 @@ export default class VideoPlayer extends React.Component {
       {
         plugins: {
           mux: {
-            debug: true,
+            // debug: true,
             data: {
               env_key: process.env.REACT_APP_MUX_ENVIRONMENT, // required
 

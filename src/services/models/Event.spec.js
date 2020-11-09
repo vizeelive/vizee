@@ -71,7 +71,7 @@ describe('Event', () => {
     });
   });
   describe('canWatch', () => {
-    it('should return true user manages the event', () => {
+    it('should return true when is video and user manages the event', () => {
       let data = {
         type: 'video',
         account: {
@@ -88,7 +88,7 @@ describe('Event', () => {
       let event = new Event(data);
       expect(event.canWatch(user_id)).toBe(true);
     });
-    it('should return true when its showtime and its free', () => {
+    it('should return true when is video and its live and its free', () => {
       let data = {
         type: 'video',
         price: '$0.00',
@@ -106,7 +106,65 @@ describe('Event', () => {
       let event = new Event(data);
       expect(event.canWatch(user_id)).toBe(true);
     });
-    it('should return true when its showtime and its purchased', () => {
+    it('should return true when its broadcast and belongs to user', () => {
+      let data = {
+        type: 'video',
+        price: '$0.00',
+        account: {
+          users: [
+            {
+              user: {
+                id: 'auth0|nope'
+              }
+            }
+          ]
+        }
+      };
+      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let event = new Event(data);
+      let liveData = { status: 'completed' };
+      expect(event.canWatch(user_id, liveData)).toBe(true);
+    });
+    it('should return true when its broadcast and is free', () => {
+      let data = {
+        type: 'broadcast',
+        price: '$0.00',
+        account: {
+          users: [
+            {
+              user: {
+                id: 'auth0|nope'
+              }
+            }
+          ]
+        }
+      };
+      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let event = new Event(data);
+      let liveData = { status: 'completed' };
+      expect(event.canWatch(user_id, liveData)).toBe(true);
+    });
+    it('should return true when its broadcast and is live and is purchased', () => {
+      let data = {
+        type: 'broadcast',
+        price: '$1.00',
+        transaction: [{}],
+        account: {
+          users: [
+            {
+              user: {
+                id: 'auth0|nope'
+              }
+            }
+          ]
+        }
+      };
+      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let event = new Event(data);
+      let liveData = { status: 'completed' };
+      expect(event.canWatch(user_id, liveData)).toBe(true);
+    });
+    it('should return true when its broadcast and its live and is purchased', () => {
       let data = {
         type: 'video',
         price: '$1.00',

@@ -128,7 +128,7 @@ export default function EventPage(props) {
       </Helmet>
       <MainContent>
         {(() => {
-          if (event.canWatch()) {
+          if (event.canWatch(user?.sub, liveData)) {
             if (event.isBroadcast()) {
               return (
                 <VideoPlayer

@@ -79,6 +79,11 @@ const GET_EVENT_AUTH = gql`
         username
         photo
         stripe_id
+        users {
+          user {
+            id
+          }
+        }
       }
       transaction {
         id
@@ -192,15 +197,6 @@ export default function Event() {
       };
 
   const liveEvent = liveData?.events_by_pk;
-
-  // let canWatch;
-  // if (event.type === 'video') {
-  //   canWatch = isMyAccount || (isLive && (isFree || isPurchased));
-  // } else {
-  //   canWatch =
-  //     (liveEvent?.status !== 'idle' && isMyAccount) ||
-  //     (isLive && (isFree || isPurchased));
-  // }
 
   const handleEditClick = () => {
     history.push(`/admin/events/edit/${event.id}`);

@@ -25,18 +25,17 @@ export default class Event {
   belongsTo(user_id) {
     return !!this?.account?.users?.find((user) => user?.user?.id === user_id);
   }
-  canWatch(user_id) {
+  canWatch(user_id, liveEvent) {
     let canWatch;
     if (this.type === 'video') {
       canWatch =
         this.belongsTo(user_id) ||
         (this.isLive() && (this.isFree() || this.isPurchased()));
+    } else {
+      canWatch =
+        (liveEvent?.status !== 'idle' && this.belongsTo(user_id)) ||
+        (this.isLive() && (this.isFree() || this.isPurchased()));
     }
-    // } else {
-    //   canWatch =
-    //     (liveEvent?.status !== 'idle' && isMyAccount) ||
-    //     (isLive && (isFree || isPurchased));
-    // }
     return !!canWatch;
   }
 }
