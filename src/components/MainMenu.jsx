@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 
 const StyledMenu = styled(Menu)`
   &.ant-menu-dark {
+    float: right;
     &.ant-menu-horizontal {
       & > .ant-menu-item {
         &:not(.ant-menu-item-selected) {

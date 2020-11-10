@@ -12,7 +12,7 @@ const StyledHeader = styled(Layout.Header)`
   position: fixed;
   z-index: 2;
   width: 100%;
-  padding-left: 0;
+  padding: 0;
 `;
 
 const LogoLink = styled(Link)`
