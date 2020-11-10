@@ -241,12 +241,12 @@ export default function EventPage(props) {
           </Row>
           <Row>
             <Col xs={24} lg={16}>
-              {event.isPurchased() ? <Tag color="green">Purchased</Tag> : null}
+              {/* {event.isPurchased() ? <Tag color="green">Purchased</Tag> : null}
               {event.isFree() && <Tag color="blue">Free!</Tag>}
               {event.isBroadcast() && <Tag color="cyan">Broadcast</Tag>}
               {event.isVideo() && <Tag color="gold">Video</Tag>}
               <br />
-              <br />
+              <br /> */}
 
               <EventDescription>{event.description}</EventDescription>
               {user?.isAdmin && (

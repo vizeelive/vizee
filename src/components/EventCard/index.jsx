@@ -80,11 +80,11 @@ function EventCard(props) {
 
     return (
       <TagsContainer>
-        {isPurchased ? <Tag color="green">Purchased</Tag> : null}
+        {/* {isPurchased ? <Tag color="green">Purchased</Tag> : null} */}
         {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
-        {isFree && <Tag color="blue">Free!</Tag>}
-        {isBroadcast && <Tag color="cyan">Broadcast</Tag>}
-        {isVideo && <Tag color="gold">Video</Tag>}
+        {/* {isFree && <Tag color="blue">Free!</Tag>} */}
+        {/* {isBroadcast && <Tag color="cyan">Broadcast</Tag>} */}
+        {/* {isVideo && <Tag color="gold">Video</Tag>} */}
       </TagsContainer>
     );
   };
