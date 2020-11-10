@@ -121,7 +121,6 @@ export default function AddEvent(props) {
 
   let query;
   let options;
-  let title;
   let buttonLabel;
 
   if (params.id) {
@@ -129,12 +128,10 @@ export default function AddEvent(props) {
     options = {
       variables: { id: params.id, username: params.username }
     };
-    title = 'Edit Event';
     buttonLabel = 'Update Event';
   } else {
     query = GET_ACCOUNTS;
     options = { variables: { username: params.username } };
-    title = 'Add An Event';
     buttonLabel = 'Save Event';
   }
 
@@ -183,7 +180,7 @@ export default function AddEvent(props) {
       price: values.price,
       description: values.description,
       category_id: values.category_id,
-      account_id: account.id,
+      account_id: values.account_id,
       video: event?.video,
       preview: event?.preview,
       photo: event?.photo,
@@ -216,10 +213,10 @@ export default function AddEvent(props) {
     }
 
     if (newEvent) {
-      message.success('Successfully created event');
+      message.success('Successfully saved event');
       history.push(redirect);
     } else {
-      message.error('Failed to create event');
+      message.error('Failed to save event');
     }
   };
 
@@ -281,7 +278,9 @@ export default function AddEvent(props) {
 
   return (
     <FormContainer>
-      <Title level={2}>{title}</Title>
+      {!params.id && <Title level={2}>Add An Event</Title>}
+      {params.id && <Title level={2}>{event.name}</Title>}
+
       <Divider />
 
       <Form
