@@ -59,12 +59,17 @@ function MainMenu(props) {
           <Link to="/calendar">Calendar</Link>
         </Menu.Item>
       )} */}
-      {user && account && (
+      {user && user.isAdmin && (
         <Menu.Item key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
-      {user && !account && (
+      {user && !user.isAdmin && account && (
+        <Menu.Item key={`/${username}/manage`}>
+          <Link to={`/${username}/manage`}>Account</Link>
+        </Menu.Item>
+      )}
+      {user && !user.isAdmin && !account && (
         <Menu.Item key="/account">
           <Link to="/account">Create Account</Link>
         </Menu.Item>
