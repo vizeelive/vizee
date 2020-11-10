@@ -26,7 +26,7 @@ function MainMenu(props) {
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
 
-  const username = Cookies.get('username') || account.username;
+  const username = Cookies.get('username') || account?.username;
 
   useEffect(() => {
     const { pathname } = location;
