@@ -222,7 +222,7 @@ export default function ViewEvent() {
         <TabPane tab="Transactions" key="account">
           <Table rowKey="id" columns={columns} dataSource={transactionData} />
         </TabPane>
-        <TabPane tab="Access Codes" key="codes"></TabPane>
+        {/* <TabPane tab="Access Codes" key="codes"></TabPane> */}
       </Tabs>
     </React.Fragment>
   );

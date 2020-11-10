@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route, useParams } from 'react-router-dom';
 import { Layout } from 'antd';
 import styled from 'styled-components';
-
 import { gql, useQuery } from '@apollo/client';
 
-import Home from './Account/Home';
-import Settings from './Settings';
-
-import AddEvent from './AddEvent';
-import ViewEvent from './ViewEvent';
-import Events from './Events';
-import Dashboard from './Dashboard';
-import Calendar from './Calendar';
-import Users from './Users';
 import useAuth from '../hooks/useAuth';
-
 import AccountMenu from '../components/AccountMenu';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
+
+const Home = React.lazy(() => import('./Account/Home'));
+const Settings = React.lazy(() => import('./Settings'));
+const AddEvent = React.lazy(() => import('./AddEvent'));
+const ViewEvent = React.lazy(() => import('./ViewEvent'));
+const Events = React.lazy(() => import('./Events'));
+const Dashboard = React.lazy(() => import('./Dashboard'));
+const Calendar = React.lazy(() => import('./Calendar'));
+const Users = React.lazy(() => import('./Users'));
 
 const { Content } = Layout;
 
@@ -224,38 +222,54 @@ export default function Account() {
               minHeight: 280
             }}
           >
-            <Switch>
-              <Route
-                path="/:username/manage/dashboard"
-                exact
-                component={Dashboard}
-              />
-              <Route path="/:username/manage/users" exact component={Users} />
-              <Route path="/:username/manage/events" exact>
-                <Events />
-              </Route>
-              <Route path="/:username/manage/events/add" exact>
-                <AddEvent redirect={`/${username}/manage/events`} />
-              </Route>
-              <Route path="/:username/manage/events/:id" exact>
-                <ViewEvent />
-              </Route>
-              <Route path="/:username/manage/events/edit/:id" exact>
-                <AddEvent redirect={`/${username}/manage/events`} />
-              </Route>
-              <Route
-                path="/:username/manage/settings/:id/:tab/:status?"
-                component={Settings}
-              />
-              <Route
-                path="/:username/manage/calendar"
-                exact
-                component={Calendar}
-              />
-              <Route path="/:username/manage" exact>
-                <Home account={account} refetch={refetch} />
-              </Route>
-            </Switch>
+            <Suspense fallback={Spinner}>
+              <Switch>
+                <Route
+                  path="/:username/manage/dashboard"
+                  exact
+                  component={Dashboard}
+                />
+                <Route path="/:username/manage/users" exact component={Users} />
+                <Route
+                  path="/:username/manage/events"
+                  exact
+                  component={Events}
+                />
+                <Route
+                  path="/:username/manage/events/add"
+                  exact
+                  render={() => (
+                    <AddEvent redirect={`/${username}/manage/events`} />
+                  )}
+                />
+                <Route
+                  path="/:username/manage/events/:id"
+                  exact
+                  component={ViewEvent}
+                />
+                <Route
+                  path="/:username/manage/events/edit/:id"
+                  exact
+                  render={() => (
+                    <AddEvent redirect={`/${username}/manage/events`} />
+                  )}
+                />
+                <Route
+                  path="/:username/manage/settings/:id/:tab/:status?"
+                  component={Settings}
+                />
+                <Route
+                  path="/:username/manage/calendar"
+                  exact
+                  component={Calendar}
+                />
+                <Route
+                  path="/:username/manage"
+                  exact
+                  render={() => <Home account={account} refetch={refetch} />}
+                />
+              </Switch>
+            </Suspense>
           </Content>
         </SiderLayout>
       </Layout>
