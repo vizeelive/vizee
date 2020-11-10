@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import styled from 'styled-components';
+import Cookies from 'js-cookie';
 
 const StyledMenu = styled(Menu)`
   &.ant-menu-dark {
@@ -23,6 +24,8 @@ function MainMenu(props) {
 
   const location = useLocation();
   const [current, setCurrent] = useState(location.pathname);
+
+  const username = Cookies.get('username') || account.username;
 
   useEffect(() => {
     const { pathname } = location;
@@ -54,8 +57,8 @@ function MainMenu(props) {
         </Menu.Item>
       )} */}
       {user && account && (
-        <Menu.Item key={`/${account.username}/manage`}>
-          <Link to={`/${account.username}/manage`}>Account</Link>
+        <Menu.Item key={`/${username}/manage`}>
+          <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
       {user && !account && (
