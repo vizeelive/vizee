@@ -50,7 +50,8 @@
     "subscriptions-transport-ws": "^0.9.18",
     "text-mask-addons": "^3.8.0",
     "video.js": "^7.9.7",
-    "videojs-mux": "^3.1.1"
+    "videojs-mux": "^3.1.1",
+    "zipson": "^0.2.12"
   },
   "scripts": {
     "start": "craco start",

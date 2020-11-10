@@ -1,9 +1,9 @@
+const { parse } = require('zipson');
 const app = require('../app');
 const config = require('../config');
 const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client');
-const atob = require('atob');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
@@ -66,7 +66,7 @@ app.get('/stripe/account/create', async function (req, res) {
  * Stripe Session
  */
 app.get('/stripe/session', async function (req, res) {
-  let ref = JSON.parse(atob(req.query.ref));
+  let ref = parse(req.query.ref);
 
   let event;
   try {
@@ -176,7 +176,7 @@ app.post(
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
 
-      let ref = JSON.parse(atob(session.client_reference_id));
+      let ref = parse(session.client_reference_id);
 
       try {
         await client.mutate({

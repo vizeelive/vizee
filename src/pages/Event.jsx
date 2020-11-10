@@ -2,6 +2,7 @@ import config from '../config';
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { stringify } from 'zipson';
 
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
@@ -162,13 +163,11 @@ export default function Event() {
   }, [account_id, event.id, isMyAccount, trackView, user, userId]);
 
   const handleBuy = async () => {
-    let ref = btoa(
-      JSON.stringify({
-        user_id: user.sub,
-        account_id: event.account.id,
-        event_id: event.id
-      })
-    );
+    let ref = stringify({
+      user_id: user.sub,
+      account_id: event.account.id,
+      event_id: event.id
+    });
 
     const stripe = await stripePromise;
 

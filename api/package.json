@@ -26,6 +26,7 @@
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
     "stripe": "^8.66.0",
-    "video.js": "^7.9.7"
+    "video.js": "^7.9.7",
+    "zipson": "^0.2.12"
   }
 }
