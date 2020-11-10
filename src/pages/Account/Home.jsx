@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Layout, Typography } from 'antd';
 import styled from 'styled-components';
 import Events from '../../components/Events';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { Helmet } from 'react-helmet';
 
@@ -132,6 +132,7 @@ const GET_ACCOUNT_USER = gql`
 `;
 
 export default function Home() {
+  const location = useLocation();
   const { username } = useParams();
   const { user } = useAuth();
 
@@ -212,7 +213,7 @@ export default function Home() {
               subscription_id={account?.subscriptions?.[0]?.id}
             />
           )}
-          {isMyAccount && (
+          {isMyAccount && !location.pathname.includes('manage') && (
             <Link to={`/${account.username}/manage`}>
               <Button size="large">Manage</Button>
             </Link>
