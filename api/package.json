@@ -13,6 +13,8 @@
     "@apollo/client": "^3.0.0-rc.8",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@mux/mux-node": "^3.0.4",
+    "@sentry/node": "^5.27.3",
+    "@sentry/tracing": "^5.27.3",
     "@stripe/stripe-js": "^1.7.0",
     "atob": "^2.1.2",
     "body-parser": "^1.19.0",
