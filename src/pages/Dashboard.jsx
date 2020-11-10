@@ -103,10 +103,10 @@ export default function Dashboard() {
             description="Your account has been successfully created."
           />
           <Step
-            title="Bank Details"
+            title="Payout"
             description={
               <React.Fragment>
-                <div>Fill out your bank details to receive payments.</div>
+                <div>Provide your bank details or debit card to get paid.</div>
                 {step === 1 && (
                   <StripeAccount id={account.id} username={username} />
                 )}
