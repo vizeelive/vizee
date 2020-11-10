@@ -49,13 +49,13 @@ const GET_EVENT_AUTH = gql`
         id
         name
         username
-        subscriptions {
+        followers {
           id
         }
       }
     }
     accounts(where: { username: { _eq: $username } }) {
-      subscriptions {
+      followers {
         id
       }
     }

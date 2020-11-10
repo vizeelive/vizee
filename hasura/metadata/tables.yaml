@@ -45,24 +45,6 @@
           name: accounts
         column_mapping:
           id: id
-  select_permissions:
-  - role: user
-    permission:
-      columns:
-      - id
-      - username
-      - name
-      - revenue
-      - views
-      - subscriptions
-      - favorites
-      - events
-      filter:
-        account:
-          users:
-            user:
-              id:
-                _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: account_revenue
@@ -85,13 +67,13 @@
         table:
           schema: public
           name: favorites
-  - name: subscriptions
+  - name: followers
     using:
       foreign_key_constraint_on:
         column: account_id
         table:
           schema: public
-          name: subscriptions
+          name: followers
   - name: users
     using:
       foreign_key_constraint_on:
@@ -534,16 +516,7 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
-    name: members
-- table:
-    schema: public
-    name: presence
-- table:
-    schema: public
-    name: presence_events
-- table:
-    schema: public
-    name: subscriptions
+    name: followers
   object_relationships:
   - name: account
     using:
@@ -589,7 +562,16 @@
           _eq: X-Hasura-User-Id
 - table:
     schema: public
-    name: subscriptions_report
+    name: followers_report
+- table:
+    schema: public
+    name: members
+- table:
+    schema: public
+    name: presence
+- table:
+    schema: public
+    name: presence_events
 - table:
     schema: public
     name: transactions
@@ -645,7 +627,7 @@
         column: user_id
         table:
           schema: public
-          name: subscriptions
+          name: followers
   - name: transactions
     using:
       foreign_key_constraint_on:

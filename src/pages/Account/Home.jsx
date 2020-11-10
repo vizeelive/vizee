@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet';
 
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
-import SubscribeButton from '../../components/SubscribeButton';
+import FollowButton from '../../components/FollowButton';
 import useAuth from '../../hooks/useAuth';
 
 import Mapper from '../../services/mapper';
@@ -52,7 +52,7 @@ export const GET_ACCOUNT_ANON = gql`
       photo
       username
       description
-      subscriptions {
+      followers {
         id
       }
       events {
@@ -71,7 +71,7 @@ export const GET_ACCOUNT_ANON = gql`
         }
       }
     }
-    subscriptions_aggregate(
+    followers_aggregate(
       where: { account: { username: { _eq: $username } } }
     ) {
       aggregate {
@@ -91,7 +91,7 @@ const GET_ACCOUNT_USER = gql`
         id
         name
         username
-        subscriptions {
+        followers {
           id
         }
       }
@@ -102,7 +102,7 @@ const GET_ACCOUNT_USER = gql`
       photo
       username
       description
-      subscriptions {
+      followers {
         id
       }
       events {
@@ -121,7 +121,7 @@ const GET_ACCOUNT_USER = gql`
         }
       }
     }
-    subscriptions_aggregate(
+    followers_aggregate(
       where: { account: { username: { _eq: $username } } }
     ) {
       aggregate {
@@ -154,7 +154,7 @@ export default function Home() {
   if (error) return 'Error';
 
   const account = Mapper(data?.accounts?.[0]);
-  const subscribers = data?.subscriptions_aggregate?.aggregate?.count;
+  const followers = data?.followers_aggregate?.aggregate?.count;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === username
   ).length;
@@ -208,9 +208,9 @@ export default function Home() {
 
         <div style={{ float: 'right' }}>
           {user && !user.isAdmin && (
-            <SubscribeButton
+            <FollowButton
               account_id={account.id}
-              subscription_id={account?.subscriptions?.[0]?.id}
+              follower_id={account?.followers?.[0]?.id}
             />
           )}
           {isMyAccount && !location.pathname.includes('manage') && (
@@ -223,7 +223,7 @@ export default function Home() {
         <Title style={{ lineHeight: 0, marginTop: '0.5em' }}>
           {account.name}
         </Title>
-        <div>{subscribers} subscribers</div>
+        <div>{followers} followers</div>
 
         <AccountDescription>{account.description}</AccountDescription>
 

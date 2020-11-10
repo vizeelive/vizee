@@ -32,7 +32,7 @@ const ACCOUNT_REPORT = gql`
       username
       name
       revenue
-      subscriptions
+      followers
       views
       account {
         stripe_id
@@ -167,7 +167,7 @@ export default function Dashboard() {
               <Statistic title="Favorites" value={account.favorites} />
             </Col>
             <Col span={4}>
-              <Statistic title="Subscriptions" value={account.subscriptions} />
+              <Statistic title="Followers" value={account.followers} />
             </Col>
             <Col span={4}>
               <Statistic title="Events" value={account.events} />

@@ -10,7 +10,7 @@ import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
 import StartStreamButton from '../components/StartStreamButton';
 import ShareButton from '../components/ShareButton';
-import SubscribeButton from '../components/SubscribeButton';
+import FollowButton from '../components/FollowButton';
 import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
 
@@ -215,9 +215,9 @@ export default function EventPage(props) {
                     </Button>
                   )}
                 {user && !user.isAdmin && !isMyAccount && (
-                  <SubscribeButton
+                  <FollowButton
                     account_id={event.account.id}
-                    subscription_id={account?.subscriptions?.[0]?.id}
+                    follower_id={account?.followers?.[0]?.id}
                   />
                 )}
                 {isMyAccount && event.isBroadcast() && (
