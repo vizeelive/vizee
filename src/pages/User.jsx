@@ -76,6 +76,10 @@ const GET_ACCOUNTS_AUTH = gql`
         description
       }
     }
+    accounts(limit: 1) {
+      id
+      username
+    }
   }
 `;
 
@@ -107,8 +111,7 @@ export default function User() {
     return;
   }
 
-
-  const account = data?.accounts_users?.[0]?.account || data?.accounts;
+  const account = data?.accounts?.[0] || data?.accounts_users?.[0]?.account;
   const hasTickets = !!data?.transactions?.length;
 
   return (
