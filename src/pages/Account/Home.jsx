@@ -16,7 +16,8 @@ import Mapper from '../../services/mapper';
 import {
   InstagramOutlined,
   TwitterOutlined,
-  FacebookOutlined
+  FacebookOutlined,
+  VideoCameraOutlined
 } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -171,6 +172,16 @@ export default function Home() {
         width="100%"
       />
       <MainContent>
+        {(user.isAdmin || isMyAccount) && (
+          <Link
+            to={`/${username}/manage/events/add`}
+            style={{ float: 'right' }}
+          >
+            <Button icon={<VideoCameraOutlined />} type="primary" size="large">
+              Create Event
+            </Button>
+          </Link>
+        )}
         {account.instagram && (
           <Social>
             <a href={`https://instagram.com/${account.instagram}`}>
