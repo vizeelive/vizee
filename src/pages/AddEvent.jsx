@@ -180,7 +180,7 @@ export default function AddEvent(props) {
       price: values.price,
       description: values.description,
       category_id: values.category_id,
-      account_id: values.account_id,
+      account_id: values.account_id || account.id,
       video: event?.video,
       preview: event?.preview,
       photo: event?.photo,
