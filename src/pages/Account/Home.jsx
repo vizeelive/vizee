@@ -215,7 +215,7 @@ export default function Home() {
         <Header>
           <div>
             <Title>{account.name}</Title>
-            <p>{`${followers} follower${followers.length > 1 ? 's' : ''}`}</p>
+            <p>{`${followers} follower${followers.length !== 1 ? 's' : ''}`}</p>
           </div>
           <ActionsContainer>
             {(user.isAdmin || isMyAccount) && (
@@ -243,21 +243,21 @@ export default function Home() {
             )}
 
             <SocialList>
-              {true && (
+              {account.facebook && (
                 <Social>
                   <a href={`https://facebook.com/${account.facebook}`}>
                     <FacebookOutlined /> {account.facebook}
                   </a>
                 </Social>
               )}
-              {true && (
+              {account.twitter && (
                 <Social>
                   <a href={`https://twitter.com/${account.twitter}`}>
                     <TwitterOutlined /> {account.twitter}
                   </a>
                 </Social>
               )}
-              {true && (
+              {account.instagram && (
                 <Social>
                   <a href={`https://instagram.com/${account.instagram}`}>
                     <InstagramOutlined />
