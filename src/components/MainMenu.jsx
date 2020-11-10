@@ -28,7 +28,7 @@ function MainMenu(props) {
   const [current, setCurrent] = useState(location.pathname);
 
   const username = Cookies.get('username') || account?.username;
-  const logoutText = isMobile ? '' : `(${user.email})`;
+  const logoutText = !isMobile && user ? `(${user?.name})` : '';
 
   useEffect(() => {
     const { pathname } = location;
