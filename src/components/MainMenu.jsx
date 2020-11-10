@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import styled from 'styled-components';
 import Cookies from 'js-cookie';
+import { isMobile } from 'react-device-detect';
 
 const StyledMenu = styled(Menu)`
   &.ant-menu-dark {
@@ -27,6 +28,7 @@ function MainMenu(props) {
   const [current, setCurrent] = useState(location.pathname);
 
   const username = Cookies.get('username') || account?.username;
+  const logoutText = isMobile ? '' : `(${user.email})`;
 
   useEffect(() => {
     const { pathname } = location;
@@ -77,7 +79,7 @@ function MainMenu(props) {
           key="/logout"
           onClick={() => onLogout({ returnTo: window.location.origin })}
         >
-          Logout
+          Logout {logoutText}
         </Menu.Item>
       )}
     </StyledMenu>
