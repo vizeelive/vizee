@@ -199,7 +199,7 @@ export default function Event() {
   const liveEvent = liveData?.events_by_pk;
 
   const handleEditClick = () => {
-    history.push(`/admin/events/edit/${event.id}`);
+    history.push(`/${username}/manage/events/edit/${event.id}`);
   };
 
   let videoJsOptions = {
