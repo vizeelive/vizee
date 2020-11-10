@@ -28,6 +28,9 @@ const MainContent = styled(Content)`
   img {
     margin-bottom: 1rem;
   }
+  button {
+    margin-right: 10px;
+  }
 `;
 
 const EventsContainer = styled.div`
