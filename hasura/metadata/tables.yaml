@@ -45,6 +45,24 @@
           name: accounts
         column_mapping:
           id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - username
+      - name
+      - revenue
+      - views
+      - followers
+      - favorites
+      - events
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: account_revenue
