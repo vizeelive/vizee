@@ -38,7 +38,7 @@ function EventCard(props) {
   };
 
   const handleEditClick = () => {
-    history.push(`/admin/events/edit/${event.id}`);
+    history.push(`/${event.account.username}/manage/events/edit/${event.id}`);
   };
 
   const handleManageClick = (e) => {
