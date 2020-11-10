@@ -61,11 +61,19 @@ export const Favorite = styled.div`
   color: ${({ isActive }) => (isActive ? '#ffd666' : '#d9d9d9')};
 `;
 
-export const EditLink = styled(Button)`
+export const CardMenu = styled.div`
   position: absolute;
   bottom: 10px;
   left: 10px;
+
+  button {
+    margin-left: 5px;
+  }
 `;
+
+export const ManageLink = styled(Button)``;
+
+export const EditLink = styled(Button)``;
 
 export const LiveTag = styled(Tag)`
   position: absolute;

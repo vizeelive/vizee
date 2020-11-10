@@ -13,6 +13,8 @@ import {
   DateText,
   TagsContainer,
   Favorite,
+  CardMenu,
+  ManageLink,
   EditLink,
   LiveTag
 } from './EventCard.css';
@@ -22,6 +24,7 @@ function EventCard(props) {
 
   const history = useHistory();
 
+  const manageRef = useRef(null);
   const editRef = useRef(null);
   const favRef = useRef(null);
 
@@ -36,6 +39,12 @@ function EventCard(props) {
 
   const handleEditClick = () => {
     history.push(`/admin/events/edit/${event.id}`);
+  };
+
+  const handleManageClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    history.push(`/${event.account.username}/manage/events/${event.id}`);
   };
 
   const renderCover = () => {
@@ -107,16 +116,28 @@ function EventCard(props) {
         </div>
         {renderTags()}
         {event.belongsTo(user?.sub) && !event?.published ? 'Unpublished' : null}
-        {user?.isAdmin && (
-          <EditLink
-            type="primary"
-            ghost
-            ref={editRef}
-            onClick={handleEditClick}
-          >
-            Edit
-          </EditLink>
-        )}
+        <CardMenu>
+          {(user?.isAdmin || event.belongsTo(user?.sub)) && (
+            <EditLink
+              type="primary"
+              ghost
+              ref={editRef}
+              onClick={handleEditClick}
+            >
+              Edit
+            </EditLink>
+          )}
+          {(user?.isAdmin || event.belongsTo(user?.sub)) && (
+            <ManageLink
+              type="primary"
+              ghost
+              ref={manageRef}
+              onClick={(e) => handleManageClick(e)}
+            >
+              Manage
+            </ManageLink>
+          )}
+        </CardMenu>
         {renderFavorite()}
       </Card>
     </Container>
