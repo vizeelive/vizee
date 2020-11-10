@@ -25,25 +25,65 @@ const { Content } = Layout;
 
 const MainContent = styled(Content)`
   padding: 20px;
+
   img {
     margin-bottom: 1rem;
   }
-  button {
-    margin-right: 10px;
+`;
+
+const Header = styled.header`
+  margin-bottom: 1rem;
+
+  h1 {
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 992px) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
   }
 `;
 
-const EventsContainer = styled.div`
-  margin-top: 20px;
+const ActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  & > * {
+    margin-bottom: 1rem;
+    margin-right: 0.75rem;
+  }
+
+  @media (min-width: 992px) {
+    flex-direction: row-reverse;
+    padding-left: 2rem;
+
+    & > * {
+      margin-right: 0;
+      margin-left: 0.75rem;
+    }
+  }
 `;
 
-const Social = styled.div`
-  float: right;
-  margin-right: 10px;
+const SocialList = styled.ul`
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0 0.75rem;
 `;
+
+const Social = styled.li`
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+`;
+
+const EventsContainer = styled.div``;
 
 const AccountDescription = styled.p`
-  margin-top: 20px;
+  margin-bottom: 20px;
   max-width: 40rem;
 `;
 
@@ -74,9 +114,7 @@ export const GET_ACCOUNT_ANON = gql`
         }
       }
     }
-    followers_aggregate(
-      where: { account: { username: { _eq: $username } } }
-    ) {
+    followers_aggregate(where: { account: { username: { _eq: $username } } }) {
       aggregate {
         count
       }
@@ -124,9 +162,7 @@ const GET_ACCOUNT_USER = gql`
         }
       }
     }
-    followers_aggregate(
-      where: { account: { username: { _eq: $username } } }
-    ) {
+    followers_aggregate(where: { account: { username: { _eq: $username } } }) {
       aggregate {
         count
       }
@@ -176,57 +212,62 @@ export default function Home() {
         width="100%"
       />
       <MainContent>
-        {(user.isAdmin || isMyAccount) && (
-          <Link
-            to={`/${username}/manage/events/add`}
-            style={{ float: 'right' }}
-          >
-            <Button icon={<VideoCameraOutlined />} type="primary" size="large">
-              Create Event
-            </Button>
-          </Link>
-        )}
-        {account.instagram && (
-          <Social>
-            <a href={`https://instagram.com/${account.instagram}`}>
-              <InstagramOutlined />
-              {account.instagram}
-            </a>
-          </Social>
-        )}
-        {account.twitter && (
-          <Social>
-            <a href={`https://twitter.com/${account.twitter}`}>
-              <TwitterOutlined /> {account.twitter}
-            </a>
-          </Social>
-        )}
-        {account.facebook && (
-          <Social>
-            <a href={`https://facebook.com/${account.facebook}`}>
-              <FacebookOutlined /> {account.facebook}
-            </a>
-          </Social>
-        )}
+        <Header>
+          <div>
+            <Title>{account.name}</Title>
+            <p>{`${followers} follower${followers.length > 1 ? 's' : ''}`}</p>
+          </div>
+          <ActionsContainer>
+            {(user.isAdmin || isMyAccount) && (
+              <Link to={`/${username}/manage/events/add`}>
+                <Button
+                  icon={<VideoCameraOutlined />}
+                  type="primary"
+                  size="large"
+                >
+                  Create Event
+                </Button>
+              </Link>
+            )}
 
-        <div style={{ float: 'right' }}>
-          {user && !user.isAdmin && (
-            <FollowButton
-              account_id={account.id}
-              follower_id={account?.followers?.[0]?.id}
-            />
-          )}
-          {isMyAccount && !location.pathname.includes('manage') && (
-            <Link to={`/${account.username}/manage`}>
-              <Button size="large">Manage</Button>
-            </Link>
-          )}
-        </div>
+            {user && !user.isAdmin && (
+              <FollowButton
+                account_id={account.id}
+                follower_id={account?.followers?.[0]?.id}
+              />
+            )}
+            {isMyAccount && !location.pathname.includes('manage') && (
+              <Link to={`/${account.username}/manage`}>
+                <Button size="large">Manage</Button>
+              </Link>
+            )}
 
-        <Title style={{ lineHeight: 0, marginTop: '0.5em' }}>
-          {account.name}
-        </Title>
-        <div>{followers} followers</div>
+            <SocialList>
+              {true && (
+                <Social>
+                  <a href={`https://facebook.com/${account.facebook}`}>
+                    <FacebookOutlined /> {account.facebook}
+                  </a>
+                </Social>
+              )}
+              {true && (
+                <Social>
+                  <a href={`https://twitter.com/${account.twitter}`}>
+                    <TwitterOutlined /> {account.twitter}
+                  </a>
+                </Social>
+              )}
+              {true && (
+                <Social>
+                  <a href={`https://instagram.com/${account.instagram}`}>
+                    <InstagramOutlined />
+                    {account.instagram}
+                  </a>
+                </Social>
+              )}
+            </SocialList>
+          </ActionsContainer>
+        </Header>
 
         <AccountDescription>{account.description}</AccountDescription>
 
