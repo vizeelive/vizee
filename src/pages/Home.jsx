@@ -102,6 +102,7 @@ const SEARCH_EVENTS_UNAUTH = gql`
     events(
       where: {
         _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
+        _and: { account: { stripe_id: { _is_null: false } } }
       }
     ) {
       id
@@ -130,6 +131,7 @@ const SEARCH_EVENTS_AUTH = gql`
     events(
       where: {
         _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
+        _and: { account: { stripe_id: { _is_null: false } } }
       }
     ) {
       id
