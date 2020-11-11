@@ -16216,6 +16216,11 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
+social-links@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/social-links/-/social-links-1.4.1.tgz#a0a5d23b8d3eff8ba36c940c9a213b4f3ee8ecaf"
+  integrity sha512-JqSpazlqSiwEwSJ5uypOCUMB6oNm+DcnYAgv4qEFaJudN75PFFhrD16ax0hGirZecwCS/4r+sDhmQDsCtyhaeA==
+
 socket.io-client@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-2.2.0.tgz#84e73ee3c43d5020ccc1a258faeeb9aec2723af7"
