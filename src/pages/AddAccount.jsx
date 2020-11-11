@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { gql, useMutation, useLazyQuery } from '@apollo/client';
 import useAuth from '../hooks/useAuth';
+import { SocialLinks } from 'social-links';
 
 import FileUpload from '../components/FileUpload';
 import useBreakpoint from '../hooks/useBreakpoint';
@@ -95,6 +96,12 @@ export default function AddAccount(props) {
 
   const onFinish = async (values) => {
     let photo = photoUrl || account?.photo;
+    values.instagram = new SocialLinks().sanitize(
+      'instagram',
+      values.instagram
+    );
+    values.twitter = new SocialLinks().sanitize('twitter', values.twitter);
+    values.facebook = new SocialLinks().sanitize('facebook', values.facebook);
     if (!photo) {
       message.error('Photo is required to create an account');
       return;
@@ -229,8 +236,19 @@ export default function AddAccount(props) {
         <Form.Item
           label="Instagram"
           name="instagram"
-          validateStatus={validationErrors.instagram ? 'error' : 'success'}
           help={validationErrors.instagram ?? null}
+          rules={[
+            {},
+            () => ({
+              validator(rule, value) {
+                if (new SocialLinks().isValid('instagram', value)) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject('Invalid Instagram link');
+                }
+              }
+            })
+          ]}
         >
           <Input />
         </Form.Item>
@@ -238,8 +256,19 @@ export default function AddAccount(props) {
         <Form.Item
           label="Twitter"
           name="twitter"
-          validateStatus={validationErrors.twitter ? 'error' : 'success'}
           help={validationErrors.twitter ?? null}
+          rules={[
+            {},
+            () => ({
+              validator(rule, value) {
+                if (new SocialLinks().isValid('twitter', value)) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject('Invalid Twitter link');
+                }
+              }
+            })
+          ]}
         >
           <Input />
         </Form.Item>
@@ -247,8 +276,19 @@ export default function AddAccount(props) {
         <Form.Item
           label="Facebook"
           name="facebook"
-          validateStatus={validationErrors.facebook ? 'error' : 'success'}
           help={validationErrors.facebook ?? null}
+          rules={[
+            {},
+            () => ({
+              validator(rule, value) {
+                if (new SocialLinks().isValid('facebook', value)) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject('Invalid Facebook link');
+                }
+              }
+            })
+          ]}
         >
           <Input />
         </Form.Item>
