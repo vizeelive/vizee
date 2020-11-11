@@ -109,7 +109,7 @@ app.get('/stripe/session', async function (req, res) {
     });
   }
 
-  console.log({ event });
+  console.log('event', event.data.events_by_pk);
 
   const account_percent = 1 - event.data.accounts_by_pk.fee_percent / 100;
 
@@ -119,38 +119,45 @@ app.get('/stripe/session', async function (req, res) {
 
   let amount = unit_amount * account_percent;
 
-  const session = await stripe.checkout.sessions.create({
-    client_reference_id: req.query.ref,
-    payment_method_types: ['card'],
-    payment_intent_data: {
-      // application_fee_amount: 100,
-      transfer_data: {
-        amount,
-        destination: event.data.events_by_pk.account.stripe_id
-      }
-    },
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Admission',
-            images: [
-              'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
-            ]
+  try {
+    const session = await stripe.checkout.sessions.create({
+      client_reference_id: req.query.ref,
+      payment_method_types: ['card'],
+      payment_intent_data: {
+        // application_fee_amount: 100,
+        transfer_data: {
+          amount,
+          destination: event.data.events_by_pk.account.stripe_id
+        }
+      },
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Admission',
+              images: [
+                'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
+              ]
+            },
+            unit_amount
+            // FIXME create a real product
           },
-          unit_amount
-          // FIXME create a real product
-        },
-        quantity: 1
-      }
-    ],
-    mode: 'payment',
-    success_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
-    cancel_url: `${config.ui}/events/${event.data.events_by_pk.id}`
-  });
-  console.log({ session });
-  res.send(session);
+          quantity: 1
+        }
+      ],
+      mode: 'payment',
+      success_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
+      cancel_url: `${config.ui}/events/${event.data.events_by_pk.id}`
+    });
+    console.log({ session });
+    return res.send(session);
+  } catch (e) {
+    console.error(e);
+    res.status(500);
+    res.send(e);
+  }
+
 });
 
 /**
