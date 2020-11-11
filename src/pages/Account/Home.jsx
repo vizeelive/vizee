@@ -143,6 +143,9 @@ const GET_ACCOUNT_USER = gql`
       photo
       username
       description
+      instagram
+      facebook
+      twitter
       followers {
         id
       }
@@ -197,6 +200,8 @@ export default function Home() {
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === username
   ).length;
+
+  console.log({ account });
 
   return (
     <React.Fragment>
