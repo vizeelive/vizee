@@ -159,6 +159,11 @@ const GET_ACCOUNT_USER = gql`
           name
           username
           photo
+          users {
+            user {
+              id
+            }
+          }
         }
         favorites {
           id
@@ -201,8 +206,6 @@ export default function Home() {
     (acc) => acc.account.username === username
   ).length;
 
-  console.log({ account });
-
   return (
     <React.Fragment>
       <Helmet>
@@ -223,7 +226,7 @@ export default function Home() {
             <p>{`${followers} follower${followers.length !== 1 ? 's' : ''}`}</p>
           </div>
           <ActionsContainer>
-            {(user.isAdmin || isMyAccount) && (
+            {(user?.isAdmin || isMyAccount) && (
               <Link to={`/${username}/manage/events/add`}>
                 <Button
                   icon={<VideoCameraOutlined />}
