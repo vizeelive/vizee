@@ -202,7 +202,7 @@ export default function EventPage(props) {
             <Col xs={24} lg={16}>
               <ActionsContainer>
                 {!isMyAccount &&
-                  event.account.stripe_id &&
+                  event.account.stripe_data &&
                   !event.isFree() &&
                   !event.isPurchased() && (
                     <Button

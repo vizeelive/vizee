@@ -26,7 +26,7 @@ const GET_EVENTS_AUTH = gql`
       first_name
       last_name
     }
-    events(where: { account: { stripe_id: { _is_null: false } } }) {
+    events(where: { account: { stripe_data: { _is_null: false } } }) {
       id
       name
       start
@@ -69,7 +69,7 @@ const GET_EVENTS_AUTH = gql`
 
 const GET_EVENTS_UNAUTH = gql`
   query AnonGetEvents {
-    events(where: { account: { stripe_id: { _is_null: false } } }) {
+    events(where: { account: { stripe_data: { _is_null: false } } }) {
       id
       name
       start
@@ -102,7 +102,7 @@ const SEARCH_EVENTS_UNAUTH = gql`
     events(
       where: {
         _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
-        _and: { account: { stripe_id: { _is_null: false } } }
+        _and: { account: { stripe_data: { _is_null: false } } }
       }
     ) {
       id
@@ -131,7 +131,7 @@ const SEARCH_EVENTS_AUTH = gql`
     events(
       where: {
         _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
-        _and: { account: { stripe_id: { _is_null: false } } }
+        _and: { account: { stripe_data: { _is_null: false } } }
       }
     ) {
       id
