@@ -126,6 +126,7 @@
       - instagram
       - name
       - photo
+      - stripe_data
       - stripe_id
       - twitter
       - username

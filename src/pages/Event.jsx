@@ -34,7 +34,7 @@ const GET_EVENT_UNAUTH = gql`
         name
         username
         photo
-        stripe_id
+        stripe_data
       }
     }
   }
