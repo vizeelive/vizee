@@ -7,21 +7,10 @@ import StripeAccount from './StripeAccount';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
 
-import {
-  Statistic,
-  Row,
-  Col,
-  Button,
-  Divider,
-  Typography,
-  Select,
-  Steps
-} from 'antd';
+import { Statistic, Row, Col, Button, Divider, Typography, Steps } from 'antd';
 
 const { Step } = Steps;
 const { Title } = Typography;
-
-const { Option } = Select;
 
 const ACCOUNT_REPORT = gql`
   query AccountReport($username: String!) {

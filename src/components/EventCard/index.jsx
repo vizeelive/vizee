@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
-import { Tag, Card } from 'antd';
+import { Card } from 'antd';
 import { StarOutlined, StarFilled } from '@ant-design/icons';
 
 import {
@@ -73,10 +73,10 @@ function EventCard(props) {
     const start = moment(event.start);
     const end = moment(event.end);
     const isLive = moment().isBetween(start, end);
-    const isPurchased = event?.transactions?.length;
-    const isFree = event.price === '$0.00';
-    const isBroadcast = event.type === 'live';
-    const isVideo = event.type === 'video';
+    // const isPurchased = event?.transactions?.length;
+    // const isFree = event.price === '$0.00';
+    // const isBroadcast = event.type === 'live';
+    // const isVideo = event.type === 'video';
 
     return (
       <TagsContainer>
