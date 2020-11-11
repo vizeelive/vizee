@@ -96,12 +96,20 @@ export default function AddAccount(props) {
 
   const onFinish = async (values) => {
     let photo = photoUrl || account?.photo;
-    values.instagram = new SocialLinks().sanitize(
-      'instagram',
-      values.instagram
-    );
-    values.twitter = new SocialLinks().sanitize('twitter', values.twitter);
-    values.facebook = new SocialLinks().sanitize('facebook', values.facebook);
+
+    if (values.instagram) {
+      values.instagram = new SocialLinks().sanitize(
+        'instagram',
+        values.instagram
+      );
+    }
+    if (values.twitter) {
+      values.twitter = new SocialLinks().sanitize('twitter', values.twitter);
+    }
+    if (values.facebook) {
+      values.facebook = new SocialLinks().sanitize('facebook', values.facebook);
+    }
+
     if (!photo) {
       message.error('Photo is required to create an account');
       return;
@@ -241,7 +249,7 @@ export default function AddAccount(props) {
             {},
             () => ({
               validator(rule, value) {
-                if (new SocialLinks().isValid('instagram', value)) {
+                if (!value || new SocialLinks().isValid('instagram', value)) {
                   return Promise.resolve();
                 } else {
                   return Promise.reject('Invalid Instagram link');
@@ -261,7 +269,7 @@ export default function AddAccount(props) {
             {},
             () => ({
               validator(rule, value) {
-                if (new SocialLinks().isValid('twitter', value)) {
+                if (!value || new SocialLinks().isValid('twitter', value)) {
                   return Promise.resolve();
                 } else {
                   return Promise.reject('Invalid Twitter link');
@@ -281,7 +289,7 @@ export default function AddAccount(props) {
             {},
             () => ({
               validator(rule, value) {
-                if (new SocialLinks().isValid('facebook', value)) {
+                if (!value || new SocialLinks().isValid('facebook', value)) {
                   return Promise.resolve();
                 } else {
                   return Promise.reject('Invalid Facebook link');
