@@ -182,10 +182,10 @@ export default function EventPage(props) {
             {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}{' '}
           </Row>
           <Row>
-            <EventName>{event.name}</EventName>
+            <EventName data-test-id="event-name">{event.name}</EventName>
           </Row>
           <Row>
-            <h2>
+            <h2 data-test-id="account-name">
               <Link to={`/${event.account.username}`}>
                 {event.account.name}
               </Link>
@@ -193,7 +193,13 @@ export default function EventPage(props) {
           </Row>
           <Row gutter={32}>
             <Col xs={24} lg={8}>
-              <Date>{moment(event.start).format('MMMM Do h:mma')}</Date>
+              <Date data-test-id="event-start">
+
+
+                {moment(event.start).format('MMMM Do h:mma')}
+
+
+              </Date>
               <div>
                 {event.views} Views • {event.favorites} Favorites
               </div>

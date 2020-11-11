@@ -1,17 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Theme from '../Theme';
 import Mapper from '../services/mapper';
 import EventPage from './EventPage';
 
-jest.mock('../components/SubscribeButton', () => {
+jest.mock('../components/FollowButton', () => {
   return {
     __esModule: true,
     default: () => {
-      return <div>Subscribe</div>;
+      return <div>Follow</div>;
     }
   };
 });
@@ -58,7 +57,7 @@ describe('EventPage', () => {
           username: 'tromboneshorty',
           photo:
             'https://dam-media.s3.amazonaws.com/3c/dde14e247243daa247be2c969deff8/920x920.jpg',
-          stripe_id: 'a1b2c3'
+          stripe_data: {}
         },
         transaction: []
       });
@@ -91,7 +90,7 @@ describe('EventPage', () => {
       );
       expect(screen.queryByText('Share')).toBeInTheDocument();
       expect(screen.queryByText('Buy Ticket ($1.00)')).toBeInTheDocument();
-      expect(screen.queryByText('Subscribe')).not.toBeInTheDocument();
+      expect(screen.queryByText('Follow')).not.toBeInTheDocument();
     });
   });
   describe('User', () => {
@@ -120,7 +119,7 @@ describe('EventPage', () => {
           username: 'tromboneshorty',
           photo:
             'https://dam-media.s3.amazonaws.com/3c/dde14e247243daa247be2c969deff8/920x920.jpg',
-          stripe_id: 'a1b2c3'
+          stripe_data: {}
         },
         transaction: []
       });
@@ -153,7 +152,7 @@ describe('EventPage', () => {
       );
       expect(screen.queryByText('Share')).toBeInTheDocument();
       expect(screen.queryByText('Buy Ticket ($1.00)')).toBeInTheDocument();
-      expect(screen.queryByText('Subscribe')).toBeInTheDocument();
+      expect(screen.queryByText('Follow')).toBeInTheDocument();
     });
   });
   describe('Admin', () => {
@@ -182,7 +181,7 @@ describe('EventPage', () => {
           username: 'tromboneshorty',
           photo:
             'https://dam-media.s3.amazonaws.com/3c/dde14e247243daa247be2c969deff8/920x920.jpg',
-          stripe_id: 'a1b2c3'
+          stripe_data: {}
         },
         transaction: []
       });
@@ -217,7 +216,7 @@ describe('EventPage', () => {
       );
       expect(screen.queryByText('Share')).toBeInTheDocument();
       expect(screen.queryByText('Buy Ticket ($1.00)')).toBeInTheDocument();
-      expect(screen.queryByText('Subscribe')).not.toBeInTheDocument();
+      expect(screen.queryByText('Follow')).not.toBeInTheDocument();
     });
   });
 });

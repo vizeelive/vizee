@@ -105,7 +105,12 @@ function EventCard(props) {
 
   return (
     <Container loggedIn={!!user}>
-      <Card onClick={handleCardClick} hoverable cover={renderCover()}>
+      <Card
+        data-test-id="event-card"
+        onClick={handleCardClick}
+        hoverable
+        cover={renderCover()}
+      >
         <EventName level={3}>{event.name}</EventName>
         <AccountName level={4}>
           <Link to={`/${event.account.username}`}>{event?.account?.name}</Link>

@@ -45,12 +45,12 @@ function MainMenu(props) {
       selectedKeys={[current]}
     >
       {user?.isAdmin && (
-        <Menu.Item key="/admin">
+        <Menu.Item data-test-id="menu-admin" key="/admin">
           <Link to="/admin">Admin</Link>
         </Menu.Item>
       )}
       {hasTickets && (
-        <Menu.Item key="/tickets">
+        <Menu.Item data-test-id="menu-tickets" key="/tickets">
           <Link to="/tickets">My Tickets</Link>
         </Menu.Item>
       )}
@@ -60,27 +60,32 @@ function MainMenu(props) {
         </Menu.Item>
       )} */}
       {user && user.isAdmin && (
-        <Menu.Item key={`/${username}/manage`}>
+        <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
       {user && !user.isAdmin && account && (
-        <Menu.Item key={`/${username}/manage`}>
+        <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
       {user && !user.isAdmin && !account && (
-        <Menu.Item key="/account">
+        <Menu.Item data-test-id="menu-account" key="/account">
           <Link to="/account">Create Account</Link>
         </Menu.Item>
       )}
       {!user && (
-        <Menu.Item key="/login" onClick={() => onLogin()}>
+        <Menu.Item
+          data-test-id="menu-login"
+          key="/login"
+          onClick={() => onLogin()}
+        >
           Login
         </Menu.Item>
       )}
       {user && (
         <Menu.Item
+          data-test-id="menu-logout"
           key="/logout"
           onClick={() => onLogout({ returnTo: window.location.origin })}
         >
