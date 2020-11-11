@@ -69,7 +69,7 @@ const GET_EVENTS_AUTH = gql`
 
 const GET_EVENTS_UNAUTH = gql`
   query AnonGetEvents {
-    events(where: { account: { stripe_data: { _is_null: false } } }) {
+    events {
       id
       name
       start
@@ -102,7 +102,6 @@ const SEARCH_EVENTS_UNAUTH = gql`
     events(
       where: {
         _or: [{ account: { name: { _ilike: $q } } }, { name: { _ilike: $q } }]
-        _and: { account: { stripe_data: { _is_null: false } } }
       }
     ) {
       id
