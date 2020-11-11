@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import useAuth from '../hooks/useAuth';
 
 import FileUpload from '../components/FileUpload';
 import CurrencyInput from '../components/CurrencyInput';
@@ -109,6 +110,7 @@ const UPDATE_EVENT = gql`
 `;
 
 export default function AddEvent(props) {
+  const { user } = useAuth();
   const params = useParams();
   const history = useHistory();
 
@@ -419,7 +421,7 @@ export default function AddEvent(props) {
           <Input.TextArea rows={4} />
         </Form.Item>
 
-        {!params.username && (
+        {(user.isAdmin || !params.username) && (
           <Form.Item name="account_id" label="Account">
             <Select
               showSearch
