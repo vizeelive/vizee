@@ -258,7 +258,7 @@ export default function AddAccount(props) {
             })
           ]}
         >
-          <Input />
+          <Input placeholder="username" />
         </Form.Item>
 
         <Form.Item
@@ -278,7 +278,7 @@ export default function AddAccount(props) {
             })
           ]}
         >
-          <Input />
+          <Input placeholder="username" />
         </Form.Item>
 
         <Form.Item
@@ -298,7 +298,7 @@ export default function AddAccount(props) {
             })
           ]}
         >
-          <Input />
+          <Input placeholder="username" />
         </Form.Item>
 
         {!replacePhoto && !photoUrl && account?.photo && (
