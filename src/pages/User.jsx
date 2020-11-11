@@ -102,7 +102,11 @@ export default function User() {
 
   if (error) return 'Error';
 
-  const account = data?.accounts?.[0] || data?.accounts_users?.[0]?.account;
+  let account = data?.accounts_users?.[0]?.account;
+  if (!account && user?.isAdmin) {
+    account = data?.accounts?.[0];
+  }
+
   const hasTickets = !!data?.transactions?.length;
 
   return (

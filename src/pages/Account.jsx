@@ -196,9 +196,9 @@ export default function Account() {
   const account = data?.account?.[0].account || data?.accounts[0];
   const isMyAccount =
     user?.isAdmin ||
-    data?.myaccounts?.filter(
+    !!data?.myaccounts?.filter(
       (acc) => acc.account.username === account.username
-    );
+    ).length;
   const myAccounts = data?.myaccounts?.[0]?.account
     ? data.myaccounts.map((acc) => acc.account)
     : data.myaccounts;
