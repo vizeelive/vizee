@@ -79,7 +79,7 @@ const GET_EVENT_AUTH = gql`
         name
         username
         photo
-        stripe_id
+        stripe_data
         users {
           user {
             id
