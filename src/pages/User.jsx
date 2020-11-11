@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
-import Cookies from 'js-cookie';
 
 import Home from './Home';
 import AccountHome from './Account/Home';
@@ -102,14 +101,6 @@ export default function User() {
   }
 
   if (error) return 'Error';
-
-
-  if (Cookies.get('redirect')) {
-    let redirect = Cookies.get('redirect');
-    Cookies.remove('redirect');
-    window.location.href = redirect;
-    return;
-  }
 
   const account = data?.accounts?.[0] || data?.accounts_users?.[0]?.account;
   const hasTickets = !!data?.transactions?.length;

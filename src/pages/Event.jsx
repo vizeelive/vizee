@@ -1,7 +1,6 @@
 import config from '../config';
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { stringify } from 'zipson';
 
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
@@ -188,12 +187,13 @@ export default function Event() {
     }
   };
 
-  const handleClickBuy = user
-    ? handleBuy
-    : () => {
-        Cookies.set('redirect', window.location.href);
-        loginWithRedirect();
-      };
+  const handleClickBuy = () => {
+    if (user) {
+      handleBuy();
+    } else {
+      loginWithRedirect();
+    }
+  };
 
   const liveEvent = liveData?.events_by_pk;
 
