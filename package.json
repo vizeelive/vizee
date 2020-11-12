@@ -55,6 +55,7 @@
     "zipson": "^0.2.12"
   },
   "scripts": {
+    "cypress": "cypress open",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",

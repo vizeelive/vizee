@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import config from '../config';
+import Cookies from 'js-cookie';
 
 import {
   ApolloLink,
@@ -29,6 +30,22 @@ export default function useAuth() {
   const [geo, setGeo] = useState();
   const [claims, setClaims] = useState();
 
+  // @cypress
+  const id_token = Cookies.get('id_token');
+  const role = Cookies.get('role');
+  if (id_token) {
+    user = {
+      name: 'jeff@pixwel.com',
+      sub: 'auth0|5f8838b47119bc007640b4af',
+      'https://hasura.io/jwt/claims': { 'x-hasura-allowed-roles': ['user'] }
+    };
+    if (role === 'admin') {
+      user['https://hasura.io/jwt/claims']['x-hasura-allowed-roles'].push(
+        'admin'
+      );
+    }
+  }
+
   if (user) {
     user.isAdmin = user['https://hasura.io/jwt/claims'][
       'x-hasura-allowed-roles'
@@ -55,7 +72,7 @@ export default function useAuth() {
       reconnect: true,
       connectionParams: {
         headers: {
-          Authorization: `Bearer ${claims?.__raw}`
+          Authorization: `Bearer ` + (id_token || claims?.__raw)
         }
       }
     }
@@ -71,8 +88,9 @@ export default function useAuth() {
         ...headers
       }
     };
-    if (claims) {
-      context.headers['Authorization'] = `Bearer ${claims.__raw}`;
+    if (claims || id_token) {
+      context.headers['Authorization'] =
+        `Bearer ` + (claims?.__raw || id_token);
       if (user.isAdmin) {
         context.headers['X-Hasura-Role'] = `admin`;
       }
@@ -113,11 +131,11 @@ export default function useAuth() {
     defaultHttpLink: false,
     defaultOptions: {
       watchQuery: {
-        fetchPolicy: 'network-only',
+        fetchPolicy: 'network-only'
         // errorPolicy: 'all'
       },
       query: {
-        fetchPolicy: 'network-only',
+        fetchPolicy: 'network-only'
         // errorPolicy: 'all'
       },
       mutate: {

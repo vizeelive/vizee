@@ -15,6 +15,16 @@ jobs:
         with:
           start: yarn start
           wait-on: 'http://localhost:3000'
+        env:
+          cypress_auth_audience: ${{secrets.CYPRESS_AUTH_AUDIENCE}}
+          cypress_auth_url: ${{secrets.CYPRESS_AUTH_URL}}
+          cypress_auth_client_id: ${{secrets.CYPRESS_AUTH_CLIENT_ID}}
+          cypress_auth_client_secret: ${{secrets.CYPRESS_AUTH_CLIENT_SECRET}}
+          cypress_auth_username: ${{secrets.CYPRESS_AUTH_USERNAME}}
+          cypress_auth_password: ${{secrets.CYPRESS_AUTH_PASSWORD}}
+          cypress_auth_admin_username: ${{secrets.CYPRESS_AUTH_ADMIN_USERNAME}}
+          cypress_auth_admin_password: ${{secrets.CYPRESS_AUTH_ADMIN_PASSWORD}}
+
   ui-tests:
     name: Jest Tests
     runs-on: ubuntu-latest

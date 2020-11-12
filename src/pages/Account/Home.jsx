@@ -227,7 +227,10 @@ export default function Home() {
           </div>
           <ActionsContainer>
             {(user?.isAdmin || isMyAccount) && (
-              <Link to={`/${username}/manage/events/add`}>
+              <Link
+                to={`/${username}/manage/events/add`}
+                data-test-id="link-create-event"
+              >
                 <Button
                   icon={<VideoCameraOutlined />}
                   type="primary"

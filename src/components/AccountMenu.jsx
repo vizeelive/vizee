@@ -22,7 +22,7 @@ function AccountMenu(props) {
   const [current, setCurrent] = useState(location.pathname);
 
   return (
-    <React.Fragment>
+    <div data-test-id="account-menu">
       <Menu>
         <Menu.SubMenu key="accounts" icon={<UserOutlined />} title="Accounts">
           {myAccounts.map((account) => (
@@ -86,7 +86,7 @@ function AccountMenu(props) {
           </Link>
         </Menu.Item>
       </Menu>
-    </React.Fragment>
+    </div>
   );
 }
 
