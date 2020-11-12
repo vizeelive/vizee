@@ -1,16 +1,16 @@
 let config = {
   dev: {
-    graphql: 'https://cool-teal-29.hasura.app/v1/graphql',
+    graphql: 'https://staging-graphql.vizee.live/v1/graphql',
     api: 'http://localhost:3001',
     ui: 'http://localhost:3000'
   },
   staging: {
-    graphql: 'https://cool-teal-29.hasura.app/v1/graphql',
+    graphql: 'https://staging-graphql.vizee.live/v1/graphql',
     api: 'https://staging-api.vizee.live',
     ui: 'https://staging.vizee.live'
   },
   production: {
-    graphql: 'https://sterling-swan-51.hasura.app/v1/graphql',
+    graphql: 'https://graphql.vizee.live/v1/graphql',
     api: 'https://api.vizee.live',
     ui: 'https://www.vizee.live'
   }
