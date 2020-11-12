@@ -1,6 +1,6 @@
 # vizee
 
-An video menotization platform for artists and creators.
+An video monetization platform for artists and creators.
 
 ## Setup
 
