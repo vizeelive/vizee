@@ -35,10 +35,13 @@ jobs:
       - name: Install packages
         run: npx yarn --frozen-lockfile
 
-      - name: Run tests
-        run: npm run test:coverage
+      - name: Build
+        run: yarn build
         env:
           CI: true
+
+      - name: Run tests
+        run: npm run test:coverage
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v1
