@@ -120,6 +120,7 @@ export default function Users() {
           object: { user_id: values.user_id, account_id: account.id }
         }
       });
+      window.mixpanel.track('User Added');
       message.success('Successfully added user');
       setShowModal(false);
       refetch();

@@ -159,6 +159,7 @@ export default function AddAccount(props) {
     }
 
     if (result) {
+      window.mixpanel.track('Account Created');
       message.success('Successfully created account');
       if (props.redirect === true) {
         history.push(`/${result.data.CreateAccount.username}/manage/dashboard`);

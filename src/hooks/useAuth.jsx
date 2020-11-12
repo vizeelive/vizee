@@ -56,6 +56,11 @@ export default function useAuth() {
     });
     posthog.identify(user.sub);
     posthog.people.set({ email: user.email });
+
+    window.mixpanel.identify(user.sub);
+    window.mixpanel.people.set({
+      $email: user.email
+    });
   }
 
   useEffect(() => {

@@ -77,7 +77,9 @@ export default function ShareButton() {
       <Button
         size="large"
         icon={<ShareAltOutlined />}
-        onClick={() => setShareModalVisible(true)}
+        onClick={() =>
+          window.mixpanel.track('Share') && setShareModalVisible(true)
+        }
       >
         Share
       </Button>

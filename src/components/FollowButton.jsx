@@ -30,6 +30,7 @@ export default function FollowButton(props) {
         variables: { account_id: props.account_id }
       });
       setFollowerId(res.data.insert_followers_one.id);
+      window.mixpanel.track('Account Followed');
     } catch (e) {}
   };
 
@@ -39,6 +40,7 @@ export default function FollowButton(props) {
         variables: { follower_id: followerId}
       });
       setFollowerId(null);
+      window.mixpanel.track('Account Unfollowed');
     } catch (e) {}
   };
 

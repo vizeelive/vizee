@@ -215,6 +215,7 @@ export default function AddEvent(props) {
     }
 
     if (newEvent) {
+      window.mixpanel.track('Event Created');
       message.success('Successfully saved event');
       history.push(redirect);
     } else {

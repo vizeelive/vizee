@@ -162,6 +162,9 @@ export default function Event() {
   }, [account_id, event.id, isMyAccount, trackView, user, userId]);
 
   const handleBuy = async () => {
+
+    window.mixpanel.track('Buy Button Clicked');
+
     let ref = stringify({
       user_id: user.sub,
       account_id: event.account.id,

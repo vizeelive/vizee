@@ -46,6 +46,7 @@ export default function StripeAccount(props) {
       let res = await fetch(
         `${config.api}/stripe/account/create?id=${id}&username=${username}`
       ).then((res) => res.json());
+      window.mixpanel.track('Stripe Connect Started');
       window.location.replace(res.url);
     } catch (e) {
       message.error('An error occurred');
