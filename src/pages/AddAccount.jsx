@@ -149,7 +149,9 @@ export default function AddAccount(props) {
       }
     } catch (e) {
       if (e.graphQLErrors[0].message.includes('duplicate')) {
-        setValidationErrors({ username: 'Username is already taken' });
+        let msg = 'Username is already taken';
+        setValidationErrors({ username: msg });
+        message.error(msg);
         return;
       }
       if (e.graphQLErrors[0].extensions.code.includes('validation-error')) {
