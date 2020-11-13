@@ -24,6 +24,6 @@ If you want to test Stripe flows, you'll need to turn on the development API.
 
 You can find the schema at: `https://graphql.vizee.live/v1/graphql`
 
-GraphQL PLayground is excellent.
+GraphQL Playground is excellent.
 
 ![](https://dam-media.s3.amazonaws.com/graphql-playground.png)
