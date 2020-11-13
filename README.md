@@ -1,4 +1,7 @@
-# vizee
+
+![](https://dam-media.s3.amazonaws.com/vizee.png)
+
+# Vizee.live
 
 An video monetization platform for artists and creators.
 
