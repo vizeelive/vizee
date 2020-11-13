@@ -320,7 +320,7 @@ export default function AddAccount(props) {
           <Form.Item label="Photo">
             <FileUpload
               id="photo"
-              callback={handleFileUpload}
+              success={handleFileUpload}
               options={options}
             />
           </Form.Item>
