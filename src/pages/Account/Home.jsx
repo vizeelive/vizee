@@ -247,11 +247,12 @@ export default function Home() {
                 follower_id={account?.followers?.[0]?.id}
               />
             )}
-            {isMyAccount && !location.pathname.includes('manage') && (
-              <Link to={`/${account.username}/manage`}>
-                <Button size="large">Manage</Button>
-              </Link>
-            )}
+            {(user?.isAdmin || isMyAccount) &&
+              !location.pathname.includes('manage') && (
+                <Link to={`/${account.username}/manage`}>
+                  <Button size="large">Manage</Button>
+                </Link>
+              )}
 
             <SocialList>
               {account.facebook && (

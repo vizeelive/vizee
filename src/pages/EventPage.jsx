@@ -194,11 +194,7 @@ export default function EventPage(props) {
           <Row gutter={32}>
             <Col xs={24} lg={8}>
               <Date data-test-id="event-start">
-
-
                 {moment(event.start).format('MMMM Do h:mma')}
-
-
               </Date>
               <div>
                 {event.views} Views • {event.favorites} Favorites
@@ -207,7 +203,8 @@ export default function EventPage(props) {
 
             <Col xs={24} lg={16}>
               <ActionsContainer>
-                {!isMyAccount &&
+                {!user?.isAdmin &&
+                  !isMyAccount &&
                   event.account.stripe_data &&
                   !event.isFree() &&
                   !event.isPurchased() && (
@@ -233,7 +230,7 @@ export default function EventPage(props) {
                   />
                 )}
                 <ShareButton />
-                {isMyAccount && (
+                {(user?.isAdmin || isMyAccount) && (
                   <Link
                     to={`/${event.account.username}/manage/events/${event.id}`}
                   >
