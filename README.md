@@ -25,6 +25,10 @@ GraphQL Playground is excellent.
 
 ![](https://dam-media.s3.amazonaws.com/graphql-playground.png)
 
+So is Apollo Studio.
+
+![](https://dam-media.s3.amazonaws.com/apollo-studio.png)
+
 ## UI Development
 
 * `cd ui`
