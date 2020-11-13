@@ -256,21 +256,33 @@ export default function Home() {
             <SocialList>
               {account.facebook && (
                 <Social>
-                  <a href={account.facebook}>
+                  <a
+                    href={account.facebook}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     <FacebookOutlined /> {account.facebook.split('/').pop()}
                   </a>
                 </Social>
               )}
               {account.twitter && (
                 <Social>
-                  <a href={account.twitter}>
+                  <a
+                    href={account.twitter}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     <TwitterOutlined /> {account.twitter.split('/').pop()}
                   </a>
                 </Social>
               )}
               {account.instagram && (
                 <Social>
-                  <a href={account.instagram}>
+                  <a
+                    href={account.instagram}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     <InstagramOutlined />
                     {account.instagram.split('/').pop()}
                   </a>
