@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const Uppy = require('@uppy/core');
 const Dashboard = require('@uppy/dashboard');
@@ -14,6 +15,7 @@ function FileUpload(props) {
   };
 
   useEffect(() => {
+    // https://uppy.io/docs/uppy/
     let uppy = Uppy({
       autoProceed: true,
       restrictions: {
@@ -38,12 +40,20 @@ function FileUpload(props) {
         }
       })
       .on('transloadit:complete', (stepName) => {
-        props.callback(stepName);
+        props.success(stepName);
+      })
+      .on('upload-error', (stepName) => {
+        props.error(stepName);
       });
     return () => uppy.close();
   }, [options.allowedFileTypes, props]);
 
   return <div id={props.id} className="dashboard" />;
 }
+
+FileUpload.propTypes = {
+  success: PropTypes.func.isRequired,
+  error: PropTypes.func.isRequired
+};
 
 export default React.memo(FileUpload);

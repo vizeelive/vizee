@@ -235,6 +235,11 @@ export default function AddEvent(props) {
     setEvent({ ...event, video: step.uploads[0].ssl_url });
   };
 
+  const handleUppyError = (res) => {
+    message.error('An error occurred during upload.');
+    throw res;
+  };
+
   // prevents form creation because it doesn't like to re-render
   if (params.id && !event) return 'Loading...';
 
@@ -316,7 +321,8 @@ export default function AddEvent(props) {
             ) : (
               <FileUpload
                 id="video"
-                callback={handleVideoUpload}
+                success={handleVideoUpload}
+                error={handleUppyError}
                 options={uploadVideoOptions}
               />
             )}
@@ -347,7 +353,8 @@ export default function AddEvent(props) {
             ) : (
               <FileUpload
                 id="photo"
-                callback={handlePhotoUpload}
+                success={handlePhotoUpload}
+                error={handleUppyError}
                 options={uploadPhotoOptions}
               />
             )}
@@ -365,7 +372,8 @@ export default function AddEvent(props) {
             ) : (
               <FileUpload
                 id="preview"
-                callback={handlePreviewUpload}
+                success={handlePreviewUpload}
+                error={handleUppyError}
                 options={uploadVideoOptions}
               />
             )}
