@@ -7,15 +7,17 @@ import { Integrations } from '@sentry/tracing';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-Sentry.init({
-  dsn:
-    'https://16f3e02884104cff9010e2a196d9183e@o473703.ingest.sentry.io/5508932',
-  integrations: [new Integrations.BrowserTracing()],
+if (process.env.NODE_ENV !== 'development') {
+    Sentry.init({
+      dsn:
+        'https://16f3e02884104cff9010e2a196d9183e@o473703.ingest.sentry.io/5508932',
+      integrations: [new Integrations.BrowserTracing()],
 
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0
-});
+      // We recommend adjusting this value in production, or using tracesSampler
+      // for finer control
+      tracesSampleRate: 1.0
+    });
+}
 
 ReactDOM.render(
   <Auth0Provider
