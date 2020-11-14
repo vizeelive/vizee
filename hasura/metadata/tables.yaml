@@ -288,6 +288,7 @@
       - preview
       - price
       - start
+      - thumb
       - type
       - video
       backend_only: false
@@ -310,6 +311,7 @@
       - price
       - published
       - start
+      - thumb
       - type
       - video
       filter:
@@ -340,6 +342,7 @@
       - published
       - start
       - status
+      - thumb
       - type
       - video
       filter:
@@ -367,6 +370,7 @@
       - preview
       - price
       - start
+      - thumb
       - type
       - video
       filter:

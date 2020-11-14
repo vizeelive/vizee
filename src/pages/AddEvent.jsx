@@ -186,6 +186,7 @@ export default function AddEvent(props) {
       video: event?.video,
       preview: event?.preview,
       photo: event?.photo,
+      thumb: event?.thumb,
       start,
       end
     };
@@ -224,15 +225,19 @@ export default function AddEvent(props) {
   };
 
   const handlePhotoUpload = (step) => {
-    setEvent({ ...event, photo: step?.uploads?.[0]?.ssl_url });
+    setEvent({ ...event, photo: step.results[':original'][0].ssl_url });
   };
 
   const handlePreviewUpload = (step) => {
-    setEvent({ ...event, preview: step?.uploads?.[0]?.ssl_url });
+    setEvent({
+      ...event,
+      preview: step.results[':original'][0].ssl_url,
+      thumb: step.results['thumbed'][0].ssl_url
+    });
   };
 
   const handleVideoUpload = (step) => {
-    setEvent({ ...event, video: step?.uploads?.[0]?.ssl_url });
+    setEvent({ ...event, video: step.results[':original'][0].ssl_url });
   };
 
   const handleUppyError = (res) => {

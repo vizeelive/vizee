@@ -48,13 +48,10 @@ function EventCard(props) {
   };
 
   const renderCover = () => {
-    if (event.preview) {
-      return <video src={event.preview} controls loop muted />;
-    }
     return (
       <img
-        alt={event?.account?.name || event?.name}
-        src={event.photo || event.account.photo}
+        alt={event?.thumb || event?.account?.name || event?.name}
+        src={event?.thumb || event.photo || event.account.photo}
       />
     );
   };

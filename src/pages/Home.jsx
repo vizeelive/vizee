@@ -32,6 +32,7 @@ const GET_EVENTS_AUTH = gql`
       start
       photo
       preview
+      thumb
       type
       price
       end
@@ -75,6 +76,7 @@ const GET_EVENTS_UNAUTH = gql`
       start
       photo
       preview
+      thumb
       type
       price
       end
@@ -109,6 +111,7 @@ const SEARCH_EVENTS_UNAUTH = gql`
       start
       photo
       preview
+      thumb
       type
       price
       end
@@ -138,6 +141,7 @@ const SEARCH_EVENTS_AUTH = gql`
       start
       photo
       preview
+      thumb
       type
       price
       end

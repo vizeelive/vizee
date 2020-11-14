@@ -103,7 +103,10 @@ export const GET_ACCOUNT_ANON = gql`
         location
         name
         photo
+        thumb
         start
+        end
+        published
         account {
           name
           username
@@ -154,7 +157,10 @@ const GET_ACCOUNT_USER = gql`
         location
         name
         photo
+        thumb
         start
+        end
+        published
         account {
           name
           username
