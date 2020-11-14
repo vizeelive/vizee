@@ -36,18 +36,21 @@ module.exports = async function CreateAccount(req, res) {
   }
 
   try {
-    var { token } = await fetch(`${process.env.UMAMI_URL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: process.env.UMAMI_USER,
-        password: process.env.UMAMI_PASS,
-      }),
-    }).then((res) => res.json());
+    var { token: adminToken } = await fetch(
+      `${process.env.UMAMI_URL}/api/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: process.env.UMAMI_USER,
+          password: process.env.UMAMI_PASS,
+        }),
+      }
+    ).then((res) => res.json());
   } catch (e) {
-    console.error("Failed to authenticate with Umami");
+    console.error("Failed to authenticate admin with Umami");
     console.error(e);
   }
 
@@ -55,7 +58,7 @@ module.exports = async function CreateAccount(req, res) {
     var account = await fetch(`${process.env.UMAMI_URL}/api/account`, {
       method: "POST",
       headers: {
-        Cookie: `umami.auth=${token}`,
+        Cookie: `umami.auth=${adminToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -68,7 +71,43 @@ module.exports = async function CreateAccount(req, res) {
     console.log(e);
   }
 
+  try {
+    var { token } = await fetch(`${process.env.UMAMI_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: object.username,
+        password: process.env.UMAMI_PASS,
+      }),
+    }).then((res) => res.json());
+  } catch (e) {
+    console.error("Failed to authenticate with Umami");
+    console.error(e);
+  }
+
+  try {
+    var website = await fetch(`${process.env.UMAMI_URL}/api/website`, {
+      method: "POST",
+      headers: {
+        Cookie: `umami.auth=${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: object.username,
+        domain: `vizee.live/${object.username}`,
+        public: false,
+        enable_share_url: false,
+      }),
+    }).then((res) => res.json());
+  } catch (e) {
+    console.error("Failed to create umami website");
+    console.log(e);
+  }
+
   object.umami_id = account.user_id;
+  object.umami_website = website.website_uuid;
   object.users = { data: { user_id: object.user_id } };
   delete object.user_id;
 
