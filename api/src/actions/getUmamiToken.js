@@ -28,17 +28,20 @@ module.exports = async function getUmamiToken(req, res) {
         var { token: accessToken } = await fetch(
           `${process.env.UMAMI_URL}/api/auth/login`,
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify({
               username,
-              password: process.env.UMAMI_PASS,
-            }),
+              password: process.env.UMAMI_PASS
+            })
           }
-        ).then((res) => { console.log(res); res.json() } );
+        ).then((res) => {
+          console.log(res.body);
+          return res.json();
+        });
       } catch (e) {
         console.log("Failed to authenticate admin with Umami");
         console.log(e);
