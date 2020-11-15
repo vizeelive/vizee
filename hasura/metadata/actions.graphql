@@ -5,6 +5,22 @@ type Mutation {
 }
 
 
+type Query {
+  getUmamiToken (
+    account_id: uuid!
+    username: String!
+  ): UmamiToken
+}
+
+
+type Mutation {
+  subscribe (
+    user_id: String!
+    tier_id: uuid!
+  ): SubscribeOutput
+}
+
+
 
 
 enum MyMutationAccountsConstraint {
@@ -390,5 +406,13 @@ type MyMutationOutput {
 type CreateAccountOutput {
   id : uuid!
   username : String
+}
+
+type SubscribeOutput {
+  id : uuid!
+}
+
+type UmamiToken {
+  accessToken : String!
 }
 

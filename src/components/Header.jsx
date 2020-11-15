@@ -10,7 +10,7 @@ import useBreakpoint from '../hooks/useBreakpoint';
 
 const StyledHeader = styled(Layout.Header)`
   position: fixed;
-  z-index: 2;
+  z-index: 1000;
   width: 100%;
   padding: 0;
 `;

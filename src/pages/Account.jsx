@@ -16,6 +16,7 @@ const AddEvent = React.lazy(() => import('./AddEvent'));
 const ViewEvent = React.lazy(() => import('./ViewEvent'));
 const Events = React.lazy(() => import('./Events'));
 const Dashboard = React.lazy(() => import('./Dashboard'));
+const Traffic = React.lazy(() => import('./Account/Traffic'));
 const Calendar = React.lazy(() => import('./Calendar'));
 const Users = React.lazy(() => import('./Users'));
 
@@ -95,6 +96,7 @@ const GET_ACCOUNT_AUTH = gql`
       twitter
       facebook
       created_by
+      umami_id
       events {
         id
         name
@@ -135,6 +137,7 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
       twitter
       facebook
       created_by
+      umami_id
       events {
         id
         name
@@ -231,6 +234,11 @@ export default function Account() {
                   path="/:username/manage/dashboard"
                   exact
                   component={Dashboard}
+                />
+                <Route
+                  path="/:username/manage/traffic/:id/:website"
+                  exact
+                  component={Traffic}
                 />
                 <Route path="/:username/manage/users" exact component={Users} />
                 <Route

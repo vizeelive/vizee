@@ -55,6 +55,7 @@ const GET_EVENT_AUTH = gql`
       }
     }
     accounts(where: { username: { _eq: $username } }) {
+      id
       followers {
         id
       }
@@ -141,6 +142,13 @@ export default function Event() {
   const account_id = event?.account?.id;
 
   useEffect(() => {
+    if (account?.id) {
+      window.umami.trackView(`/${username}/${id}`, null, account.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account]);
+
+  useEffect(() => {
     if (event?.id && !isMyAccount) {
       trackView({
         variables: {
@@ -161,8 +169,7 @@ export default function Event() {
     }
   }, [account_id, event.id, isMyAccount, trackView, user, userId]);
 
-  const handleBuy = async () => {
-
+  const buy = async () => {
     window.mixpanel.track('Buy Button Clicked');
 
     let ref = stringify({
@@ -190,19 +197,19 @@ export default function Event() {
     }
   };
 
-  const handleClickBuy = () => {
+  const handleBuy = () => {
     if (user) {
-      handleBuy();
+      buy();
     } else {
       loginWithRedirect();
     }
   };
 
-  const liveEvent = liveData?.events_by_pk;
-
-  const handleEditClick = () => {
+  const handleEdit = () => {
     history.push(`/${username}/manage/events/edit/${event.id}`);
   };
+
+  const liveEvent = liveData?.events_by_pk;
 
   let videoJsOptions = {
     autoplay: true,
@@ -260,8 +267,8 @@ export default function Event() {
       playerKey={playerKey}
       videoJsOptions={videoJsOptions}
       liveData={liveData}
-      handleClickBuy={handleClickBuy}
-      handleEditClick={handleEditClick}
+      handleBuy={handleBuy}
+      handleEdit={handleEdit}
     />
   );
 }
