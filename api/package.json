@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "graphql": "^15.1.0",
     "joi": "^17.2.1",
+    "jwt-decode": "^3.1.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
     "stripe": "^8.66.0",
