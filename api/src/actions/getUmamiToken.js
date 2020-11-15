@@ -30,6 +30,7 @@ module.exports = async function getUmamiToken(req, res) {
           {
             method: "POST",
             headers: {
+              "Accept": "application/json",
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -37,10 +38,10 @@ module.exports = async function getUmamiToken(req, res) {
               password: process.env.UMAMI_PASS,
             }),
           }
-        ).then((res) => res.json());
+        ).then((res) => { console.log(res); res.json() } );
       } catch (e) {
-        console.error("Failed to authenticate admin with Umami");
-        console.error(e);
+        console.log("Failed to authenticate admin with Umami");
+        console.log(e);
       }
 
       return res.send({ accessToken });
