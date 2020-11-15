@@ -34,6 +34,7 @@ const GET_EVENT_UNAUTH = gql`
         username
         photo
         stripe_data
+        umami_website
       }
     }
   }
@@ -80,6 +81,7 @@ const GET_EVENT_AUTH = gql`
         username
         photo
         stripe_data
+        umami_website
         users {
           user {
             id
@@ -143,7 +145,11 @@ export default function Event() {
 
   useEffect(() => {
     if (account?.id) {
-      window.umami.trackView(`/${username}/${id}`, null, account.id);
+      window.umami.trackView(
+        `/${username}/${event.id}`,
+        null,
+        event.account.umami_website
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
