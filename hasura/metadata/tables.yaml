@@ -136,6 +136,7 @@
       - stripe_data
       - stripe_id
       - twitter
+      - umami_website
       - username
       filter: {}
   - role: user
