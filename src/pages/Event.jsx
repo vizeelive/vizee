@@ -173,7 +173,8 @@ export default function Event() {
         }
       });
     }
-  }, [account_id, event.id, isMyAccount, trackView, user, userId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const buy = async () => {
     window.mixpanel.track('Buy Button Clicked');
