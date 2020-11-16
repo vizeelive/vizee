@@ -60,6 +60,12 @@ const GET_EVENT_AUTH = gql`
       followers {
         id
       }
+      tiers {
+        id
+        name
+        price
+        description
+      }
     }
     events_report(where: { id: { _eq: $id } }) {
       id

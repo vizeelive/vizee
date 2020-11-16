@@ -11,6 +11,7 @@ import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
 
 const Home = React.lazy(() => import('./Account/Home'));
+const Subscriptions = React.lazy(() => import('./Account/Subscriptions'));
 const Settings = React.lazy(() => import('./Settings'));
 const AddEvent = React.lazy(() => import('./AddEvent'));
 const ViewEvent = React.lazy(() => import('./ViewEvent'));
@@ -252,6 +253,11 @@ export default function Account() {
                   render={() => (
                     <AddEvent redirect={`/${username}/manage/events`} />
                   )}
+                />
+                <Route
+                  path="/:username/manage/subscriptions/:id"
+                  exact
+                  render={() => <Subscriptions />}
                 />
                 <Route
                   path="/:username/manage/events/:id"

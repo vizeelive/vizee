@@ -215,7 +215,6 @@ describe('EventPage', () => {
         </Theme>
       );
       expect(screen.queryByText('Share')).toBeInTheDocument();
-      expect(screen.queryByText('Buy Ticket ($1.00)')).toBeInTheDocument();
       expect(screen.queryByText('Follow')).not.toBeInTheDocument();
     });
   });

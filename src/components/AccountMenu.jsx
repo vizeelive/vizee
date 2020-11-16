@@ -11,7 +11,8 @@ import {
   AreaChartOutlined,
   YoutubeOutlined,
   SettingOutlined,
-  FundViewOutlined
+  FundViewOutlined,
+  HeartOutlined
 } from '@ant-design/icons';
 
 import posthog from 'posthog-js';
@@ -50,6 +51,7 @@ function AccountMenu(props) {
         >
           <Link to={`/${username}/manage/dashboard`}>Dashboard</Link>
         </Menu.Item>
+
         <Menu.Item
           key={`/${username}/manage/traffic/${account.id}/${account.umami_id}`}
           icon={<FundViewOutlined />}
@@ -58,6 +60,14 @@ function AccountMenu(props) {
             to={`/${username}/manage/traffic/${account.id}/${account.umami_id}`}
           >
             Traffic
+          </Link>
+        </Menu.Item>
+        <Menu.Item
+          key={`/${username}/manage/subscriptions/${account.id}`}
+          icon={<HeartOutlined />}
+        >
+          <Link to={`/${username}/manage/subscriptions/${account.id}`}>
+            Subscriptions
           </Link>
         </Menu.Item>
         {posthog.isFeatureEnabled('dev') && (
