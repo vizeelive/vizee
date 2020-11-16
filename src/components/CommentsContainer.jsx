@@ -72,7 +72,6 @@ export default function CommentsContainer(props) {
   };
 
   const comments = liveData?.comments || data?.comments;
-  console.log({  comments  });;
 
   return (
     <Comments
