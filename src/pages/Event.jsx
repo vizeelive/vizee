@@ -218,10 +218,6 @@ export default function Event() {
     }
   };
 
-  const handleEdit = () => {
-    history.push(`/${username}/manage/events/edit/${event.id}`);
-  };
-
   const liveEvent = liveData?.events_by_pk;
 
   let videoJsOptions = {
@@ -281,7 +277,6 @@ export default function Event() {
       videoJsOptions={videoJsOptions}
       liveData={liveData}
       handleBuy={handleBuy}
-      handleEdit={handleEdit}
     />
   );
 }

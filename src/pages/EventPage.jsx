@@ -10,6 +10,7 @@ import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
 import StartStreamButton from '../components/StartStreamButton';
 import ShareButton from '../components/ShareButton';
+import SubscribeButton from '../components/SubscribeButton';
 import FollowButton from '../components/FollowButton';
 import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
@@ -99,8 +100,7 @@ export default function EventPage(props) {
     playerKey,
     videoJsOptions,
     liveData,
-    handleClickBuy,
-    handleEditClick
+    handleBuy
   } = props;
 
   if (loading) {
@@ -212,7 +212,7 @@ export default function EventPage(props) {
                       type="primary"
                       size="large"
                       icon={<TagOutlined />}
-                      onClick={handleClickBuy}
+                      onClick={handleBuy}
                     >
                       Buy Ticket ({event.price})
                     </Button>
@@ -223,6 +223,9 @@ export default function EventPage(props) {
                     follower_id={account?.followers?.[0]?.id}
                   />
                 )}
+                {/* {user && !user.isAdmin && !isMyAccount && (
+                  <SubscribeButton />
+                )} */}
                 {isMyAccount && event.isBroadcast() && (
                   <StartStreamButton
                     event_id={event.id}
@@ -252,16 +255,7 @@ export default function EventPage(props) {
               <br /> */}
 
               <EventDescription>{event.description}</EventDescription>
-              {user?.isAdmin && (
-                <EditButton
-                  type="primary"
-                  size="large"
-                  ghost
-                  onClick={handleEditClick}
-                >
-                  Edit Event
-                </EditButton>
-              )}
+
             </Col>
           </Row>
         </div>
@@ -279,6 +273,5 @@ EventPage.propTypes = {
   playerKey: PropTypes.number.isRequired,
   videoJsOptions: PropTypes.object.isRequired,
   liveData: PropTypes.object,
-  handleClickBuy: PropTypes.func.isRequired,
-  handleEditClick: PropTypes.func.isRequired
+  handleBuy: PropTypes.func.isRequired
 };
