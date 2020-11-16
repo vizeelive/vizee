@@ -154,8 +154,11 @@
       - stripe_id
       - twitter
       - umami_id
+      - umami_website
       - username
-      filter: {}
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
   update_permissions:
   - role: user
     permission:
