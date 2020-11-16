@@ -825,6 +825,12 @@
           schema: public
           name: transactions
   select_permissions:
+  - role: public
+    permission:
+      columns:
+      - first_name
+      - last_name
+      filter: {}
   - role: user
     permission:
       columns:

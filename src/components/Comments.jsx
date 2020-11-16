@@ -65,8 +65,6 @@ export default class Comments extends React.Component {
 
     return (
       <>
-        {comments.length > 0 && <CommentList comments={this.state.comments} />}
-        { this.props.user && this.props.user.isAdmin && 'Admin cannot leave comments.' }
         {this.props.user && !this.props.user.isAdmin && (
           <Comment
             avatar={
@@ -85,6 +83,8 @@ export default class Comments extends React.Component {
             }
           />
         )}
+        {comments.length > 0 && <CommentList comments={this.state.comments} />}
+        { this.props.user && this.props.user.isAdmin && 'Admin cannot leave comments.' }
       </>
     );
   }

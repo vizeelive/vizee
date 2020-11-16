@@ -6,7 +6,10 @@ import Comments from './Comments';
 
 const SUBSCRIBE_COMMENTS = gql`
   subscription GetComments($event_id: uuid!) {
-    comments(where: { event_id: { _eq: $event_id } }) {
+    comments(
+      where: { event_id: { _eq: $event_id } }
+      order_by: { created: desc }
+    ) {
       id
       body
       created
@@ -20,7 +23,10 @@ const SUBSCRIBE_COMMENTS = gql`
 
 const GET_COMMENTS = gql`
   query GetComments($event_id: uuid!) {
-    comments(where: { event_id: { _eq: $event_id } }) {
+    comments(
+      where: { event_id: { _eq: $event_id } }
+      order_by: { created: desc }
+    ) {
       id
       body
       created
