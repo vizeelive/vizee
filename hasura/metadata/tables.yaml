@@ -45,6 +45,15 @@
           name: accounts
         column_mapping:
           id: id
+  array_relationships:
+  - name: events
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: events
+        column_mapping:
+          id: account_id
   select_permissions:
   - role: user
     permission:
@@ -53,16 +62,11 @@
       - username
       - name
       - revenue
-      - views
-      - followers
-      - favorites
-      - events
-      filter:
-        account:
-          users:
-            user:
-              id:
-                _eq: X-Hasura-User-Id
+      - viewcount
+      - followercount
+      - favoritecount
+      - eventcount
+      filter: {}
 - table:
     schema: public
     name: account_revenue

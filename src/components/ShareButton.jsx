@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Modal, message } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import styled from 'styled-components';
@@ -40,14 +41,15 @@ const CopyButton = styled.button.attrs({
   }
 `;
 
-export default function ShareButton() {
+export default function ShareButton(props) {
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
   const handleCopy = () => {
     message.success('Copied link');
   };
 
-  let url = window.location.href.replace('/manage/events', '');
+  const url = props.url || window.location.href.replace('/manage/events', '');
+  const type = props.primary ? 'primary' : 'secondary';
 
   return (
     <React.Fragment>
@@ -75,6 +77,7 @@ export default function ShareButton() {
         </CopyToClipboard>
       </Modal>
       <Button
+        type={type}
         size="large"
         icon={<ShareAltOutlined />}
         onClick={() =>
@@ -86,3 +89,8 @@ export default function ShareButton() {
     </React.Fragment>
   );
 }
+
+ShareButton.propTypes = {
+  url: PropTypes.string,
+  primary: PropTypes.bool
+};

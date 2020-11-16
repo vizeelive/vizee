@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 
+import ShareButton from '../components/ShareButton';
 import StripeAccount from './StripeAccount';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
@@ -15,14 +16,14 @@ const { Title } = Typography;
 const ACCOUNT_REPORT = gql`
   query AccountReport($username: String!) {
     account_report(where: { username: { _eq: $username } }) {
-      events
-      favorites
       id
       username
       name
       revenue
-      followers
-      views
+      favoritecount
+      eventcount
+      followercount
+      viewcount
       account {
         stripe_id
         events {
@@ -58,8 +59,8 @@ export default function Dashboard() {
 
   let step = 1;
   let bankSetup = account?.account?.stripe_id;
-  let hasEvents = account?.account?.events?.length;
-  let hasViews = account?.views;
+  let hasEvents = account?.eventcount;
+  let hasViews = account?.viewcount;
   let eventComplete = account?.account?.events?.filter(
     (event) => event.video || event.mux_id
   ).length;
@@ -80,6 +81,7 @@ export default function Dashboard() {
   let stepsComplete = step === 5 && eventComplete;
   let firstEventIsLive = account?.account?.events?.[0]?.type === 'live';
   let firstEventLink = `/${username}/${account?.account?.events?.[0]?.id}`;
+  let shareLink = `${window.location.origin}${firstEventLink}`;
 
   return (
     <React.Fragment>
@@ -119,7 +121,14 @@ export default function Dashboard() {
           />
           <Step
             title="Share Link"
-            description="Share your event link on social media in order to sell tickets"
+            description={
+              <React.Fragment>
+                <div>
+                  Share your event link on social media in order to sell tickets
+                </div>
+                <ShareButton primary={true} url={shareLink} />
+              </React.Fragment>
+            }
           />
           <Step
             title="Go Live!"
