@@ -10,7 +10,7 @@ import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
 import StartStreamButton from '../components/StartStreamButton';
 import ShareButton from '../components/ShareButton';
-import SubscribeButton from '../components/SubscribeButton';
+// import SubscribeButton from '../components/SubscribeButton';
 import FollowButton from '../components/FollowButton';
 import VideoPlayer from '../components/VideoPlayer';
 import VideoConference from '../components/VideoConference';
