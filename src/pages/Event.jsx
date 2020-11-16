@@ -144,7 +144,7 @@ export default function Event() {
   const account_id = event?.account?.id;
 
   useEffect(() => {
-    if (account?.id) {
+    if (data && data.accounts[0].id) {
       window.umami.trackView(
         `/${username}/${event.id}`,
         null,
@@ -152,7 +152,7 @@ export default function Event() {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account]);
+  }, [data]);
 
   useEffect(() => {
     if (event?.id && !isMyAccount) {
