@@ -9,6 +9,7 @@ import { isMobile } from 'react-device-detect';
 import { Button, Tag, Row, Col } from 'antd';
 import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
+import Comments from '../components/CommentsContainer';
 import StartStreamButton from '../components/StartStreamButton';
 import ShareButton from '../components/ShareButton';
 // import SubscribeButton from '../components/SubscribeButton';
@@ -83,11 +84,6 @@ const ActionsContainer = styled.div`
       margin-right: 0;
     }
   }
-`;
-
-const EditButton = styled(Button)`
-  margin-top: 0.5rem;
-  float: none !important;
 `;
 
 export default function EventPage(props) {
@@ -257,6 +253,7 @@ export default function EventPage(props) {
 
               <EventDescription>{event.description}</EventDescription>
 
+              <Comments event={event} user={user} />
             </Col>
           </Row>
         </div>

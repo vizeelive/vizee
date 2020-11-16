@@ -1,6 +1,6 @@
 import config from '../config';
 import React, { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { stringify } from 'zipson';
 
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
@@ -121,9 +121,6 @@ const TRACK_VIEW = gql`
 
 export default function Event() {
   const { id, username } = useParams();
-
-  const history = useHistory();
-
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
 

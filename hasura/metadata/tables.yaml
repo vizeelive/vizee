@@ -258,6 +258,54 @@
     name: category_counts
 - table:
     schema: public
+    name: comments
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-User-Id
+      columns:
+      - body
+      - event_id
+      backend_only: false
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - event_id
+      - body
+      - created
+      - created_by
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - body
+      - created_by
+      - created
+      - event_id
+      - id
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - body
+      filter:
+        created_by:
+          _eq: X-Hasura-User-Id
+      check: null
+- table:
+    schema: public
     name: events
   object_relationships:
   - name: account
@@ -270,6 +318,13 @@
     using:
       foreign_key_constraint_on: created_by
   array_relationships:
+  - name: comments
+    using:
+      foreign_key_constraint_on:
+        column: event_id
+        table:
+          schema: public
+          name: comments
   - name: favorites
     using:
       foreign_key_constraint_on:
@@ -414,6 +469,14 @@
         column_mapping:
           account_id: id
   array_relationships:
+  - name: comments
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: comments
+        column_mapping:
+          id: event_id
   - name: favorite
     using:
       manual_configuration:
