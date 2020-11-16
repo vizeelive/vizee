@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { isMobile } from 'react-device-detect';
 
 import { Button, Tag, Row, Col } from 'antd';
 import { SettingOutlined, TagOutlined } from '@ant-design/icons';
@@ -159,7 +160,7 @@ export default function EventPage(props) {
                 <video
                   src={event.preview}
                   width="100%"
-                  autoPlay
+                  autoPlay={!isMobile}
                   muted
                   controls
                 />
