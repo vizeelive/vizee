@@ -57,7 +57,9 @@ export default function CommentsContainer(props) {
     variables: { event_id: props.event.id }
   });
 
-  const [createComment] = useMutation(CREATE_COMMENT);
+  const [createComment, { loading: isCreatingComment }] = useMutation(
+    CREATE_COMMENT
+  );
 
   useEffect(() => {
     if (data?.comments || liveData?.comments) {
@@ -84,6 +86,7 @@ export default function CommentsContainer(props) {
       {...props}
       key={key}
       comments={comments}
+      isCreatingComment={isCreatingComment}
       onSubmit={(body) =>
         handleCreateComment({ event_id: props.event.id, body })
       }

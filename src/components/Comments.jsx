@@ -77,14 +77,16 @@ export default class Comments extends React.Component {
               <Editor
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
-                submitting={submitting}
+                submitting={this.props.isCreatingComment}
                 value={value}
               />
             }
           />
         )}
         {comments.length > 0 && <CommentList comments={this.state.comments} />}
-        { this.props.user && this.props.user.isAdmin && 'Admin cannot leave comments.' }
+        {this.props.user &&
+          this.props.user.isAdmin &&
+          'Admin cannot leave comments.'}
       </>
     );
   }
