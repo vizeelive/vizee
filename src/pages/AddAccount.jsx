@@ -66,7 +66,9 @@ export default function AddAccount(props) {
       id: params.id
     }
   });
-  const [createAccount] = useMutation(CREATE_ACCOUNT);
+  const [createAccount, { loading: isCreatingAccount }] = useMutation(
+    CREATE_ACCOUNT
+  );
   const [updateAccount] = useMutation(UPDATE_ACCOUNT);
 
   useEffect(() => {
@@ -333,7 +335,7 @@ export default function AddAccount(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disabled={isSubmitDisabled}
+              disabled={isSubmitDisabled || isCreatingAccount}
               size="large"
             >
               {`${params?.id ? 'Update' : 'Add'} Account`}
