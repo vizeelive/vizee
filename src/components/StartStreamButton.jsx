@@ -34,7 +34,7 @@ export default function StartStreamButton(props) {
           message={
             <React.Fragment>
               <pre style={{ margin: 0, fontSize: '14px' }}>
-                RTMP URL: rtmp://stream.vizee.live:5222/app
+                Server URL: rtmp://stream.vizee.live:5222/app
               </pre>
               <pre style={{ margin: 0, fontSize: '14px' }}>
                 Stream Key: {streamKey}
