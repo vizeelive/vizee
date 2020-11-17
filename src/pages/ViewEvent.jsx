@@ -172,7 +172,7 @@ export default function ViewEvent() {
   return (
     <React.Fragment>
       <Menu>
-        <ShareButton />
+        <ShareButton url={`https://viz.ee/${username}/${event.id}`} />
         <Button type="primary" size="large">
           <Link to={`/${username}/manage/events/edit/${event.id}`}>
             Edit Event
