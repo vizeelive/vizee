@@ -28,6 +28,7 @@ const GET_EVENT_UNAUTH = gql`
       video
       favorites
       views
+      location
       account {
         id
         name
@@ -81,6 +82,7 @@ const GET_EVENT_AUTH = gql`
       transactions
       favorites
       views
+      location
       account {
         id
         name

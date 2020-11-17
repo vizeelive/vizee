@@ -196,6 +196,7 @@ export default function EventPage(props) {
               <div>
                 {event.views} Views • {event.favorites} Favorites
               </div>
+              <div>{event.location}</div>
             </Col>
 
             <Col xs={24} lg={16}>
