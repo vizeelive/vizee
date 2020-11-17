@@ -102,7 +102,10 @@ export default function User() {
 
   if (error) return 'Error';
 
+  // if user, pick first account she has access to
   let account = data?.accounts_users?.[0]?.account;
+
+  // if admin, set to the first account we find
   if (!account && user?.isAdmin) {
     account = data?.accounts?.[0];
   }

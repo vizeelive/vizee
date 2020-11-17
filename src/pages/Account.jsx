@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Switch, Route, useParams } from 'react-router-dom';
+import { Switch, Route, useParams, useHistory } from 'react-router-dom';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
@@ -165,6 +165,7 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
 export default function Account() {
   const { username } = useParams();
   const { user } = useAuth();
+  const history = useHistory();
 
   Cookies.set('username', username);
 
@@ -185,6 +186,13 @@ export default function Account() {
   const { loading, error, data, refetch } = useQuery(query, {
     variables
   });
+
+  // if username cookie references bad record, remove, and redirect
+  if (data && !data?.accounts?.[0]) {
+    Cookies.remove('username');
+    history.push('/');
+    return null;
+  }
 
   if (loading) {
     return (
