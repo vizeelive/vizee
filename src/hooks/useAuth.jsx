@@ -77,7 +77,8 @@ export default function useAuth() {
       reconnect: true,
       connectionParams: {
         headers: {
-          Authorization: `Bearer ` + (id_token || claims?.__raw)
+          Authorization: `Bearer ` + (id_token || claims?.__raw),
+          'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
         }
       }
     }
