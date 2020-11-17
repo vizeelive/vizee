@@ -229,7 +229,9 @@ export default function EventPage(props) {
                     streamKey={liveData?.mux_livestream?.streamKey}
                   />
                 )}
-                <ShareButton />
+                <ShareButton
+                  url={`https://viz.ee/${event.account.username}/${event.id}`}
+                />
                 {(user?.isAdmin || isMyAccount) && (
                   <Link
                     to={`/${event.account.username}/manage/events/${event.id}`}

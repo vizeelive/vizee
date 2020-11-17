@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet';
 
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
+import ShareButton from '../../components/ShareButton';
 import FollowButton from '../../components/FollowButton';
 import useAuth from '../../hooks/useAuth';
 
@@ -212,6 +213,8 @@ export default function Home() {
     (acc) => acc.account.username === username
   ).length;
 
+  const shareUrl = `https://viz.ee/${username}`;
+
   return (
     <React.Fragment>
       <Helmet>
@@ -253,6 +256,9 @@ export default function Home() {
                 follower_id={account?.followers?.[0]?.id}
               />
             )}
+
+            <ShareButton url={shareUrl} />
+
             {(user?.isAdmin || isMyAccount) &&
               !location.pathname.includes('manage') && (
                 <Link to={`/${account.username}/manage`}>
