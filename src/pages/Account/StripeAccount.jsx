@@ -1,12 +1,12 @@
 import React from 'react';
-import config from '../config';
+import config from '../../config';
 import { useParams } from 'react-router-dom';
 import { Button, message } from 'antd';
 
 import { gql, useQuery } from '@apollo/client';
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
 const GET_ACCOUNT = gql`
   query GetAccount($id: uuid!) {

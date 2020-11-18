@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute';
 import useAuth from './hooks/useAuth';
-import Admin from './pages/Admin';
+import Admin from './pages/Admin/Index';
 import User from './pages/User';
 import Theme from './Theme';
 

@@ -5,21 +5,21 @@ import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 
-import useAuth from '../hooks/useAuth';
-import AccountMenu from '../components/AccountMenu';
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import useAuth from '../../hooks/useAuth';
+import AccountMenu from '../../components/AccountMenu';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
-const Home = React.lazy(() => import('./Account/Home'));
-const Subscriptions = React.lazy(() => import('./Account/Subscriptions'));
+const Home = React.lazy(() => import('./Home'));
+const Subscriptions = React.lazy(() => import('./Subscriptions'));
 const Settings = React.lazy(() => import('./Settings'));
 const AddEvent = React.lazy(() => import('./AddEvent'));
 const ViewEvent = React.lazy(() => import('./ViewEvent'));
-const Events = React.lazy(() => import('./Events'));
+const Events = React.lazy(() => import('../Events'));
 const Dashboard = React.lazy(() => import('./Dashboard'));
-const Traffic = React.lazy(() => import('./Account/Traffic'));
-const Calendar = React.lazy(() => import('./Calendar'));
-const Users = React.lazy(() => import('./Users'));
+const Traffic = React.lazy(() => import('./Traffic'));
+const Calendar = React.lazy(() => import('../Calendar'));
+const Users = React.lazy(() => import('../Account/Users'));
 
 const { Content } = Layout;
 

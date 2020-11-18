@@ -8,10 +8,10 @@ import { gql, useQuery, useSubscription } from '@apollo/client';
 
 import { CalendarOutlined } from '@ant-design/icons';
 
-import ShareButton from '../components/ShareButton';
-import TrafficMap from '../components/TrafficMap';
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import ShareButton from '../../components/ShareButton';
+import TrafficMap from '../../components/TrafficMap';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
 const { TabPane } = Tabs;
 

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
-import FileUpload from '../components/FileUpload';
-import CurrencyInput from '../components/CurrencyInput';
-import useBreakpoint from '../hooks/useBreakpoint';
-import Spinner from '../components/ui/Spinner';
-import LocationSearchInput from '../components/LocationSearchInput';
+import FileUpload from '../../components/FileUpload';
+import CurrencyInput from '../../components/CurrencyInput';
+import useBreakpoint from '../../hooks/useBreakpoint';
+import Spinner from '../../components/ui/Spinner';
+import LocationSearchInput from '../../components/LocationSearchInput';
 
-import { Centered, FormContainer } from '../components/styled/common';
+import { Centered, FormContainer } from '../../components/styled/common';
 
 import {
   Divider,

@@ -4,17 +4,17 @@ import { gql, useQuery } from '@apollo/client';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 
-import useAuth from '../hooks/useAuth';
-import AddAccount from './AddAccount';
-import AddEvent from './AddEvent';
-import Accounts from './Accounts';
-import Calendar from './Calendar';
-import Events from './Events';
+import useAuth from '../../hooks/useAuth';
+import AddAccount from '../AddAccount';
+import AddEvent from '../Account/AddEvent';
+import Accounts from '../Admin/Accounts';
+import Calendar from '../Calendar';
+import Events from '../Events';
 
-import Header from '../components/Header';
-import AdminMenu from '../components/AdminMenu';
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import Header from '../../components/Header';
+import AdminMenu from '../../components/AdminMenu';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
 const { Content } = Layout;
 

@@ -15,6 +15,15 @@ jest.mock('../components/FollowButton', () => {
   };
 });
 
+jest.mock('../components/CommentsContainer', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div></div>;
+    }
+  };
+});
+
 describe('EventPage', () => {
   beforeAll(() => {
     Object.defineProperty(window, 'matchMedia', {
@@ -67,8 +76,8 @@ describe('EventPage', () => {
       const playerKey = 'a1b2c3';
       const videoJsOptions = {};
       const liveData = {};
-      const handleClickBuy = () => {};
-      const handleEditClick = () => {};
+      const handleBuy = () => {};
+      const handleEdit = () => {};
       render(
         <Theme>
           <Router>
@@ -82,8 +91,8 @@ describe('EventPage', () => {
               playerKey={playerKey}
               videoJsOptions={videoJsOptions}
               liveData={liveData}
-              handleClickBuy={handleClickBuy}
-              handleEditClick={handleEditClick}
+              handleBuy={handleBuy}
+              handleEdit={handleEdit}
             />
           </Router>
         </Theme>
@@ -129,8 +138,8 @@ describe('EventPage', () => {
       const playerKey = 'a1b2c3';
       const videoJsOptions = {};
       const liveData = {};
-      const handleClickBuy = () => {};
-      const handleEditClick = () => {};
+      const handleBuy = () => {};
+      const handleEdit = () => {};
       render(
         <Theme>
           <Router>
@@ -144,8 +153,8 @@ describe('EventPage', () => {
               playerKey={playerKey}
               videoJsOptions={videoJsOptions}
               liveData={liveData}
-              handleClickBuy={handleClickBuy}
-              handleEditClick={handleEditClick}
+              handleBuy={handleBuy}
+              handleEdit={handleEdit}
             />
           </Router>
         </Theme>
@@ -193,8 +202,8 @@ describe('EventPage', () => {
       const playerKey = 'a1b2c3';
       const videoJsOptions = {};
       const liveData = {};
-      const handleClickBuy = () => {};
-      const handleEditClick = () => {};
+      const handleBuy = () => {};
+      const handleEdit = () => {};
       render(
         <Theme>
           <Router>
@@ -208,8 +217,8 @@ describe('EventPage', () => {
               playerKey={playerKey}
               videoJsOptions={videoJsOptions}
               liveData={liveData}
-              handleClickBuy={handleClickBuy}
-              handleEditClick={handleEditClick}
+              handleBuy={handleBuy}
+              handleEdit={handleEdit}
             />
           </Router>
         </Theme>

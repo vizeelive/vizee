@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { CreditCardOutlined, YoutubeOutlined } from '@ant-design/icons';
 
-import AddAccount from './AddAccount';
+import AddAccount from '../AddAccount';
 import StripeAccount from './StripeAccount';
 
 const { TabPane } = Tabs;

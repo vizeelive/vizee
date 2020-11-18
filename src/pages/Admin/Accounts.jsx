@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
 import { UserOutlined } from '@ant-design/icons';
 

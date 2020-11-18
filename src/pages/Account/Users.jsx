@@ -16,12 +16,12 @@ import moment from 'moment';
 
 import { gql, useQuery, useMutation } from '@apollo/client';
 
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 import { UserAddOutlined } from '@ant-design/icons';
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
 const { Option } = Select;
 const { Title } = Typography;

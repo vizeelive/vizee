@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 
-import ShareButton from '../components/ShareButton';
+import ShareButton from '../../components/ShareButton';
 import StripeAccount from './StripeAccount';
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from '../../components/styled/common';
+import Spinner from '../../components/ui/Spinner';
 
 import { Statistic, Row, Col, Button, Divider, Typography, Steps } from 'antd';
 

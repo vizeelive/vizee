@@ -9,7 +9,7 @@ import AccountHome from './Account/Home';
 import Tickets from './Tickets';
 import Calendar from './Calendar';
 import CreateAccount from './CreateAccount';
-import Account from './Account';
+import Account from './Account/Index';
 import Event from './Event';
 import useAuth from '../hooks/useAuth';
 
