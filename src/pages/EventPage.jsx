@@ -9,6 +9,7 @@ import { isMobile } from 'react-device-detect';
 import { Button, Tag, Row, Col } from 'antd';
 import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
+import Countdown from '../components/Countdown';
 import Comments from '../components/CommentsContainer';
 import StartStreamButton from '../components/StartStreamButton';
 import ShareButton from '../components/ShareButton';
@@ -192,6 +193,8 @@ export default function EventPage(props) {
             <Col xs={24} lg={8}>
               <Date data-test-id="event-start">
                 {moment(event.start).format('MMMM Do h:mma')}
+                <br />
+                <Countdown date={event.start} />
               </Date>
               <div>
                 {event.views} Views • {event.favorites} Favorites
