@@ -223,7 +223,7 @@ export default function Home() {
         <meta property="og:description" content={account.description} />
       </Helmet>
       <img
-        style={{ objectFit: 'cover' }}
+        style={{ objectFit: 'cover', maxHeight: '50vh' }}
         src={account.photo}
         alt={account.name}
         width="100%"
