@@ -37,7 +37,6 @@ const MainContent = styled.div`
   img,
   video {
     height: 30vh;
-    object-fit: cover;
   }
 `;
 
@@ -111,6 +110,11 @@ export default function EventPage(props) {
 
   if (error) return 'Error';
 
+  const coverPhoto = (event.photo || event.account.photo).replace(
+    'https://dam-media.s3.amazonaws.com/',
+    ''
+  );
+
   return (
     <React.Fragment>
       <Helmet>
@@ -167,7 +171,9 @@ export default function EventPage(props) {
                 <img
                   width="100%"
                   alt={event.name || event?.account?.name}
-                  src={event.photo || event.account.photo}
+                  src={`https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=${
+                    window.innerWidth
+                  }&h=${window.innerHeight * 0.3}`}
                 />
               );
             }

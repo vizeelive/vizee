@@ -215,6 +215,11 @@ export default function Home() {
 
   const shareUrl = `https://viz.ee/${username}`;
 
+  const accountPhoto = account.photo.replace(
+    'https://dam-media.s3.amazonaws.com/',
+    ''
+  );
+
   return (
     <React.Fragment>
       <Helmet>
@@ -223,8 +228,10 @@ export default function Home() {
         <meta property="og:description" content={account.description} />
       </Helmet>
       <img
-        style={{ objectFit: 'cover', maxHeight: '50vh' }}
-        src={account.photo}
+        style={{ objectFit: 'cover', objectPosition: 'top', maxHeight: '40vh' }}
+        src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
+          window.innerWidth
+        }&h=${window.innerHeight * 0.4}`}
         alt={account.name}
         width="100%"
       />
