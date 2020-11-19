@@ -200,7 +200,7 @@ export default function EventPage(props) {
               <Date data-test-id="event-start">
                 {moment(event.start).format('MMMM Do h:mma')}
                 <br />
-                <Countdown date={event.start} />
+                {!event.hasStarted() && <Countdown date={event.start} />}
               </Date>
               <div>
                 {event.views} Views • {event.favorites} Favorites

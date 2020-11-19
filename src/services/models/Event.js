@@ -22,6 +22,12 @@ export default class Event {
   isConference() {
     return this?.type === 'conference';
   }
+  hasStarted() {
+    return moment().isAfter(this.start);
+  }
+  hasEnded() {
+    return moment().isAfter(this.end);
+  }
   belongsTo(user_id) {
     return !!this?.account?.users?.find((user) => user?.user?.id === user_id);
   }
