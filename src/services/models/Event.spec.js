@@ -164,7 +164,7 @@ describe('Event', () => {
       let liveData = { status: 'completed' };
       expect(event.canWatch(user_id, liveData)).toBe(true);
     });
-    it('should return true when its broadcast and its live and is purchased', () => {
+    it('should return true when its broadcast and is purchased', () => {
       let data = {
         type: 'video',
         price: '$1.00',
@@ -184,6 +184,27 @@ describe('Event', () => {
       let user_id = 'auth0|5f8838b47119bc007640b4af';
       let event = new Event(data);
       expect(event.canWatch(user_id)).toBe(true);
+    });
+    it('should return false when its broadcast and is not purchased', () => {
+      let data = {
+        type: 'video',
+        price: '$1.00',
+        start: '2020-10-22 21:38:41.825+00',
+        end: '2020-10-22 21:48:41.825+00',
+        transaction: null,
+        account: {
+          users: [
+            {
+              user: {
+                id: 'auth0|nope'
+              }
+            }
+          ]
+        }
+      };
+      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let event = new Event(data);
+      expect(event.canWatch(user_id)).toBe(false);
     });
   });
 });
