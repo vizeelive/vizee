@@ -11,6 +11,7 @@ import useAuth from './hooks/useAuth';
 import Admin from './pages/Admin/Index';
 import User from './pages/User';
 import Theme from './Theme';
+import EventGif from './pages/EventGif';
 
 import { Centered } from './components/styled/common';
 import Spinner from './components/ui/Spinner';
@@ -69,6 +70,7 @@ function App() {
       <ApolloProvider client={client}>
         <Router>
           <Switch>
+            <Route path="/gif/:username/:id" component={EventGif} />
             <PrivateRoute path="/admin" user={user} component={Admin} />
             <Route path="/" component={User} />
           </Switch>
