@@ -122,6 +122,9 @@
       - instagram
       - name
       - photo
+      - tpl_backgroundcolor
+      - tpl_color
+      - tpl_primarycolor
       - twitter
       - username
       backend_only: false
@@ -139,6 +142,9 @@
       - photo
       - stripe_data
       - stripe_id
+      - tpl_backgroundcolor
+      - tpl_color
+      - tpl_primarycolor
       - twitter
       - umami_website
       - username
@@ -170,6 +176,9 @@
       - instagram
       - name
       - photo
+      - tpl_backgroundcolor
+      - tpl_color
+      - tpl_primarycolor
       - twitter
       - username
       filter:
