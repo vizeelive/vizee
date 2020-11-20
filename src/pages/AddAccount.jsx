@@ -186,6 +186,11 @@ export default function AddAccount(props) {
     setReplacePhoto(false);
   };
 
+  const handleFileUploadError = (err) => {
+    message.error('An error occurred');
+    throw err;
+  };
+
   const handleReplacePhoto = () => {
     setPhotoUrl(null);
     setReplacePhoto(true);
@@ -325,6 +330,7 @@ export default function AddAccount(props) {
             <FileUpload
               id="photo"
               success={handleFileUpload}
+              error={handleFileUploadError}
               options={options}
             />
           </Form.Item>
