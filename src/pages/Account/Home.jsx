@@ -227,98 +227,106 @@ export default function Home() {
         <meta property="og:title" content={`${account.name}`} />
         <meta property="og:description" content={account.description} />
       </Helmet>
-      <img
-        style={{ objectFit: 'cover', objectPosition: 'top', maxHeight: '40vh' }}
-        src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
-          window.innerWidth
-        }&h=${window.innerHeight * 0.4}`}
-        alt={account.name}
-        width="100%"
-      />
-      <MainContent>
-        <Header>
-          <div>
-            <Title>{account.name}</Title>
-            <p>{`${followers} follower${followers.length !== 1 ? 's' : ''}`}</p>
-          </div>
-          <ActionsContainer>
-            {(user?.isAdmin || isMyAccount) && (
-              <Link
-                to={`/${username}/manage/events/add`}
-                data-test-id="link-create-event"
-              >
-                <Button
-                  icon={<VideoCameraOutlined />}
-                  type="primary"
-                  size="large"
+      <Content>
+        <img
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'top',
+            maxHeight: '40vh'
+          }}
+          src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
+            window.innerWidth
+          }&h=${window.innerHeight * 0.4}`}
+          alt={account.name}
+          width="100%"
+        />
+        <MainContent>
+          <Header>
+            <div>
+              <Title>{account.name}</Title>
+              <p>{`${followers} follower${
+                followers.length !== 1 ? 's' : ''
+              }`}</p>
+            </div>
+            <ActionsContainer>
+              {(user?.isAdmin || isMyAccount) && (
+                <Link
+                  to={`/${username}/manage/events/add`}
+                  data-test-id="link-create-event"
                 >
-                  Create Event
-                </Button>
-              </Link>
-            )}
-
-            {user && !user.isAdmin && (
-              <FollowButton
-                account_id={account.id}
-                follower_id={account?.followers?.[0]?.id}
-              />
-            )}
-
-            <ShareButton url={shareUrl} />
-
-            {(user?.isAdmin || isMyAccount) &&
-              !location.pathname.includes('manage') && (
-                <Link to={`/${account.username}/manage`}>
-                  <Button size="large">Manage</Button>
+                  <Button
+                    icon={<VideoCameraOutlined />}
+                    type="primary"
+                    size="large"
+                  >
+                    Create Event
+                  </Button>
                 </Link>
               )}
 
-            <SocialList>
-              {account.facebook && (
-                <Social>
-                  <a
-                    href={account.facebook}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <FacebookOutlined /> {account.facebook.split('/').pop()}
-                  </a>
-                </Social>
+              {user && !user.isAdmin && (
+                <FollowButton
+                  account_id={account.id}
+                  follower_id={account?.followers?.[0]?.id}
+                />
               )}
-              {account.twitter && (
-                <Social>
-                  <a
-                    href={account.twitter}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TwitterOutlined /> {account.twitter.split('/').pop()}
-                  </a>
-                </Social>
-              )}
-              {account.instagram && (
-                <Social>
-                  <a
-                    href={account.instagram}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <InstagramOutlined />
-                    {account.instagram.split('/').pop()}
-                  </a>
-                </Social>
-              )}
-            </SocialList>
-          </ActionsContainer>
-        </Header>
 
-        <AccountDescription>{account.description}</AccountDescription>
+              <ShareButton url={shareUrl} />
 
-        <EventsContainer>
-          {account.events.length ? <Title level={3}>Events</Title> : null}
-          <Events events={account.events} refetch={refetch} />
-        </EventsContainer>
-      </MainContent>
+              {(user?.isAdmin || isMyAccount) &&
+                !location.pathname.includes('manage') && (
+                  <Link to={`/${account.username}/manage`}>
+                    <Button size="large">Manage</Button>
+                  </Link>
+                )}
+
+              <SocialList>
+                {account.facebook && (
+                  <Social>
+                    <a
+                      href={account.facebook}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <FacebookOutlined /> {account.facebook.split('/').pop()}
+                    </a>
+                  </Social>
+                )}
+                {account.twitter && (
+                  <Social>
+                    <a
+                      href={account.twitter}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <TwitterOutlined /> {account.twitter.split('/').pop()}
+                    </a>
+                  </Social>
+                )}
+                {account.instagram && (
+                  <Social>
+                    <a
+                      href={account.instagram}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <InstagramOutlined />
+                      {account.instagram.split('/').pop()}
+                    </a>
+                  </Social>
+                )}
+              </SocialList>
+            </ActionsContainer>
+          </Header>
+
+          <AccountDescription>{account.description}</AccountDescription>
+
+          <EventsContainer>
+            {account.events.length ? <Title level={3}>Events</Title> : null}
+            <Events events={account.events} refetch={refetch} />
+          </EventsContainer>
+        </MainContent>
+      </Content>
     </React.Fragment>
   );
 }
