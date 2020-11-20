@@ -233,6 +233,7 @@ export default function Account() {
             className="site-layout-background"
             style={{
               margin: 0,
+              padding: '20px',
               minHeight: 280
             }}
           >
