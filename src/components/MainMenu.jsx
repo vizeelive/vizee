@@ -77,10 +77,10 @@ function MainMenu(props) {
       {!user && (
         <Menu.Item
           data-test-id="menu-login"
-          key="/login"
+          key="/"
           onClick={() => onLogin()}
         >
-          Login
+          Sign In
         </Menu.Item>
       )}
       {user && (
