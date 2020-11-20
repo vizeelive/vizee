@@ -162,6 +162,9 @@
       - photo
       - stripe_data
       - stripe_id
+      - tpl_backgroundcolor
+      - tpl_color
+      - tpl_primarycolor
       - twitter
       - umami_id
       - umami_website
