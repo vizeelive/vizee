@@ -1,4 +1,5 @@
-import 'antd/dist/dark-theme.js';
+import './App.less';
+import 'antd/dist/antd.dark.css';
 
 import { ApolloProvider } from '@apollo/client';
 import LogRocket from 'logrocket';
@@ -16,7 +17,6 @@ import EventGif from './pages/EventGif';
 import { Centered } from './components/styled/common';
 import Spinner from './components/ui/Spinner';
 
-import './App.less';
 
 process.env.NODE_ENV !== 'development' && LogRocket.init('vizee/vizee');
 
