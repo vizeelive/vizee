@@ -171,6 +171,16 @@ const MainContent = styled.main`
   min-height: calc(100vh - 64px);
 `;
 
+const HeroText = styled.div`
+  position: relative;
+  bottom: 14vh;
+  color: white;
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+  opacity: 0.8;
+`;
+
 export default function Home() {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
@@ -211,7 +221,25 @@ export default function Home() {
 
   return (
     <React.Fragment>
-      {!isMobile && <Map events={events} />}
+      {/* {!isMobile && <Map events={events} />} */}
+      {!isMobile && (
+        <div style={{ height: '300px' }}>
+          <video
+            src="https://dam-media.s3.amazonaws.com/concert.mp4"
+            width="100%"
+            height="300px"
+            autoPlay
+            muted
+            loop
+            style={{ objectFit: 'cover' }}
+          />
+          <HeroText>
+            Premium Video Network.
+            <br />
+            Sell tickets. Earn up to 90% of every dollar.
+          </HeroText>
+        </div>
+      )}
 
       <MainContent>
         {user && showModal && <FinishSignup setShowModal={setShowModal} />}
