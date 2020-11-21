@@ -219,7 +219,7 @@ export default function Account() {
     <React.Fragment>
       <Layout>
         {isMyAccount ? (
-          <Sider breakpoint="lg" collapsedWidth="0" width={200} theme="light">
+          <Sider breakpoint="lg" collapsedWidth="0" width={200}>
             <AccountMenu
               user={user}
               username={username}
