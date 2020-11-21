@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import Home from './Home';
+import Home from './Home/index';
 import AccountHome from './Account/Home';
 import Tickets from './Tickets';
 import Calendar from './Calendar';
