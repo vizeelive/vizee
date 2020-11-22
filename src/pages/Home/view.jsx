@@ -47,7 +47,7 @@ export default function HomeView(props) {
     bottom: 75%;
     color: white;
     font-size: ${(props) => (props.isMobile ? 'x-large' : 'xxx-large')};
-    font-weight: 800;
+    font-weight: 100;
     text-align: center;
     opacity: 0.8;
   `;
