@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
+import Linkify from 'react-linkify';
 
 import { Button, Tag, Row, Col } from 'antd';
 import { SettingOutlined, TagOutlined } from '@ant-design/icons';
@@ -263,7 +264,9 @@ export default function EventPage(props) {
               <br />
               <br /> */}
 
-              <EventDescription>{event.description}</EventDescription>
+              <EventDescription>
+                <Linkify>{event.description}</Linkify>
+              </EventDescription>
 
               <Comments event={event} user={user} />
             </Col>

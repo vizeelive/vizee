@@ -11,6 +11,7 @@ import Spinner from '../../components/ui/Spinner';
 import ShareButton from '../../components/ShareButton';
 import FollowButton from '../../components/FollowButton';
 import useAuth from '../../hooks/useAuth';
+import Linkify from 'react-linkify';
 
 import Mapper from '../../services/mapper';
 
@@ -319,7 +320,9 @@ export default function Home() {
             </ActionsContainer>
           </Header>
 
-          <AccountDescription>{account.description}</AccountDescription>
+          <AccountDescription>
+            <Linkify>{account.description}</Linkify>
+          </AccountDescription>
 
           <EventsContainer>
             {account.events.length ? <Title level={3}>Events</Title> : null}
