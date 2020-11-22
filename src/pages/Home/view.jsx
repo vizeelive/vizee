@@ -63,7 +63,7 @@ export default function HomeView(props) {
             autoPlay
             muted
             loop
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover', opacity: '0.2' }}
           />
           <HeroText>
             Premium Video Network.
