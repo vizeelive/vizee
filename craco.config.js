@@ -10,7 +10,7 @@ module.exports = {
             modifyVars: {
               '@primary-color': '#ee326e',
               '@link-color': '#ee326e',
-              '@layout-header-background': '#131c26',
+              // '@layout-header-background': '#131c26',
               '@font-size-base': '16px'
             },
             javascriptEnabled: true
