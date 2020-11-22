@@ -1,5 +1,5 @@
-import './App.less';
 import 'antd/dist/antd.dark.css';
+import './App.less';
 
 import { ApolloProvider } from '@apollo/client';
 import LogRocket from 'logrocket';
