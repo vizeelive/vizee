@@ -7,6 +7,7 @@ import FinishSignup from '../../components/FinishSignup';
 import Events from '../../components/Events';
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
+import 'animate.css';
 
 import { SearchOutlined } from '@ant-design/icons';
 
@@ -43,9 +44,9 @@ export default function HomeView(props) {
 
   const HeroText = styled.div`
     position: relative;
-    bottom: 14vh;
+    bottom: 75%;
     color: white;
-    font-size: 30px;
+    font-size: ${(props) => (props.isMobile ? 'x-large' : 'xxx-large')};
     font-weight: 800;
     text-align: center;
     opacity: 0.8;
@@ -54,24 +55,25 @@ export default function HomeView(props) {
   return (
     <React.Fragment>
       {/* {!isMobile && <Map events={events} />} */}
-      {!isMobile && (
-        <div style={{ height: '300px' }}>
-          <video
-            src="https://dam-media.s3.amazonaws.com/concert.mp4"
-            width="100%"
-            height="300px"
-            autoPlay
-            muted
-            loop
-            style={{ objectFit: 'cover', opacity: '0.2' }}
-          />
-          <HeroText>
-            Premium Video Network.
-            <br />
-            Sell tickets. Earn up to 90% of every dollar.
-          </HeroText>
-        </div>
-      )}
+      <div style={{ height: '300px' }}>
+        <video
+          src="https://dam-media.s3.amazonaws.com/concert.mp4"
+          width="100%"
+          height="300px"
+          autoPlay
+          muted
+          loop
+          style={{ objectFit: 'cover', opacity: '0.2' }}
+        />
+        <HeroText
+          className="animate__animated animate__zoomInRight"
+          isMobile={isMobile}
+        >
+          Premium Video Network.
+          <br />
+          <small>Sell videos. Earn up to 90% of every dollar.</small>
+        </HeroText>
+      </div>
 
       <MainContent>
         {user && showModal && <FinishSignup setShowModal={setShowModal} />}
