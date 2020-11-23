@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import Linkify from 'react-linkify';
@@ -95,6 +96,7 @@ const Header = styled.header`
 
 export default function Links() {
   const { id } = useParams();
+    const { user } = useAuth();
   const [form] = Form.useForm();
   const [isSwitchLoading, setIsSwitchLoading] = useState({});
   const [showModal, setShowModal] = useState(false);
@@ -111,6 +113,9 @@ export default function Links() {
   const links = data?.links;
 
   const onFinish = async (data) => {
+    if (user?.isAdmin) {
+      data.created_by = user.sub;
+    }
     if (data.id) {
       let _set = { ...data };
       delete _set.id;
