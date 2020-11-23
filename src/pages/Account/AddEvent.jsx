@@ -1,3 +1,4 @@
+import config from '../../config';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
@@ -216,6 +217,11 @@ export default function AddEvent(props) {
     }
 
     if (newEvent) {
+      // Prerender event
+      let url = `${window.location.origin}/${params.username}/${newEvent.data.update_events_by_pk.id}`;
+      fetch(`${config.api}/prerender?url=${url}`, {
+        headers: { 'User-Agent': 'Googlebot' }
+      });
       window.mixpanel.track('Event Created');
       message.success('Successfully saved event');
       history.push(redirect);
