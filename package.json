@@ -24,7 +24,7 @@
     "@uppy/transloadit": "^1.6.13",
     "@uppy/tus": "^1.7.9",
     "animate.css": "^4.1.1",
-    "antd": "^4.6.6",
+    "antd": "^4.8.5",
     "assert": "^2.0.0",
     "craco-less": "^1.17.0",
     "cypress": "^5.4.0",

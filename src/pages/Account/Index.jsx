@@ -10,16 +10,17 @@ import AccountMenu from '../../components/AccountMenu';
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
 
+const AddEvent = React.lazy(() => import('./AddEvent'));
+const Calendar = React.lazy(() => import('../Calendar'));
+const Dashboard = React.lazy(() => import('./Dashboard'));
+const Events = React.lazy(() => import('../Events'));
 const Home = React.lazy(() => import('./Home'));
+const Links = React.lazy(() => import('../Account/Links'));
 const Subscriptions = React.lazy(() => import('./Subscriptions'));
 const Settings = React.lazy(() => import('./Settings'));
-const AddEvent = React.lazy(() => import('./AddEvent'));
-const ViewEvent = React.lazy(() => import('./ViewEvent'));
-const Events = React.lazy(() => import('../Events'));
-const Dashboard = React.lazy(() => import('./Dashboard'));
 const Traffic = React.lazy(() => import('./Traffic'));
-const Calendar = React.lazy(() => import('../Calendar'));
 const Users = React.lazy(() => import('../Account/Users'));
+const ViewEvent = React.lazy(() => import('./ViewEvent'));
 
 const { Content } = Layout;
 
@@ -254,6 +255,11 @@ export default function Account() {
                   path="/:username/manage/events"
                   exact
                   component={Events}
+                />
+                <Route
+                  path="/:username/manage/links/:id"
+                  exact
+                  component={Links}
                 />
                 <Route
                   path="/:username/manage/events/add"

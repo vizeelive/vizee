@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Layout, Typography } from 'antd';
+import { Card, Button, Layout, Typography } from 'antd';
 import styled from 'styled-components';
 import Events from '../../components/Events';
 import { Link, useParams, useLocation } from 'react-router-dom';
@@ -100,6 +100,10 @@ export const GET_ACCOUNT_ANON = gql`
       followers {
         id
       }
+      links {
+        name
+        link
+      }
       events {
         id
         location
@@ -153,6 +157,10 @@ const GET_ACCOUNT_USER = gql`
       twitter
       followers {
         id
+      }
+      links {
+        name
+        link
       }
       events {
         id
@@ -321,8 +329,17 @@ export default function Home() {
           </Header>
 
           <AccountDescription>
+            <h2>Bio</h2>
             <Linkify>{account.description}</Linkify>
           </AccountDescription>
+
+          <h2>Links</h2>
+          {account.links.map((link) => (
+            <Card>
+              <a href={link.link}>{link.name}</a>
+            </Card>
+          ))}
+          <br />
 
           <EventsContainer>
             {account.events.length ? <Title level={3}>Events</Title> : null}
