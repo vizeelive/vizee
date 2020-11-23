@@ -25,6 +25,10 @@ import {
 const { Title } = Typography;
 const { Content } = Layout;
 
+const LinkCard = styled(Card)`
+  margin-bottom: 10px;
+`;
+
 const MainContent = styled(Content)`
   padding: 20px;
 
@@ -335,9 +339,9 @@ export default function Home() {
 
           <h2>Links</h2>
           {account.links.map((link) => (
-            <Card>
+            <LinkCard>
               <a href={link.link}>{link.name}</a>
-            </Card>
+            </LinkCard>
           ))}
           <br />
 
