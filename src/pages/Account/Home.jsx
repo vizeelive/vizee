@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Button, Layout, Typography } from 'antd';
+import { Button, Layout, Typography } from 'antd';
+import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from '../../components/Events';
 import { Link, useParams, useLocation } from 'react-router-dom';
@@ -25,8 +26,15 @@ import {
 const { Title } = Typography;
 const { Content } = Layout;
 
-const LinkCard = styled(Card)`
-  margin-bottom: 10px;
+const MicrolinkCard = styled.div`
+  max-width: 300px;
+
+  .microlink_card {
+    background-color: black;
+    color: white;
+    border: 01px solid #303030;
+    margin-bottom: 10px;
+  }
 `;
 
 const MainContent = styled(Content)`
@@ -333,22 +341,25 @@ export default function Home() {
           </Header>
 
           <AccountDescription>
-            <h2>Bio</h2>
+            <Title level={3}>Bio</Title>
             <Linkify>{account.description}</Linkify>
           </AccountDescription>
-
-          <h2>Links</h2>
-          {account.links.map((link) => (
-            <LinkCard>
-              <a href={link.link}>{link.name}</a>
-            </LinkCard>
-          ))}
-          <br />
 
           <EventsContainer>
             {account.events.length ? <Title level={3}>Events</Title> : null}
             <Events events={account.events} refetch={refetch} />
           </EventsContainer>
+          <br />
+
+          <Title level={3}>Links</Title>
+          {account.links.map((link) => (
+            <MicrolinkCard>
+              <Microlink url={link.link} />
+            </MicrolinkCard>
+            // <LinkCard>
+            //   <a href={link.link}>{link.name}</a>
+            // </LinkCard>
+          ))}
         </MainContent>
       </Content>
     </React.Fragment>
