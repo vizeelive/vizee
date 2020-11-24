@@ -36,6 +36,22 @@ const GET_ACCOUNT = gql`
   }
 `;
 
+const GET_ACCOUNT_ADMIN = gql`
+  query GetAccount($id: uuid!) {
+    accounts_by_pk(id: $id) {
+      id
+      description
+      facebook
+      instagram
+      name
+      photo
+      twitter
+      username
+      fee_percent
+    }
+  }
+`;
+
 const UPDATE_ACCOUNT = gql`
   mutation UpdateAccount(
     $pk_columns: accounts_pk_columns_input!
@@ -61,11 +77,14 @@ export default function AddAccount(props) {
   const [validationErrors, setValidationErrors] = useState({});
   const [replacePhoto, setReplacePhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(null);
-  const [loadAccount, { loading, error, data }] = useLazyQuery(GET_ACCOUNT, {
-    variables: {
-      id: params.id
+  const [loadAccount, { loading, error, data }] = useLazyQuery(
+    user.isAdmin ? GET_ACCOUNT_ADMIN : GET_ACCOUNT,
+    {
+      variables: {
+        id: params.id
+      }
     }
-  });
+  );
   const [createAccount, { loading: isCreatingAccount }] = useMutation(
     CREATE_ACCOUNT
   );
@@ -139,6 +158,7 @@ export default function AddAccount(props) {
             object: {
               name: values.name,
               username: values.username,
+              ...(user.isAdmin && { fee_percent: values.fee_percent }),
               description: values.description,
               instagram: values.instagram,
               twitter: values.twitter,
@@ -164,7 +184,7 @@ export default function AddAccount(props) {
 
     if (result) {
       window.mixpanel.track('Account Created');
-      message.success('Successfully created account');
+      message.success('Successfully saved account');
       if (props.redirect === true) {
         history.push(`/${result.data.CreateAccount.username}/manage/dashboard`);
       } else if (props.redirect) {
@@ -173,7 +193,7 @@ export default function AddAccount(props) {
         history.push('/admin/accounts');
       }
     } else {
-      message.error('Failed to create account');
+      message.error('Failed to save account');
     }
   };
 
@@ -242,6 +262,16 @@ export default function AddAccount(props) {
         >
           <Input />
         </Form.Item>
+
+        {user?.isAdmin && (
+          <Form.Item
+            label="Fee Percent"
+            name="fee_percent"
+            rules={[{ required: true, message: 'Required' }]}
+          >
+            <Input />
+          </Form.Item>
+        )}
 
         <Form.Item
           label="Description"
