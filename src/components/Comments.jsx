@@ -61,7 +61,7 @@ export default class Comments extends React.Component {
   };
 
   render() {
-    const { comments, submitting, value } = this.state;
+    const { comments, value } = this.state;
 
     return (
       <>

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
 import Mapper from '../services/mapper';
 import Countdown from '../components/Countdown';
@@ -36,15 +36,14 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 export default function Event() {
-  const { id, username } = useParams();
+  const { id } = useParams();
 
-  const { loading, error, data } = useQuery(GET_EVENT_UNAUTH, {
+  const { loading, data } = useQuery(GET_EVENT_UNAUTH, {
     variables: { id }
   });
 
   if (loading) return null;
 
-  const account = Mapper(data?.accounts?.[0]);
   const event = Mapper({ ...data?.events_report?.[0] });
 
   const coverPhoto = (event.photo || event.account.photo).replace(
