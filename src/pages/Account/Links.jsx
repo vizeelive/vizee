@@ -96,7 +96,7 @@ const Header = styled.header`
 
 export default function Links() {
   const { id } = useParams();
-    const { user } = useAuth();
+  const { user } = useAuth();
   const [form] = Form.useForm();
   const [isSwitchLoading, setIsSwitchLoading] = useState({});
   const [showModal, setShowModal] = useState(false);

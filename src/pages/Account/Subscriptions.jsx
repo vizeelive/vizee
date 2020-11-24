@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
 import {
   Tabs,
@@ -69,6 +70,7 @@ const Header = styled.header`
 
 export default function Settings() {
   const { id } = useParams();
+  const { user } = useAuth();
   const [form] = Form.useForm();
   const [showModal, setShowModal] = useState(false);
   const [createTier] = useMutation(CREATE_TIER);
@@ -91,6 +93,9 @@ export default function Settings() {
 
   const onFinish = async (data) => {
     data.account_id = id;
+    if (user?.isAdmin) {
+      data.created_by = user.sub;
+    }
     try {
       await createTier({
         variables: {
