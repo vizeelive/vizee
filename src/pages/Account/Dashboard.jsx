@@ -123,10 +123,14 @@ export default function Dashboard() {
             title="Share Link"
             description={
               <React.Fragment>
-                <div>
-                  Share your event link on social media in order to sell tickets
-                </div>
-                <ShareButton primary={true} url={shareLink} />
+                {step === 3 && (
+                  <div>
+                    Share your event link on social media in order to sell
+                    tickets
+                    <br />
+                    <ShareButton primary={true} url={shareLink} />
+                  </div>
+                )}
               </React.Fragment>
             }
           />
