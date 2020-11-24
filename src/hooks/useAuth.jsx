@@ -16,8 +16,6 @@ import { onError } from '@apollo/client/link/error';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
-import posthog from 'posthog-js';
-
 export default function useAuth() {
   let {
     isLoading,
@@ -50,12 +48,6 @@ export default function useAuth() {
     user.isAdmin = user['https://hasura.io/jwt/claims'][
       'x-hasura-allowed-roles'
     ].includes('admin');
-
-    posthog.init('w0z9i9MMxB49QpIRYaKvJ4UisUzGk3WsvWV4bxQ3Ar4', {
-      api_host: 'https://vizee-posthog.herokuapp.com'
-    });
-    posthog.identify(user.sub);
-    posthog.people.set({ email: user.email });
 
     window.mixpanel.identify(user.sub);
     window.mixpanel.people.set({

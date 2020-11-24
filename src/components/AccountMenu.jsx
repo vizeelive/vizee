@@ -16,8 +16,6 @@ import {
   LinkOutlined
 } from '@ant-design/icons';
 
-import posthog from 'posthog-js';
-
 function AccountMenu(props) {
   const { user, username, account, myAccounts } = props;
 
@@ -76,14 +74,12 @@ function AccountMenu(props) {
             Subscriptions
           </Link>
         </Menu.Item>
-        {posthog.isFeatureEnabled('dev') && (
-          <Menu.Item
-            key={`/${username}/manage/calendar`}
-            icon={<CalendarOutlined />}
-          >
-            <Link to={`/${username}/manage/calendar`}>Calendar</Link>
-          </Menu.Item>
-        )}
+        {/* <Menu.Item
+          key={`/${username}/manage/calendar`}
+          icon={<CalendarOutlined />}
+        >
+          <Link to={`/${username}/manage/calendar`}>Calendar</Link>
+        </Menu.Item> */}
         <Menu.Item
           key={`/${username}/manage/events`}
           icon={<ThunderboltOutlined />}
