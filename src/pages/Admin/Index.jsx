@@ -15,6 +15,7 @@ import Header from '../../components/Header';
 import AdminMenu from '../../components/AdminMenu';
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
+import Footer from '../../components/Footer';
 
 const { Content } = Layout;
 
@@ -138,6 +139,7 @@ export default function Admin() {
               />
             </Switch>
           </Content>
+          <Footer />
         </SiderLayout>
       </Layout>
     </Layout>

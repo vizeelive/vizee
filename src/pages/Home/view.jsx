@@ -42,6 +42,14 @@ export default function HomeView(props) {
     min-height: calc(100vh - 64px);
   `;
 
+  const Hero = styled.div`
+    height: 300px;
+
+    video {
+      height: 300px;
+    }
+  `;
+
   const HeroText = styled.div`
     position: relative;
     bottom: 75%;
@@ -55,7 +63,7 @@ export default function HomeView(props) {
   return (
     <React.Fragment>
       {/* {!isMobile && <Map events={events} />} */}
-      <div style={{ height: '300px' }}>
+      <Hero>
         <video
           src="https://dam-media.s3.amazonaws.com/concert.mp4"
           width="100%"
@@ -73,7 +81,7 @@ export default function HomeView(props) {
           <br />
           <small>Sell videos. Earn up to 90% of every dollar.</small>
         </HeroText>
-      </div>
+      </Hero>
 
       <MainContent>
         {user && showModal && <FinishSignup setShowModal={setShowModal} />}

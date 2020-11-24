@@ -16,6 +16,7 @@ import useAuth from '../hooks/useAuth';
 import Header from '../components/Header';
 import { Centered } from '../components/styled/common';
 import Spinner from '../components/ui/Spinner';
+import Footer from '../components/Footer';
 
 const UserContent = styled.div`
   margin-top: 64px;
@@ -136,6 +137,7 @@ export default function User() {
           <Route path="/" component={Home} />
         </Switch>
       </UserContent>
+      <Footer />
     </Layout>
   );
 }
