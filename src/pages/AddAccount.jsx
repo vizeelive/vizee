@@ -158,7 +158,6 @@ export default function AddAccount(props) {
             object: {
               name: values.name,
               username: values.username,
-              ...(user.isAdmin && { fee_percent: values.fee_percent }),
               description: values.description,
               instagram: values.instagram,
               twitter: values.twitter,
