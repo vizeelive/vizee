@@ -252,7 +252,7 @@ export default function Home() {
         <img
           style={{
             objectFit: 'cover',
-            objectPosition: 'top',
+            objectPosition: 'top'
             // maxHeight: '20vh'
           }}
           src={account.photo}
@@ -352,15 +352,19 @@ export default function Home() {
           </EventsContainer>
           <br />
 
-          <Title level={3}>Links</Title>
-          {account.links.map((link) => (
-            <MicrolinkCard>
-              <Microlink url={link.link} />
-            </MicrolinkCard>
-            // <LinkCard>
-            //   <a href={link.link}>{link.name}</a>
-            // </LinkCard>
-          ))}
+          {account.links.length ? (
+            <React.Fragment>
+              <Title level={3}>Links</Title>
+              {account.links.map((link) => (
+                <MicrolinkCard>
+                  <Microlink url={link.link} />
+                </MicrolinkCard>
+                // <LinkCard>
+                //   <a href={link.link}>{link.name}</a>
+                // </LinkCard>
+              ))}
+            </React.Fragment>
+          ) :  null}
         </MainContent>
       </Content>
     </React.Fragment>
