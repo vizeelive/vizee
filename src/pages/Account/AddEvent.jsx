@@ -141,8 +141,8 @@ export default function AddEvent(props) {
   const [event, setEvent] = useState();
   const [coverType, setCoverType] = useState(null);
   const { loading, error, data } = useQuery(query, options);
-  const [createEvent] = useMutation(CREATE_EVENT);
-  const [updateEvent] = useMutation(UPDATE_EVENT);
+  const [createEvent, { loading: isCreatingEvent }] = useMutation(CREATE_EVENT);
+  const [updateEvent, { loading: isUpdatingEvent }] = useMutation(UPDATE_EVENT);
 
   useEffect(() => {
     setEvent(data?.events_by_pk);
@@ -208,20 +208,21 @@ export default function AddEvent(props) {
           _set: data
         }
       });
+      // Prerender event
+      let url = `${window.location.origin}/${params.username}/${newEvent.data.update_events_by_pk.id}`;
+      fetch(`${config.api}/prerender?url=${url}`);
     } else {
       newEvent = await createEvent({
         variables: {
           object: data
         }
       });
+      // Prerender event
+      let url = `${window.location.origin}/${params.username}/${newEvent.data.insert_events_one.id}`;
+      fetch(`${config.api}/prerender?url=${url}`);
     }
 
     if (newEvent) {
-      // Prerender event
-      let url = `${window.location.origin}/${params.username}/${newEvent.data.update_events_by_pk.id}`;
-      fetch(`${config.api}/prerender?url=${url}`, {
-        headers: { 'User-Agent': 'Googlebot' }
-      });
       window.mixpanel.track('Event Created');
       message.success('Successfully saved event');
       history.push(redirect);
@@ -262,11 +263,13 @@ export default function AddEvent(props) {
     range: [moment(event?.start), moment(event?.end)]
   };
 
-  let isSubmitDisabled = false;
+  let isVideoMissing = false;
 
   if (event?.type === 'video' && !event?.video) {
-    isSubmitDisabled = true;
+    isVideoMissing = true;
   }
+
+  const isSubmitDisabled = isCreatingEvent || isUpdatingEvent || isVideoMissing;
 
   const rangeConfig = {
     rules: [{ type: 'array', required: true, message: 'Please select time!' }]
@@ -439,45 +442,6 @@ export default function AddEvent(props) {
 
         <Form.Item label="Description" name="description">
           <Input.TextArea rows={4} />
-        </Form.Item>
-
-        {(user.isAdmin || !params.username) && (
-          <Form.Item name="account_id" label="Account">
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select an account"
-              optionFilterProp="children"
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {accounts.map((account) => (
-                <Option key={account.id} value={account.id}>
-                  {account.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        )}
-
-        <Form.Item name="published" label="Published">
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select a publish status"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-          >
-            <Option key="published" value={true}>
-              Yes
-            </Option>
-            <Option key="unpublished" value={false}>
-              No
-            </Option>
-          </Select>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
