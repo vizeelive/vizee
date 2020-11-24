@@ -236,10 +236,10 @@ export default function Home() {
 
   const shareUrl = `https://viz.ee/${username}`;
 
-  const accountPhoto = account.photo.replace(
-    'https://dam-media.s3.amazonaws.com/',
-    ''
-  );
+  // const accountPhoto = account.photo.replace(
+  //   'https://dam-media.s3.amazonaws.com/',
+  //   ''
+  // );
 
   return (
     <React.Fragment>
@@ -253,11 +253,12 @@ export default function Home() {
           style={{
             objectFit: 'cover',
             objectPosition: 'top',
-            maxHeight: '40vh'
+            // maxHeight: '20vh'
           }}
-          src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
-            window.innerWidth
-          }&h=${window.innerHeight * 0.4}`}
+          src={account.photo}
+          // src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
+          //   window.innerWidth
+          // }&h=${window.innerHeight * 0.4}`}
           alt={account.name}
           width="100%"
         />

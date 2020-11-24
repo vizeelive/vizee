@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 
 import {
   UserOutlined,
-  CalendarOutlined,
+  // CalendarOutlined,
   UserAddOutlined,
   ThunderboltOutlined,
   AreaChartOutlined,
