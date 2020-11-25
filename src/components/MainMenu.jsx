@@ -74,12 +74,11 @@ function MainMenu(props) {
           <Link to="/account">Create Account</Link>
         </Menu.Item>
       )}
+      <Menu.Item data-test-id="menu-help" key="/help" onClick={(e) => window.$chatwoot.toggle() }>
+        Help
+      </Menu.Item>
       {!user && (
-        <Menu.Item
-          data-test-id="menu-login"
-          key="/"
-          onClick={() => onLogin()}
-        >
+        <Menu.Item data-test-id="menu-login" key="/" onClick={() => onLogin()}>
           Sign In
         </Menu.Item>
       )}
