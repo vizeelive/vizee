@@ -148,7 +148,8 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo
+              photo,
+              ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }
           }
         });
@@ -163,7 +164,8 @@ export default function AddAccount(props) {
               twitter: values.twitter,
               facebook: values.facebook,
               photo,
-              user_id: user.sub
+              user_id: user.sub,
+              ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }
           }
         });
