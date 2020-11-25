@@ -1,36 +1,41 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-// Ant Design palette
-const theme = {
-  colors: {
-    primary: {
-      base: '#ee326e'
-    },
-    blue: {
-      base: '#1890ff'
-    },
-    green: {
-      base: '#52c41a'
-    },
-    red: {
-      base: '#f5222d'
-    },
-    gold: {
-      base: '#faad14'
-    },
-    white: '#fff',
-    black: '#000',
-    gray: {
-      light: '#d8d8d8',
-      medium: '#808080',
-      dark: '#202020'
+export default function Theme({ children }) {
+  const getCssVariable = (name) => {
+    return getComputedStyle(document.documentElement).getPropertyValue(name);
+  };
+
+  const theme = {
+    colors: {
+      primary: getCssVariable('--vz-primary'),
+      white: getCssVariable('--vz-white'),
+      black: getCssVariable('--vz-black'),
+      pink: {
+        50: getCssVariable('--vz-pink-50'),
+        100: getCssVariable('--vz-pink-100'),
+        200: getCssVariable('--vz-pink-200'),
+        300: getCssVariable('--vz-pink-300'),
+        400: getCssVariable('--vz-pink-400'),
+        500: getCssVariable('--vz-pink-500'),
+        600: getCssVariable('--vz-pink-600'),
+        700: getCssVariable('--vz-pink-700'),
+        800: getCssVariable('--vz-pink-800'),
+        900: getCssVariable('--vz-pink-900')
+      },
+      gray: {
+        50: getCssVariable('--vz-gray-50'),
+        100: getCssVariable('--vz-gray-100'),
+        200: getCssVariable('--vz-gray-200'),
+        300: getCssVariable('--vz-gray-300'),
+        400: getCssVariable('--vz-gray-400'),
+        500: getCssVariable('--vz-gray-500'),
+        600: getCssVariable('--vz-gray-600'),
+        700: getCssVariable('--vz-gray-700'),
+        800: getCssVariable('--vz-gray-800'),
+        900: getCssVariable('--vz-gray-900')
+      }
     }
-  }
-};
-
-const Theme = ({ children }) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
-);
-
-export default Theme;
+  };
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+}

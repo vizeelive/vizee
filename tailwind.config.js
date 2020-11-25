@@ -1,24 +1,33 @@
-const colors = require('tailwindcss/colors');
-
 module.exports = {
   purge: ['./src/**/*.html', './src/**/*.jsx', './src/**/*.js'],
   theme: {
     colors: {
-      black: '#000',
-      white: '#fff',
-      gray: colors.warmGray,
-      primary: '#ee326e',
+      black: 'var(--vz-black)',
+      white: 'var(--vz-white)',
+      primary: 'var(--vz-primary)',
       pink: {
-        50: '#f2e8ec',
-        100: '#f1dee7',
-        200: '#f3c5de',
-        300: '#f471ad',
-        400: '#fb75b1',
-        500: '#f54e91',
-        600: '#ee326e',
-        700: '#d2295a',
-        800: '#b72a51',
-        900: '#9f2a4d'
+        50: 'var(--vz-pink-50)',
+        100: 'var(--vz-pink-100)',
+        200: 'var(--vz-pink-200)',
+        300: 'var(--vz-pink-300)',
+        400: 'var(--vz-pink-400)',
+        500: 'var(--vz-pink-500)',
+        600: 'var(--vz-pink-600)',
+        700: 'var(--vz-pink-700)',
+        800: 'var(--vz-pink-800)',
+        900: 'var(--vz-pink-900)'
+      },
+      gray: {
+        50: 'var(--vz-gray-50)',
+        100: 'var(--vz-gray-100)',
+        200: 'var(--vz-gray-200)',
+        300: 'var(--vz-gray-300)',
+        400: 'var(--vz-gray-400)',
+        500: 'var(--vz-gray-500)',
+        600: 'var(--vz-gray-600)',
+        700: 'var(--vz-gray-700)',
+        800: 'var(--vz-gray-800)',
+        900: 'var(--vz-gray-900)'
       }
     }
   },

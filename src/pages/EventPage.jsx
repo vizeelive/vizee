@@ -46,7 +46,7 @@ const EventName = styled.h1`
 `;
 
 const EventDescription = styled.p`
-  border-top: 1px solid ${({ theme }) => theme.colors.gray.light};
+  border-top: 1px solid ${({ theme }) => theme.colors.gray['500']};
   margin-top: 1.5rem;
   padding-top: 1.5rem;
 `;

@@ -4,6 +4,32 @@
 /* purgecss end ignore */
 @tailwind utilities;
 
+:root {
+  --vz-white: #fff;
+  --vz-gray-50: #fafaf9;
+  --vz-gray-100: #f5f5f4;
+  --vz-gray-200: #e7e5e4;
+  --vz-gray-300: #d6d3d1;
+  --vz-gray-400: #a8a29e;
+  --vz-gray-500: #78716c;
+  --vz-gray-600: #57534e;
+  --vz-gray-700: #44403c;
+  --vz-gray-800: #292524;
+  --vz-gray-900: #1c1917;
+  --vz-black: #000;
+  --vz-pink-50: #f2e8ec;
+  --vz-pink-100: #f1dee7;
+  --vz-pink-200: #f3c5de;
+  --vz-pink-300: #f471ad;
+  --vz-pink-400: #fb75b1;
+  --vz-pink-500: #f54e91;
+  --vz-pink-600: #ee326e;
+  --vz-pink-700: #d2295a;
+  --vz-pink-800: #b72a51;
+  --vz-pink-900: #9f2a4d;
+  --vz-primary: var(--vz-pink-600);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
