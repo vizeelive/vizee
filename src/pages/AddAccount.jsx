@@ -164,8 +164,7 @@ export default function AddAccount(props) {
               twitter: values.twitter,
               facebook: values.facebook,
               photo,
-              user_id: user.sub,
-              ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
+              user_id: user.sub
             }
           }
         });
