@@ -123,7 +123,7 @@ const TRACK_VIEW = gql`
 
 export default function EventPage() {
   const { id, username } = useParams();
-  const { user, loginWithRedirect } = useAuth();
+  const { user } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
 
   const variables = user ? { id, user_id: user?.sub, username } : { id };
