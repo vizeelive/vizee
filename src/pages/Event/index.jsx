@@ -122,7 +122,7 @@ const TRACK_VIEW = gql`
 `;
 
 export default function EventPage() {
-  const { id, username } = useParams();
+  const { id, username, status } = useParams();
   const { user } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
 
@@ -268,6 +268,7 @@ export default function EventPage() {
       videoJsOptions={videoJsOptions}
       liveData={liveData}
       handleBuy={handleBuy}
+      status={status}
     />
   );
 }

@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
 import Linkify from 'react-linkify';
+import useAuth from 'hooks/useAuth';
 
-import { Button, Tag, Row, Col } from 'antd';
+import { Button, Tag, Row, Col, Modal, Result } from 'antd';
 import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
 import Countdown from 'components/Countdown';
@@ -98,8 +99,11 @@ export default function EventPage(props) {
     playerKey,
     videoJsOptions,
     liveData,
-    handleBuy
+    handleBuy,
+    status
   } = props;
+
+  const { loginWithRedirect } = useAuth();
 
   if (loading) {
     return (
@@ -129,6 +133,28 @@ export default function EventPage(props) {
         />
         <meta property="og:description" content={event.description} />
       </Helmet>
+      {status === 'success' && (
+        <Modal
+          title="Congrats, you're in!"
+          closable={false}
+          visible={true}
+          footer={null}
+        >
+          <Result
+            status="success"
+            title="You successfully purchased a ticket to this event!"
+            extra={[
+              <Button
+                type="primary"
+                key="signIn"
+                onClick={() => loginWithRedirect({ screen_hint: 'signup' })}
+              >
+                Sign Up
+              </Button>
+            ]}
+          />
+        </Modal>
+      )}
       <MainContent>
         {(() => {
           if (event.canWatch(user?.sub, liveData)) {
@@ -286,5 +312,6 @@ EventPage.propTypes = {
   playerKey: PropTypes.number.isRequired,
   videoJsOptions: PropTypes.object.isRequired,
   liveData: PropTypes.object,
-  handleBuy: PropTypes.func.isRequired
+  handleBuy: PropTypes.func.isRequired,
+  status: PropTypes.string
 };

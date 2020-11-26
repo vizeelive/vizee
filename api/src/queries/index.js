@@ -8,7 +8,7 @@ const { gql } = require('@apollo/client');
  */
 async function getEventAndAccount(ref) {
   try {
-    return await client.query({
+    let res = await client.query({
       variables: {
         id: ref.event_id,
         account_id: ref.account_id
@@ -23,12 +23,14 @@ async function getEventAndAccount(ref) {
             }
           }
           accounts_by_pk(id: $account_id) {
+            username
             fee_percent
             subscription_rate
           }
         }
       `
     });
+    return { event: res.data.events_by_pk, account: res.data.accounts_by_pk };
   } catch (e) {
     console.log('Failed: getEventAndAccount', ref, e);
     throw e;

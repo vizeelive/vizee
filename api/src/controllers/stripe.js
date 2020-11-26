@@ -71,18 +71,16 @@ app.get('/stripe/session', async function (req, res) {
   let ref = parse(req.query.ref);
 
   try {
-    var event = await getEventAndAccount(ref);
+    var { event, account } = await getEventAndAccount(ref);
   } catch (e) {
     res.status(500).send(e.message);
   }
 
-  console.log('event', event.data.events_by_pk);
+  console.log('event', event);
 
-  const account_percent = 1 - event.data.accounts_by_pk.fee_percent / 100;
+  const account_percent = 1 - account.fee_percent / 100;
 
-  let unit_amount = parseInt(
-    event.data.events_by_pk.price.replace('$', '').replace('.', '')
-  );
+  let unit_amount = parseInt(event.price.replace('$', '').replace('.', ''));
 
   let amount = unit_amount * account_percent;
 
@@ -94,7 +92,7 @@ app.get('/stripe/session', async function (req, res) {
         // application_fee_amount: 100,
         transfer_data: {
           amount,
-          destination: event.data.events_by_pk.account.stripe_id
+          destination: event.account.stripe_id
         }
       },
       line_items: [
@@ -114,8 +112,8 @@ app.get('/stripe/session', async function (req, res) {
         }
       ],
       mode: 'payment',
-      success_url: `${config.ui}/events/${event.data.events_by_pk.id}`,
-      cancel_url: `${config.ui}/events/${event.data.events_by_pk.id}`
+      success_url: `${config.ui}/${account.username}/${event.id}/success`,
+      cancel_url: `${config.ui}/${account.username}/${event.id}/cancel`
     });
     console.log({ session });
     res.send(session);
