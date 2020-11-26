@@ -10,17 +10,17 @@ import Linkify from 'react-linkify';
 import { Button, Tag, Row, Col } from 'antd';
 import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 
-import Countdown from '../components/Countdown';
-import Comments from '../components/CommentsContainer';
-import StartStreamButton from '../components/StartStreamButton';
-import ShareButton from '../components/ShareButton';
+import Countdown from 'components/Countdown';
+import Comments from 'components/CommentsContainer';
+import StartStreamButton from 'components/StartStreamButton';
+import ShareButton from 'components/ShareButton';
 // import SubscribeButton from '../components/SubscribeButton';
-import FollowButton from '../components/FollowButton';
-import VideoPlayer from '../components/VideoPlayer';
-import VideoConference from '../components/VideoConference';
+import FollowButton from 'components/FollowButton';
+import VideoPlayer from 'components/VideoPlayer';
+import VideoConference from 'components/VideoConference';
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
 const Content = styled.div`
   margin: 20px 20px 50px;

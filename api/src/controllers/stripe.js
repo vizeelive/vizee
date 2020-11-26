@@ -5,6 +5,8 @@ const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client');
 
+const { getEventAndAccount, getUserByEmail } = require('../queries');
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
 });
@@ -68,45 +70,10 @@ app.get('/stripe/account/create', async function (req, res) {
 app.get('/stripe/session', async function (req, res) {
   let ref = parse(req.query.ref);
 
-  let event;
   try {
-    event = await client.query({
-      variables: {
-        id: ref.event_id,
-        account_id: ref.account_id
-      },
-      query: gql`
-        query MyQuery($id: uuid!, $account_id: uuid!) {
-          events_by_pk(id: $id) {
-            id
-            price
-            account {
-              stripe_id
-            }
-          }
-          accounts_by_pk(id: $account_id) {
-            fee_percent
-            subscription_rate
-          }
-        }
-      `
-    });
+    var event = await getEventAndAccount(ref);
   } catch (e) {
-    console.log('Failed to fetch event');
-    console.log(e);
-    console.log({
-      variables: {
-        id: ref.event_id
-      },
-      query: gql`
-        query MyQuery($id: uuid!) {
-          events_by_pk(id: $id) {
-            id
-            price
-          }
-        }
-      `
-    });
+    res.status(500).send(e.message);
   }
 
   console.log('event', event.data.events_by_pk);
@@ -151,13 +118,11 @@ app.get('/stripe/session', async function (req, res) {
       cancel_url: `${config.ui}/events/${event.data.events_by_pk.id}`
     });
     console.log({ session });
-    return res.send(session);
+    res.send(session);
   } catch (e) {
     console.error(e);
-    res.status(500);
-    res.send(e);
+    res.status(500).send(e.message);
   }
-
 });
 
 /**
@@ -166,31 +131,41 @@ app.get('/stripe/session', async function (req, res) {
 app.post(
   '/stripe/webhook',
   bodyParser.raw({ type: 'application/json' }),
-  async (request, response) => {
-    const sig = request.headers['stripe-signature'];
-
-    let event;
+  async (req, res) => {
+    const sig = req.headers['stripe-signature'];
 
     try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      var event = stripe.webhooks.constructEvent(
+        req.body,
+        sig,
+        endpointSecret
+      );
     } catch (err) {
       console.log(err);
-      return response.status(400).send(`Webhook Error: ${err.message}`);
+      res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    console.log({ event });
+    console.log(event.type, event.data.object);
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
 
-      let ref = parse(session.client_reference_id);
-
       try {
+        const customer = await stripe.customers.retrieve(
+          event.data.object.customer
+        );
+
+        const user = await getUserByEmail(customer.email);
+
+        let ref = parse(session.client_reference_id);
+        console.log({ref})
+
         await client.mutate({
           variables: {
             object: {
+              email: customer.email,
               event_id: ref.event_id,
-              user_id: ref.user_id,
+              user_id: ref.user_id || user.id,
               price: session.amount_total / 100,
               ref: session.payment_intent
             }
@@ -205,10 +180,11 @@ app.post(
         });
       } catch (e) {
         console.error(e);
+        res.status(500).send(e.message);
       }
     }
 
-    response.json({ received: true });
+    res.json({ received: true });
   }
 );
 
@@ -218,20 +194,20 @@ app.post(
 app.post(
   '/stripe/connect/webhook',
   bodyParser.raw({ type: 'application/json' }),
-  async (request, response) => {
-    const sig = request.headers['stripe-signature'];
+  async (req, res) => {
+    const sig = req.headers['stripe-signature'];
 
     let event;
 
     try {
       event = stripe.webhooks.constructEvent(
-        request.body,
+        req.body,
         sig,
         connectEndpointSecret
       );
     } catch (err) {
       console.log(err);
-      return response.status(400).send(`Webhook Error: ${err.message}`);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     console.log('/stripe/connect/webhook', { event });
@@ -265,6 +241,6 @@ app.post(
       }
     }
 
-    response.json({ received: true });
+    res.json({ received: true });
   }
 );

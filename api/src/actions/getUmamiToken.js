@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const jwt_decode = require("jwt-decode");
+const { getUser } = require('../lib');
 const execute = require("../execute");
 
 const GET_ACCOUNT_USERS = `
@@ -15,9 +15,8 @@ query GetAccountUsers($account_id: uuid!) {
 `;
 
 module.exports = async function getUmamiToken(req, res) {
-  const token = req.headers.authorization.replace("Bearer ", "");
+  const user = getUser(req);
   const { account_id, username } = req.body.input;
-  const user = jwt_decode(token);
 
   user.isAdmin = user['https://hasura.io/jwt/claims'][
     'x-hasura-allowed-roles'

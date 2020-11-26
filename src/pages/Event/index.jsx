@@ -1,4 +1,4 @@
-import config from '../config';
+import config from 'config';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { stringify } from 'zipson';
@@ -7,10 +7,10 @@ import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import { loadStripe } from '@stripe/stripe-js';
 
-import useAuth from '../hooks/useAuth';
+import useAuth from 'hooks/useAuth';
 
-import EventPage from './EventPage';
-import Mapper from '../services/mapper';
+import EventView from './view';
+import Mapper from 'services/mapper';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -121,7 +121,7 @@ const TRACK_VIEW = gql`
   }
 `;
 
-export default function Event() {
+export default function EventPage() {
   const { id, username } = useParams();
   const { user, loginWithRedirect } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
@@ -181,11 +181,11 @@ export default function Event() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const buy = async () => {
+  const handleBuy = async () => {
     window.mixpanel.track('Buy Button Clicked');
 
     let ref = stringify({
-      user_id: user.sub,
+      user_id: user?.sub,
       account_id: event.account.id,
       event_id: event.id
     });
@@ -206,14 +206,6 @@ export default function Event() {
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.
-    }
-  };
-
-  const handleBuy = () => {
-    if (user) {
-      buy();
-    } else {
-      loginWithRedirect();
     }
   };
 
@@ -265,7 +257,7 @@ export default function Event() {
   }
 
   return (
-    <EventPage
+    <EventView
       loading={loading}
       error={error}
       account={account}
