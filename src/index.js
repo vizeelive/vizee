@@ -21,8 +21,8 @@ if (process.env.NODE_ENV !== 'development') {
 
 ReactDOM.render(
   <Auth0Provider
-    domain="auth.vizee.live"
-    clientId="yBd4I8kocR6k1RU9rt9t8VqXPB3qsHL7"
+    domain={process.env.REACT_APP_AUTH_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
     redirectUri={window.location.origin}
   >
     <App />
