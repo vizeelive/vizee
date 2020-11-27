@@ -86,7 +86,11 @@ app.get('/stripe/session', async function (req, res) {
   let amount = unit_amount * account_percent;
 
   let date = dayjs(event.start).format('MMM D, YYYY h:mm A');
-  console.log(event.start, date, 'FUCK');
+  let title = encodeURIComponent(account.name);
+  let subtitle = encodeURIComponent(event.name);
+  let image = `https://ogi.sh/article?title=${title}&eyebrow=${date}&subtitle=${subtitle}&imageUrl=${
+    event.photo || account.photo
+  }`;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -107,11 +111,7 @@ app.get('/stripe/session', async function (req, res) {
               name: 'Admission',
               images: [
                 // event.photo || account.photo
-                `https://ogi.sh/article?title=${
-                  account.name
-                }&eyebrow=${date}&subtitle=${event.name}&imageUrl=${
-                  event.photo || account.photo
-                }`
+                image
                 // 'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
               ]
             },
@@ -143,11 +143,7 @@ app.post(
     const sig = req.headers['stripe-signature'];
 
     try {
-      var event = stripe.webhooks.constructEvent(
-        req.body,
-        sig,
-        endpointSecret
-      );
+      var event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
     } catch (err) {
       console.log(err);
       res.status(400).send(`Webhook Error: ${err.message}`);
@@ -166,7 +162,7 @@ app.post(
         const user = await getUserByEmail(customer.email);
 
         let ref = parse(session.client_reference_id);
-        console.log({ref})
+        console.log({ ref });
 
         await client.mutate({
           variables: {
