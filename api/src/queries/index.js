@@ -17,13 +17,16 @@ async function getEventAndAccount(ref) {
         query MyQuery($id: uuid!, $account_id: uuid!) {
           events_by_pk(id: $id) {
             id
+            name
             price
             photo
+            start
             account {
               stripe_id
             }
           }
           accounts_by_pk(id: $account_id) {
+            name
             photo
             username
             fee_percent

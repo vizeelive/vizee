@@ -4,6 +4,7 @@ const config = require('../config');
 const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client');
+const dayjs = require('dayjs');
 
 const { getEventAndAccount, getUserByEmail } = require('../queries');
 
@@ -84,6 +85,9 @@ app.get('/stripe/session', async function (req, res) {
 
   let amount = unit_amount * account_percent;
 
+  let date = dayjs(event.start).format('MMM D, YYYY h:mm A');
+  console.log(event.start, date, 'FUCK');
+
   try {
     const session = await stripe.checkout.sessions.create({
       client_reference_id: req.query.ref,
@@ -102,7 +106,12 @@ app.get('/stripe/session', async function (req, res) {
             product_data: {
               name: 'Admission',
               images: [
-                event.photo || account.photo
+                // event.photo || account.photo
+                `https://ogi.sh/article?title=${
+                  account.name
+                }&eyebrow=${date}&subtitle=${event.name}&imageUrl=${
+                  event.photo || account.photo
+                }`
                 // 'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
               ]
             },
