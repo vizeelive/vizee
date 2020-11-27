@@ -405,12 +405,8 @@
       - type
       - video
       filter:
-        _and:
-        - published:
-            _eq: true
-        - account:
-            stripe_data:
-              _is_null: false
+        published:
+          _eq: true
   - role: user
     permission:
       columns:
