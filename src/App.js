@@ -16,7 +16,6 @@ import EventGif from './pages/EventGif';
 import { Centered } from './components/styled/common';
 import Spinner from './components/ui/Spinner';
 
-
 process.env.NODE_ENV !== 'development' && LogRocket.init('vizee/vizee');
 
 function App() {
@@ -25,13 +24,16 @@ function App() {
   useMemo(() => {
     async function fetchData() {
       let geo = {};
-      let response = await fetch('https://ipinfo.io/?token=61a3ecaa16294f');
-
-      if (response.ok) {
-        geo = await response.json();
-        let [lat, lng] = geo.loc.split(',');
-        geo.loc = `${lng},${lat}`;
-        setGeo(geo);
+      try {
+        let response = await fetch('https://ipinfo.io/?token=61a3ecaa16294f');
+        if (response.ok) {
+          geo = await response.json();
+          let [lat, lng] = geo.loc.split(',');
+          geo.loc = `${lng},${lat}`;
+          setGeo(geo);
+        }
+      } catch (e) {
+        console.log('Ad Blocker is on. Cannot fetch info');
       }
     }
     fetchData();
