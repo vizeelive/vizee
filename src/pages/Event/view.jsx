@@ -105,9 +105,7 @@ export default function EventPage(props) {
 
   const { loginWithRedirect } = useAuth();
   const history = useHistory();
-  const [showModal, setShowModal] = useState(
-    status === 'success' ? true : false
-  );
+  const [showModal] = useState(status === 'success' ? true : false);
 
   if (loading) {
     return (
@@ -136,6 +134,16 @@ export default function EventPage(props) {
           content={`${event.name} - ${event.account.name}`}
         />
         <meta property="og:description" content={event.description} />
+        <meta
+          name="twitter:image"
+          content={event?.photo || event?.account?.photo}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={`${event.name} - ${event.account.name}`}
+        />
+        <meta name="twitter:description" content={event.description} />
       </Helmet>
       {status === 'success' && (
         <Modal
