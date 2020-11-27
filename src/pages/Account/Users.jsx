@@ -50,14 +50,13 @@ const GET_USERS = gql`
         id
         user {
           id
+          name
           last_name
           first_name
         }
       }
     }
-    users(
-      order_by: { name: asc }
-    ) {
+    users(order_by: { name: asc }) {
       id
       name
       email
@@ -141,14 +140,9 @@ export default function Users() {
 
   const columns = [
     {
-      title: 'First Name',
-      dataIndex: ['user', 'first_name'],
-      key: 'username'
-    },
-    {
-      title: 'Last Name',
-      dataIndex: ['user', 'last_name'],
-      key: 'last_name'
+      title: 'Name',
+      dataIndex: ['user', 'name'],
+      key: 'name'
     },
     {
       title: 'Date Added',
