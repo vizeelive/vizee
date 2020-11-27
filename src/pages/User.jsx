@@ -132,8 +132,8 @@ export default function User() {
           <Route path="/:username" exact>
             <AccountHome />
           </Route>
-          <Route path="/:username/:id/:status?" exact component={Event} />
           <Route path="/:username/manage" component={Account} />
+          <Route path="/:username/:id/:status?" exact component={Event} />
           <Route path="/" component={Home} />
         </Switch>
       </UserContent>
