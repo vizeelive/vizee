@@ -55,10 +55,12 @@ const GET_USERS = gql`
         }
       }
     }
-    users {
+    users(
+      order_by: { name: asc }
+    ) {
       id
-      first_name
-      last_name
+      name
+      email
     }
   }
 `;
@@ -110,6 +112,7 @@ export default function Users() {
   let users = data?.users;
 
   const addableUsers = users
+    .filter((u) => u.name)
     .filter((u) => u.id !== user.sub)
     .filter((u) => !!!find(accountUsers, (au) => au.user.id === u.id));
 
@@ -213,7 +216,7 @@ export default function Users() {
             >
               {addableUsers.map((user) => (
                 <Option key={user.id} value={user.id}>
-                  {user.first_name} {user.last_name}
+                  {user.name}
                 </Option>
               ))}
             </Select>
