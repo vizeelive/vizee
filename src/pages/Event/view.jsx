@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
 import Linkify from 'react-linkify';
@@ -104,6 +104,10 @@ export default function EventPage(props) {
   } = props;
 
   const { loginWithRedirect } = useAuth();
+  const history = useHistory();
+  const [showModal, setShowModal] = useState(
+    status === 'success' ? true : false
+  );
 
   if (loading) {
     return (
@@ -136,9 +140,11 @@ export default function EventPage(props) {
       {status === 'success' && (
         <Modal
           title="Congrats, you're in!"
-          closable={false}
-          visible={true}
+          visible={showModal}
           footer={null}
+          onCancel={() =>
+            history.push(`/${event.account.username}/${event.id}`)
+          }
         >
           <Result
             status="success"
