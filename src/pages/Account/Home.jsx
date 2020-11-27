@@ -247,6 +247,16 @@ export default function Home() {
         <meta property="og:image" content={account.photo} />
         <meta property="og:title" content={`${account.name}`} />
         <meta property="og:description" content={account.description} />
+        <meta
+          name="twitter:image"
+          content={account.photo}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={`${account.name}`}
+        />
+        <meta name="twitter:description" content={account.description} />
       </Helmet>
       <Content>
         <img
@@ -364,7 +374,7 @@ export default function Home() {
                 // </LinkCard>
               ))}
             </React.Fragment>
-          ) :  null}
+          ) : null}
         </MainContent>
       </Content>
     </React.Fragment>
