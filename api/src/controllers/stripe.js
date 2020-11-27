@@ -102,7 +102,8 @@ app.get('/stripe/session', async function (req, res) {
             product_data: {
               name: 'Admission',
               images: [
-                'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
+                event.photo || account.photo
+                // 'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
               ]
             },
             unit_amount

@@ -18,11 +18,13 @@ async function getEventAndAccount(ref) {
           events_by_pk(id: $id) {
             id
             price
+            photo
             account {
               stripe_id
             }
           }
           accounts_by_pk(id: $account_id) {
+            photo
             username
             fee_percent
             subscription_rate
