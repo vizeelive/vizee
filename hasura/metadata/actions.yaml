@@ -22,6 +22,8 @@ actions:
   definition:
     kind: synchronous
     handler: '{{ACTION_BASE_URL}}'
+  permissions:
+  - role: user
 custom_types:
   enums:
   - name: MyMutationAccountsConstraint
