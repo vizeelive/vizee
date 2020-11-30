@@ -21,7 +21,7 @@ actions:
 - name: UpdateAccount
   definition:
     kind: synchronous
-    handler: http://3.238.99.19:3001
+    handler: '{{ACTION_BASE_URL}}'
 custom_types:
   enums:
   - name: MyMutationAccountsConstraint
