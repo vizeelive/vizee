@@ -53,19 +53,9 @@ const GET_ACCOUNT_ADMIN = gql`
 `;
 
 const UPDATE_ACCOUNT = gql`
-  mutation UpdateAccount(
-    $pk_columns: accounts_pk_columns_input!
-    $_set: accounts_set_input!
-  ) {
-    update_accounts_by_pk(_set: $_set, pk_columns: $pk_columns) {
+  mutation UpdateAccount($id: uuid!, $object: UpdateAccountInput!) {
+    UpdateAccount(id: $id, object: $object) {
       id
-      description
-      facebook
-      instagram
-      name
-      photo
-      twitter
-      username
     }
   }
 `;
@@ -140,14 +130,14 @@ export default function AddAccount(props) {
       if (params.id) {
         result = await updateAccount({
           variables: {
-            pk_columns: { id: params.id },
-            _set: {
+            id: params.id,
+            object: {
               name: values.name,
               username: values.username,
               description: values.description,
-              instagram: values.instagram,
-              twitter: values.twitter,
-              facebook: values.facebook,
+              ...(values.instagram ? values.instagram : null),
+              ...(values.twitter ? values.twitter : null),
+              ...(values.facebook ? values.facebook : null),
               photo,
               ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }

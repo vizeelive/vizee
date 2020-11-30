@@ -21,6 +21,14 @@ type Mutation {
 }
 
 
+type Mutation {
+  UpdateAccount (
+    id: uuid!
+    object: UpdateAccountInput!
+  ): UpdateAccountOutput
+}
+
+
 
 
 enum MyMutationAccountsConstraint {
@@ -99,6 +107,89 @@ enum MyMutationUsersConstraint {
 }
 
 enum MyMutationUsersUpdateColumn {
+  """ column name """ created
+  """ column name """ first_name
+  """ column name """ id
+  """ column name """ last_name
+  """ column name """ name
+}
+
+enum UpdateAccountEventsConstraint {
+  """ unique or primary key constraint """ events_pkey
+}
+
+enum UpdateAccountEventsUpdateColumn {
+  """ column name """ account_id
+  """ column name """ category_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ end
+  """ column name """ id
+  """ column name """ name
+  """ column name """ photo
+  """ column name """ preview
+  """ column name """ price
+  """ column name """ start
+  """ column name """ type
+  """ column name """ video
+}
+
+enum UpdateAccountFavoritesConstraint {
+  """ unique or primary key constraint """ favorites_pkey
+}
+
+enum UpdateAccountFavoritesUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ event_id
+  """ column name """ id
+}
+
+enum UpdateAccountAccountsConstraint {
+  """ unique or primary key constraint """ accounts_pkey
+  """ unique or primary key constraint """ accounts_username_key
+}
+
+enum UpdateAccountAccountsUpdateColumn {
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ facebook
+  """ column name """ id
+  """ column name """ instagram
+  """ column name """ name
+  """ column name """ photo
+  """ column name """ twitter
+  """ column name """ username
+}
+
+enum UpdateAccountCategoriesConstraint {
+  """ unique or primary key constraint """ categories_pkey
+}
+
+enum UpdateAccountCategoriesUpdateColumn {
+  """ column name """ id
+  """ column name """ name
+}
+
+enum UpdateAccountTransactionsConstraint {
+  """ unique or primary key constraint """ transactions_pkey
+}
+
+enum UpdateAccountTransactionsUpdateColumn {
+  """ column name """ created
+  """ column name """ event_id
+  """ column name """ id
+  """ column name """ user_id
+}
+
+enum UpdateAccountUsersConstraint {
+  """ unique or primary key constraint """ users_pkey
+}
+
+enum UpdateAccountUsersUpdateColumn {
   """ column name """ created
   """ column name """ first_name
   """ column name """ id
@@ -399,6 +490,300 @@ input CreateAccountInput {
   user_id : String
 }
 
+input UpdateAccountInput {
+  created : timestamptz
+  created_by : String
+  description : String
+  events : UpdateAccountEventsArrRelInsertInput
+  facebook : String
+  favorites : UpdateAccountFavoritesArrRelInsertInput
+  id : uuid
+  fee_percent : Int
+  instagram : String
+  name : String
+  photo : String
+  twitter : String
+  username : String
+  user_id : String
+}
+
+input UpdateAccountEventsArrRelInsertInput {
+  data : [UpdateAccountEventsInsertInput!]!
+  on_conflict : UpdateAccountEventsOnConflict
+}
+
+input UpdateAccountEventsInsertInput {
+  account : UpdateAccountAccountsObjRelInsertInput
+  account_id : uuid
+  category : UpdateAccountCategoriesObjRelInsertInput
+  category_id : uuid
+  created : timestamptz
+  created_by : String
+  description : String
+  end : timestamptz
+  favorites : UpdateAccountFavoritesArrRelInsertInput
+  id : uuid
+  name : String
+  photo : String
+  preview : String
+  price : money
+  start : timestamptz
+  transactions : UpdateAccountTransactionsArrRelInsertInput
+  type : String
+  user : UpdateAccountUsersObjRelInsertInput
+  video : String
+}
+
+input UpdateAccountAccountsObjRelInsertInput {
+  data : UpdateAccountAccountsInsertInput!
+  on_conflict : UpdateAccountAccountsOnConflict
+}
+
+input UpdateAccountAccountsInsertInput {
+  created : timestamptz
+  created_by : String
+  description : String
+  events : UpdateAccountEventsArrRelInsertInput
+  facebook : String
+  favorites : UpdateAccountFavoritesArrRelInsertInput
+  id : uuid
+  instagram : String
+  name : String
+  photo : String
+  twitter : String
+  username : String
+}
+
+input UpdateAccountFavoritesArrRelInsertInput {
+  data : [UpdateAccountFavoritesInsertInput!]!
+  on_conflict : UpdateAccountFavoritesOnConflict
+}
+
+input UpdateAccountFavoritesInsertInput {
+  account : UpdateAccountAccountsObjRelInsertInput
+  account_id : uuid
+  created : timestamptz
+  created_by : String
+  event : UpdateAccountEventsObjRelInsertInput
+  event_id : uuid
+  id : uuid
+}
+
+input UpdateAccountEventsObjRelInsertInput {
+  data : UpdateAccountEventsInsertInput!
+  on_conflict : UpdateAccountEventsOnConflict
+}
+
+input UpdateAccountEventsOnConflict {
+  constraint : UpdateAccountEventsConstraint!
+  update_columns : [UpdateAccountEventsUpdateColumn!]!
+  where : UpdateAccountEventsBoolExp
+}
+
+input UpdateAccountEventsBoolExp {
+  _and : [UpdateAccountEventsBoolExp]
+  _not : UpdateAccountEventsBoolExp
+  _or : [UpdateAccountEventsBoolExp]
+  account : UpdateAccountAccountsBoolExp
+  account_id : UpdateAccountUuidComparisonExp
+  category : UpdateAccountCategoriesBoolExp
+  category_id : UpdateAccountUuidComparisonExp
+  created : UpdateAccountTimestamptzComparisonExp
+  created_by : UpdateAccountStringComparisonExp
+  description : UpdateAccountStringComparisonExp
+  end : UpdateAccountTimestamptzComparisonExp
+  favorites : UpdateAccountFavoritesBoolExp
+  id : UpdateAccountUuidComparisonExp
+  name : UpdateAccountStringComparisonExp
+  photo : UpdateAccountStringComparisonExp
+  preview : UpdateAccountStringComparisonExp
+  price : UpdateAccountMoneyComparisonExp
+  start : UpdateAccountTimestamptzComparisonExp
+  transactions : UpdateAccountTransactionsBoolExp
+  type : UpdateAccountStringComparisonExp
+  user : UpdateAccountUsersBoolExp
+  video : UpdateAccountStringComparisonExp
+}
+
+input UpdateAccountAccountsBoolExp {
+  _and : [UpdateAccountAccountsBoolExp]
+  _not : UpdateAccountAccountsBoolExp
+  _or : [UpdateAccountAccountsBoolExp]
+  created : UpdateAccountTimestamptzComparisonExp
+  created_by : UpdateAccountStringComparisonExp
+  description : UpdateAccountStringComparisonExp
+  events : UpdateAccountEventsBoolExp
+  facebook : UpdateAccountStringComparisonExp
+  favorites : UpdateAccountFavoritesBoolExp
+  id : UpdateAccountUuidComparisonExp
+  instagram : UpdateAccountStringComparisonExp
+  name : UpdateAccountStringComparisonExp
+  photo : UpdateAccountStringComparisonExp
+  twitter : UpdateAccountStringComparisonExp
+  username : UpdateAccountStringComparisonExp
+}
+
+input UpdateAccountTimestamptzComparisonExp {
+  _eq : timestamptz
+  _gt : timestamptz
+  _gte : timestamptz
+  _in : [timestamptz!]
+  _is_null : Boolean
+  _lt : timestamptz
+  _lte : timestamptz
+  _neq : timestamptz
+  _nin : [timestamptz!]
+}
+
+input UpdateAccountStringComparisonExp {
+  _eq : String
+  _gt : String
+  _gte : String
+  _ilike : String
+  _in : [String!]
+  _is_null : Boolean
+  _like : String
+  _lt : String
+  _lte : String
+  _neq : String
+  _nilike : String
+  _nin : [String!]
+  _nlike : String
+  _nsimilar : String
+  _similar : String
+}
+
+input UpdateAccountFavoritesBoolExp {
+  _and : [UpdateAccountFavoritesBoolExp]
+  _not : UpdateAccountFavoritesBoolExp
+  _or : [UpdateAccountFavoritesBoolExp]
+  account : UpdateAccountAccountsBoolExp
+  account_id : UpdateAccountUuidComparisonExp
+  created : UpdateAccountTimestamptzComparisonExp
+  created_by : UpdateAccountStringComparisonExp
+  event : UpdateAccountEventsBoolExp
+  event_id : UpdateAccountUuidComparisonExp
+  id : UpdateAccountUuidComparisonExp
+}
+
+input UpdateAccountUuidComparisonExp {
+  _eq : uuid
+  _gt : uuid
+  _gte : uuid
+  _in : [uuid!]
+  _is_null : Boolean
+  _lt : uuid
+  _lte : uuid
+  _neq : uuid
+  _nin : [uuid!]
+}
+
+input UpdateAccountCategoriesBoolExp {
+  _and : [UpdateAccountCategoriesBoolExp]
+  _not : UpdateAccountCategoriesBoolExp
+  _or : [UpdateAccountCategoriesBoolExp]
+  id : UpdateAccountUuidComparisonExp
+  name : UpdateAccountStringComparisonExp
+}
+
+input UpdateAccountMoneyComparisonExp {
+  _eq : money
+  _gt : money
+  _gte : money
+  _in : [money!]
+  _is_null : Boolean
+  _lt : money
+  _lte : money
+  _neq : money
+  _nin : [money!]
+}
+
+input UpdateAccountTransactionsBoolExp {
+  _and : [UpdateAccountTransactionsBoolExp]
+  _not : UpdateAccountTransactionsBoolExp
+  _or : [UpdateAccountTransactionsBoolExp]
+  created : UpdateAccountTimestamptzComparisonExp
+  event_id : UpdateAccountUuidComparisonExp
+  id : UpdateAccountUuidComparisonExp
+  user_id : UpdateAccountStringComparisonExp
+}
+
+input UpdateAccountUsersBoolExp {
+  _and : [UpdateAccountUsersBoolExp]
+  _not : UpdateAccountUsersBoolExp
+  _or : [UpdateAccountUsersBoolExp]
+  created : UpdateAccountTimestamptzComparisonExp
+  first_name : UpdateAccountStringComparisonExp
+  id : UpdateAccountStringComparisonExp
+  last_name : UpdateAccountStringComparisonExp
+  name : UpdateAccountStringComparisonExp
+}
+
+input UpdateAccountFavoritesOnConflict {
+  constraint : UpdateAccountFavoritesConstraint!
+  update_columns : [UpdateAccountFavoritesUpdateColumn!]!
+  where : UpdateAccountFavoritesBoolExp
+}
+
+input UpdateAccountAccountsOnConflict {
+  constraint : UpdateAccountAccountsConstraint!
+  update_columns : [UpdateAccountAccountsUpdateColumn!]!
+  where : UpdateAccountAccountsBoolExp
+}
+
+input UpdateAccountCategoriesObjRelInsertInput {
+  data : UpdateAccountCategoriesInsertInput!
+  on_conflict : UpdateAccountCategoriesOnConflict
+}
+
+input UpdateAccountCategoriesInsertInput {
+  id : uuid
+  name : String
+}
+
+input UpdateAccountCategoriesOnConflict {
+  constraint : UpdateAccountCategoriesConstraint!
+  update_columns : [UpdateAccountCategoriesUpdateColumn!]!
+  where : UpdateAccountCategoriesBoolExp
+}
+
+input UpdateAccountTransactionsArrRelInsertInput {
+  data : [UpdateAccountTransactionsInsertInput!]!
+  on_conflict : UpdateAccountTransactionsOnConflict
+}
+
+input UpdateAccountTransactionsInsertInput {
+  created : timestamptz
+  event_id : uuid
+  id : uuid
+  user_id : String
+}
+
+input UpdateAccountTransactionsOnConflict {
+  constraint : UpdateAccountTransactionsConstraint!
+  update_columns : [UpdateAccountTransactionsUpdateColumn!]!
+  where : UpdateAccountTransactionsBoolExp
+}
+
+input UpdateAccountUsersObjRelInsertInput {
+  data : UpdateAccountUsersInsertInput!
+  on_conflict : UpdateAccountUsersOnConflict
+}
+
+input UpdateAccountUsersInsertInput {
+  created : timestamptz
+  first_name : String
+  id : String
+  last_name : String
+  name : String
+}
+
+input UpdateAccountUsersOnConflict {
+  constraint : UpdateAccountUsersConstraint!
+  update_columns : [UpdateAccountUsersUpdateColumn!]!
+  where : UpdateAccountUsersBoolExp
+}
+
 type MyMutationOutput {
   id : uuid!
 }
@@ -414,5 +799,10 @@ type SubscribeOutput {
 
 type UmamiToken {
   accessToken : String!
+}
+
+type UpdateAccountOutput {
+  id : uuid!
+  username : String
 }
 

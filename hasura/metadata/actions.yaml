@@ -18,6 +18,10 @@ actions:
     kind: synchronous
     handler: '{{ACTION_BASE_URL}}'
     forward_client_headers: true
+- name: UpdateAccount
+  definition:
+    kind: synchronous
+    handler: http://3.238.99.19:3001
 custom_types:
   enums:
   - name: MyMutationAccountsConstraint
@@ -185,6 +189,171 @@ custom_types:
     - description: column name
       is_deprecated: null
       value: name
+  - name: UpdateAccountEventsConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: events_pkey
+  - name: UpdateAccountEventsUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: account_id
+    - description: column name
+      is_deprecated: null
+      value: category_id
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: created_by
+    - description: column name
+      is_deprecated: null
+      value: description
+    - description: column name
+      is_deprecated: null
+      value: end
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: name
+    - description: column name
+      is_deprecated: null
+      value: photo
+    - description: column name
+      is_deprecated: null
+      value: preview
+    - description: column name
+      is_deprecated: null
+      value: price
+    - description: column name
+      is_deprecated: null
+      value: start
+    - description: column name
+      is_deprecated: null
+      value: type
+    - description: column name
+      is_deprecated: null
+      value: video
+  - name: UpdateAccountFavoritesConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: favorites_pkey
+  - name: UpdateAccountFavoritesUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: account_id
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: created_by
+    - description: column name
+      is_deprecated: null
+      value: event_id
+    - description: column name
+      is_deprecated: null
+      value: id
+  - name: UpdateAccountAccountsConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: accounts_pkey
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: accounts_username_key
+  - name: UpdateAccountAccountsUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: created_by
+    - description: column name
+      is_deprecated: null
+      value: description
+    - description: column name
+      is_deprecated: null
+      value: facebook
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: instagram
+    - description: column name
+      is_deprecated: null
+      value: name
+    - description: column name
+      is_deprecated: null
+      value: photo
+    - description: column name
+      is_deprecated: null
+      value: twitter
+    - description: column name
+      is_deprecated: null
+      value: username
+  - name: UpdateAccountCategoriesConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: categories_pkey
+  - name: UpdateAccountCategoriesUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: name
+  - name: UpdateAccountTransactionsConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: transactions_pkey
+  - name: UpdateAccountTransactionsUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: event_id
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: user_id
+  - name: UpdateAccountUsersConstraint
+    values:
+    - description: unique or primary key constraint
+      is_deprecated: null
+      value: users_pkey
+  - name: UpdateAccountUsersUpdateColumn
+    values:
+    - description: column name
+      is_deprecated: null
+      value: created
+    - description: column name
+      is_deprecated: null
+      value: first_name
+    - description: column name
+      is_deprecated: null
+      value: id
+    - description: column name
+      is_deprecated: null
+      value: last_name
+    - description: column name
+      is_deprecated: null
+      value: name
   input_objects:
   - name: MyMutationAccountsInsertInput
   - name: MyMutationEventsArrRelInsertInput
@@ -216,9 +385,40 @@ custom_types:
   - name: MyMutationUsersInsertInput
   - name: MyMutationUsersOnConflict
   - name: CreateAccountInput
+  - name: UpdateAccountInput
+  - name: UpdateAccountEventsArrRelInsertInput
+  - name: UpdateAccountEventsInsertInput
+  - name: UpdateAccountAccountsObjRelInsertInput
+  - name: UpdateAccountAccountsInsertInput
+  - name: UpdateAccountFavoritesArrRelInsertInput
+  - name: UpdateAccountFavoritesInsertInput
+  - name: UpdateAccountEventsObjRelInsertInput
+  - name: UpdateAccountEventsOnConflict
+  - name: UpdateAccountEventsBoolExp
+  - name: UpdateAccountAccountsBoolExp
+  - name: UpdateAccountTimestamptzComparisonExp
+  - name: UpdateAccountStringComparisonExp
+  - name: UpdateAccountFavoritesBoolExp
+  - name: UpdateAccountUuidComparisonExp
+  - name: UpdateAccountCategoriesBoolExp
+  - name: UpdateAccountMoneyComparisonExp
+  - name: UpdateAccountTransactionsBoolExp
+  - name: UpdateAccountUsersBoolExp
+  - name: UpdateAccountFavoritesOnConflict
+  - name: UpdateAccountAccountsOnConflict
+  - name: UpdateAccountCategoriesObjRelInsertInput
+  - name: UpdateAccountCategoriesInsertInput
+  - name: UpdateAccountCategoriesOnConflict
+  - name: UpdateAccountTransactionsArrRelInsertInput
+  - name: UpdateAccountTransactionsInsertInput
+  - name: UpdateAccountTransactionsOnConflict
+  - name: UpdateAccountUsersObjRelInsertInput
+  - name: UpdateAccountUsersInsertInput
+  - name: UpdateAccountUsersOnConflict
   objects:
   - name: MyMutationOutput
   - name: CreateAccountOutput
   - name: SubscribeOutput
   - name: UmamiToken
+  - name: UpdateAccountOutput
   scalars: []
