@@ -14,7 +14,7 @@ import Spinner from '../components/ui/Spinner';
 const { Title } = Typography;
 
 const MY_TRANSACTIONS = gql`
-  query MyTransactions($user_id: String!) {
+  query MyTransactions($user_id: uuid!) {
     transactions(where: { user_id: { _eq: $user_id } }) {
       event {
         id
@@ -50,7 +50,7 @@ const Tickets = (props) => {
   const location = useLocation();
   const isAdmin = location.pathname.includes('admin');
   const { loading, error, data, refetch } = useQuery(MY_TRANSACTIONS, {
-    variables: { user_id: user.sub }
+    variables: { user_id: user.id }
   });
 
   if (loading) {

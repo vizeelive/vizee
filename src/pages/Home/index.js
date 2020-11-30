@@ -7,13 +7,13 @@ import Mapper from '../../services/mapper';
 import HomeView from './view';
 
 const GET_EVENTS_AUTH = gql`
-  query GetHomeData($id: String!) {
+  query GetHomeData($id: uuid!) {
     users_by_pk(id: $id) {
       id
       first_name
       last_name
     }
-    events(where: { account: { stripe_data: { _is_null: false } } }) {
+    events {
       id
       name
       start
@@ -159,7 +159,7 @@ export default function Home() {
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENTS_AUTH : GET_EVENTS_UNAUTH,
-    { variables: { id: user?.sub } }
+    { variables: { id: user?.id } }
   );
 
   const [searchEvents, { data: searchData }] = useLazyQuery(

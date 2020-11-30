@@ -94,7 +94,7 @@ export default function Settings() {
   const onFinish = async (data) => {
     data.account_id = id;
     if (user?.isAdmin) {
-      data.created_by = user.sub;
+      data.created_by = user.id;
     }
     try {
       await createTier({

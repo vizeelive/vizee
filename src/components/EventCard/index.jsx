@@ -117,9 +117,9 @@ function EventCard(props) {
           <small>{event.location}</small>
         </div>
         {renderTags()}
-        {event.belongsTo(user?.sub) && !event?.published ? 'Unpublished' : null}
+        {event.belongsTo(user?.id) && !event?.published ? 'Unpublished' : null}
         <CardMenu>
-          {(user?.isAdmin || event.belongsTo(user?.sub)) && (
+          {(user?.isAdmin || event.belongsTo(user?.id)) && (
             <EditLink
               type="primary"
               ghost
@@ -129,7 +129,7 @@ function EventCard(props) {
               Edit
             </EditLink>
           )}
-          {(user?.isAdmin || event.belongsTo(user?.sub)) && (
+          {(user?.isAdmin || event.belongsTo(user?.id)) && (
             <ManageLink
               type="primary"
               ghost

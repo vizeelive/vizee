@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth';
 import { Form, Input, Button, Modal, message } from 'antd';
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($id: String!, $_set: users_set_input!) {
+  mutation UpdateUser($id: uuid!, $_set: users_set_input!) {
     update_users_by_pk(pk_columns: { id: $id }, _set: $_set) {
       last_name
       first_name
@@ -21,7 +21,7 @@ export default function FinishSignup(props) {
     try {
       await updateUser({
         variables: {
-          id: user.sub,
+          id: user.id,
           _set: {
             first_name: values.first_name,
             last_name: values.last_name

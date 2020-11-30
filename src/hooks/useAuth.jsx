@@ -45,11 +45,12 @@ export default function useAuth() {
   }
 
   if (user) {
+    user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
     user.isAdmin = user['https://hasura.io/jwt/claims'][
       'x-hasura-allowed-roles'
     ].includes('admin');
 
-    window.mixpanel.identify(user.sub);
+    window.mixpanel.identify(user.id);
     window.mixpanel.people.set({
       $email: user.email
     });

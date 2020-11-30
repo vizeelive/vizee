@@ -77,7 +77,7 @@ const GET_ACCOUNT_UNAUTH = gql`
 
 // @TODO KEEP THE OUTPUT SCHEMAS THE SAME
 const GET_ACCOUNT_AUTH = gql`
-  query GetAccountByUsername($username: String!, $user_id: String!) {
+  query GetAccountByUsername($username: String!, $user_id: uuid!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -177,7 +177,7 @@ export default function Account() {
     variables = { username };
   } else if (user) {
     query = GET_ACCOUNT_AUTH;
-    variables = { username, user_id: user?.sub };
+    variables = { username, user_id: user?.id };
   } else {
     query = GET_ACCOUNT_UNAUTH;
     variables = { username };

@@ -41,7 +41,7 @@ const SiderLayout = styled(Layout)`
 `;
 
 const GET_ACCOUNTS_AUTH = gql`
-  query MyAccounts($user_id: String) {
+  query MyAccounts($user_id: uuid!) {
     accounts_users(where: { user_id: { _eq: $user_id } }) {
       account {
         id
@@ -78,7 +78,7 @@ export default function Admin() {
   const { user, logout, loginWithRedirect } = useAuth();
 
   const { loading, error, data } = useQuery(GET_ACCOUNTS_AUTH, {
-    variables: { user_id: user?.sub }
+    variables: { user_id: user?.id }
   });
 
   if (loading) {

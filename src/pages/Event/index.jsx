@@ -42,7 +42,7 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 const GET_EVENT_AUTH = gql`
-  query UserEventsReport($id: uuid!, $user_id: String!, $username: String!) {
+  query UserEventsReport($id: uuid!, $user_id: uuid!, $username: String!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -126,7 +126,7 @@ export default function EventPage() {
   const { user } = useAuth();
   const [trackView] = useMutation(TRACK_VIEW);
 
-  const variables = user ? { id, user_id: user?.sub, username } : { id };
+  const variables = user ? { id, user_id: user?.id, username } : { id };
 
   const { loading, error, data } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
@@ -141,7 +141,7 @@ export default function EventPage() {
 
   const account = Mapper(data?.accounts?.[0]);
   const event = Mapper({ ...data?.events_report?.[0] });
-  const userId = user?.sub || null;
+  const userId = user?.id || null;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === event.account.username
   ).length;
@@ -185,7 +185,7 @@ export default function EventPage() {
     window.mixpanel.track('Buy Button Clicked');
 
     let ref = stringify({
-      user_id: user?.sub,
+      user_id: user?.id,
       account_id: event.account.id,
       event_id: event.id
     });

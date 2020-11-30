@@ -107,12 +107,12 @@ export default function Users() {
   if (error) return 'Error.';
 
   let account = data?.accounts?.[0];
-  let accountUsers = account?.users.filter((u) => u.user.id !== user.sub);
+  let accountUsers = account?.users.filter((u) => u.user.id !== user.id);
   let users = data?.users;
 
   const addableUsers = users
     .filter((u) => u.name)
-    .filter((u) => u.id !== user.sub)
+    .filter((u) => u.id !== user.id)
     .filter((u) => !!!find(accountUsers, (au) => au.user.id === u.id));
 
   const onFinish = async (values) => {

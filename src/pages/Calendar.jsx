@@ -32,7 +32,7 @@ const GET_EVENTS = gql`
 `;
 
 const GET_FAVORITE_EVENTS = gql`
-  query GetFavoriteEvents($user_id: String!) {
+  query GetFavoriteEvents($user_id: uuid!) {
     favorite_events(where: { user_id: { _eq: $user_id } }) {
       id
       name
@@ -56,7 +56,7 @@ const Cal = (props) => {
   let options;
   if (props.favorite) {
     query = GET_FAVORITE_EVENTS;
-    options = { variables: { user_id: user.sub } };
+    options = { variables: { user_id: user.id } };
   } else {
     query = GET_EVENTS;
     options = {};

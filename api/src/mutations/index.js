@@ -9,7 +9,7 @@ async function fixAnonTransactions({ email, user_id }) {
         user_id
       },
       mutation: gql`
-        mutation FixAnonTransactions($user_id: String!, $email: String!) {
+        mutation FixAnonTransactions($user_id: uuid!, $email: String!) {
           update_transactions(
             where: {
               _and: { email: { _eq: $email }, user_id: { _is_null: true } }

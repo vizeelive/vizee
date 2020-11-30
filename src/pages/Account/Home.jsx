@@ -144,7 +144,7 @@ export const GET_ACCOUNT_ANON = gql`
 `;
 
 const GET_ACCOUNT_USER = gql`
-  query GetAccount($username: String!, $user_id: String!) {
+  query GetAccount($username: String!, $user_id: uuid!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -214,7 +214,7 @@ export default function Home() {
   const { loading, error, data, refetch } = useQuery(
     user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
     {
-      variables: user ? { username, user_id: user.sub } : { username }
+      variables: user ? { username, user_id: user.id } : { username }
     }
   );
 

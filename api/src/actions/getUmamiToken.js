@@ -25,7 +25,7 @@ module.exports = async function getUmamiToken(req, res) {
   let { data } = await execute(GET_ACCOUNT_USERS, { account_id }, req.headers);
 
   data.accounts_by_pk.users.forEach(async (u) => {
-    if (user.isAdmin || u.user.id === user.sub) {
+    if (user.isAdmin || u.user.id === user.id) {
       try {
         var { token: accessToken } = await fetch(
           `${process.env.UMAMI_URL}/api/auth/login`,

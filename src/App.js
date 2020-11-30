@@ -54,7 +54,7 @@ function App() {
   }
 
   if (process.env.NODE_ENV !== 'development' && user) {
-    LogRocket.identify(user.sub, {
+    LogRocket.identify(user.id, {
       name: user.name,
       email: user.email
     });

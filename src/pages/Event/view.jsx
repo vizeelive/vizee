@@ -171,7 +171,7 @@ export default function EventPage(props) {
       )}
       <MainContent>
         {(() => {
-          if (event.canWatch(user?.sub, liveData)) {
+          if (event.canWatch(user?.id, liveData)) {
             if (event.isBroadcast()) {
               return (
                 <VideoPlayer

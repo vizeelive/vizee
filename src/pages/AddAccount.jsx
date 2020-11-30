@@ -164,7 +164,7 @@ export default function AddAccount(props) {
               twitter: values.twitter,
               facebook: values.facebook,
               photo,
-              user_id: user.sub
+              user_id: user.id
             }
           }
         });

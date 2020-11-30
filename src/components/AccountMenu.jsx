@@ -86,7 +86,7 @@ function AccountMenu(props) {
         >
           <Link to={`/${username}/manage/events`}>Events </Link>
         </Menu.Item>
-        {(user.isAdmin || account.created_by === user.sub) && (
+        {(user.isAdmin || account.created_by === user.id) && (
           <Menu.Item
             key={`/${username}/manage/users`}
             icon={<UserAddOutlined />}

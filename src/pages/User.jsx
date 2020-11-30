@@ -33,7 +33,7 @@ const GET_ACCOUNTS_UNAUTH = gql`
 `;
 
 const GET_ACCOUNTS_AUTH = gql`
-  query MyAccounts($user_id: String) {
+  query MyAccounts($user_id: uuid!) {
     accounts_users(where: { user_id: { _eq: $user_id } }) {
       account {
         id
@@ -89,7 +89,7 @@ export default function User() {
   const { loading, error, data } = useQuery(
     user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
     {
-      variables: { user_id: user?.sub }
+      variables: { user_id: user?.id }
     }
   );
 

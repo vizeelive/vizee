@@ -114,7 +114,7 @@ export default function Links() {
 
   const onFinish = async (data) => {
     if (user?.isAdmin) {
-      data.created_by = user.sub;
+      data.created_by = user.id;
     }
     if (data.id) {
       let _set = { ...data };
