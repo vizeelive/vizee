@@ -135,9 +135,9 @@ export default function AddAccount(props) {
               name: values.name,
               username: values.username,
               description: values.description,
-              ...(values.instagram ? values.instagram : null),
-              ...(values.twitter ? values.twitter : null),
-              ...(values.facebook ? values.facebook : null),
+              ...(values.instagram ? { instagram: values.instagram } : null),
+              ...(values.twitter ? { twitter: values.twitter } : null),
+              ...(values.facebook ? { facebook: values.facebook } : null),
               photo,
               ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }
@@ -150,9 +150,9 @@ export default function AddAccount(props) {
               name: values.name,
               username: values.username,
               description: values.description,
-              instagram: values.instagram,
-              twitter: values.twitter,
-              facebook: values.facebook,
+              ...(values.instagram ? { instagram: values.instagram } : null),
+              ...(values.twitter ? { twitter: values.twitter } : null),
+              ...(values.facebook ? { facebook: values.facebook } : null),
               photo,
               user_id: user.id
             }
