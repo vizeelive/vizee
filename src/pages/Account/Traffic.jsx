@@ -3,18 +3,18 @@ import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 
 const GET_UMAMI_TOKEN = gql`
-  query GetUmamiToken($account_id: uuid!, $username: String!) {
-    getUmamiToken(account_id: $account_id, username: $username) {
+  query GetUmamiToken($account_id: uuid!) {
+    getUmamiToken(account_id: $account_id) {
       accessToken
     }
   }
 `;
 
 export default function Traffic() {
-  const { id, username } = useParams();
+  const { id } = useParams();
   const [ready, setReady] = useState(false);
   const { loading, error, data } = useQuery(GET_UMAMI_TOKEN, {
-    variables: { username, account_id: id }
+    variables: { account_id: id }
   });
 
   useEffect(() => {

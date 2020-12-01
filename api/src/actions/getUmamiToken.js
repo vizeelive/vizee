@@ -1,10 +1,11 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
 const { getUser } = require('../lib');
-const execute = require("../execute");
+const execute = require('../execute');
 
 const GET_ACCOUNT_USERS = `
 query GetAccountUsers($account_id: uuid!) {
   accounts_by_pk(id: $account_id) {
+    umami_username
     users {
       user {
         id
@@ -16,16 +17,21 @@ query GetAccountUsers($account_id: uuid!) {
 
 module.exports = async function getUmamiToken(req, res) {
   const user = getUser(req);
-  const { account_id, username } = req.body.input;
+  const { account_id } = req.body.input;
 
   user.isAdmin = user['https://hasura.io/jwt/claims'][
     'x-hasura-allowed-roles'
   ].includes('admin');
 
   let { data } = await execute(GET_ACCOUNT_USERS, { account_id }, req.headers);
+  console.log({ user });
+  console.log(data.accounts_by_pk.users);
 
   data.accounts_by_pk.users.forEach(async (u) => {
-    if (user.isAdmin || u.user.id === user.id) {
+    if (
+      user.isAdmin ||
+      u.user.id === user['https://hasura.io/jwt/claims']['x-hasura-user-id']
+    ) {
       try {
         var { token: accessToken } = await fetch(
           `${process.env.UMAMI_URL}/api/auth/login`,
@@ -36,7 +42,7 @@ module.exports = async function getUmamiToken(req, res) {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              username,
+              username: data.accounts_by_pk.umami_username,
               password: process.env.UMAMI_PASS
             })
           }
@@ -51,6 +57,6 @@ module.exports = async function getUmamiToken(req, res) {
 
       return res.send({ accessToken });
     }
-    res.send({ accessToken: "" });
+    res.send({ accessToken: '' });
   });
 };
