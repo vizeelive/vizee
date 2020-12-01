@@ -346,7 +346,7 @@ export default function AddAccount(props) {
         )}
 
         {(replacePhoto || (!photoUrl && !account?.photo)) && (
-          <Form.Item label="Photo">
+          <Form.Item label="Cover Photo">
             <FileUpload
               id="photo"
               success={handleFileUpload}
