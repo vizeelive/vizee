@@ -237,7 +237,7 @@ export default function Home() {
   const shareUrl = `https://viz.ee/${username}`;
 
   // const accountPhoto = account.photo.replace(
-  //   'https://dam-media.s3.amazonaws.com/',
+  //   'https://vizee-media.s3.amazonaws.com/',
   //   ''
   // );
 
@@ -247,15 +247,9 @@ export default function Home() {
         <meta property="og:image" content={account.photo} />
         <meta property="og:title" content={`${account.name}`} />
         <meta property="og:description" content={account.description} />
-        <meta
-          name="twitter:image"
-          content={account.photo}
-        />
+        <meta name="twitter:image" content={account.photo} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={`${account.name}`}
-        />
+        <meta name="twitter:title" content={`${account.name}`} />
         <meta name="twitter:description" content={account.description} />
       </Helmet>
       <Content>

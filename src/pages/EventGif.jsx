@@ -47,7 +47,7 @@ export default function Event() {
   const event = Mapper({ ...data?.events_report?.[0] });
 
   const coverPhoto = (event.photo || event.account.photo).replace(
-    'https://dam-media.s3.amazonaws.com/',
+    'https://vizee-media.s3.amazonaws.com/',
     ''
   );
 

@@ -118,7 +118,7 @@ export default function EventPage(props) {
   if (error) return 'Error';
 
   const coverPhoto = (event.photo || event.account.photo).replace(
-    'https://dam-media.s3.amazonaws.com/',
+    'https://vizee-media.s3.amazonaws.com/',
     ''
   );
 
