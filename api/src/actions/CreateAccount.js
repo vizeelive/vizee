@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const fetch = require("node-fetch");
 const Joi = require("joi");
 const execute = require("../execute");
@@ -30,6 +31,8 @@ const schema = Joi.object({
 module.exports = async function CreateAccount(req, res) {
   const { object } = req.body.input;
 
+  let username = uuidv4();
+
   let validationErrors;
   if ((validationErrors = hasValidationErrors(res, schema, object))) {
     return validationErrors;
@@ -39,52 +42,58 @@ module.exports = async function CreateAccount(req, res) {
     var { token: adminToken } = await fetch(
       `${process.env.UMAMI_URL}/api/auth/login`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           username: process.env.UMAMI_USER,
-          password: process.env.UMAMI_PASS,
-        }),
+          password: process.env.UMAMI_PASS
+        })
       }
-    ).then((res) => res.json());
+    ).then((res) => {
+      console.log(res.body);
+      return res.json();
+    });
   } catch (e) {
     console.error("Failed to authenticate admin with Umami");
     console.error(e);
+    throw e;
   }
 
   try {
     var account = await fetch(`${process.env.UMAMI_URL}/api/account`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Cookie: `umami.auth=${adminToken}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: object.username,
-        password: process.env.UMAMI_PASS,
-      }),
+        username,
+        password: process.env.UMAMI_PASS
+      })
     }).then((res) => res.json());
   } catch (e) {
     console.error("Failed to create umami account");
     console.log(e);
+    throw e;
   }
 
   try {
     var { token } = await fetch(`${process.env.UMAMI_URL}/api/auth/login`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: object.username,
-        password: process.env.UMAMI_PASS,
-      }),
+        username,
+        password: process.env.UMAMI_PASS
+      })
     }).then((res) => res.json());
   } catch (e) {
     console.error("Failed to authenticate with Umami");
     console.error(e);
+    throw e;
   }
 
   try {
@@ -104,9 +113,11 @@ module.exports = async function CreateAccount(req, res) {
   } catch (e) {
     console.error("Failed to create umami website");
     console.log(e);
+    throw e;
   }
 
   object.umami_id = account.user_id;
+  object.umami_username = username;
   object.umami_website = website.website_uuid;
   object.users = { data: { user_id: object.user_id } };
   delete object.user_id;
