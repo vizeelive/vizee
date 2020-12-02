@@ -852,6 +852,13 @@
 - table:
     schema: public
     name: users
+  object_relationships:
+  - name: affiliate_account
+    using:
+      foreign_key_constraint_on: affiliate_account_id
+  - name: affiliate_user
+    using:
+      foreign_key_constraint_on: affiliate_user_id
   array_relationships:
   - name: accounts
     using:
@@ -903,6 +910,8 @@
   - role: user
     permission:
       columns:
+      - affiliate_account_id
+      - affiliate_user_id
       - first_name
       - last_name
       filter:

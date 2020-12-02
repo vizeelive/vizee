@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import useAuth from 'hooks/useAuth';
 import Mapper from 'services/mapper';
+import useAffiliate from 'hooks/useAffiliate';
 
 import HomeView from './view';
 
@@ -108,12 +109,18 @@ const GET_ACCOUNT_USER = gql`
         count
       }
     }
+    users_by_pk(id: $user_id) {
+      id
+      affiliate_user_id
+      affiliate_account_id
+    }
   }
 `;
 
 export default function Home() {
   const location = useLocation();
   const { username } = useParams();
+  const { setAffiliateLoginUser, setAffiliateAccountId } = useAffiliate();
   const { user } = useAuth();
 
   const { loading, error, data, refetch } = useQuery(
@@ -128,6 +135,15 @@ export default function Home() {
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === username
   ).length;
+
+  useEffect(() => {
+    if (user?.id && data) {
+      setAffiliateLoginUser(data.users_by_pk);
+    }
+    if (account?.id) {
+      setAffiliateAccountId(account.id);
+    }
+  }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user.id]);
 
   const shareUrl = `https://viz.ee/${username}`;
 

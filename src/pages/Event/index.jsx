@@ -2,6 +2,7 @@ import config from 'config';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { stringify } from 'zipson';
+import useAffiliate from 'hooks/useAffiliate';
 
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 
@@ -68,6 +69,11 @@ const GET_EVENT_AUTH = gql`
         description
       }
     }
+    users_by_pk(id: $user_id) {
+      id
+      affiliate_user_id
+      affiliate_account_id
+    }
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -124,6 +130,7 @@ const TRACK_VIEW = gql`
 export default function EventPage() {
   const { id, username, status } = useParams();
   const { user } = useAuth();
+  const { setAffiliateLoginUser, setAffiliateAccountId } = useAffiliate();
   const [trackView] = useMutation(TRACK_VIEW);
 
   const variables = user ? { id, user_id: user?.id, username } : { id };
@@ -147,6 +154,15 @@ export default function EventPage() {
   ).length;
 
   const account_id = event?.account?.id;
+
+  useEffect(() => {
+    if (user?.id && data) {
+      setAffiliateLoginUser(data.users_by_pk);
+    }
+    if (account?.id) {
+      setAffiliateAccountId(account.id);
+    }
+  }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user.id]);
 
   useEffect(() => {
     if (data?.accounts?.[0]?.id) {

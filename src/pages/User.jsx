@@ -11,12 +11,12 @@ import Calendar from './Calendar';
 import CreateAccount from './CreateAccount';
 import Account from './Account/Index';
 import Event from './Event';
-import useAuth from '../hooks/useAuth';
+import useAuth from 'hooks/useAuth';
 
-import Header from '../components/Header';
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
-import Footer from '../components/Footer';
+import Header from 'components/Header';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+import Footer from 'components/Footer';
 
 const UserContent = styled.div`
   margin-top: 64px;
