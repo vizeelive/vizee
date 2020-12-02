@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { gql, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import useAuth from 'hooks/useAuth';
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 

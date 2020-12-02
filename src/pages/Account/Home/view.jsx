@@ -1,20 +1,17 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+
 import { Button, Layout, Typography } from 'antd';
 import Microlink from '@microlink/react';
 import styled from 'styled-components';
-import Events from '../../components/Events';
-import { Link, useParams, useLocation } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
-import { Helmet } from 'react-helmet';
+import Events from 'components/Events';
 
-import { Centered } from '../../components/styled/common';
-import Spinner from '../../components/ui/Spinner';
-import ShareButton from '../../components/ShareButton';
-import FollowButton from '../../components/FollowButton';
-import useAuth from '../../hooks/useAuth';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+import ShareButton from 'components/ShareButton';
+import FollowButton from 'components/FollowButton';
 import Linkify from 'react-linkify';
-
-import Mapper from '../../services/mapper';
 
 import {
   InstagramOutlined,
@@ -101,122 +98,19 @@ const AccountDescription = styled.p`
   max-width: 40rem;
 `;
 
-export const GET_ACCOUNT_ANON = gql`
-  query GetAccount($username: String!) {
-    accounts(where: { username: { _eq: $username } }) {
-      id
-      name
-      photo
-      username
-      description
-      followers {
-        id
-      }
-      links {
-        name
-        link
-      }
-      events {
-        id
-        location
-        name
-        photo
-        thumb
-        start
-        end
-        published
-        account {
-          name
-          username
-          photo
-        }
-        favorites {
-          id
-        }
-      }
-    }
-    followers_aggregate(where: { account: { username: { _eq: $username } } }) {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
-
-const GET_ACCOUNT_USER = gql`
-  query GetAccount($username: String!, $user_id: uuid!) {
-    myaccounts: accounts_users(
-      order_by: { account: { name: asc } }
-      where: { user_id: { _eq: $user_id } }
-    ) {
-      account {
-        id
-        name
-        username
-        followers {
-          id
-        }
-      }
-    }
-    accounts(where: { username: { _eq: $username } }) {
-      id
-      name
-      photo
-      username
-      description
-      instagram
-      facebook
-      twitter
-      followers {
-        id
-      }
-      links {
-        name
-        link
-      }
-      events {
-        id
-        location
-        name
-        photo
-        thumb
-        start
-        end
-        published
-        account {
-          name
-          username
-          photo
-          users {
-            user {
-              id
-            }
-          }
-        }
-        favorites {
-          id
-        }
-      }
-    }
-    followers_aggregate(where: { account: { username: { _eq: $username } } }) {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
-
-export default function Home() {
-  const location = useLocation();
-  const { username } = useParams();
-  const { user } = useAuth();
-
-  const { loading, error, data, refetch } = useQuery(
-    user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
-    {
-      variables: user ? { username, user_id: user.id } : { username }
-    }
-  );
+export default function HomeView(props) {
+  const {
+    account,
+    user,
+    isMyAccount,
+    username,
+    error,
+    loading,
+    followers,
+    shareUrl,
+    location,
+    refetch
+  } = props;
 
   if (loading) {
     return (
@@ -227,19 +121,6 @@ export default function Home() {
   }
 
   if (error) return 'Error';
-
-  const account = Mapper(data?.accounts?.[0]);
-  const followers = data?.followers_aggregate?.aggregate?.count;
-  const isMyAccount = !!data?.myaccounts?.filter(
-    (acc) => acc.account.username === username
-  ).length;
-
-  const shareUrl = `https://viz.ee/${username}`;
-
-  // const accountPhoto = account.photo.replace(
-  //   'https://vizee-media.s3.amazonaws.com/',
-  //   ''
-  // );
 
   return (
     <React.Fragment>

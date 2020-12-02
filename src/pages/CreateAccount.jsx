@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Typography } from 'antd';
 
-import AddAccount from '../pages/AddAccount';
+import AddAccount from 'pages/AddAccount';
 
 const Content = styled.div`
   margin: 20px;

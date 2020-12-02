@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import useAuth from '../../hooks/useAuth';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import styled from 'styled-components';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+import CurrencyInput from 'components/CurrencyInput';
+
 import {
   Tabs,
   Typography,
@@ -9,50 +12,13 @@ import {
   Modal,
   Form,
   Input,
-  message,
   Row,
   Col,
   Popconfirm
 } from 'antd';
-import styled from 'styled-components';
-import { gql, useQuery, useMutation } from '@apollo/client';
-
-import { Centered } from '../../components/styled/common';
-import Spinner from '../../components/ui/Spinner';
-
-import CurrencyInput from '../../components/CurrencyInput';
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
-
-const CREATE_TIER = gql`
-  mutation CreateTier($object: tiers_insert_input!) {
-    insert_tiers_one(object: $object) {
-      id
-    }
-  }
-`;
-
-const GET_DATA = gql`
-  query SubscriptionPageData($id: uuid!) {
-    accounts_by_pk(id: $id) {
-      tiers {
-        id
-        name
-        price
-        description
-      }
-    }
-  }
-`;
-
-const DELETE_TIER = gql`
-  mutation DeleteTier($id: uuid!) {
-    delete_tiers_by_pk(id: $id) {
-      id
-    }
-  }
-`;
 
 const Header = styled.header`
   margin-bottom: 1rem;
@@ -68,16 +34,17 @@ const Header = styled.header`
   }
 `;
 
-export default function Settings() {
-  const { id } = useParams();
-  const { user } = useAuth();
-  const [form] = Form.useForm();
-  const [showModal, setShowModal] = useState(false);
-  const [createTier] = useMutation(CREATE_TIER);
-  const [deleteTier] = useMutation(DELETE_TIER);
-  const { loading, error, data, refetch } = useQuery(GET_DATA, {
-    variables: { id }
-  });
+export default function SubscriptionsView(props) {
+  const {
+    loading,
+    error,
+    setShowModal,
+    tiers,
+    handleDeleteTier,
+    showModal,
+    onFinish,
+    form
+  } = props;
 
   if (loading) {
     return (
@@ -88,39 +55,6 @@ export default function Settings() {
   }
 
   if (error) return 'Error.';
-
-  const tiers = data?.accounts_by_pk?.tiers;
-
-  const onFinish = async (data) => {
-    data.account_id = id;
-    if (user?.isAdmin) {
-      data.created_by = user.id;
-    }
-    try {
-      await createTier({
-        variables: {
-          object: data
-        }
-      });
-      message.success('Successfully created tier');
-      form.resetFields();
-      setShowModal(false);
-      refetch();
-    } catch (e) {
-      message.error('An error occurred');
-      throw e;
-    }
-  };
-
-  const handleDeleteTier = async (id) => {
-    try {
-      await deleteTier({ variables: { id } });
-      refetch();
-    } catch (e) {
-      message.error('An error occurred');
-      throw e;
-    }
-  };
 
   return (
     <React.Fragment>

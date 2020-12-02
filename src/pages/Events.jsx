@@ -5,8 +5,8 @@ import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
 
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
 import { VideoCameraOutlined } from '@ant-design/icons';
 

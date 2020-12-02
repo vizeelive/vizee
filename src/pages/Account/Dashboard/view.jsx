@@ -1,49 +1,29 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+
 import { Link } from 'react-router-dom';
 
-import ShareButton from '../../components/ShareButton';
-import StripeAccount from './StripeAccount';
-import { Centered } from '../../components/styled/common';
-import Spinner from '../../components/ui/Spinner';
+import ShareButton from 'components/ShareButton';
+import StripeAccount from 'pages/Account/StripeAccount';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
 import { Statistic, Row, Col, Button, Divider, Typography, Steps } from 'antd';
 
 const { Step } = Steps;
 const { Title } = Typography;
 
-const ACCOUNT_REPORT = gql`
-  query AccountReport($username: String!) {
-    account_report(where: { username: { _eq: $username } }) {
-      id
-      username
-      name
-      revenue
-      favoritecount
-      eventcount
-      followercount
-      viewcount
-      account {
-        stripe_id
-        events {
-          id
-          type
-          name
-          video
-          mux_id
-        }
-      }
-    }
-  }
-`;
-
-export default function Dashboard() {
-  let { username } = useParams();
-
-  const { loading, error, data } = useQuery(ACCOUNT_REPORT, {
-    variables: { username }
-  });
+export default function DashboardView(props) {
+  const {
+    loading,
+    error,
+    stepsComplete,
+    step,
+    account,
+    username,
+    firstEventIsLive,
+    firstEventLink,
+    shareLink
+  } = props;
 
   if (loading) {
     return (
@@ -54,34 +34,6 @@ export default function Dashboard() {
   }
 
   if (error) return 'Error';
-
-  const account = data?.account_report?.[0];
-
-  let step = 1;
-  let bankSetup = account?.account?.stripe_id;
-  let hasEvents = account?.eventcount;
-  let hasViews = account?.viewcount;
-  let eventComplete = account?.account?.events?.filter(
-    (event) => event.video || event.mux_id
-  ).length;
-
-  if (bankSetup) {
-    step++;
-    if (hasEvents) {
-      step++;
-      if (hasViews) {
-        step++;
-        if (eventComplete) {
-          step++;
-        }
-      }
-    }
-  }
-
-  let stepsComplete = step === 5 && eventComplete;
-  let firstEventIsLive = account?.account?.events?.[0]?.type === 'live';
-  let firstEventLink = `/${username}/${account?.account?.events?.[0]?.id}`;
-  let shareLink = `${window.location.origin}${firstEventLink}`;
 
   return (
     <React.Fragment>

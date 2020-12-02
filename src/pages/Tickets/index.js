@@ -1,17 +1,10 @@
 import React from 'react';
-import { Layout, Typography } from 'antd';
-import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import useAuth from 'hooks/useAuth';
 
-import Mapper from '../services/mapper';
-import Events from '../components/Events';
-
-import { Centered } from '../components/styled/common';
-import Spinner from '../components/ui/Spinner';
-
-const { Title } = Typography;
+import TicketsView from './view';
+import Mapper from 'services/mapper';
 
 const MY_TRANSACTIONS = gql`
   query MyTransactions($user_id: uuid!) {
@@ -40,11 +33,6 @@ const MY_TRANSACTIONS = gql`
   }
 `;
 
-const MainContent = styled.div`
-  margin: ${({ isAdmin }) => (isAdmin ? '0' : '20px')};
-  min-height: calc(100vh - 64px);
-`;
-
 const Tickets = (props) => {
   const { user } = useAuth();
   const location = useLocation();
@@ -53,27 +41,16 @@ const Tickets = (props) => {
     variables: { user_id: user.id }
   });
 
-  if (loading) {
-    return (
-      <Centered padded>
-        <Spinner />
-      </Centered>
-    );
-  }
-
-  if (error) return 'Error';
-
   let events = Mapper(data?.transactions.map((t) => t.event));
 
   return (
-    <Layout>
-      <MainContent isAdmin={isAdmin}>
-        <div style={{ marginTop: '20px', height: '800px' }}>
-          <Title>My Tickets</Title>
-          <Events events={events} refetch={refetch} />
-        </div>
-      </MainContent>
-    </Layout>
+    <TicketsView
+      isAdmin={isAdmin}
+      events={events}
+      refetch={refetch}
+      loading={loading}
+      error={error}
+    />
   );
 };
 
