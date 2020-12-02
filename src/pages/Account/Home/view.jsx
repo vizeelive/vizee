@@ -134,26 +134,30 @@ export default function HomeView(props) {
         <meta name="twitter:description" content={account.description} />
       </Helmet>
       <Content>
-        <img
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'top'
-            // maxHeight: '20vh'
-          }}
-          src={account.photo}
-          // src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
-          //   window.innerWidth
-          // }&h=${window.innerHeight * 0.4}`}
-          alt={account.name}
-          width="100%"
-        />
+        {account.photo && (
+          <img
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'top'
+              // maxHeight: '20vh'
+            }}
+            src={account.photo}
+            // src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
+            //   window.innerWidth
+            // }&h=${window.innerHeight * 0.4}`}
+            alt={account.name}
+            width="100%"
+          />
+        )}
         <MainContent>
           <Header>
             <div>
               <Title>{account.name}</Title>
-              <p>{`${followers} follower${
-                followers.length !== 1 ? 's' : ''
-              }`}</p>
+              {followers.length >= 10 && (
+                <p>{`${followers} follower${
+                  followers.length !== 1 ? 's' : ''
+                }`}</p>
+              )}
             </div>
             <ActionsContainer>
               {(user?.isAdmin || isMyAccount) && (
@@ -226,10 +230,12 @@ export default function HomeView(props) {
             </ActionsContainer>
           </Header>
 
-          <AccountDescription>
-            <Title level={3}>Bio</Title>
-            <Linkify>{account.description}</Linkify>
-          </AccountDescription>
+          {account.description && (
+            <AccountDescription>
+              <Title level={3}>Bio</Title>
+              <Linkify>{account.description}</Linkify>
+            </AccountDescription>
+          )}
 
           <EventsContainer>
             {account.events.length ? <Title level={3}>Events</Title> : null}

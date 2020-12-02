@@ -46,7 +46,7 @@ const SiderLayout = styled(Layout)`
 
 const GET_ACCOUNT_UNAUTH = gql`
   query AnonGetAccountByUsername($username: String!) {
-    accounts(where: { username: { _eq: $username } }) {
+    accounts(where: { username: { _ilike: $username } }) {
       id
       name
       username
@@ -88,7 +88,7 @@ const GET_ACCOUNT_AUTH = gql`
         username
       }
     }
-    accounts(where: { username: { _eq: $username } }) {
+    accounts(where: { username: { _ilike: $username } }) {
       id
       name
       username
@@ -129,7 +129,7 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
       name
       username
     }
-    accounts(where: { username: { _eq: $username } }) {
+    accounts(where: { username: { _ilike: $username } }) {
       id
       name
       username

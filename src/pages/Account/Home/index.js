@@ -8,7 +8,7 @@ import HomeView from './view';
 
 export const GET_ACCOUNT_ANON = gql`
   query GetAccount($username: String!) {
-    accounts(where: { username: { _eq: $username } }) {
+    accounts(where: { username: { _ilike: $username } }) {
       id
       name
       photo
@@ -63,7 +63,7 @@ const GET_ACCOUNT_USER = gql`
         }
       }
     }
-    accounts(where: { username: { _eq: $username } }) {
+    accounts(where: { username: { _ilike: $username } }) {
       id
       name
       photo
