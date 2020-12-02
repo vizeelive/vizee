@@ -143,7 +143,7 @@ export default function Home() {
     if (account?.id) {
       setAffiliateAccountId(account.id);
     }
-  }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user.id]);
+  }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user]);
 
   const shareUrl = `https://viz.ee/${username}`;
 

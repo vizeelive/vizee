@@ -159,10 +159,10 @@ export default function EventPage() {
     if (user?.id && data) {
       setAffiliateLoginUser(data.users_by_pk);
     }
-    if (account?.id) {
-      setAffiliateAccountId(account.id);
+    if (event?.account?.id) {
+      setAffiliateAccountId(event.account.id);
     }
-  }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user.id]);
+  }, [user, event, data, setAffiliateAccountId, setAffiliateLoginUser]);
 
   useEffect(() => {
     if (data?.accounts?.[0]?.id) {
