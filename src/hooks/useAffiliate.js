@@ -38,13 +38,13 @@ export default function useAffiliate(props) {
   const [updateAffiliate] = useMutation(UPDATE_USER_AFFILIATE);
 
   useEffect(() => {
-    if (affiliate_account_id) {
+    if (affiliate_account_id && !Cookies.get('affiliate_account_id')) {
       Cookies.set('affiliate_account_id', affiliate_account_id);
     }
-  }, [affiliate_account_id]);
+  }, [affiliate_account_id, affiliate_user_id]);
 
   useEffect(() => {
-    if (affiliate_user_id) {
+    if (affiliate_user_id && !Cookies.get('affiliate_user_id')) {
       Cookies.set('affiliate_user_id', affiliate_user_id);
     }
   }, [affiliate_user_id]);
@@ -58,7 +58,7 @@ export default function useAffiliate(props) {
       updateAffiliate({
         variables: {
           id: affiliateLoginUser.id,
-          affiliate_account_id
+          affiliate_account_id: Cookies.get('affiliate_account_id')
           // affiliate_user_id
         }
       });
