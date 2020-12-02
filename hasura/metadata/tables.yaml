@@ -898,6 +898,8 @@
   - role: user
     permission:
       columns:
+      - affiliate_account_id
+      - affiliate_user_id
       - city
       - country
       - first_name
