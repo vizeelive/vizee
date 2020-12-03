@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { Layout } from 'antd';
@@ -17,6 +17,8 @@ import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
 import Footer from '../../components/Footer';
 
+import useBreakpoint from '../../hooks/useBreakpoint';
+
 const { Content } = Layout;
 
 const Sider = styled(Layout.Sider)`
@@ -27,7 +29,7 @@ const Sider = styled(Layout.Sider)`
 
   .ant-layout-sider-zero-width-trigger {
     top: 24px;
-    box-shadow: inset 4px 0 2px -2px rgba(0, 0, 0, 0.05);
+    line-height: 34px;
   }
 `;
 
@@ -76,6 +78,12 @@ const GET_ACCOUNTS_AUTH = gql`
 
 export default function Admin() {
   const { user, logout, loginWithRedirect } = useAuth();
+  const [collapsed, setCollapsed] = useState(true);
+  const isLargeScreen = useBreakpoint('lg');
+
+  useEffect(() => {
+    setCollapsed(!isLargeScreen);
+  }, [isLargeScreen]);
 
   const { loading, error, data } = useQuery(GET_ACCOUNTS_AUTH, {
     variables: { user_id: user?.id }
@@ -104,7 +112,17 @@ export default function Admin() {
         onLogout={logout}
       />
       <Layout style={{ marginTop: 64 }}>
-        <Sider breakpoint="lg" collapsedWidth="0" width={200} theme="light">
+        <Sider
+          breakpoint="lg"
+          collapsed={collapsed}
+          collapsedWidth="0"
+          theme="dark"
+          onCollapse={(collapsed, type) => {
+            if (type === 'clickTrigger') {
+              setCollapsed(collapsed);
+            }
+          }}
+        >
           <AdminMenu />
         </Sider>
         <SiderLayout>

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Switch, Route, useParams, useHistory } from 'react-router-dom';
 import { Layout } from 'antd';
 import styled from 'styled-components';
@@ -9,6 +9,8 @@ import useAuth from '../../hooks/useAuth';
 import AccountMenu from '../../components/AccountMenu';
 import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
+
+import useBreakpoint from '../../hooks/useBreakpoint';
 
 const AddEvent = React.lazy(() => import('./AddEvent'));
 const Calendar = React.lazy(() => import('../Calendar'));
@@ -32,7 +34,7 @@ const Sider = styled(Layout.Sider)`
 
   .ant-layout-sider-zero-width-trigger {
     top: 24px;
-    box-shadow: inset 4px 0 2px -2px rgba(0, 0, 0, 0.05);
+    line-height: 34px;
   }
 `;
 
@@ -168,6 +170,13 @@ export default function Account() {
   const { user } = useAuth();
   const history = useHistory();
 
+  const [collapsed, setCollapsed] = useState(true);
+  const isLargeScreen = useBreakpoint('lg');
+
+  useEffect(() => {
+    setCollapsed(!isLargeScreen);
+  }, [isLargeScreen]);
+
   Cookies.set('username', username);
 
   let query;
@@ -220,7 +229,17 @@ export default function Account() {
     <React.Fragment>
       <Layout>
         {isMyAccount ? (
-          <Sider breakpoint="lg" collapsedWidth="0" width={200}>
+          <Sider
+            breakpoint="lg"
+            collapsed={collapsed}
+            collapsedWidth="0"
+            theme="dark"
+            onCollapse={(collapsed, type) => {
+              if (type === 'clickTrigger') {
+                setCollapsed(collapsed);
+              }
+            }}
+          >
             <AccountMenu
               user={user}
               username={username}
