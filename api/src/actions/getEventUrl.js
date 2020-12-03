@@ -30,7 +30,7 @@ module.exports = async function getEventUrl(req, res) {
     );
 
     if (!data.transactions.length) {
-      res.send('');
+      return res.send('');
     }
 
     let mux_asset_id = data.transactions[0].event.mux_asset_id;
@@ -39,7 +39,9 @@ module.exports = async function getEventUrl(req, res) {
       policy: 'signed'
     });
     const token = Mux.JWT.sign(playbackId.id);
-    res.send(`https://stream.mux.com/${playbackId.id}.m3u8?token=${token}`);
+    res.send({
+      url: `https://stream.mux.com/${playbackId.id}.m3u8?token=${token}`
+    });
   } catch (e) {
     console.log(e);
     res.status(500).send(e.message);
