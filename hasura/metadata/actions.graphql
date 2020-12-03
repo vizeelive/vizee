@@ -813,6 +813,6 @@ type UpdateAccountOutput {
 }
 
 type getEventUrlOutput {
-  url : String!
+  url : String
 }
 

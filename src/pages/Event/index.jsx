@@ -26,7 +26,6 @@ const GET_EVENT_UNAUTH = gql`
       price
       photo
       preview
-      video
       favorites
       views
       location
@@ -74,6 +73,9 @@ const GET_EVENT_AUTH = gql`
       affiliate_user_id
       affiliate_account_id
     }
+    getEventUrl(id: $id) {
+      url
+    }
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -83,7 +85,6 @@ const GET_EVENT_AUTH = gql`
       price
       photo
       preview
-      video
       description
       transactions
       favorites

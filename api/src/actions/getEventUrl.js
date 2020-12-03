@@ -15,8 +15,9 @@ query GetUserEventTransaction($user_id: uuid!, $event_id: uuid!) {
 `;
 
 module.exports = async function getEventUrl(req, res) {
-  // const user = getUser(req);
-  const { user_id, event_id } = req.body.input;
+  const user = getUser(req);
+  const { id: event_id } = req.body.input;
+  const user_id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
 
   // user.isAdmin = user['https://hasura.io/jwt/claims'][
   //   'x-hasura-allowed-roles'
@@ -30,7 +31,7 @@ module.exports = async function getEventUrl(req, res) {
     );
 
     if (!data.transactions.length) {
-      return res.send('');
+      return res.send({ url: null });
     }
 
     let mux_asset_id = data.transactions[0].event.mux_asset_id;
