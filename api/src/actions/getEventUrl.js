@@ -11,6 +11,9 @@ query GetUserEventTransaction($user_id: uuid!, $event_id: uuid!) {
       mux_asset_id
     }
   }
+  events_by_pk(id: $event_id) {
+    mux_asset_id
+  }
 }
 `;
 
@@ -19,9 +22,9 @@ module.exports = async function getEventUrl(req, res) {
   const { id: event_id } = req.body.input;
   const user_id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
 
-  // user.isAdmin = user['https://hasura.io/jwt/claims'][
-  //   'x-hasura-allowed-roles'
-  // ].includes('admin');
+  user.isAdmin = user['https://hasura.io/jwt/claims'][
+    'x-hasura-allowed-roles'
+  ].includes('admin');
 
   try {
     let { data } = await execute(
@@ -29,12 +32,17 @@ module.exports = async function getEventUrl(req, res) {
       { user_id, event_id },
       req.headers
     );
-
-    if (!data.transactions.length) {
+    
+    if (!user.isAdmin && !data.transactions.length) {
       return res.send({ url: null });
     }
 
-    let mux_asset_id = data.transactions[0].event.mux_asset_id;
+    let mux_asset_id;
+    if (user.isAdmin) {
+      mux_asset_id = data.events_by_pk.mux_asset_id;
+    } else {
+      mux_asset_id = data.transactions[0].event.mux_asset_id;
+    }
 
     const playbackId = await Video.Assets.createPlaybackId(mux_asset_id, {
       policy: 'signed'

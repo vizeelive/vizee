@@ -2,6 +2,7 @@ const app = require('../app');
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
 const bodyParser = require('body-parser');
+// const formidable = require('formidable')
 
 const Mux = require('@mux/mux-node');
 const { Video } = new Mux();
@@ -63,7 +64,50 @@ app.post(
 );
 
 app.get('/mux/asset/create', async function (req, res) {
+  
   let url = req.query.url;
+  
+//   const respond = (res, code, messages) => {
+//   if (code !== 200) {
+//     console.error({ messages, code })
+//   }
+
+//   res.writeHead(code, {
+//     'Content-Type'                : 'application/json',
+//     'Access-Control-Allow-Origin' : '*',
+//     'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+//   })
+
+//   if (messages) {
+//     res.write(JSON.stringify({ messages }))
+//   }
+
+//   res.end()
+// }
+  
+//   const form = new formidable.IncomingForm()
+//     form.parse(req, (err, fields, files) => {
+//       if (err) {
+//         return respond(res, 500, [`Error while parsing multipart form`, err])
+//       }
+
+//       // if (!checkSignature(fields, process.env.AUTH_SECRET)) {
+//       //   return respond(res, 403, [
+//       //     `Error while checking signatures`,
+//       //     `No match so payload was tampered with, or an invalid Auth Secret was used`,
+//       //   ])
+//       // }
+
+//       let assembly = {}
+//       try {
+//         assembly = JSON.parse(fields.transloadit)
+//         var url = assembly.results[':original'][0].ssl_url);
+//       } catch (err) {
+//         return respond(res, 500, [`Error while parsing transloadit field`, err])
+//       }
+//     });
+    
+
   try {
     const asset = await Video.Assets.create({
       input: url
