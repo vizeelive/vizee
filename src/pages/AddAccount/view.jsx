@@ -25,6 +25,7 @@ export default function AddAccountView(props) {
     onFinish,
     isSubmitDisabled,
     isCreatingAccount,
+    isUpdatingAccount,
     validationErrors
   } = props;
 
@@ -98,11 +99,7 @@ export default function AddAccountView(props) {
           </Form.Item>
         )}
 
-        <Form.Item
-          label="Description"
-          name="description"
-          rules={[{ required: true, message: 'Required' }]}
-        >
+        <Form.Item label="Description" name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
 
@@ -196,7 +193,8 @@ export default function AddAccountView(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disabled={isSubmitDisabled || isCreatingAccount}
+              loading={isCreatingAccount || isUpdatingAccount}
+              disabled={isSubmitDisabled}
               size="large"
             >
               {`${params?.id ? 'Update' : 'Add'} Account`}

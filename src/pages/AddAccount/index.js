@@ -73,7 +73,9 @@ export default function AddAccount(props) {
   const [createAccount, { loading: isCreatingAccount }] = useMutation(
     CREATE_ACCOUNT
   );
-  const [updateAccount] = useMutation(UPDATE_ACCOUNT);
+  const [updateAccount, { loading: isUpdatingAccount }] = useMutation(
+    UPDATE_ACCOUNT
+  );
 
   useEffect(() => {
     async function getData() {
@@ -116,7 +118,9 @@ export default function AddAccount(props) {
             object: {
               name: values.name,
               username: values.username,
-              description: values.description,
+              ...(values.description
+                ? { description: values.description }
+                : null),
               ...(values.instagram ? { instagram: values.instagram } : null),
               ...(values.twitter ? { twitter: values.twitter } : null),
               ...(values.facebook ? { facebook: values.facebook } : null),
@@ -204,6 +208,7 @@ export default function AddAccount(props) {
       onFinish={onFinish}
       isSubmitDisabled={isSubmitDisabled}
       isCreatingAccount={isCreatingAccount}
+      isUpdatingAccount={isUpdatingAccount}
       validationErrors={validationErrors}
       setValidationErrors={setValidationErrors}
     />
