@@ -6,6 +6,13 @@ type Mutation {
 
 
 type Query {
+  getEventUrl (
+    id: uuid!
+  ): getEventUrlOutput
+}
+
+
+type Query {
   getUmamiToken (
     account_id: uuid!
   ): UmamiToken
@@ -803,5 +810,9 @@ type UmamiToken {
 type UpdateAccountOutput {
   id : uuid!
   username : String
+}
+
+type getEventUrlOutput {
+  url : String!
 }
 

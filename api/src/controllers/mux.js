@@ -62,6 +62,36 @@ app.post(
   }
 );
 
+app.get('/mux/asset/create', async function (req, res) {
+  let url = req.query.url;
+  try {
+    const asset = await Video.Assets.create({
+      input: url
+    });
+    console.log({ asset });
+    await client.mutate({
+      variables: {
+        url,
+        mux_asset_id: asset.id
+      },
+      mutation: gql`
+        mutation UpdateMuxId($url: String!, $mux_asset_id: String!) {
+          update_events(
+            where: { video: { _eq: $url } }
+            _set: { mux_asset_id: $mux_asset_id }
+          ) {
+            affected_rows
+          }
+        }
+      `
+    });
+    res.send('OK');
+  } catch (e) {
+    console.log(url, e);
+    res.status(500).send(e.message);
+  }
+});
+
 app.get('/mux/stream/create', async function (req, res) {
   let id = req.query.id;
 
