@@ -51,6 +51,7 @@ const UPDATE_ACCOUNT = gql`
   mutation UpdateAccount($id: uuid!, $object: UpdateAccountInput!) {
     UpdateAccount(id: $id, object: $object) {
       id
+      username
     }
   }
 `;
@@ -118,12 +119,10 @@ export default function AddAccount(props) {
             object: {
               name: values.name,
               username: values.username,
-              ...(values.description
-                ? { description: values.description }
-                : null),
-              ...(values.instagram ? { instagram: values.instagram } : null),
-              ...(values.twitter ? { twitter: values.twitter } : null),
-              ...(values.facebook ? { facebook: values.facebook } : null),
+              description: values.description,
+              instagram: values.instagram,
+              twitter: values.twitter,
+              facebook: values.facebook,
               photo,
               ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }
@@ -159,10 +158,13 @@ export default function AddAccount(props) {
     }
 
     if (result) {
+      let username =
+        result?.data?.CreateAccount?.username ||
+        result?.data?.UpdateAccount?.username;
       window.mixpanel.track('Account Created');
       message.success('Successfully saved account');
       if (props.redirect === true) {
-        history.push(`/${result.data.CreateAccount.username}/manage/dashboard`);
+        history.push(`/${username}/manage`);
       } else if (props.redirect) {
         history.push(props.redirect);
       } else {

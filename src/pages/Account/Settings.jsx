@@ -47,7 +47,7 @@ export default function Settings() {
           }
           key="account"
         >
-          <AddAccount redirect={window.location.href} />
+          <AddAccount redirect={true} />
         </TabPane>
         <TabPane
           tab={

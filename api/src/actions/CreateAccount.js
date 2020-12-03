@@ -17,15 +17,15 @@ const CREATE_ACCOUNT = `
 
 const schema = Joi.object({
   name: Joi.string(),
-  description: Joi.string(),
+  description: Joi.string().allow('', null),
   username: Joi.string().alphanum().required().messages({
-    "string.alphanum": `Only letters and numbers allowed`,
+    'string.alphanum': `Only letters and numbers allowed`
   }),
-  twitter: Joi.string(),
-  facebook: Joi.string(),
-  instagram: Joi.string(),
+  twitter: Joi.string().allow('', null),
+  facebook: Joi.string().allow('', null),
+  instagram: Joi.string().allow('', null),
   user_id: Joi.string(),
-  photo: Joi.string().uri(),
+  photo: Joi.string().uri()
 });
 
 module.exports = async function CreateAccount(req, res) {
