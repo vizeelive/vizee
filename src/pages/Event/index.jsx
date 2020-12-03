@@ -149,6 +149,7 @@ export default function EventPage() {
 
   const account = Mapper(data?.accounts?.[0]);
   const event = Mapper({ ...data?.events_report?.[0] });
+  event.video = data?.getEventUrl?.url;
   const userId = user?.id || null;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username === event.account.username
@@ -269,7 +270,7 @@ export default function EventPage() {
     };
     videoJsOptions.sources.push({
       src: event.video,
-      type: 'video/mp4'
+      type: 'video/mpegURL'
     });
   }
 

@@ -36,7 +36,7 @@ function FileUpload(props) {
           auth: {
             key: '8bdbe3f0094411e8b3d39d32ebb2adcd'
           },
-          template_id: '501179da5d274eb8ae42379c61bdd1e5'
+          template_id: process.env.REACT_APP_TRANSLOADIT_TEMPLATE
         }
       })
       .on('transloadit:complete', (stepName) => {

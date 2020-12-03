@@ -177,18 +177,18 @@ export default function AddEvent(props) {
           _set: data
         }
       });
-      // Prerender event
       let url = `${window.location.origin}/${params.username}/${newEvent.data.update_events_by_pk.id}`;
       fetch(`${config.api}/prerender?url=${url}`);
+      fetch(`${config.api}/mux/asset/create?url=${data.video}`);
     } else {
       newEvent = await createEvent({
         variables: {
           object: data
         }
       });
-      // Prerender event
       let url = `${window.location.origin}/${params.username}/${newEvent.data.insert_events_one.id}`;
       fetch(`${config.api}/prerender?url=${url}`);
+      fetch(`${config.api}/mux/asset/create?url=${data.video}`);
     }
 
     if (newEvent) {
