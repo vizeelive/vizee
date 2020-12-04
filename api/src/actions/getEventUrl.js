@@ -44,6 +44,10 @@ module.exports = async function getEventUrl(req, res) {
       mux_asset_id = data.transactions[0].event.mux_asset_id;
     }
 
+    if (!mux_asset_id) {
+      return res.send({ url: null });
+    }
+
     const playbackId = await Video.Assets.createPlaybackId(mux_asset_id, {
       policy: 'signed'
     });
