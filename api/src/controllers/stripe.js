@@ -151,7 +151,7 @@ app.post(
       var event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
     } catch (err) {
       console.log(err);
-      res.status(400).send(`Webhook Error: ${err.message}`);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     console.log(event.type, event.data.object);
@@ -174,7 +174,7 @@ app.post(
             object: {
               email: customer.email,
               event_id: ref.event_id,
-              user_id: ref.user_id || user.id,
+              user_id: ref.user_id || user?.id,
               price: session.amount_total / 100,
               ref: session.payment_intent
             }
