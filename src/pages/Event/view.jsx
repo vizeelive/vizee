@@ -161,9 +161,16 @@ export default function EventPage(props) {
               <Button
                 type="primary"
                 key="signIn"
-                onClick={() => loginWithRedirect({ screen_hint: 'signup' })}
+                onClick={() =>
+                  loginWithRedirect({
+                    screen_hint: 'signup',
+                    appState: {
+                      returnTo: window.location.href.replace('/success', '')
+                    }
+                  })
+                }
               >
-                Sign Up
+                Sign In
               </Button>
             ]}
           />
