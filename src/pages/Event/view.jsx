@@ -171,7 +171,7 @@ export default function EventPage(props) {
       )}
       <MainContent>
         {(() => {
-          if (event.canWatch(user?.id, liveData)) {
+          if (event.canWatch(user, liveData)) {
             if (event.isBroadcast()) {
               return (
                 <VideoPlayer
@@ -225,6 +225,7 @@ export default function EventPage(props) {
         <div>
           <Row>
             {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}{' '}
+            {!event.isLive() && <LiveTag color="#333333">PREVIEW</LiveTag>}{' '}
           </Row>
           <Row>
             <EventName data-test-id="event-name">{event.name}</EventName>

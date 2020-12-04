@@ -25,7 +25,6 @@ const MY_TRANSACTIONS = gql`
         price
         start
         type
-        video
         location
         description
       }

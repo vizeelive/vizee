@@ -375,6 +375,7 @@
       - id
       - location
       - location_pos
+      - mux_asset_id
       - mux_id
       - mux_livestream
       - name

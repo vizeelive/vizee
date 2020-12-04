@@ -32,7 +32,7 @@ module.exports = async function getEventUrl(req, res) {
       { user_id, event_id },
       req.headers
     );
-    
+
     if (!user.isAdmin && !data.transactions.length) {
       return res.send({ url: null });
     }

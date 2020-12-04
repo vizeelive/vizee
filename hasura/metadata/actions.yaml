@@ -11,6 +11,8 @@ actions:
     kind: ""
     handler: '{{ACTION_BASE_URL}}'
     forward_client_headers: true
+  permissions:
+  - role: user
 - name: getUmamiToken
   definition:
     kind: ""

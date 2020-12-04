@@ -71,7 +71,6 @@ const GET_ACCOUNTS_AUTH = gql`
         price
         start
         type
-        video
         location
         description
       }
