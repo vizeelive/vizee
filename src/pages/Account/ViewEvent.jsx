@@ -39,7 +39,6 @@ const WATCH_EVENT_REPORT = gql`
       price
       photo
       preview
-      video
       location
       description
       transactions
