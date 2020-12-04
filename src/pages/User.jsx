@@ -118,7 +118,13 @@ export default function User() {
         user={user}
         account={account}
         hasTickets={hasTickets}
-        onLogin={loginWithRedirect}
+        onLogin={() =>
+          loginWithRedirect({
+            appState: {
+              returnTo: window.location.href
+            }
+          })
+        }
         onLogout={logout}
       />
       <UserContent>
