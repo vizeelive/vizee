@@ -5,6 +5,7 @@ const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client');
 const dayjs = require('dayjs');
+const currency = require('currency.js');
 
 const { getEventAndAccount, getUserByEmail } = require('../queries');
 
@@ -79,11 +80,15 @@ app.get('/stripe/session', async function (req, res) {
 
   console.log('event', event);
 
-  const account_percent = 1 - account.fee_percent / 100;
+  const account_percent = currency(1 - account.fee_percent / 100);
 
-  let unit_amount = parseInt(event.price.replace('$', '').replace('.', ''));
+  let unit_amount = event.price.replace('$', '').replace('.', '');
 
   let amount = unit_amount * account_percent;
+
+  // console.log('account_percent', account_percent.toString());
+  // console.log('unit_amount', unit_amount.toString());
+  // console.log('amount', amount.toString());
 
   let date = dayjs(event.start).format('MMM D, YYYY h:mm A');
   let title = encodeURIComponent(account.name);
