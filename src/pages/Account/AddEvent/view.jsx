@@ -40,6 +40,8 @@ export default function AddEventView(props) {
     handlePreviewUpload,
     categories,
     isSubmitDisabled,
+    isCreatingEvent,
+    isUpdatingEvent,
     buttonLabel
   } = props;
 
@@ -234,6 +236,7 @@ export default function AddEventView(props) {
             <Button
               type="primary"
               htmlType="submit"
+              loading={isCreatingEvent || isUpdatingEvent}
               disabled={isSubmitDisabled}
               size="large"
             >

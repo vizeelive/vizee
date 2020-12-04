@@ -213,6 +213,7 @@ export default function AddEvent(props) {
   };
 
   const handleVideoUpload = (step) => {
+    // @security public..
     setEvent({ ...event, video: step.results[':original'][0].ssl_url });
   };
 
@@ -238,7 +239,7 @@ export default function AddEvent(props) {
     isVideoMissing = true;
   }
 
-  const isSubmitDisabled = isCreatingEvent || isUpdatingEvent || isVideoMissing;
+  const isSubmitDisabled = isVideoMissing;
 
   return (
     <AddEventView
@@ -258,6 +259,8 @@ export default function AddEvent(props) {
       handlePreviewUpload={handlePreviewUpload}
       categories={categories}
       isSubmitDisabled={isSubmitDisabled}
+      isCreatingEvent={isCreatingEvent}
+      isUpdatingEvent={isUpdatingEvent}
     />
   );
 }
