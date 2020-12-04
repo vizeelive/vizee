@@ -441,6 +441,14 @@
           name: accounts
         column_mapping:
           account_id: id
+  - name: favorite
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: favorites
+        column_mapping:
+          id: event_id
   array_relationships:
   - name: comments
     using:
@@ -448,14 +456,6 @@
         remote_table:
           schema: public
           name: comments
-        column_mapping:
-          id: event_id
-  - name: favorite
-    using:
-      manual_configuration:
-        remote_table:
-          schema: public
-          name: favorites
         column_mapping:
           id: event_id
   - name: transaction
@@ -478,47 +478,46 @@
   - role: public
     permission:
       columns:
-      - account_id
-      - category_id
-      - created
-      - created_by
-      - description
-      - end
-      - favorites
       - id
-      - location
       - name
+      - created_by
+      - start
+      - end
+      - description
+      - price
+      - created
+      - account_id
       - photo
       - preview
-      - price
-      - start
+      - category_id
       - transactions
-      - type
-      - video
+      - favorites
       - views
+      - type
+      - location
+      - revenue
       filter: {}
   - role: user
     permission:
       columns:
-      - account_id
-      - category_id
-      - created
-      - created_by
-      - description
-      - end
       - favorites
-      - id
+      - transactions
+      - views
+      - price
+      - revenue
+      - description
       - location
       - name
       - photo
       - preview
-      - price
-      - revenue
-      - start
-      - transactions
       - type
-      - video
-      - views
+      - created
+      - end
+      - start
+      - account_id
+      - category_id
+      - created_by
+      - id
       filter: {}
 - table:
     schema: public
