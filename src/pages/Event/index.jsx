@@ -247,7 +247,7 @@ export default function EventPage() {
     };
     videoJsOptions.sources.push({
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
-      type: 'audio/mpegURL'
+      type: 'application/x-mpegurl'
     });
   } else if (liveEvent?.status === 'completed') {
     playerKey = Math.random();
@@ -258,7 +258,8 @@ export default function EventPage() {
       sources: []
     };
     videoJsOptions.sources.push({
-      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`
+      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
+      type: 'application/x-mpegurl'
     });
   } else {
     playerKey = Math.random();
@@ -270,7 +271,7 @@ export default function EventPage() {
     };
     videoJsOptions.sources.push({
       src: event.video,
-      type: 'video/mpegURL'
+      type: 'application/x-mpegurl'
     });
   }
 
