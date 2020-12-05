@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 const onRedirectCallback = (appState) => {
   if (appState?.returnTo) {
-    window.location.href = appState.returnTo;
+    window.history.pushState({}, '', appState.returnTo);
   }
 };
 
