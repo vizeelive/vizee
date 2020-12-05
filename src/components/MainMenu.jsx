@@ -37,6 +37,8 @@ function MainMenu(props) {
     }
   }, [location]);
 
+  const isNetwork = process.env.REACT_APP_ACCOUNT === 'vizee';
+
   return (
     <StyledMenu
       theme="dark"
@@ -59,17 +61,17 @@ function MainMenu(props) {
           <Link to="/calendar">Calendar</Link>
         </Menu.Item>
       )} */}
-      {process.env.REACT_APP_NETWORK && user && user.isAdmin && (
+      {isNetwork && user && user.isAdmin && (
         <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
-      {process.env.REACT_APP_NETWORK && user && !user.isAdmin && account && (
+      {isNetwork && user && !user.isAdmin && account && (
         <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
-      {process.env.REACT_APP_NETWORK && user && !user.isAdmin && !account && (
+      {isNetwork && user && !user.isAdmin && !account && (
         <Menu.Item data-test-id="menu-account" key="/account">
           <Link to="/account">Create Account</Link>
         </Menu.Item>
