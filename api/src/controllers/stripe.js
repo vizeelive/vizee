@@ -97,6 +97,8 @@ app.get('/stripe/session', async function (req, res) {
     event.photo || account.photo
   }`;
 
+  let domain = account.domain || config.ui;
+
   try {
     const session = await stripe.checkout.sessions.create({
       client_reference_id: req.query.ref,
@@ -127,8 +129,8 @@ app.get('/stripe/session', async function (req, res) {
         }
       ],
       mode: 'payment',
-      success_url: `${config.ui}/${account.username}/${event.id}/success`,
-      cancel_url: `${config.ui}/${account.username}/${event.id}/cancel`
+      success_url: `https://${domain}/${account.username}/${event.id}/success`,
+      cancel_url: `https://${domain}/${account.username}/${event.id}/cancel`
     });
     console.log({ session });
     res.send(session);

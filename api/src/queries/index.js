@@ -31,6 +31,7 @@ async function getEventAndAccount(ref) {
             username
             fee_percent
             subscription_rate
+            domain
           }
         }
       `
