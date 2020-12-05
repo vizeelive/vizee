@@ -31,13 +31,19 @@ function Header(props) {
   return (
     <StyledHeader>
       <LogoLink to="/">
-        { process.env.REACT_APP_ACCOUNT === 'vizee' ? (
-        <Logo
-          size={isLargeScreen ? 7.5 : 2.29}
-          textColor="#fafafa"
-          hasText={isLargeScreen}
-        />
-        ) : null }
+        {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
+          <Logo
+            size={isLargeScreen ? 7.5 : 2.29}
+            textColor="#fafafa"
+            hasText={isLargeScreen}
+          />
+        ) : (
+          <img
+            className="h-7 w-auto"
+            src={process.env.REACT_APP_LOGO}
+            alt={account.name}
+          />
+        )}
       </LogoLink>
       <MainMenu
         user={user}
