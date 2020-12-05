@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # ./build.sh deadmau5
-
 export REACT_APP_ACCOUNT=$1
 
-if [ "$1" -eq "vizee"]; then
+if [ "$1" == "vizee" ]; then
   export REACT_APP_NETWORK=true
 else
   export REACT_APP_NETWORK=false
