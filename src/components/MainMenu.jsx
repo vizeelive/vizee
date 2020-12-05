@@ -59,17 +59,17 @@ function MainMenu(props) {
           <Link to="/calendar">Calendar</Link>
         </Menu.Item>
       )} */}
-      {!process.env.REACT_APP_NETWORK && user && user.isAdmin && (
+      {process.env.REACT_APP_NETWORK && user && user.isAdmin && (
         <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
-      {!process.env.REACT_APP_NETWORK && user && !user.isAdmin && account && (
+      {process.env.REACT_APP_NETWORK && user && !user.isAdmin && account && (
         <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
       )}
-      {!process.env.REACT_APP_NETWORK && user && !user.isAdmin && !account && (
+      {process.env.REACT_APP_NETWORK && user && !user.isAdmin && !account && (
         <Menu.Item data-test-id="menu-account" key="/account">
           <Link to="/account">Create Account</Link>
         </Menu.Item>
