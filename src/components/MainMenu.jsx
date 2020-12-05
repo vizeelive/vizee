@@ -59,7 +59,7 @@ function MainMenu(props) {
           <Link to="/calendar">Calendar</Link>
         </Menu.Item>
       )} */}
-      {!process.env.REACT_APP_NETWORK && user.isAdmin && (
+      {!process.env.REACT_APP_NETWORK && user && user.isAdmin && (
         <Menu.Item data-test-id="menu-account" key={`/${username}/manage`}>
           <Link to={`/${username}/manage`}>Account</Link>
         </Menu.Item>
@@ -74,7 +74,11 @@ function MainMenu(props) {
           <Link to="/account">Create Account</Link>
         </Menu.Item>
       )}
-      <Menu.Item data-test-id="menu-help" key="/help" onClick={(e) => window.$chatwoot.toggle() }>
+      <Menu.Item
+        data-test-id="menu-help"
+        key="/help"
+        onClick={(e) => window.$chatwoot.toggle()}
+      >
         Help
       </Menu.Item>
       {!user && (
