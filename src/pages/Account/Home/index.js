@@ -117,11 +117,13 @@ const GET_ACCOUNT_USER = gql`
   }
 `;
 
-export default function Home() {
+export default function Home(props) {
   const location = useLocation();
-  const { username } = useParams();
+  const { username: usernameParam } = useParams();
   const { setAffiliateLoginUser, setAffiliateAccountId } = useAffiliate();
   const { user } = useAuth();
+
+  const username = props.username || usernameParam;
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
@@ -145,7 +147,9 @@ export default function Home() {
     }
   }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user]);
 
-  const shareUrl = `https://viz.ee/${username}`;
+  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+
+  const shareUrl = `${origin}/${username}`;
 
   // const accountPhoto = account.photo.replace(
   //   'https://vizee-media.s3.amazonaws.com/',

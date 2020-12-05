@@ -31,11 +31,13 @@ function Header(props) {
   return (
     <StyledHeader>
       <LogoLink to="/">
+        { process.env.REACT_APP_ACCOUNT === 'vizee' ? (
         <Logo
           size={isLargeScreen ? 7.5 : 2.29}
           textColor="#fafafa"
           hasText={isLargeScreen}
         />
+        ) : null }
       </LogoLink>
       <MainMenu
         user={user}

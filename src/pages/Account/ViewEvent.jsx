@@ -168,10 +168,12 @@ export default function ViewEvent() {
     };
   });
 
+  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+
   return (
     <React.Fragment>
       <Menu>
-        <ShareButton url={`https://viz.ee/${username}/${event.id}`} />
+        <ShareButton url={`${origin}/${username}/${event.id}`} />
         <Button type="primary" size="large">
           <Link to={`/${username}/manage/events/edit/${event.id}`}>
             Edit Event

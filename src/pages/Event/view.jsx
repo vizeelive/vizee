@@ -122,6 +122,8 @@ export default function EventPage(props) {
     ''
   );
 
+  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+
   return (
     <React.Fragment>
       <Helmet>
@@ -289,7 +291,7 @@ export default function EventPage(props) {
                   />
                 )}
                 <ShareButton
-                  url={`https://viz.ee/${event.account.username}/${event.id}`}
+                  url={`${origin}/${event.account.username}/${event.id}`}
                 />
                 {(user?.isAdmin || isMyAccount) && (
                   <Link

@@ -139,7 +139,15 @@ export default function User() {
           </Route>
           <Route path="/:username/manage" component={Account} />
           <Route path="/:username/:id/:status?" exact component={Event} />
-          <Route path="/" component={Home} />
+          {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
+            <Route path="/">
+              <Home />
+            </Route>
+          ) : (
+            <Route path="/">
+              <AccountHome username="deadmau5" />
+            </Route>
+          )}
         </Switch>
       </UserContent>
       <Footer />
