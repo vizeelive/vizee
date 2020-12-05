@@ -41,7 +41,7 @@ function Header(props) {
           <img
             className="h-7 w-auto"
             src={process.env.REACT_APP_LOGO}
-            alt={account.name}
+            alt="logo"
           />
         )}
       </LogoLink>
