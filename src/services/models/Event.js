@@ -28,18 +28,21 @@ export default class Event {
   hasEnded() {
     return moment().isAfter(this.end);
   }
-  belongsTo(user_id) {
-    return !!this?.account?.users?.find((user) => user?.user?.id === user_id);
+  belongsTo(user) {
+    return (
+      user?.isAdmin ||
+      !!this?.account?.users?.find((user) => user?.user?.id === user.id)
+    );
   }
   canWatch(user, liveEvent) {
     let canWatch;
     if (this.type === 'video') {
       canWatch =
-        this.belongsTo(user?.id) ||
+        this.belongsTo(user) ||
         (this.isLive() && (this.isFree() || this.isPurchased()));
     } else {
       canWatch =
-        (liveEvent?.status !== 'idle' && this.belongsTo(user?.id)) ||
+        (liveEvent?.status !== 'idle' && this.belongsTo(user)) ||
         this.isFree() ||
         this.isPurchased();
     }

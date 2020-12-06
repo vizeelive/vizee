@@ -284,7 +284,7 @@ export default function EventPage(props) {
                 {/* {user && !user.isAdmin && !isMyAccount && (
                   <SubscribeButton />
                 )} */}
-                {isMyAccount && event.isBroadcast() && (
+                {(user?.isAdmin || isMyAccount) && event.isBroadcast() && (
                   <StartStreamButton
                     event_id={event.id}
                     streamKey={liveData?.mux_livestream?.streamKey}
