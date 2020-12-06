@@ -261,6 +261,18 @@ export default function EventPage() {
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
       type: 'application/x-mpegurl'
     });
+  } else if (liveEvent?.status === 'livestream') {
+    playerKey = Math.random();
+    videoJsOptions = {
+      autoplay: true,
+      controls: true,
+      aspectRatio: '16:9',
+      sources: []
+    };
+    videoJsOptions.sources.push({
+      src: liveEvent?.mux_livestream?.url,
+      type: 'application/x-mpegurl'
+    });
   } else {
     playerKey = Math.random();
     videoJsOptions = {
