@@ -64,9 +64,9 @@ app.post(
 );
 
 app.get('/mux/asset/create', async function (req, res) {
-  
+
   let url = req.query.url;
-  
+
 //   const respond = (res, code, messages) => {
 //   if (code !== 200) {
 //     console.error({ messages, code })
@@ -84,7 +84,7 @@ app.get('/mux/asset/create', async function (req, res) {
 
 //   res.end()
 // }
-  
+
 //   const form = new formidable.IncomingForm()
 //     form.parse(req, (err, fields, files) => {
 //       if (err) {
@@ -106,7 +106,7 @@ app.get('/mux/asset/create', async function (req, res) {
 //         return respond(res, 500, [`Error while parsing transloadit field`, err])
 //       }
 //     });
-    
+
 
   try {
     const asset = await Video.Assets.create({
@@ -139,7 +139,7 @@ app.get('/mux/asset/create', async function (req, res) {
 app.get('/mux/stream/create', async function (req, res) {
   let id = req.query.id;
 
-  // TODO super insecure
+  // TODO @security super insecure
   let result = await Video.LiveStreams.create({
     playback_policy: 'public',
     new_asset_settings: { playback_policy: 'public' }
