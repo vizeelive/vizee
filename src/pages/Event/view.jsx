@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
-import { isMobile } from 'react-device-detect';
 import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
 
@@ -212,7 +211,6 @@ export default function EventPage(props) {
                   playsinline
                   src={event.preview}
                   width="100%"
-                  autoPlay={!isMobile}
                   muted
                   controls
                 />
