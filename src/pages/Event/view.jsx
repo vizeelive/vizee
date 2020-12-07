@@ -209,6 +209,7 @@ export default function EventPage(props) {
             if (event.preview) {
               return (
                 <video
+                  playsinline
                   src={event.preview}
                   width="100%"
                   autoPlay={!isMobile}
