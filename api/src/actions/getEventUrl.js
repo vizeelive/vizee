@@ -11,6 +11,12 @@ query GetUserEventTransaction($user_id: uuid!, $event_id: uuid!) {
       mux_asset_id
     }
   }
+  access_codes(where: {user_id: {_eq: $user_id}, event_id: {_eq: $event_id}}) {
+    id
+    event {
+      mux_asset_id
+    }
+  }
   events_by_pk(id: $event_id) {
     mux_asset_id
   }
@@ -33,7 +39,7 @@ module.exports = async function getEventUrl(req, res) {
       req.headers
     );
 
-    if (!user.isAdmin && !data.transactions.length) {
+    if (!user.isAdmin && !data.transactions.length && !data.access_codes.length) {
       return res.send({ url: null });
     }
 
@@ -41,7 +47,7 @@ module.exports = async function getEventUrl(req, res) {
     if (user.isAdmin) {
       mux_asset_id = data.events_by_pk.mux_asset_id;
     } else {
-      mux_asset_id = data.transactions[0].event.mux_asset_id;
+      mux_asset_id = data?.transactions?.[0]?.event?.mux_asset_id || data?.access_codes?.event?.mux_asset_id;
     }
 
     if (!mux_asset_id) {
