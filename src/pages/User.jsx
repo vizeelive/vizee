@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
+import Cookies from 'js-cookie';
 
 import Home from './Home/index';
 import AccountHome from './Account/Home';
@@ -102,6 +103,11 @@ export default function User() {
 
   if (error) return 'Error';
 
+  const handleLogout = () => {
+    Cookies.remove('username');
+    logout();
+  };
+
   // if user, pick first account she has access to
   let account = data?.accounts_users?.[0]?.account;
 
@@ -125,7 +131,7 @@ export default function User() {
             }
           })
         }
-        onLogout={logout}
+        onLogout={handleLogout}
       />
       <UserContent>
         <Switch>
@@ -144,10 +150,10 @@ export default function User() {
               <Home />
             </Route>
           ) : (
-            <Route path="/">
-              <AccountHome username="deadmau5" />
-            </Route>
-          )}
+              <Route path="/">
+                <AccountHome username="deadmau5" />
+              </Route>
+            )}
         </Switch>
       </UserContent>
       <Footer />
