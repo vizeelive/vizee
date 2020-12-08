@@ -21,7 +21,6 @@ const ACCOUNT_REPORT = gql`
           id
           type
           name
-          video
           mux_id
         }
       }
@@ -43,7 +42,7 @@ export default function Dashboard() {
   let hasEvents = account?.eventcount;
   let hasViews = account?.viewcount;
   let eventComplete = account?.account?.events?.filter(
-    (event) => event.video || event.mux_id
+    (event) => event.type === 'video' || event.mux_id
   ).length;
 
   if (bankSetup) {
