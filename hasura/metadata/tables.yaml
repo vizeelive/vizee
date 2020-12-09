@@ -24,12 +24,49 @@
               user:
                 id:
                   _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
       columns:
+      - created_by
       - event_id
       - price
       - transaction_id
       - user_id
       backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - account_id
+      - created
+      - created_by
+      - event_id
+      - id
+      - price
+      - transaction_id
+      - user_id
+      filter:
+        _or:
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+        - user_id:
+            _eq: X-Hasura-User-Id
+        - created_by:
+            _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - claimed
+      - user_id
+      filter:
+        user_id:
+          _is_null: true
+      check: null
 - table:
     schema: public
     name: account_favorites
@@ -202,9 +239,8 @@
       - user_id
       filter:
         _or:
-        - account:
-            created_by:
-              _eq: X-Hasura-User-Id
+        - created_by:
+            _eq: X-Hasura-User-Id
         - user_id:
             _eq: X-Hasura-User-Id
   delete_permissions:
@@ -450,6 +486,14 @@
         column_mapping:
           id: event_id
   array_relationships:
+  - name: access_codes
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: access_codes
+        column_mapping:
+          id: event_id
   - name: comments
     using:
       manual_configuration:
@@ -901,6 +945,7 @@
       - affiliate_user_id
       - city
       - country
+      - email
       - first_name
       - id
       - last_name

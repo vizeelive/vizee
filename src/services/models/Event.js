@@ -17,7 +17,7 @@ export default class Event {
     return moment().isBetween(this.start, this.end);
   }
   isPurchased() {
-    return !!this?.transaction?.length;
+    return !!this?.transaction?.length || !!this?.access_codes?.length
   }
   isConference() {
     return this?.type === 'conference';
@@ -29,10 +29,7 @@ export default class Event {
     return moment().isAfter(this.end);
   }
   belongsTo(user) {
-    return (
-      user?.isAdmin ||
-      !!this?.account?.users?.find((user) => user?.user?.id === user.id)
-    );
+    return user?.isAdmin || !!this?.account?.users?.find((u) => u?.user?.id === user.id)
   }
   canWatch(user, liveEvent) {
     let canWatch;

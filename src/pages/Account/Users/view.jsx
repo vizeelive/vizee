@@ -55,9 +55,9 @@ export default function UsersView(props) {
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: ['user', 'name'],
-      key: 'name'
+      title: 'email',
+      dataIndex: ['user', 'email'],
+      key: 'email'
     },
     {
       title: 'Date Added',

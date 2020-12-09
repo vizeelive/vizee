@@ -152,9 +152,9 @@ export default function HomeView(props) {
         <MainContent>
           <Header>
             <div>
-              { process.env.REACT_APP_ACCOUNT === 'vizee' && (
+              {process.env.REACT_APP_ACCOUNT === 'vizee' && (
                 <Title>{account.name}</Title>
-              ) }
+              )}
               {followers.length >= 10 && (
                 <p>{`${followers} follower${
                   followers.length !== 1 ? 's' : ''

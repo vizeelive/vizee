@@ -13,6 +13,7 @@ import { SettingOutlined, TagOutlined } from '@ant-design/icons';
 import Countdown from 'components/Countdown';
 import Comments from 'components/CommentsContainer';
 import StartStreamButton from 'components/StartStreamButton';
+import RedeemCode from 'components/RedeemCode';
 import ShareButton from 'components/ShareButton';
 // import SubscribeButton from '../components/SubscribeButton';
 import FollowButton from 'components/FollowButton';
@@ -116,10 +117,10 @@ export default function EventPage(props) {
 
   if (error) return 'Error';
 
-  const coverPhoto = (event.photo || event.account.photo).replace(
-    'https://vizee-media.s3.amazonaws.com/',
-    ''
-  );
+  let originalPhoto = event?.photo || event?.account?.photo;
+  const coverPhoto = originalPhoto
+    ? originalPhoto.replace('https://vizee-media.s3.amazonaws.com/', '')
+    : null;
 
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
@@ -274,6 +275,8 @@ export default function EventPage(props) {
                       Buy Ticket ({event.price})
                     </Button>
                   )}
+
+                {user && <RedeemCode event_id={event.id} user_id={user.id} />}
                 {user && !user.isAdmin && !isMyAccount && (
                   <FollowButton
                     account_id={event.account.id}

@@ -47,7 +47,7 @@ module.exports = async function getEventUrl(req, res) {
     if (user.isAdmin) {
       mux_asset_id = data.events_by_pk.mux_asset_id;
     } else {
-      mux_asset_id = data?.transactions?.[0]?.event?.mux_asset_id || data?.access_codes?.event?.mux_asset_id;
+      mux_asset_id = (data.transactions.length && data.transactions[0].event.mux_asset_id) || (data.access_codes.length && data.access_codes[0].event.mux_asset_id);
     }
 
     if (!mux_asset_id) {

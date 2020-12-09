@@ -103,6 +103,9 @@ const GET_EVENT_AUTH = gql`
           }
         }
       }
+      access_codes {
+        id
+      }
       transaction {
         id
       }

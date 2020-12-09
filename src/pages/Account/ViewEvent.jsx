@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Statistic, Row, Col, Button, Divider, Table, Tabs } from 'antd';
+import {
+  Statistic,
+  Row,
+  Col,
+  Button,
+  Divider,
+  Table,
+  Tabs,
+  message
+} from 'antd';
 import moment from 'moment';
 import styled from 'styled-components';
+import useAuth from 'hooks/useAuth';
 
-import { gql, useQuery, useSubscription } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 import { CalendarOutlined } from '@ant-design/icons';
 
@@ -28,8 +38,16 @@ const GET_EVENT_AUTH = gql`
   }
 `;
 
+const INSERT_CODES = gql`
+  mutation GenerateCodes($objects: [access_codes_insert_input!]!) {
+    insert_access_codes(objects: $objects) {
+      affected_rows
+    }
+  }
+`;
+
 const WATCH_EVENT_REPORT = gql`
-  subscription WatchEventReport($id: uuid!) {
+  query EventReport($id: uuid!) {
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -49,6 +67,13 @@ const WATCH_EVENT_REPORT = gql`
         name
         username
         photo
+      }
+      access_codes {
+        id
+        recipient {
+          email
+        }
+        created
       }
       transaction {
         id
@@ -81,15 +106,19 @@ const Menu = styled.div`
 
 export default function ViewEvent() {
   let { id, username } = useParams();
+  const { user } = useAuth();
 
   const { loading, error, data } = useQuery(GET_EVENT_AUTH, {
     variables: { id }
   });
 
+  const [insertCodes] = useMutation(INSERT_CODES);
+
   const {
     loading: eventLoading,
-    data: eventData
-  } = useSubscription(WATCH_EVENT_REPORT, { variables: { id } });
+    data: eventData,
+    refetch
+  } = useQuery(WATCH_EVENT_REPORT, { variables: { id } });
 
   if (loading || eventLoading) {
     return (
@@ -100,6 +129,26 @@ export default function ViewEvent() {
   }
 
   if (error) return 'Error';
+
+  const handleGenerateCodes = async () => {
+    try {
+      await insertCodes({
+        variables: {
+          objects: [
+            {
+              event_id: id,
+              price: '$0',
+              ...(user?.isAdmin ? { created_by: user.id } : null)
+            }
+          ]
+        }
+      });
+      refetch();
+    } catch (e) {
+      message.error('An error occurred');
+      throw e;
+    }
+  };
 
   const event = { ...eventData?.events_report[0] };
   const views = event?.view;
@@ -168,6 +217,24 @@ export default function ViewEvent() {
     };
   });
 
+  const codeColumns = [
+    {
+      title: 'Code',
+      dataIndex: 'id'
+    },
+    {
+      title: 'Recipient',
+      dataIndex: 'recipient'
+    }
+  ];
+
+  const codeData = event.access_codes.map((code) => {
+    return {
+      id: code.id,
+      recipient: code?.recipient?.email || 'Unclaimed'
+    };
+  });
+
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
   return (
@@ -223,7 +290,12 @@ export default function ViewEvent() {
         <TabPane tab="Transactions" key="account">
           <Table rowKey="id" columns={columns} dataSource={transactionData} />
         </TabPane>
-        {/* <TabPane tab="Access Codes" key="codes"></TabPane> */}
+        <TabPane tab="Access Codes" key="codes">
+          <Button onClick={handleGenerateCodes}>Generate Code</Button>
+          <br />
+          <br />
+          <Table rowKey="id" columns={codeColumns} dataSource={codeData} />
+        </TabPane>
       </Tabs>
     </React.Fragment>
   );

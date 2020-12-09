@@ -73,7 +73,7 @@ export default function Users() {
     users = data?.users;
 
     addableUsers = users
-      .filter((u) => u.name)
+      .filter((u) => u.email)
       .filter((u) => u.id !== user.id)
       .filter((u) => !!!find(accountUsers, (au) => au.user.id === u.id));
   }
