@@ -116,6 +116,7 @@ module.exports = async function CreateAccount(req, res) {
     throw e;
   }
 
+  object.created_by = object.user_id;
   object.umami_id = account.user_id;
   object.umami_username = username;
   object.umami_website = website.website_uuid;
