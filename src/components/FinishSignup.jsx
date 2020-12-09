@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth';
 import { Form, Input, Button, Modal, message } from 'antd';
 
 const GET_USER = gql`
-  query FinishSignup($id: uuid) {
+  query FinishSignup($id: uuid!) {
     users_by_pk(id: $id) {
       id
       first_name

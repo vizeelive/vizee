@@ -70,7 +70,7 @@ function App() {
   return (
     <Theme>
       <ApolloProvider client={client}>
-        <FinishSignup />
+        {user && user.id && <FinishSignup />}
         <Router>
           <Switch>
             <Route path="/gif/:username/:id" component={EventGif} />
