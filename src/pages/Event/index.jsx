@@ -29,6 +29,9 @@ const GET_EVENT_UNAUTH = gql`
       favorites
       views
       location
+      mux_livestream
+      mux_id
+      status
       account {
         id
         name
@@ -231,6 +234,7 @@ export default function EventPage() {
   };
 
   const liveEvent = liveData?.events_by_pk;
+  const videoStatus = event?.status || liveEvent?.status;
 
   let videoJsOptions = {
     autoplay: true,
@@ -240,7 +244,7 @@ export default function EventPage() {
   };
 
   let playerKey = liveData?.mux_id;
-  if (liveEvent?.status === 'live') {
+  if (videoStatus === 'live') {
     playerKey = Math.random();
     videoJsOptions = {
       autoplay: true,
@@ -252,7 +256,7 @@ export default function EventPage() {
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
       type: 'application/x-mpegurl'
     });
-  } else if (liveEvent?.status === 'completed') {
+  } else if (videoStatus === 'completed') {
     playerKey = Math.random();
     videoJsOptions = {
       autoplay: true,
@@ -264,7 +268,7 @@ export default function EventPage() {
       src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
       type: 'application/x-mpegurl'
     });
-  } else if (liveEvent?.status === 'livestream') {
+  } else if (videoStatus === 'livestream') {
     playerKey = Math.random();
     videoJsOptions = {
       autoplay: true,
@@ -273,7 +277,7 @@ export default function EventPage() {
       sources: []
     };
     videoJsOptions.sources.push({
-      src: liveEvent?.mux_livestream?.url,
+      src: event?.mux_livestream?.url || liveEvent?.mux_livestream?.url,
       type: 'application/x-mpegurl'
     });
   } else {
