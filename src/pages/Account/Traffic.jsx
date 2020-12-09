@@ -35,8 +35,9 @@ export default function Traffic() {
     <React.Fragment>
       {ready && (
         <iframe
+          style={{ height: '100vh' }}
           title="analytics"
-          src={`https://vizee-umami.herokuapp.com`}
+          src={`https://umami.vizee.live`}
           frameBorder="0"
           width="100%"
           height="100%"
