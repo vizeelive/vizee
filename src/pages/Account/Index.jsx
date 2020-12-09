@@ -5,24 +5,36 @@ import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 
-import useAuth from '../../hooks/useAuth';
-import AccountMenu from '../../components/AccountMenu';
-import { Centered } from '../../components/styled/common';
-import Spinner from '../../components/ui/Spinner';
+import useAuth from 'hooks/useAuth';
+import AccountMenu from 'components/AccountMenu';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
-import useBreakpoint from '../../hooks/useBreakpoint';
+import useBreakpoint from 'hooks/useBreakpoint';
 
-const AddEvent = React.lazy(() => import('./AddEvent'));
-const Calendar = React.lazy(() => import('../Calendar'));
-const Dashboard = React.lazy(() => import('./Dashboard'));
-const Events = React.lazy(() => import('../Events'));
-const Home = React.lazy(() => import('./Home'));
-const Links = React.lazy(() => import('../Account/Links'));
-const Subscriptions = React.lazy(() => import('./Subscriptions'));
-const Settings = React.lazy(() => import('./Settings'));
-const Traffic = React.lazy(() => import('./Traffic'));
-const Users = React.lazy(() => import('../Account/Users'));
-const ViewEvent = React.lazy(() => import('./ViewEvent'));
+// const AddEvent = React.lazy(() => import('./AddEvent'));
+// const Calendar = React.lazy(() => import('../Calendar'));
+// const Dashboard = React.lazy(() => import('./Dashboard'));
+// const Events = React.lazy(() => import('../Events'));
+// const Home = React.lazy(() => import('./Home'));
+// const Links = React.lazy(() => import('../Account/Links'));
+// const Subscriptions = React.lazy(() => import('./Subscriptions'));
+// const Settings = React.lazy(() => import('./Settings'));
+// const Traffic = React.lazy(() => import('./Traffic'));
+// const Users = React.lazy(() => import('../Account/Users'));
+// const ViewEvent = React.lazy(() => import('./ViewEvent'));
+
+import AddEvent from 'pages/Account/AddEvent';
+import Calendar from 'pages/Calendar';
+import Dashboard from 'pages/Account/Dashboard';
+import Events from 'pages/Events';
+import Home from 'pages/Account/Home';
+import Links from 'pages/Account/Links';
+import Subscriptions from 'pages/Account/Subscriptions';
+import Settings from 'pages/Account/Settings';
+import Traffic from 'pages/Account/Traffic';
+import Users from 'pages/Account/Users';
+import ViewEvent from 'pages/Account/ViewEvent';
 
 const { Content } = Layout;
 
