@@ -22,7 +22,7 @@ export default function Traffic() {
       let token = data.getUmamiToken.accessToken;
       // this is silly. it gets around CORS by fetching an image with a url to set the cookie
       let element = document.createElement('img');
-      element.src = `https://vizee-umami.herokuapp.com/api/auth/login?token=${token}`;
+      element.src = `https://umami.vizee.live/api/auth/login?token=${token}`;
       setReady(true);
     }
   }, [data]);

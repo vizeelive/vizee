@@ -239,8 +239,9 @@
       - user_id
       filter:
         _or:
-        - created_by:
-            _eq: X-Hasura-User-Id
+        - account:
+            created_by:
+              _eq: X-Hasura-User-Id
         - user_id:
             _eq: X-Hasura-User-Id
   delete_permissions:

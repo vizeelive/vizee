@@ -18,9 +18,7 @@ const GET_USERS = gql`
         id
         user {
           id
-          name
-          last_name
-          first_name
+          email
         }
       }
     }
