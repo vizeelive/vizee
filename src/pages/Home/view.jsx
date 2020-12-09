@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Tabs, Input } from 'antd';
 
-import FinishSignup from '../../components/FinishSignup';
 // import Map from '../components/Map';
-import Events from '../../components/Events';
-import { Centered } from '../../components/styled/common';
-import Spinner from '../../components/ui/Spinner';
+import Events from 'components/Events';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 import 'animate.css';
 
 import { SearchOutlined } from '@ant-design/icons';
@@ -18,9 +17,6 @@ export default function HomeView(props) {
     loading,
     error,
     isMobile,
-    user,
-    showModal,
-    setShowModal,
     categories,
     events,
     refetch,
@@ -84,7 +80,6 @@ export default function HomeView(props) {
       </Hero>
 
       <MainContent>
-        {user && showModal && <FinishSignup setShowModal={setShowModal} />}
         <Tabs defaultActiveKey="Music">
           {categories.map((category) => {
             // @TODO use view count once we have pagination here

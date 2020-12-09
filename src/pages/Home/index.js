@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import useAuth from '../../hooks/useAuth';
 import { isMobile } from 'react-device-detect';
@@ -155,7 +155,6 @@ const SEARCH_EVENTS_AUTH = gql`
 
 export default function Home() {
   const { user } = useAuth();
-  const [showModal, setShowModal] = useState(false);
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENTS_AUTH : GET_EVENTS_UNAUTH,
@@ -165,14 +164,6 @@ export default function Home() {
   const [searchEvents, { data: searchData }] = useLazyQuery(
     user ? SEARCH_EVENTS_AUTH : SEARCH_EVENTS_UNAUTH
   );
-
-  useEffect(() => {
-    if (data) {
-      if (!data?.users_by_pk?.first_name || !data?.users_by_pk?.first_name) {
-        setShowModal(true);
-      }
-    }
-  }, [data]);
 
   let categories, events;
   if (data) {
@@ -185,6 +176,7 @@ export default function Home() {
   };
 
   const props = {
+    user,
     error,
     loading,
     categories,
@@ -192,8 +184,7 @@ export default function Home() {
     search,
     isMobile,
     searchData,
-    refetch,
-    showModal
+    refetch
   };
 
   return <HomeView {...props} />;

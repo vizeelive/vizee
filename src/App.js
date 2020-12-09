@@ -6,15 +6,16 @@ import * as Sentry from '@sentry/react';
 import React, { useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import PrivateRoute from './components/PrivateRoute';
-import useAuth from './hooks/useAuth';
-import Admin from './pages/Admin/Index';
-import User from './pages/User';
+import PrivateRoute from 'components/PrivateRoute';
+import useAuth from 'hooks/useAuth';
+import Admin from 'pages/Admin/Index';
+import User from 'pages/User';
 import Theme from './Theme';
-import EventGif from './pages/EventGif';
+import EventGif from 'pages/EventGif';
+import FinishSignup from 'components/FinishSignup';
 
-import { Centered } from './components/styled/common';
-import Spinner from './components/ui/Spinner';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
 process.env.NODE_ENV !== 'development' && LogRocket.init('vizee/vizee');
 
@@ -69,6 +70,7 @@ function App() {
   return (
     <Theme>
       <ApolloProvider client={client}>
+        <FinishSignup />
         <Router>
           <Switch>
             <Route path="/gif/:username/:id" component={EventGif} />
