@@ -276,7 +276,9 @@ export default function EventPage(props) {
                     </Button>
                   )}
 
-                {user && <RedeemCode event_id={event.id} user_id={user.id} />}
+                {user?.isAdmin && (
+                  <RedeemCode event_id={event.id} user_id={user.id} />
+                )}
                 {user && !user.isAdmin && !isMyAccount && (
                   <FollowButton
                     account_id={event.account.id}
