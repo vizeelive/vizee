@@ -8,12 +8,13 @@ import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
 
 import { Button, Tag, Row, Col, Modal, Result } from 'antd';
-import { SettingOutlined, TagOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 
 import Countdown from 'components/Countdown';
 import Comments from 'components/CommentsContainer';
 import StartStreamButton from 'components/StartStreamButton';
-import RedeemCode from 'components/RedeemCode';
+// import RedeemCode from 'components/RedeemCode';
+import BuyButton from 'components/BuyButton';
 import ShareButton from 'components/ShareButton';
 // import SubscribeButton from '../components/SubscribeButton';
 import FollowButton from 'components/FollowButton';
@@ -99,7 +100,6 @@ export default function EventPage(props) {
     playerKey,
     videoJsOptions,
     liveData,
-    handleBuy,
     status
   } = props;
 
@@ -209,7 +209,7 @@ export default function EventPage(props) {
             if (event.preview) {
               return (
                 <video
-                  playsinline
+                  playsInline
                   src={event.preview}
                   width="100%"
                   muted
@@ -234,7 +234,9 @@ export default function EventPage(props) {
         <div>
           <Row>
             {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}{' '}
-            {!event.isLive() && <LiveTag color="#333333">PREVIEW</LiveTag>}{' '}
+            {!event.canWatch(user, liveData) && (
+              <LiveTag color="#333333">PREVIEW</LiveTag>
+            )}{' '}
           </Row>
           <Row>
             <EventName data-test-id="event-name">{event.name}</EventName>
@@ -266,19 +268,11 @@ export default function EventPage(props) {
                   event.account.stripe_data &&
                   !event.isFree() &&
                   !event.isPurchased() && (
-                    <Button
-                      type="primary"
-                      size="large"
-                      icon={<TagOutlined />}
-                      onClick={handleBuy}
-                    >
-                      Buy Ticket ({event.price})
-                    </Button>
+                    <BuyButton user={user} event={event} />
                   )}
 
-                {user?.isAdmin && (
-                  <RedeemCode event_id={event.id} user_id={user.id} />
-                )}
+                {/* {user && <RedeemCode event_id={event.id} user_id={user.id} />} */}
+
                 {user && !user.isAdmin && !isMyAccount && (
                   <FollowButton
                     account_id={event.account.id}
@@ -340,6 +334,5 @@ EventPage.propTypes = {
   playerKey: PropTypes.number.isRequired,
   videoJsOptions: PropTypes.object.isRequired,
   liveData: PropTypes.object,
-  handleBuy: PropTypes.func.isRequired,
   status: PropTypes.string
 };

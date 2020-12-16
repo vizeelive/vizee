@@ -111,6 +111,14 @@
     schema: public
     name: accounts
   array_relationships:
+  - name: access
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users_access_valid
+        column_mapping:
+          id: account_id
   - name: events
     using:
       manual_configuration:
@@ -140,13 +148,13 @@
         table:
           schema: public
           name: links
-  - name: tiers
+  - name: products
     using:
       foreign_key_constraint_on:
         column: account_id
         table:
           schema: public
-          name: tiers
+          name: products
   - name: users
     using:
       foreign_key_constraint_on:
@@ -346,6 +354,13 @@
         table:
           schema: public
           name: favorites
+  - name: products
+    using:
+      foreign_key_constraint_on:
+        column: event_id
+        table:
+          schema: public
+          name: events_products
   - name: transactions
     using:
       foreign_key_constraint_on:
@@ -468,6 +483,86 @@
               _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: events_products
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: product
+    using:
+      foreign_key_constraint_on: product_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        _and:
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+        - product:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+      columns:
+      - event_id
+      - product_id
+      backend_only: false
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - event_id
+      - id
+      - product_id
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - event_id
+      - id
+      - product_id
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - event_id
+      - product_id
+      filter:
+        _and:
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+        - product:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: events_report
   object_relationships:
   - name: account
@@ -487,6 +582,14 @@
         column_mapping:
           id: event_id
   array_relationships:
+  - name: access
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users_access_valid
+        column_mapping:
+          id: event_id
   - name: access_codes
     using:
       manual_configuration:
@@ -501,6 +604,14 @@
         remote_table:
           schema: public
           name: comments
+        column_mapping:
+          id: event_id
+  - name: products
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: events_products
         column_mapping:
           id: event_id
   - name: transaction
@@ -523,46 +634,52 @@
   - role: public
     permission:
       columns:
-      - id
-      - name
-      - created_by
-      - start
-      - end
-      - description
-      - price
-      - created
       - account_id
+      - category_id
+      - created
+      - created_by
+      - description
+      - end
+      - favorites
+      - id
+      - location
+      - mux_id
+      - mux_livestream
+      - name
       - photo
       - preview
-      - category_id
-      - transactions
-      - favorites
-      - views
-      - type
-      - location
+      - price
       - revenue
+      - start
+      - status
+      - transactions
+      - type
+      - views
       filter: {}
   - role: user
     permission:
       columns:
-      - favorites
-      - transactions
-      - views
-      - price
-      - revenue
+      - account_id
+      - category_id
+      - created
+      - created_by
       - description
+      - end
+      - favorites
+      - id
       - location
+      - mux_id
+      - mux_livestream
       - name
       - photo
       - preview
-      - type
-      - created
-      - end
+      - price
+      - revenue
       - start
-      - account_id
-      - category_id
-      - created_by
-      - id
+      - status
+      - transactions
+      - type
+      - views
       filter: {}
 - table:
     schema: public
@@ -779,31 +896,22 @@
     name: presence_events
 - table:
     schema: public
-    name: subscriptions
-  object_relationships:
-  - name: tier
-    using:
-      foreign_key_constraint_on: tier_id
-  - name: user
-    using:
-      foreign_key_constraint_on: user_id
-  select_permissions:
-  - role: user
-    permission:
-      columns:
-      - id
-      - tier_id
-      - user_id
-      filter:
-        user_id:
-          _eq: X-Hasura-User-Id
-- table:
-    schema: public
-    name: tiers
+    name: products
   object_relationships:
   - name: account
     using:
       foreign_key_constraint_on: account_id
+  - name: creator
+    using:
+      foreign_key_constraint_on: created_by
+  array_relationships:
+  - name: events
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          schema: public
+          name: events_products
   insert_permissions:
   - role: user
     permission:
@@ -813,39 +921,58 @@
             user:
               id:
                 _eq: X-Hasura-User-Id
-      set:
-        created_by: x-hasura-User-Id
       columns:
+      - access_length
+      - account_access
       - account_id
       - description
+      - flexible_price
       - name
       - price
+      - recurring
       backend_only: false
   select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - name
+      - description
+      - price
+      - flexible_price
+      - account_access
+      - recurring
+      - created
+      - created_by
+      - account_id
+      - access_length
+      filter: {}
   - role: user
     permission:
       columns:
-      - account_id
-      - created
-      - created_by
-      - description
-      - id
-      - name
+      - account_access
+      - flexible_price
+      - recurring
+      - access_length
       - price
-      filter:
-        account:
-          users:
-            user:
-              id:
-                _eq: X-Hasura-User-Id
+      - description
+      - name
+      - created
+      - account_id
+      - created_by
+      - id
+      filter: {}
   update_permissions:
   - role: user
     permission:
       columns:
-      - account_id
+      - access_length
+      - account_access
       - description
+      - flexible_price
       - name
       - price
+      - recurring
       filter:
         account:
           users:
@@ -904,6 +1031,13 @@
     using:
       foreign_key_constraint_on: affiliate_user_id
   array_relationships:
+  - name: access
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: users_access
   - name: accounts
     using:
       foreign_key_constraint_on:
@@ -965,6 +1099,32 @@
         id:
           _eq: X-Hasura-User-Id
       check: null
+- table:
+    schema: public
+    name: users_access
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+- table:
+    schema: public
+    name: users_access_valid
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - user_id
+      - event_id
+      - account_id
+      - expiry
+      - created
+      - updated
+      - email
+      - subscription
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: view_report

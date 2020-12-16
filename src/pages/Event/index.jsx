@@ -1,19 +1,11 @@
-import config from 'config';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { stringify } from 'zipson';
 import useAffiliate from 'hooks/useAffiliate';
-
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
-
-import { loadStripe } from '@stripe/stripe-js';
-
 import useAuth from 'hooks/useAuth';
 
 import EventView from './view';
 import Mapper from 'services/mapper';
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const GET_EVENT_UNAUTH = gql`
   query AnonEventsReport($id: uuid!) {
@@ -39,6 +31,25 @@ const GET_EVENT_UNAUTH = gql`
         photo
         stripe_data
         umami_website
+        products(where: { account_access: { _eq: true } }) {
+          id
+          name
+          price
+          account_access
+          flexible_price
+          description
+        }
+      }
+      products {
+        id
+        product {
+          id
+          name
+          price
+          account_access
+          flexible_price
+          description
+        }
       }
     }
   }
@@ -63,12 +74,6 @@ const GET_EVENT_AUTH = gql`
       id
       followers {
         id
-      }
-      tiers {
-        id
-        name
-        price
-        description
       }
     }
     users_by_pk(id: $user_id) {
@@ -100,16 +105,33 @@ const GET_EVENT_AUTH = gql`
         photo
         stripe_data
         umami_website
+        access {
+          id
+        }
         users {
           user {
             id
           }
         }
+        products(where: { account_access: { _eq: true } }) {
+          id
+          name
+          recurring
+          access_length
+          flexible_price
+        }
       }
-      access_codes {
+      products {
         id
+        product {
+          id
+          name
+          price
+          flexible_price
+          description
+        }
       }
-      transaction {
+      access {
         id
       }
     }
@@ -205,34 +227,6 @@ export default function EventPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const handleBuy = async () => {
-    window.mixpanel.track('Buy Button Clicked');
-
-    let ref = stringify({
-      user_id: user?.id,
-      account_id: event.account.id,
-      event_id: event.id
-    });
-
-    const stripe = await stripePromise;
-
-    const response = await fetch(`${config.api}/stripe/session?ref=${ref}`, {
-      method: 'GET'
-    });
-
-    const session = await response.json();
-
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id
-    });
-
-    if (result.error) {
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `result.error.message`.
-    }
-  };
-
   const liveEvent = liveData?.events_by_pk;
   const videoStatus = event?.status || liveEvent?.status;
 
@@ -305,7 +299,6 @@ export default function EventPage() {
       playerKey={playerKey}
       videoJsOptions={videoJsOptions}
       liveData={liveData}
-      handleBuy={handleBuy}
       status={status}
     />
   );

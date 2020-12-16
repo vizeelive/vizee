@@ -7,13 +7,14 @@ import {
   UserOutlined,
   // CalendarOutlined,
   UserAddOutlined,
-  ThunderboltOutlined,
+  // ThunderboltOutlined,
   AreaChartOutlined,
   YoutubeOutlined,
   SettingOutlined,
   FundViewOutlined,
-  HeartOutlined,
-  LinkOutlined
+  // HeartOutlined,
+  LinkOutlined,
+  DollarOutlined
 } from '@ant-design/icons';
 
 function AccountMenu(props) {
@@ -51,6 +52,14 @@ function AccountMenu(props) {
           <Link to={`/${username}/manage/dashboard`}>Dashboard</Link>
         </Menu.Item>
         <Menu.Item
+          key={`/${username}/manage/products/${account.id}`}
+          icon={<DollarOutlined />}
+        >
+          <Link to={`/${username}/manage/products/${account.id}`}>
+            Products
+          </Link>
+        </Menu.Item>
+        <Menu.Item
           key={`/${username}/manage/links/${account.id}`}
           icon={<LinkOutlined />}
         >
@@ -66,26 +75,18 @@ function AccountMenu(props) {
             Traffic
           </Link>
         </Menu.Item>
-        <Menu.Item
-          key={`/${username}/manage/subscriptions/${account.id}`}
-          icon={<HeartOutlined />}
-        >
-          <Link to={`/${username}/manage/subscriptions/${account.id}`}>
-            Subscriptions
-          </Link>
-        </Menu.Item>
         {/* <Menu.Item
           key={`/${username}/manage/calendar`}
           icon={<CalendarOutlined />}
         >
           <Link to={`/${username}/manage/calendar`}>Calendar</Link>
         </Menu.Item> */}
-        <Menu.Item
+        {/* <Menu.Item
           key={`/${username}/manage/events`}
           icon={<ThunderboltOutlined />}
         >
           <Link to={`/${username}/manage/events`}>Events </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         {(user.isAdmin || account.created_by === user.id) && (
           <Menu.Item
             key={`/${username}/manage/users`}

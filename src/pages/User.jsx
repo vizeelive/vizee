@@ -35,6 +35,9 @@ const GET_ACCOUNTS_UNAUTH = gql`
 
 const GET_ACCOUNTS_AUTH = gql`
   query MyAccounts($user_id: uuid!) {
+    hello {
+      message
+    }
     accounts_users(where: { user_id: { _eq: $user_id } }) {
       account {
         id

@@ -19,6 +19,11 @@ type Query {
 }
 
 
+type Query {
+  hello : HelloOutput
+}
+
+
 type Mutation {
   subscribe (
     user_id: String!
@@ -814,5 +819,9 @@ type UpdateAccountOutput {
 
 type getEventUrlOutput {
   url : String
+}
+
+type HelloOutput {
+  message : String!
 }
 

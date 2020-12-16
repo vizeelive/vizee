@@ -1,4 +1,5 @@
 import config from 'config';
+import useAuth from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
@@ -13,6 +14,12 @@ const GET_ACCOUNTS = gql`
     account: accounts(where: { username: { _eq: $username } }) {
       id
       name
+      products(where: { account_access: { _eq: false } }) {
+        id
+        name
+        price
+        flexible_price
+      }
     }
     accounts {
       id
@@ -40,6 +47,12 @@ const GET_EVENT = gql`
     account: accounts(where: { username: { _eq: $username } }) {
       id
       name
+      products(where: { account_access: { _eq: false } }) {
+        id
+        name
+        price
+        flexible_price
+      }
     }
     events_by_pk(id: $id) {
       id
@@ -56,6 +69,14 @@ const GET_EVENT = gql`
       category_id
       published
       location
+      products {
+        id
+        event_id
+        product {
+          name
+          id
+        }
+      }
     }
     accounts {
       name
@@ -89,8 +110,31 @@ const UPDATE_EVENT = gql`
   }
 `;
 
+const UPDATE_EVENT_PRODUCTS = gql`
+  mutation UpdateEventProducts(
+    $objects: [events_products_insert_input!]!
+    $delete_ids: [uuid!]!
+  ) {
+    delete_events_products(where: { id: { _in: $delete_ids } }) {
+      affected_rows
+    }
+    insert_events_products(objects: $objects) {
+      affected_rows
+    }
+  }
+`;
+
+const DELETE_EVENT_PRODUCTS = gql`
+  mutation DeleteEventProducts($delete_ids: [uuid!]!) {
+    delete_events_products(where: { id: { _in: $delete_ids } }) {
+      affected_rows
+    }
+  }
+`;
+
 export default function AddEvent(props) {
   const params = useParams();
+  const { user } = useAuth();
   const history = useHistory();
 
   let redirect;
@@ -121,6 +165,8 @@ export default function AddEvent(props) {
   const { loading, error, data } = useQuery(query, options);
   const [createEvent, { loading: isCreatingEvent }] = useMutation(CREATE_EVENT);
   const [updateEvent, { loading: isUpdatingEvent }] = useMutation(UPDATE_EVENT);
+  const [deleteEventProducts] = useMutation(DELETE_EVENT_PRODUCTS);
+  const [updateEventProducts] = useMutation(UPDATE_EVENT_PRODUCTS);
 
   useEffect(() => {
     setEvent(data?.events_by_pk);
@@ -146,7 +192,7 @@ export default function AddEvent(props) {
 
     let newEvent;
 
-    let data = {
+    let inputData = {
       name: values.name,
       type: values.type,
       price: values.price,
@@ -162,36 +208,68 @@ export default function AddEvent(props) {
     };
 
     if (values?.location?.address) {
-      data.location = values.location.address;
-      data.location_pos = `${values.location.pos.lng},${values.location.pos.lat}`;
+      inputData.location = values.location.address;
+      inputData.location_pos = `${values.location.pos.lng},${values.location.pos.lat}`;
     }
 
     if (values?.location?.pos) {
-      data.location_pos = `${values.location.pos.lng},${values.location.pos.lat}`;
+      inputData.location_pos = `${values.location.pos.lng},${values.location.pos.lat}`;
     }
 
     if (params.id) {
       newEvent = await updateEvent({
         variables: {
           pk_columns: { id: params.id },
-          _set: data
+          _set: inputData
         }
       });
       let url = `${window.location.origin}/${params.username}/${newEvent.data.update_events_by_pk.id}`;
       fetch(`${config.api}/prerender?url=${url}`);
-      fetch(`${config.api}/mux/asset/create?url=${data.video}`);
+      fetch(`${config.api}/mux/asset/create?url=${inputData.video}`);
     } else {
       newEvent = await createEvent({
         variables: {
-          object: data
+          object: inputData
         }
       });
       let url = `${window.location.origin}/${params.username}/${newEvent.data.insert_events_one.id}`;
       fetch(`${config.api}/prerender?url=${url}`);
-      fetch(`${config.api}/mux/asset/create?url=${data.video}`);
+      fetch(`${config.api}/mux/asset/create?url=${inputData.video}`);
     }
 
     if (newEvent) {
+      let event_id =
+        newEvent?.data?.insert_events_one?.id ||
+        newEvent?.data?.update_events_by_pk?.id;
+      let products = values?.events_products?.map((product) => {
+        return {
+          product_id: product,
+          event_id,
+          ...(user?.isAdmin ? { created_by: user.id } : null)
+        };
+      });
+
+      if (products) {
+        updateEventProducts({
+          variables: {
+            delete_ids: data?.events_by_pk?.products.map(
+              (product) => product.id
+            ),
+            objects: products
+          }
+        });
+      } else {
+        if (data?.events_by_pk?.products?.length) {
+          deleteEventProducts({
+            variables: {
+              delete_ids: data?.events_by_pk?.products.map(
+                (product) => product.id
+              )
+            }
+          });
+        }
+      }
+
       window.mixpanel.track('Event Created');
       message.success('Successfully saved event');
       history.push(redirect);
@@ -245,6 +323,7 @@ export default function AddEvent(props) {
     <AddEventView
       loading={loading}
       params={params}
+      account={account}
       event={event}
       error={error}
       eventData={eventData}

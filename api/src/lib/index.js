@@ -1,4 +1,5 @@
 const jwt_decode = require('jwt-decode');
+const dayjs = require('dayjs');
 
 /**
  * Decodes JWT and returns user
@@ -10,4 +11,19 @@ function getUser(req) {
   return jwt_decode(token);
 }
 
-module.exports = { getUser };
+/**
+ * Generates an image link
+ *
+ * @param {*} params
+ */
+function generateImageLink(params) {
+  const { event, account } = params;
+  let date = dayjs(event.start).format('MMM D, YYYY h:mm A');
+  let title = encodeURIComponent(account.name);
+  let subtitle = encodeURIComponent(event.name);
+  return `https://ogi.sh/article?title=${title}&eyebrow=${date}&subtitle=${subtitle}&imageUrl=${
+    event.photo || account.photo
+  }`;
+}
+
+module.exports = { getUser, generateImageLink };

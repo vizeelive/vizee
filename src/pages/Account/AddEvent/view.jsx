@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import FileUpload from 'components/FileUpload';
 import CurrencyInput from 'components/CurrencyInput';
@@ -28,6 +28,7 @@ export default function AddEventView(props) {
     loading,
     params,
     event,
+    account,
     error,
     eventData,
     onFinish,
@@ -44,6 +45,10 @@ export default function AddEventView(props) {
     isUpdatingEvent,
     buttonLabel
   } = props;
+
+  const [advancedPricing, setAdvancedPricing] = useState(
+    event?.products?.length
+  );
 
   // to determine form layout
   const isLargeScreen = useBreakpoint('lg');
@@ -84,6 +89,10 @@ export default function AddEventView(props) {
   let uploadVideoOptions = {
     allowedFileTypes: ['video/*']
   };
+
+  eventData.events_products = event?.products?.map(
+    (product) => product.product.id
+  );
 
   return (
     <FormContainer>
@@ -193,13 +202,55 @@ export default function AddEventView(props) {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Price"
-          name="price"
-          rules={[{ required: true, message: 'Required' }]}
-        >
-          <CurrencyInput className="ant-input" style={{ maxWidth: '10rem' }} />
-        </Form.Item>
+        {!advancedPricing && (
+          <Form.Item
+            style={{ marginBottom: '0px' }}
+            label="Price"
+            name="price"
+            rules={[{ required: true, message: 'Required' }]}
+          >
+            <CurrencyInput
+              className="ant-input"
+              style={{ maxWidth: '10rem' }}
+            />
+          </Form.Item>
+        )}
+
+        {!advancedPricing && (
+          // eslint-disable-next-line
+          <a href="#" onClick={() => setAdvancedPricing(true)}>
+            Show Advanced Pricing Options
+          </a>
+        )}
+
+        {advancedPricing ? (
+          <Form.Item
+            style={{ marginBottom: '0px' }}
+            name="events_products"
+            label="Products"
+          >
+            <Select
+              showSearch
+              mode="multiple"
+              allowClear
+              optionLabelProp="label"
+              placeholder="Select a product"
+              options={account.products.map((product) => {
+                return { label: product.name, value: product.id };
+              })}
+            />
+          </Form.Item>
+        ) : null}
+
+        {advancedPricing ? (
+          // eslint-disable-next-line
+          <a href="#" onClick={() => setAdvancedPricing(false)}>
+            Hide Advanced Pricing Options
+          </a>
+        ) : null}
+
+        <br />
+        <br />
 
         <Form.Item
           name="category_id"

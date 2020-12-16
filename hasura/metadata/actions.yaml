@@ -20,6 +20,13 @@ actions:
     forward_client_headers: true
   permissions:
   - role: user
+- name: hello
+  definition:
+    kind: ""
+    handler: '{{ACTION_BASE_URL}}'
+    forward_client_headers: true
+  permissions:
+  - role: user
 - name: subscribe
   definition:
     kind: synchronous
@@ -431,4 +438,5 @@ custom_types:
   - name: UmamiToken
   - name: UpdateAccountOutput
   - name: getEventUrlOutput
+  - name: HelloOutput
   scalars: []

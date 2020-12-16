@@ -30,7 +30,7 @@ import Dashboard from 'pages/Account/Dashboard';
 import Events from 'pages/Events';
 import Home from 'pages/Account/Home';
 import Links from 'pages/Account/Links';
-import Subscriptions from 'pages/Account/Subscriptions';
+import Products from 'pages/Account/Products';
 import Settings from 'pages/Account/Settings';
 import Traffic from 'pages/Account/Traffic';
 import Users from 'pages/Account/Users';
@@ -293,16 +293,16 @@ export default function Account() {
                   component={Links}
                 />
                 <Route
+                  path="/:username/manage/products/:id"
+                  exact
+                  component={Products}
+                />
+                <Route
                   path="/:username/manage/events/add"
                   exact
                   render={() => (
                     <AddEvent redirect={`/${username}/manage/events`} />
                   )}
-                />
-                <Route
-                  path="/:username/manage/subscriptions/:id"
-                  exact
-                  render={() => <Subscriptions />}
                 />
                 <Route
                   path="/:username/manage/events/:id"

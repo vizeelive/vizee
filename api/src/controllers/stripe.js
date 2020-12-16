@@ -1,13 +1,12 @@
-const { parse } = require('zipson');
 const app = require('../app');
 const config = require('../config');
 const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client');
-const dayjs = require('dayjs');
-const currency = require('currency.js');
+const { subscribe, pay } = require('../lib/checkout');
+const { generateImageLink } = require('../lib');
 
-const { getEventAndAccount, getUserByEmail } = require('../queries');
+require('./index');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
@@ -65,139 +64,6 @@ app.get('/stripe/account/create', async function (req, res) {
   console.log({ account, accountLinks });
   res.send(accountLinks);
 });
-
-/**
- * Stripe Session
- */
-app.get('/stripe/session', async function (req, res) {
-  let ref = parse(req.query.ref);
-
-  try {
-    var { event, account } = await getEventAndAccount(ref);
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-
-  console.log('event', event);
-
-  const account_percent = currency(1 - account.fee_percent / 100);
-
-  let unit_amount = event.price.replace('$', '').replace('.', '');
-
-  let amount = unit_amount * account_percent;
-
-  // console.log('account_percent', account_percent.toString());
-  // console.log('unit_amount', unit_amount.toString());
-  // console.log('amount', amount.toString());
-
-  let date = dayjs(event.start).format('MMM D, YYYY h:mm A');
-  let title = encodeURIComponent(account.name);
-  let subtitle = encodeURIComponent(event.name);
-  let image = `https://ogi.sh/article?title=${title}&eyebrow=${date}&subtitle=${subtitle}&imageUrl=${
-    event.photo || account.photo
-  }`;
-
-  let domain = account.domain || config.ui;
-
-  try {
-    const session = await stripe.checkout.sessions.create({
-      client_reference_id: req.query.ref,
-      payment_method_types: ['card'],
-      payment_intent_data: {
-        // application_fee_amount: 100,
-        transfer_data: {
-          amount,
-          destination: event.account.stripe_id
-        }
-      },
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Admission',
-              images: [
-                // event.photo || account.photo
-                image
-                // 'https://i.pinimg.com/originals/b8/cd/45/b8cd45d0ad0ef3d756515dedfdd537a2.jpg'
-              ]
-            },
-            unit_amount
-            // FIXME create a real product
-          },
-          quantity: 1
-        }
-      ],
-      mode: 'payment',
-      success_url: `https://${domain}/${account.username}/${event.id}/success`,
-      cancel_url: `https://${domain}/${account.username}/${event.id}/cancel`
-    });
-    console.log({ session });
-    res.send(session);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send(e.message);
-  }
-});
-
-/**
- * Stripe Webhook
- */
-app.post(
-  '/stripe/webhook',
-  bodyParser.raw({ type: 'application/json' }),
-  async (req, res) => {
-    const sig = req.headers['stripe-signature'];
-
-    try {
-      var event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-    } catch (err) {
-      console.log(err);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
-
-    console.log(event.type, event.data.object);
-
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object;
-
-      try {
-        const customer = await stripe.customers.retrieve(
-          event.data.object.customer
-        );
-
-        const user = await getUserByEmail(customer.email);
-
-        let ref = parse(session.client_reference_id);
-        console.log({ ref });
-
-        await client.mutate({
-          variables: {
-            object: {
-              email: customer.email,
-              event_id: ref.event_id,
-              user_id: ref.user_id || user?.id,
-              price: session.amount_total / 100,
-              ref: session.payment_intent
-            }
-          },
-          mutation: gql`
-            mutation InsertTransaction($object: transactions_insert_input!) {
-              insert_transactions_one(object: $object) {
-                id
-              }
-            }
-          `
-        });
-      } catch (e) {
-        console.error(e);
-        res.status(500).send(e.message);
-      }
-    }
-
-    res.json({ received: true });
-  }
-);
 
 /**
  * Stripe Webhook

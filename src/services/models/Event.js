@@ -17,7 +17,7 @@ export default class Event {
     return moment().isBetween(this.start, this.end);
   }
   isPurchased() {
-    return !!this?.transaction?.length || !!this?.access_codes?.length
+    return !!this?.access?.length || !!this?.account?.access?.length;
   }
   isConference() {
     return this?.type === 'conference';
