@@ -125,7 +125,7 @@ export default function UsersView(props) {
             >
               {addableUsers.map((user) => (
                 <Option key={user.id} value={user.id}>
-                  {user.name}
+                  {user.email}
                 </Option>
               ))}
             </Select>
