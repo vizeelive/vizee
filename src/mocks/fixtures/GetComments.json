@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "id": "a715da53-502a-4678-8d5f-475fd4f29d50",
+      "body": "This is crazy. Great experience on this new platform!",
+      "created": "2020-11-19T02:35:02.270154+00:00",
+      "user": {
+        "first_name": "Barbara",
+        "last_name": "Katz",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "a297d1cf-9d42-4ece-b84e-f942acbcbb39",
+      "body": "that was awesome! Thank you Ryan",
+      "created": "2020-11-19T02:34:24.774152+00:00",
+      "user": {
+        "first_name": "Jim",
+        "last_name": "Morisson ",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "1d2f7ed3-013a-4e9d-bea3-1c8583da32d0",
+      "body": "NASHVILLE, Tenn. - It's the signature song of one of the most well known groups of all time, the #1 song of the 80s and can still be heard on radio today. Livin' on a Prayer has no doubt stood the test of time. We had the honor of sitting down with one of the song's writers, the legendary Desmond Child. After 4 decades in the industry, Desmond Child has some major bragging rights in the songwriting world. When he wrote Livin' on a Prayer in the early 80s, he was far from a newcomber. Desmond already had a successful run with Kiss, Cher and his own group Desmond Child and Rouge, but it was when Paul Stanley recommended him to Jon Bon Jovi that everything changed. Although it was decades ago, Desmond will never forget the writing session where Livin' on a Prayer was born. The 3 already had some major momentum going. Just 3 weeks before they penned another Bon Jovi chart topper You Give Love a Bad Name. Songs don't always come from real life experience but Livin' on a Prayer is a very personal song for Desmond. The characters were built around himself and an ex-girlfriend whose picture hangs in his Nashville studio today. Desmond and Richy both loved it. John, not so much. He thought it was too sensitive for his heavy metal image. They reworked the song to give it a little more edge. What was originally a no-go became Bon Jovi's biggest song. It lead Desmond Child to having one of the most well respected names in the Songwriters Hall of Fame. Desmond lives in Nashville, where Jon comes to co-write often. Their relationship is much deeper than just a professional one. Jon is actually the Godfather of Desmond's twin boys.",
+      "created": "2020-11-19T02:15:37.481612+00:00",
+      "user": {
+        "first_name": "Jim",
+        "last_name": "Morisson ",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "ead2334d-685e-4b94-9f62-761c270d4d83",
+      "body": "https://www.youtube.com/watch?v=X-vO_58XRKs\n",
+      "created": "2020-11-19T02:15:15.418265+00:00",
+      "user": {
+        "first_name": "Jim",
+        "last_name": "Morisson ",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "b0251d29-e8e9-4c91-bc3d-a7321ead5dd9",
+      "body": "Sing us a song!",
+      "created": "2020-11-19T02:01:44.965399+00:00",
+      "user": {
+        "first_name": "Jeff",
+        "last_name": "Vizee",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "fcf80bb0-4b33-4333-87ed-6332ee5570bb",
+      "body": "It works!!",
+      "created": "2020-11-19T02:01:18.608995+00:00",
+      "user": {
+        "first_name": "Jeff",
+        "last_name": "Vizee",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "c2f9df8e-1d4e-483e-bed5-587bfd644dcc",
+      "body": "LIVE!!",
+      "created": "2020-11-19T02:01:10.994779+00:00",
+      "user": {
+        "first_name": "Jeff",
+        "last_name": "Vizee",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "f4fc57e7-cb9c-4ee3-a7f2-2e51a078df12",
+      "body": "Bummer you had to reschedule, bro!",
+      "created": "2020-11-18T16:24:25.873611+00:00",
+      "user": {
+        "first_name": "Jeff",
+        "last_name": "Pixwel",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "701de966-fc50-4c8c-81f2-0be2c9364749",
+      "body": "Let's rock!",
+      "created": "2020-11-18T02:05:04.458706+00:00",
+      "user": {
+        "first_name": "Ian",
+        "last_name": "Floyd",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "72537637-3694-4462-a393-591a93ab4ce2",
+      "body": "KARAOKE IS MY PASSION",
+      "created": "2020-11-17T19:27:43.746509+00:00",
+      "user": {
+        "first_name": "Doug",
+        "last_name": "Richar",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "9fc81b2a-c77d-4b2a-a891-bc615ea80a92",
+      "body": "Bought my ticket! ",
+      "created": "2020-11-17T19:13:46.82014+00:00",
+      "user": {
+        "first_name": "Jordan ",
+        "last_name": "Katz",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "4b7edd43-1cd7-42b3-a4e6-3c150425b1ca",
+      "body": "Well, I'm pumped!",
+      "created": "2020-11-17T19:13:27.032137+00:00",
+      "user": {
+        "first_name": "Jeff",
+        "last_name": "Vizee",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "84afc95b-27ab-48bd-ba22-893e84ec70cb",
+      "body": "Well, I'm pumped!",
+      "created": "2020-11-17T19:13:20.986497+00:00",
+      "user": {
+        "first_name": "Jeff",
+        "last_name": "Vizee",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    },
+    {
+      "id": "1542a82b-1f1a-4d5d-8a64-3814e060965a",
+      "body": "This will be fun!",
+      "created": "2020-11-17T17:08:07.477422+00:00",
+      "user": {
+        "first_name": "Ryan",
+        "last_name": "Moriarty",
+        "__typename": "users"
+      },
+      "__typename": "comments"
+    }
+  ]
+}

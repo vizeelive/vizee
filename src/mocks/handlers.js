@@ -3,6 +3,9 @@ import { graphql } from 'msw';
 
 import Accounts from './fixtures/Accounts';
 import AnonGetEvents from './fixtures/AnonGetEvents';
+import AnonEventsReport from './fixtures/AnonEventsReport';
+import GetComments from './fixtures/GetComments';
+import TrackView from './fixtures/TrackView';
 
 export const handlers = [
   //   // Handles a "Login" mutation
@@ -19,9 +22,21 @@ export const handlers = [
   //     );
   //   }),
 
-  //   graphql.query('Example', (req, res, ctx) => {
+  //   graphql.query('ExampleQuery', (req, res, ctx) => {
   //     return res(ctx.data({}));
   //   }),
+
+  //   graphql.mutation('ExampleMutation', (req, res, ctx) => {
+  //     return res(ctx.data({}));
+  //   }),
+
+  graphql.mutation('TrackView', (req, res, ctx) => {
+    return res(ctx.data(TrackView));
+  }),
+
+  graphql.query('AnonEventsReport', (req, res, ctx) => {
+    return res(ctx.data(AnonEventsReport));
+  }),
 
   graphql.query('AnonGetEvents', (req, res, ctx) => {
     return res(ctx.data(AnonGetEvents));
@@ -29,32 +44,9 @@ export const handlers = [
 
   graphql.query('Accounts', (req, res, ctx) => {
     return res(ctx.data(Accounts));
+  }),
+
+  graphql.query('GetComments', (req, res, ctx) => {
+    return res(ctx.data(GetComments));
   })
-
-  // Handles a "GetUserInfo" query
-  //   graphql.query('GetUserInfo', (req, res, ctx) => {
-  //     const authenticatedUser = sessionStorage.getItem('is-authenticated');
-
-  //     if (!authenticatedUser) {
-  //       // When not authenticated, respond with an error
-  //       return res(
-  //         ctx.errors([
-  //           {
-  //             message: 'Not authenticated',
-  //             errorType: 'AuthenticationError'
-  //           }
-  //         ])
-  //       );
-  //     }
-
-  //     // When authenticated, respond with a query payload
-  //     return res(
-  //       ctx.data({
-  //         user: {
-  //           username: authenticatedUser,
-  //           firstName: 'John'
-  //         }
-  //       })
-  //     );
-  //   })
 ];

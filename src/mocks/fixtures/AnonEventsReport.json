@@ -1,0 +1,74 @@
+{
+  "events_report": [
+    {
+      "id": "ca22d164-f455-464d-9367-c14278dc1a7a",
+      "type": "live",
+      "name": "Going Hard with Ryan and Karaoke ",
+      "start": "2020-11-19T02:00:21.702+00:00",
+      "end": "2020-11-19T02:30:21.702+00:00",
+      "price": "$1.00",
+      "photo": "https://vizee-media.s3.amazonaws.com/1f/e34d1ac0d34ee49b5d910dc101d035/IMG_5945.JPG",
+      "preview": null,
+      "favorites": 3,
+      "views": 251,
+      "location": "Stuart, FL, USA",
+      "mux_livestream": {
+        "id": "iL9u8gXTZ8JFswct1OkK02x21PlZveqE9trNFRD58pwI",
+        "status": "ready",
+        "tracks": [
+          {
+            "id": "I011uoTPYymbUm6ljti5PN9VOG02FJfjeOWCH01hVfGhwU",
+            "type": "video",
+            "max_width": 1280,
+            "max_height": 720,
+            "max_frame_rate": 60
+          },
+          {
+            "id": "smO8XiqNTYT32aNY38oIZZXGvRN6lgTBnslqUpRMCNk",
+            "type": "audio",
+            "max_channels": 2,
+            "max_channel_layout": "stereo"
+          }
+        ],
+        "duration": 1700.043,
+        "created_at": 1605751475,
+        "mp4_support": "none",
+        "aspect_ratio": "16:9",
+        "playback_ids": [
+          {
+            "id": "SlmrDPE42qc8xhjXfzuLHObcPn6KQG8xORg8UyMdJcs",
+            "policy": "public"
+          }
+        ],
+        "master_access": "none",
+        "live_stream_id": "rzb7wyRlvfb8XKvEiCssG00U02SMbEAxVMqn4j19PClZ8",
+        "recording_times": [
+          {
+            "duration": 1700.433,
+            "started_at": {
+              "nanos": 363000000,
+              "seconds": 1605751475
+            }
+          }
+        ],
+        "max_stored_frame_rate": 60,
+        "max_stored_resolution": "HD"
+      },
+      "mux_id": "rzb7wyRlvfb8XKvEiCssG00U02SMbEAxVMqn4j19PClZ8",
+      "status": "completed",
+      "account_only": false,
+      "account": {
+        "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
+        "name": "Ryan Moriarty",
+        "username": "ryanjmo",
+        "photo": "https://vizee-media.s3.amazonaws.com/01/3ac731d8bf4ff886b93f3d389bb24f/D98D12D0-B059-4C26-96C2-FB0BBB76F490_1_201_a.jpeg",
+        "stripe_data": null,
+        "umami_website": "3ce51095-218b-4473-82ff-495900a3bd5c",
+        "products": [],
+        "__typename": "accounts"
+      },
+      "products": [],
+      "__typename": "events_report"
+    }
+  ]
+}
