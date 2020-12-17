@@ -14,6 +14,7 @@ import Account from './Account/Index';
 import Event from './Event';
 import useAuth from 'hooks/useAuth';
 
+import ErrorBoundary from 'components/ErrorBoundary';
 import Header from 'components/Header';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
@@ -137,27 +138,29 @@ export default function User() {
         onLogout={handleLogout}
       />
       <UserContent>
-        <Switch>
-          <Route path="/tickets" exact component={Tickets} />
-          <Route path="/calendar" exact>
-            <Calendar favorite="true" />
-          </Route>
-          <Route path="/account" exact component={CreateAccount} />
-          <Route path="/:username" exact>
-            <AccountHome />
-          </Route>
-          <Route path="/:username/manage" component={Account} />
-          <Route path="/:username/:id/:status?" exact component={Event} />
-          {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
-            <Route path="/">
-              <Home />
+        <ErrorBoundary>
+          <Switch>
+            <Route path="/tickets" exact component={Tickets} />
+            <Route path="/calendar" exact>
+              <Calendar favorite="true" />
             </Route>
-          ) : (
+            <Route path="/account" exact component={CreateAccount} />
+            <Route path="/:username" exact>
+              <AccountHome />
+            </Route>
+            <Route path="/:username/manage" component={Account} />
+            <Route path="/:username/:id/:status?" exact component={Event} />
+            {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
+              <Route path="/">
+                <Home />
+              </Route>
+            ) : (
               <Route path="/">
                 <AccountHome username="deadmau5" />
               </Route>
             )}
-        </Switch>
+          </Switch>
+        </ErrorBoundary>
       </UserContent>
       <Footer />
     </Layout>

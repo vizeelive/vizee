@@ -3,21 +3,22 @@ import { Route, Switch } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { Layout } from 'antd';
 import styled from 'styled-components';
+import ErrorBoundary from 'components/ErrorBoundary';
 
-import useAuth from '../../hooks/useAuth';
-import AddAccount from '../AddAccount';
-import AddEvent from '../Account/AddEvent';
-import Accounts from '../Admin/Accounts';
-import Calendar from '../Calendar';
-import Events from '../Events';
+import useAuth from 'hooks/useAuth';
+import AddAccount from 'pages/AddAccount';
+import AddEvent from 'pages/Account/AddEvent';
+import Accounts from 'pages/Admin/Accounts';
+import Calendar from 'pages/Calendar';
+import Events from 'pages/Events';
 
-import Header from '../../components/Header';
-import AdminMenu from '../../components/AdminMenu';
-import { Centered } from '../../components/styled/common';
-import Spinner from '../../components/ui/Spinner';
-import Footer from '../../components/Footer';
+import Header from 'components/Header';
+import AdminMenu from 'components/AdminMenu';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+import Footer from 'components/Footer';
 
-import useBreakpoint from '../../hooks/useBreakpoint';
+import useBreakpoint from 'hooks/useBreakpoint';
 
 const { Content } = Layout;
 
@@ -133,28 +134,38 @@ export default function Admin() {
               minHeight: 280
             }}
           >
-            <Switch>
-              <Route path="/admin" exact>
-                <Events admin={true} />
-              </Route>
-              <Route path="/admin/accounts" exact>
-                <Accounts />
-              </Route>
-              <Route path="/admin/events" exact>
-                <Events admin={true} />
-              </Route>
-              <Route path="/admin/calendar" exact component={Calendar} />
-              <Route path="/admin/events/add" exact>
-                <AddEvent redirect={`/admin/events`} />
-              </Route>
-              <Route path="/admin/events/edit/:id" exact component={AddEvent} />
-              <Route path="/admin/accounts/add" exact component={AddAccount} />
-              <Route
-                path="/admin/accounts/edit/:id"
-                exact
-                component={AddAccount}
-              />
-            </Switch>
+            <ErrorBoundary>
+              <Switch>
+                <Route path="/admin" exact>
+                  <Events admin={true} />
+                </Route>
+                <Route path="/admin/accounts" exact>
+                  <Accounts />
+                </Route>
+                <Route path="/admin/events" exact>
+                  <Events admin={true} />
+                </Route>
+                <Route path="/admin/calendar" exact component={Calendar} />
+                <Route path="/admin/events/add" exact>
+                  <AddEvent redirect={`/admin/events`} />
+                </Route>
+                <Route
+                  path="/admin/events/edit/:id"
+                  exact
+                  component={AddEvent}
+                />
+                <Route
+                  path="/admin/accounts/add"
+                  exact
+                  component={AddAccount}
+                />
+                <Route
+                  path="/admin/accounts/edit/:id"
+                  exact
+                  component={AddAccount}
+                />
+              </Switch>
+            </ErrorBoundary>
           </Content>
           <Footer />
         </SiderLayout>

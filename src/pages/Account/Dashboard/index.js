@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
+import { useErrorHandler } from 'react-error-boundary';
 
 import DashboardView from './view';
 
@@ -30,10 +31,15 @@ const ACCOUNT_REPORT = gql`
 
 export default function Dashboard() {
   let { username } = useParams();
+  const handleError = useErrorHandler();
 
   const { loading, error, data } = useQuery(ACCOUNT_REPORT, {
     variables: { username }
   });
+
+  if (error) {
+    handleError(error);
+  }
 
   const account = data?.account_report?.[0];
 
