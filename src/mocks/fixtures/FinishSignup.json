@@ -1,0 +1,8 @@
+{
+  "users_by_pk": {
+    "id": "5b1741f1-d335-45fa-a886-098d130ef6a1",
+    "first_name": "Jeff",
+    "last_name": "Loiselle",
+    "__typename": "users"
+  }
+}

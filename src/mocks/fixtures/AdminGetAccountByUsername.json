@@ -1,0 +1,383 @@
+{
+  "myaccounts": [
+    {
+      "id": "ada4c65b-ea36-4a36-83ed-d812b15baa7b",
+      "name": "Alejandro Edda",
+      "username": "ale",
+      "__typename": "accounts"
+    },
+    {
+      "id": "9d2af333-6a25-45a1-a52f-66ed19668c4f",
+      "name": "Alpha Pup",
+      "username": "AlphaPup",
+      "__typename": "accounts"
+    },
+    {
+      "id": "fa704858-eb38-474d-9613-a2e0b0af91b5",
+      "name": "Amaya",
+      "username": "Amaya",
+      "__typename": "accounts"
+    },
+    {
+      "id": "b232b46c-5c76-4e12-831b-181219b63066",
+      "name": "Andy Davis",
+      "username": "andydavis",
+      "__typename": "accounts"
+    },
+    {
+      "id": "ddafae41-622f-444d-9b00-c1cc9a97a8aa",
+      "name": "Ashley Hart ",
+      "username": "ashleyhart",
+      "__typename": "accounts"
+    },
+    {
+      "id": "e14c5cbe-14b9-4673-b579-0b198fe96c5a",
+      "name": "Bad Owl Records",
+      "username": "badowl",
+      "__typename": "accounts"
+    },
+    {
+      "id": "3fc3721f-965f-498d-940d-1aa29f08df00",
+      "name": "Cosmic Awakenings",
+      "username": "Cosmic",
+      "__typename": "accounts"
+    },
+    {
+      "id": "272a6c1a-32d7-4ff6-ac6c-1ed9a080b57f",
+      "name": "CRSTO",
+      "username": "CRSTO",
+      "__typename": "accounts"
+    },
+    {
+      "id": "77459a2e-427b-4a67-8d53-25f5c2f2ac1a",
+      "name": "deadmau5",
+      "username": "deadmau5",
+      "__typename": "accounts"
+    },
+    {
+      "id": "e9afff71-b2c9-4fdb-b88f-55c1386c0304",
+      "name": "Do Not Sit on the Furniture",
+      "username": "donotsit",
+      "__typename": "accounts"
+    },
+    {
+      "id": "28acd997-2a99-413c-9816-74a6c4148c25",
+      "name": "drichar@gmail.com",
+      "username": "l7ld3bjnm9",
+      "__typename": "accounts"
+    },
+    {
+      "id": "4fe08acb-627f-4027-a28f-3f184f401e40",
+      "name": "Duderino",
+      "username": "duderino",
+      "__typename": "accounts"
+    },
+    {
+      "id": "1ad0328c-fd05-43b6-9688-3d0e238ece55",
+      "name": "Eartha Kitt",
+      "username": "eartha",
+      "__typename": "accounts"
+    },
+    {
+      "id": "9ed4a92d-0a4a-4d31-a661-7ae2fbf33e08",
+      "name": "Eli Light",
+      "username": "EliLight",
+      "__typename": "accounts"
+    },
+    {
+      "id": "80a6e3aa-abb3-4d63-be8e-30f5a0d02d5e",
+      "name": "Epitaph Records",
+      "username": "Epitaph",
+      "__typename": "accounts"
+    },
+    {
+      "id": "3eb9b92f-09b5-4c40-b399-adb342e2ee38",
+      "name": "fdffdsfsdf",
+      "username": "sdfdsf",
+      "__typename": "accounts"
+    },
+    {
+      "id": "580b00ea-7728-43b8-892e-e82ed570fe52",
+      "name": "fsdf",
+      "username": "sdfdsfsdf",
+      "__typename": "accounts"
+    },
+    {
+      "id": "9b074c8e-6f32-40f1-9385-84919c8743af",
+      "name": "Happy Camper Records",
+      "username": "HappyCamper",
+      "__typename": "accounts"
+    },
+    {
+      "id": "35c8e809-e8d7-4942-9a43-215174b06012",
+      "name": "hendrix.alex87+staging@gmail.com",
+      "username": "v74nvu4anj",
+      "__typename": "accounts"
+    },
+    {
+      "id": "1290ea6d-959d-42c8-96db-e8e228e2f030",
+      "name": "Jason Silva",
+      "username": "JasonSilva",
+      "__typename": "accounts"
+    },
+    {
+      "id": "65b5aa38-55b6-4d3d-805c-5bd8e1f65bf3",
+      "name": "J Dizzle",
+      "username": "jdizzle1",
+      "__typename": "accounts"
+    },
+    {
+      "id": "99b77c71-0677-4890-86c2-09b2ed1dbf19",
+      "name": "jeff+dsfkjhd@loiselles.com",
+      "username": "f96b5n977y",
+      "__typename": "accounts"
+    },
+    {
+      "id": "27ad8893-7306-43d1-b587-a718b8eb31e6",
+      "name": "jeff+dude@loiselles.com",
+      "username": "93lgkeaizs",
+      "__typename": "accounts"
+    },
+    {
+      "id": "44a4c0c9-67c4-4bbd-8f61-91a4db8f00f4",
+      "name": "Jeff Loiselle",
+      "username": "yo",
+      "__typename": "accounts"
+    },
+    {
+      "id": "6dcb8728-a326-4b85-b57a-6c55348eee37",
+      "name": "jeff@pixwel.com",
+      "username": "fhu8xyxtm6",
+      "__typename": "accounts"
+    },
+    {
+      "id": "31ff8fea-633b-4a31-9453-d67e9d84c6a5",
+      "name": "jeff+sdfjdsfkj@loiselles.com",
+      "username": "y1v9l7m6lz",
+      "__typename": "accounts"
+    },
+    {
+      "id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
+      "name": "jeff@viz.ee",
+      "username": "36bjkzqu7e",
+      "__typename": "accounts"
+    },
+    {
+      "id": "d6137538-f396-402d-8610-b7ad41c71085",
+      "name": "jeff@vizee.live",
+      "username": "ygcjko42oh",
+      "__typename": "accounts"
+    },
+    {
+      "id": "696429da-7324-4978-a648-d3a4704baf44",
+      "name": "jeff+yoyo@loiselles.com",
+      "username": "cpjsb64b4m",
+      "__typename": "accounts"
+    },
+    {
+      "id": "06502b79-8636-4172-96f9-12d2caa2047e",
+      "name": "Jeremy Sole",
+      "username": "JeremySole",
+      "__typename": "accounts"
+    },
+    {
+      "id": "e79b21c5-9d58-4771-9be5-172494f0e64a",
+      "name": "Jesse Wellens",
+      "username": "JesseWellens",
+      "__typename": "accounts"
+    },
+    {
+      "id": "fb799041-7906-4286-bf74-d5aab5b38725",
+      "name": "Jordan",
+      "username": "Kosem",
+      "__typename": "accounts"
+    },
+    {
+      "id": "8e1cba73-7632-4715-b219-8c2a293d98d9",
+      "name": "jordan.katz+5@gmail.com",
+      "username": "epkg3nh87s",
+      "__typename": "accounts"
+    },
+    {
+      "id": "0b636d7f-cb8f-4b7e-88b0-15ddacc4a62b",
+      "name": "jordan.katz@gmail.com",
+      "username": "njx8pxvd56",
+      "__typename": "accounts"
+    },
+    {
+      "id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+      "name": "LEVELS",
+      "username": "jeff",
+      "__typename": "accounts"
+    },
+    {
+      "id": "b08feeed-c2c8-4b67-befd-43529ab51599",
+      "name": "lilymarstonvizee@gmail.com",
+      "username": "u94x3vc4rv",
+      "__typename": "accounts"
+    },
+    {
+      "id": "56f991ae-3959-4511-b636-2aed28170808",
+      "name": "Mardeleva",
+      "username": "Mardeleva",
+      "__typename": "accounts"
+    },
+    {
+      "id": "76819289-499d-4671-891a-ad89f22247a0",
+      "name": "mau5trap",
+      "username": "mau5trap",
+      "__typename": "accounts"
+    },
+    {
+      "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+      "name": "mau5trapTV",
+      "username": "mau5trapTV",
+      "__typename": "accounts"
+    },
+    {
+      "id": "5e22e289-d5d5-4930-8798-dbd390992f9e",
+      "name": "Mayan Warrior",
+      "username": "MayanWarrior",
+      "__typename": "accounts"
+    },
+    {
+      "id": "57de2fb1-ace1-4037-ba35-671e5ac168f5",
+      "name": "Miles Jay",
+      "username": "milesjay",
+      "__typename": "accounts"
+    },
+    {
+      "id": "d5a97ebc-c554-4352-92ee-60359bd1fa31",
+      "name": "Nicole Lindstrom",
+      "username": "GLDMNE",
+      "__typename": "accounts"
+    },
+    {
+      "id": "ff96a62d-fb2f-4c92-adc2-8bf275b4640b",
+      "name": "Rclbeauty101",
+      "username": "Rclbeauty101",
+      "__typename": "accounts"
+    },
+    {
+      "id": "7623ae9f-7d1e-4030-84fb-4df377deaf90",
+      "name": "richard@mutantvideo.com",
+      "username": "y8yl7c7wa0",
+      "__typename": "accounts"
+    },
+    {
+      "id": "b1045686-9c19-4412-a06d-6fbd8f28e996",
+      "name": "Rio ",
+      "username": "Rioshow",
+      "__typename": "accounts"
+    },
+    {
+      "id": "adbae0ed-3f4c-48b2-b7c9-f672f18a246e",
+      "name": "Rising Appalachia ",
+      "username": "RisingAppalachia",
+      "__typename": "accounts"
+    },
+    {
+      "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
+      "name": "Ryan Moriarty",
+      "username": "ryanjmo",
+      "__typename": "accounts"
+    },
+    {
+      "id": "dd4b791c-febd-4b9f-ad41-b69e2414d846",
+      "name": "Sal Dali",
+      "username": "dali1",
+      "__typename": "accounts"
+    },
+    {
+      "id": "6b5f0cd2-bee9-470a-88cf-8139b624fa08",
+      "name": "Salvador Dali",
+      "username": "Dali",
+      "__typename": "accounts"
+    },
+    {
+      "id": "26610b9e-925e-46ac-9576-3b3510e16639",
+      "name": "Sexual Chocolate",
+      "username": "sexualchocolate",
+      "__typename": "accounts"
+    },
+    {
+      "id": "3b7b4f7b-8c04-45b6-9af1-975c2fd5e665",
+      "name": "Shawni",
+      "username": "Shawni",
+      "__typename": "accounts"
+    },
+    {
+      "id": "fab09ea8-10b4-4c7d-912a-ec7ef7022d5d",
+      "name": "Sol Selectas",
+      "username": "SolSelectas",
+      "__typename": "accounts"
+    },
+    {
+      "id": "6eb036ff-27ff-4bcc-b3f6-fd013c1cfbfd",
+      "name": "Tony L Isaac",
+      "username": "tony",
+      "__typename": "accounts"
+    },
+    {
+      "id": "04ecaf08-e0ef-4da2-a478-b94219d39ea4",
+      "name": "YoDawgMon",
+      "username": "yodawgmon",
+      "__typename": "accounts"
+    },
+    {
+      "id": "468862ba-76c1-4921-ae26-1235e60e410d",
+      "name": "Yoga for Bad People",
+      "username": "Y4BP",
+      "__typename": "accounts"
+    },
+    {
+      "id": "237a439c-2b53-44d2-8a81-e1ae41a4eb78",
+      "name": "Ysabelle Capitulé",
+      "username": "Ysabellecaps",
+      "__typename": "accounts"
+    },
+    {
+      "id": "3c71a48d-6d14-4bd1-a412-7fd60d2c2cbf",
+      "name": "ysabellecaps@gmail.com",
+      "username": "62p9l0i27b",
+      "__typename": "accounts"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "3eb9b92f-09b5-4c40-b399-adb342e2ee38",
+      "name": "fdffdsfsdf",
+      "username": "sdfdsf",
+      "description": "",
+      "photo": "https://vizee-media.s3.amazonaws.com/de/67d25275b34437bfdb1b94933505de/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+      "instagram": "",
+      "twitter": "",
+      "facebook": "",
+      "created_by": "5b1741f1-d335-45fa-a886-098d130ef6a1",
+      "umami_id": 173,
+      "events": [
+        {
+          "id": "6ce3ae34-0ce8-4abe-9a24-1fcc6b6f8bfc",
+          "name": "dsfdsfsd",
+          "photo": null,
+          "preview": null,
+          "start": "2020-12-03T20:41:31.235+00:00",
+          "end": "2020-12-03T20:41:31.235+00:00",
+          "account": {
+            "name": "fdffdsfsdf",
+            "photo": "https://vizee-media.s3.amazonaws.com/de/67d25275b34437bfdb1b94933505de/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+            "username": "sdfdsf",
+            "__typename": "accounts"
+          },
+          "category": {
+            "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+            "__typename": "categories"
+          },
+          "transactions": [],
+          "__typename": "events"
+        }
+      ],
+      "__typename": "accounts"
+    }
+  ]
+}

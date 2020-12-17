@@ -1,0 +1,2120 @@
+{
+  "events": [
+    {
+      "id": "8e4eff3d-990e-4cc6-b853-13e2e34270b6",
+      "name": "dfdsfdsf",
+      "start": "2020-12-02T12:12:55.396+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/1b/29851ab29f495c9a34c51ea7613a7e/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$12.00",
+      "end": "2020-12-02T12:12:55.396+00:00",
+      "account": {
+        "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
+        "name": "Ryan Moriarty",
+        "username": "ryanjmo",
+        "photo": "https://vizee-media.s3.amazonaws.com/01/3ac731d8bf4ff886b93f3d389bb24f/D98D12D0-B059-4C26-96C2-FB0BBB76F490_1_201_a.jpeg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "5b7c1f81-e43e-424c-8d7d-8de0f149789b",
+      "name": "Breaking it down",
+      "start": "2020-11-25T00:41:37.632+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/d8/dcd1f271504bc991fe21084b6f664b/127001013_422321035605172_3920251030950494693_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-25T00:41:37.632+00:00",
+      "account": {
+        "id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+        "name": "LEVELS",
+        "username": "jeff",
+        "photo": "https://vizee-media.s3.amazonaws.com/1e/56b81affba41728b4b667cd1fb8292/Levels-Cover.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "79d0db2c-d060-4515-83ed-3d14675d618f",
+      "name": "The Last Catbender",
+      "start": "2020-12-04T18:11:12.889+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-10T18:11:12.889+00:00",
+      "account": {
+        "id": "76819289-499d-4671-891a-ad89f22247a0",
+        "name": "mau5trap",
+        "username": "mau5trap",
+        "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f5e82895-93d0-4b12-b040-c3119b324513",
+      "name": "NARCOS SEASON 3 Sizzle",
+      "start": "2020-11-28T23:56:02.424+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/59/51ecd66d444091aab87b82b948a1b1/122987980_170001444762955_3329291686929570800_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-28T23:56:02.424+00:00",
+      "account": {
+        "id": "ada4c65b-ea36-4a36-83ed-d812b15baa7b",
+        "name": "Alejandro Edda",
+        "username": "ale",
+        "photo": "https://vizee-media.s3.amazonaws.com/5d/c4e20f47c74d118713d3fb0c90c275/Screen-Shot-2020-11-28-at-3.51.07-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ac1730d3-97c7-47e9-abc4-b68c999152ef",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "6343366f-44b1-4e98-818a-2562457929db",
+      "name": "Celebrándote hoy y siempre",
+      "start": "2020-11-29T00:23:01.586+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/1d/36dcbbb4b3452590ce3043795d48e9/10000000_389938495509674_2207829437064450741_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-26T00:23:01.587+00:00",
+      "account": {
+        "id": "9ed4a92d-0a4a-4d31-a661-7ae2fbf33e08",
+        "name": "Eli Light",
+        "username": "EliLight",
+        "photo": "https://vizee-media.s3.amazonaws.com/49/978a7e3a424a458d7b4afc73f33886/Screen-Shot-2020-11-28-at-11.58.13-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "9c342b8a-068a-48ea-b038-202795496bdb",
+      "name": "Steal Premiere",
+      "start": "2020-11-29T03:10:44.689+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/fd/02849178dd4db29136837e3c2c1f6d/120925586_210911133716669_8558471586472845943_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-29T03:10:44.69+00:00",
+      "account": {
+        "id": "e14c5cbe-14b9-4673-b579-0b198fe96c5a",
+        "name": "Bad Owl Records",
+        "username": "badowl",
+        "photo": "https://vizee-media.s3.amazonaws.com/a4/920144f19b432ab47546ffb069b0ae/Screen-Shot-2020-11-28-at-7.00.03-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1967c0e6-9755-4194-9dec-965cc1781324",
+      "name": "Stereognosis ",
+      "start": "2020-11-29T02:06:27.529+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/bc/11d8df704b490897ea7ac79a9910f5/bumble.mp4",
+      "thumb": "https://vizee-media.s3.amazonaws.com/5f/2509b8789a44f69cdcd96ec0428a0e/bumble.jpg",
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-25T02:06:27.529+00:00",
+      "account": {
+        "id": "57de2fb1-ace1-4037-ba35-671e5ac168f5",
+        "name": "Miles Jay",
+        "username": "milesjay",
+        "photo": "https://vizee-media.s3.amazonaws.com/cb/4cc463677a42919243bcd8e228676c/Screen-Shot-2020-11-28-at-6.23.56-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "dcdbe48a-a49e-41dc-b9cf-045951786dda",
+      "name": "LIVE",
+      "start": "2020-12-04T18:55:27.834+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$12.00",
+      "end": "2020-12-25T18:55:27.834+00:00",
+      "account": {
+        "id": "76819289-499d-4671-891a-ad89f22247a0",
+        "name": "mau5trap",
+        "username": "mau5trap",
+        "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "461a1ca5-326e-459b-a102-1776b7398d41",
+      "name": "MARDELEVA - Live in Miami",
+      "start": "2020-11-28T01:21:44.84+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/8e/9fac683de546e58969d1c91635153d/videoplayback-30-.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$39.00",
+      "end": "2020-11-28T01:21:44.84+00:00",
+      "account": {
+        "id": "56f991ae-3959-4511-b636-2aed28170808",
+        "name": "Mardeleva",
+        "username": "Mardeleva",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/f3e9697080490aa60ce45d301ae166/Screen-Shot-2020-11-27-at-5.20.29-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "efd68060-dd07-473f-8ee4-c03e935b8289",
+      "name": "Rising Tides Premiere",
+      "start": "2020-11-25T02:26:16.876+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/f6/72bcccbcbf4f2784281a214f9c05e8/124698986_1074555293014644_4310621107214198164_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$15.00",
+      "end": "2020-11-25T02:26:16.876+00:00",
+      "account": {
+        "id": "9d2af333-6a25-45a1-a52f-66ed19668c4f",
+        "name": "Alpha Pup",
+        "username": "AlphaPup",
+        "photo": "https://vizee-media.s3.amazonaws.com/30/8771bc39324ab4ae0a8b766b34c42b/Screen-Shot-2020-11-27-at-10.30.01-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1e64d222-0f80-4f4b-ac0f-06cbdded7baf",
+      "name": "We're Moving to Baja",
+      "start": "2021-01-03T02:35:36.119+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/37/33b4bf6e164147b73c8fc78f81b007/125292199_374822037083461_3311489374481679908_n-1-.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$39.00",
+      "end": "2021-01-22T02:35:36.119+00:00",
+      "account": {
+        "id": "5e22e289-d5d5-4930-8798-dbd390992f9e",
+        "name": "Mayan Warrior",
+        "username": "MayanWarrior",
+        "photo": "https://vizee-media.s3.amazonaws.com/e3/da445ce0704bed9b2fcddb10b4484e/Screen-Shot-2020-11-22-at-7.01.16-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "e3b9316c-d825-45cb-9fd6-c4cee0a2c2c7",
+      "name": "FLUIDITY",
+      "start": "2020-11-28T01:25:43.288+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/14/4a126d7a7e4a2097986d6ca3488b63/videoplayback-34-.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-27T01:25:43.288+00:00",
+      "account": {
+        "id": "56f991ae-3959-4511-b636-2aed28170808",
+        "name": "Mardeleva",
+        "username": "Mardeleva",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/f3e9697080490aa60ce45d301ae166/Screen-Shot-2020-11-27-at-5.20.29-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1d2e2a69-05d8-44cd-a912-8546b1dd7682",
+      "name": "Pre-Recorded Video For Purchase",
+      "start": "2020-12-07T20:48:48.974+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$12.00",
+      "end": "2020-12-24T20:48:48.974+00:00",
+      "account": {
+        "id": "77459a2e-427b-4a67-8d53-25f5c2f2ac1a",
+        "name": "deadmau5",
+        "username": "deadmau5",
+        "photo": "https://vizee-media.s3.amazonaws.com/95/761b0ebf5a42049da7f3b7b54f1f4d/Screen-Shot-2020-12-16-at-7.00.49-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "40369ee2-4321-4b58-8c98-8c7b868fb556",
+      "name": "The Last Catbender",
+      "start": "2020-12-04T18:33:16.388+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/a6/29ebd99c7240c3b9d724c9fcdb408c/129301242_1281476848869692_2796116836564068886_n.mp4",
+      "thumb": "https://vizee-media.s3.amazonaws.com/5f/78905496184569acf7798a457b4277/129301242_1281476848869692_2796116836564068886_n.jpg",
+      "type": "video",
+      "price": "$1.00",
+      "end": "2020-12-24T18:33:00+00:00",
+      "account": {
+        "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+        "name": "mau5trapTV",
+        "username": "mau5trapTV",
+        "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "72470ea2-d50f-468c-b0c4-59875df1331d",
+      "name": "Awesome Video",
+      "start": "2020-12-04T19:34:48.614+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$12.00",
+      "end": "2020-12-18T19:34:48.614+00:00",
+      "account": {
+        "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+        "name": "mau5trapTV",
+        "username": "mau5trapTV",
+        "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "a0e9721b-4e40-4ed4-8372-7684b700e3e9",
+      "name": "Ondalinda",
+      "start": "2020-11-25T02:38:24.96+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/56/a7042f7423428391ba66b7b1f74d62/28433825_1835327659831467_3188920338612224000_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-25T02:38:24.96+00:00",
+      "account": {
+        "id": "5e22e289-d5d5-4930-8798-dbd390992f9e",
+        "name": "Mayan Warrior",
+        "username": "MayanWarrior",
+        "photo": "https://vizee-media.s3.amazonaws.com/e3/da445ce0704bed9b2fcddb10b4484e/Screen-Shot-2020-11-22-at-7.01.16-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "06f912d6-a4e6-4ea1-a96e-adf093dc2ce8",
+      "name": "Man burn 2015",
+      "start": "2020-11-25T02:42:31.264+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/c1/5479d242334ef18cbc0ff0fa67dab4/12976367_1734844926753395_127613245_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-25T02:42:31.264+00:00",
+      "account": {
+        "id": "5e22e289-d5d5-4930-8798-dbd390992f9e",
+        "name": "Mayan Warrior",
+        "username": "MayanWarrior",
+        "photo": "https://vizee-media.s3.amazonaws.com/e3/da445ce0704bed9b2fcddb10b4484e/Screen-Shot-2020-11-22-at-7.01.16-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "ebe968ad-de97-403a-86b5-6e513960f911",
+      "name": "Rising Appalachia - I Shall Be Released - On the Farm Sessions @Pickathon 2018 S06E03",
+      "start": "2020-12-04T05:03:10.064+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/aa/109d15bc874c3aaa93bdb6fb6f6997/Screen-Shot-2020-11-25-at-9.04.20-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-26T05:03:10.064+00:00",
+      "account": {
+        "id": "adbae0ed-3f4c-48b2-b7c9-f672f18a246e",
+        "name": "Rising Appalachia ",
+        "username": "RisingAppalachia",
+        "photo": "https://vizee-media.s3.amazonaws.com/36/af8800f8b94546906b6792d763b046/Screen-Shot-2020-11-27-at-8.25.08-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "021ea613-8bb0-49a1-a670-26e951be652b",
+      "name": "Kamasi Washington plays a Sexy Sax ",
+      "start": "2020-11-27T22:38:42.673+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/db/41d0af70c04f0ca5568ec255745e5c/Screen-Shot-2020-11-27-at-2.40.45-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$99.00",
+      "end": "2020-11-27T22:38:42.674+00:00",
+      "account": {
+        "id": "06502b79-8636-4172-96f9-12d2caa2047e",
+        "name": "Jeremy Sole",
+        "username": "JeremySole",
+        "photo": "https://vizee-media.s3.amazonaws.com/02/f19d4804644814990b4c0437702ab4/J-Sole-800-copy.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "0356ec41-0d2b-4040-9b5e-4a34a85dbe33",
+      "name": "Shambhala Festival ",
+      "start": "2020-12-04T22:41:25.193+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/ac/4f5397e60b4e9cb9a041966e649bfa/123749412_4058736680821275_2968465235524062804_n-1-.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$9.00",
+      "end": "2020-12-12T22:41:25.194+00:00",
+      "account": {
+        "id": "06502b79-8636-4172-96f9-12d2caa2047e",
+        "name": "Jeremy Sole",
+        "username": "JeremySole",
+        "photo": "https://vizee-media.s3.amazonaws.com/02/f19d4804644814990b4c0437702ab4/J-Sole-800-copy.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1b0b4e0e-595e-4722-9fac-bb1914cbe67d",
+      "name": "HCR 002 Jake the Rapper",
+      "start": "2020-11-27T23:16:51.909+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/7a/e16928cdd14b8dab82b1bf5cabf206/99100718_689850555081829_1153275391523492160_n-1-.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-27T23:16:51.91+00:00",
+      "account": {
+        "id": "9b074c8e-6f32-40f1-9385-84919c8743af",
+        "name": "Happy Camper Records",
+        "username": "HappyCamper",
+        "photo": "https://vizee-media.s3.amazonaws.com/20/4991a039f54519853d300dc6170a61/0017517463_100.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "11fb13f9-d692-477a-8461-4169a9e4986b",
+      "name": "A Taste of Mardeleva",
+      "start": "2020-11-28T01:41:32.239+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/1b/b3b9d7808946178f6f87331bd9cc9f/125781195_814404042729702_4865309396553619576_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-19T01:41:32.239+00:00",
+      "account": {
+        "id": "56f991ae-3959-4511-b636-2aed28170808",
+        "name": "Mardeleva",
+        "username": "Mardeleva",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/f3e9697080490aa60ce45d301ae166/Screen-Shot-2020-11-27-at-5.20.29-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "af3f9131-fb21-4e70-9e48-122665f048b0",
+      "name": "ALTERED STATES TO ALTERED TRAITS",
+      "start": "2020-11-28T18:32:38.353+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/e9/5316d869f54bd4b74863bb0a58ecbb/121802453_703766967165029_2764125834416230337_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-31T18:32:38.353+00:00",
+      "account": {
+        "id": "1290ea6d-959d-42c8-96db-e8e228e2f030",
+        "name": "Jason Silva",
+        "username": "JasonSilva",
+        "photo": "https://vizee-media.s3.amazonaws.com/99/1f5b40860442eeae7d9a6e86ea1cb7/Screen-Shot-2020-11-28-at-10.40.20-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "162c9a29-719d-4a05-a3aa-01bf788f256f",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "76de5e9a-338f-40d7-bfa4-ec78772328e0",
+      "name": "D5 Ableton Masterclass",
+      "start": "2020-12-11T03:54:03.814+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/c1/74f35c36f84bc1bc51eec95b48b2fd/lead-img-march-30-masterclass-second-membership-free.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "conference",
+      "price": "$3.00",
+      "end": "2021-12-11T03:54:00+00:00",
+      "account": {
+        "id": "77459a2e-427b-4a67-8d53-25f5c2f2ac1a",
+        "name": "deadmau5",
+        "username": "deadmau5",
+        "photo": "https://vizee-media.s3.amazonaws.com/95/761b0ebf5a42049da7f3b7b54f1f4d/Screen-Shot-2020-12-16-at-7.00.49-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "3276f4aa-44c7-4f02-9278-b0263f1292c9",
+      "name": "Danny Elfman - \"Happy\" (Official Video)",
+      "start": "2020-11-28T19:28:40.335+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/a8/f6d1caa991410a949eaa662b3ceada/videoplayback-2-.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$30.00",
+      "end": "2020-11-28T19:28:40.335+00:00",
+      "account": {
+        "id": "80a6e3aa-abb3-4d63-be8e-30f5a0d02d5e",
+        "name": "Epitaph Records",
+        "username": "Epitaph",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/bd5a6f5319449581e3cead96853a7d/Screen-Shot-2020-11-28-at-11.26.26-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "fa094cc0-7234-4241-800b-32df0238d9ae",
+      "name": "Vibrating so high with @taticanas3",
+      "start": "2020-11-29T00:33:52.367+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/71/eb6e36b5ff4f18b03c8764f43bc828/101271404_621864161739979_7680012859055928676_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-29T00:33:52.367+00:00",
+      "account": {
+        "id": "9ed4a92d-0a4a-4d31-a661-7ae2fbf33e08",
+        "name": "Eli Light",
+        "username": "EliLight",
+        "photo": "https://vizee-media.s3.amazonaws.com/49/978a7e3a424a458d7b4afc73f33886/Screen-Shot-2020-11-28-at-11.58.13-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "14bc76c9-cd11-4564-929c-f9c750cd4a9d",
+      "name": "EDITION Opening ",
+      "start": "2020-11-29T04:08:29.464+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/be/d9032364f5402eab600d080eddb270/Screen-Shot-2020-11-28-at-8.10.22-PM.png",
+      "preview": "https://vizee-media.s3.amazonaws.com/4b/096273fdaf4e2ea65d62a95695e75e/77132387_271494477142484_8428675217776669358_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$33.00",
+      "end": "2021-01-01T04:08:29.464+00:00",
+      "account": {
+        "id": "272a6c1a-32d7-4ff6-ac6c-1ed9a080b57f",
+        "name": "CRSTO",
+        "username": "CRSTO",
+        "photo": "https://vizee-media.s3.amazonaws.com/a8/bf40dbc0de4b89b31aeddefa3b2e98/Screen-Shot-2020-11-28-at-8.07.10-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "ea533d83-8068-4bf7-afc7-00019b431623",
+      "name": "Architects - \"Animals\"",
+      "start": "2020-11-28T19:34:54.687+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/e8/0608d1357145bda148942b8edb8728/videoplayback-3-.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$30.00",
+      "end": "2020-12-31T19:34:54.687+00:00",
+      "account": {
+        "id": "80a6e3aa-abb3-4d63-be8e-30f5a0d02d5e",
+        "name": "Epitaph Records",
+        "username": "Epitaph",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/bd5a6f5319449581e3cead96853a7d/Screen-Shot-2020-11-28-at-11.26.26-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "e291741f-90e3-449f-a666-42a1dbb584e8",
+      "name": "WASTELAND Premiere",
+      "start": "2020-11-28T19:42:56.199+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/74/c94cf63cd145049adcf50b90ace27e/125531656_2466618176973816_7339484727625585479_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$20.00",
+      "end": "2020-12-31T19:42:56.199+00:00",
+      "account": {
+        "id": "80a6e3aa-abb3-4d63-be8e-30f5a0d02d5e",
+        "name": "Epitaph Records",
+        "username": "Epitaph",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/bd5a6f5319449581e3cead96853a7d/Screen-Shot-2020-11-28-at-11.26.26-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "872ecb86-98d0-4dcd-9d25-b80068b4ed6c",
+      "name": "VOTE",
+      "start": "2020-11-28T23:52:12.323+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/4e/ab80a497d343cead742034fa335847/122960331_121825266174726_2403966551421083664_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$9.00",
+      "end": "2020-12-25T23:52:12.323+00:00",
+      "account": {
+        "id": "ada4c65b-ea36-4a36-83ed-d812b15baa7b",
+        "name": "Alejandro Edda",
+        "username": "ale",
+        "photo": "https://vizee-media.s3.amazonaws.com/5d/c4e20f47c74d118713d3fb0c90c275/Screen-Shot-2020-11-28-at-3.51.07-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ac1730d3-97c7-47e9-abc4-b68c999152ef",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "05371e09-45b1-4dbb-a1c6-f100f58092be",
+      "name": "HCM 001 Collecting Stories ",
+      "start": "2020-11-27T23:17:53.78+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/a0/36673aa9c1475e8a33ea459782d4d3/120110913_805452940280692_3550455653465241968_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-27T23:17:53.78+00:00",
+      "account": {
+        "id": "9b074c8e-6f32-40f1-9385-84919c8743af",
+        "name": "Happy Camper Records",
+        "username": "HappyCamper",
+        "photo": "https://vizee-media.s3.amazonaws.com/20/4991a039f54519853d300dc6170a61/0017517463_100.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "9fb90165-8efd-47c0-8df2-4b24ca9a7ec3",
+      "name": "LIVE",
+      "start": "2020-12-04T19:40:12.452+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$12.00",
+      "end": "2020-12-25T19:40:12.452+00:00",
+      "account": {
+        "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+        "name": "mau5trapTV",
+        "username": "mau5trapTV",
+        "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "863ec6a8-0594-4dac-9111-c51ec7d63bad",
+      "name": "GIVING GOLD",
+      "start": "2020-11-28T00:38:15.311+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/7d/abb4364acd4b428e398dd092a798fe/Screen-Shot-2020-11-27-at-4.41.31-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-28T00:38:15.311+00:00",
+      "account": {
+        "id": "468862ba-76c1-4921-ae26-1235e60e410d",
+        "name": "Yoga for Bad People",
+        "username": "Y4BP",
+        "photo": "https://vizee-media.s3.amazonaws.com/90/37732bf1db4789a67889f68041e923/Screen-Shot-2020-11-27-at-4.32.02-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "7c59eec9-f0c8-4a4f-a823-3e07f3f3f81e",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "80f8ad0e-d901-41fc-806a-a2af798e3ed7",
+      "name": "DIFFERENT “MODES” OF REALITY",
+      "start": "2020-11-28T18:35:10+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/c1/adf2d337e54a61b2edbcee97acc0e8/121962268_161112699003582_4091884263399099652_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$24.00",
+      "end": "2020-12-31T18:35:10+00:00",
+      "account": {
+        "id": "1290ea6d-959d-42c8-96db-e8e228e2f030",
+        "name": "Jason Silva",
+        "username": "JasonSilva",
+        "photo": "https://vizee-media.s3.amazonaws.com/99/1f5b40860442eeae7d9a6e86ea1cb7/Screen-Shot-2020-11-28-at-10.40.20-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "162c9a29-719d-4a05-a3aa-01bf788f256f",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "b2a27dbd-9f47-478d-a410-3eb258856402",
+      "name": "Yoga for Bad People",
+      "start": "2020-11-28T00:42:56.967+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/f3/cf8ea062624aeea083dd2784bd4f85/Screen-Shot-2020-11-27-at-4.43.39-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-28T00:42:56.967+00:00",
+      "account": {
+        "id": "468862ba-76c1-4921-ae26-1235e60e410d",
+        "name": "Yoga for Bad People",
+        "username": "Y4BP",
+        "photo": "https://vizee-media.s3.amazonaws.com/90/37732bf1db4789a67889f68041e923/Screen-Shot-2020-11-27-at-4.32.02-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "7c59eec9-f0c8-4a4f-a823-3e07f3f3f81e",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "99db58e6-7e22-4cdf-83ec-5334bc7760ce",
+      "name": "Doomsday Dina Virtual Photography Art Exhibit ",
+      "start": "2020-11-29T00:02:22.048+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/8e/4154180a714dc2acb7a7b9566cbd77/122786725_655405308676974_4043117412170663553_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2021-01-01T00:02:22.049+00:00",
+      "account": {
+        "id": "ada4c65b-ea36-4a36-83ed-d812b15baa7b",
+        "name": "Alejandro Edda",
+        "username": "ale",
+        "photo": "https://vizee-media.s3.amazonaws.com/5d/c4e20f47c74d118713d3fb0c90c275/Screen-Shot-2020-11-28-at-3.51.07-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ac1730d3-97c7-47e9-abc4-b68c999152ef",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "36246f5f-b997-4adc-8f5a-6c43cd8696d0",
+      "name": "Backyard Sessions Livestream",
+      "start": "2020-12-05T23:13:00+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/4b/bc7562464f4ad791c157528df971e2/120822377_384002349274628_8344698400258546991_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-12-06T02:13:58.347+00:00",
+      "account": {
+        "id": "b232b46c-5c76-4e12-831b-181219b63066",
+        "name": "Andy Davis",
+        "username": "andydavis",
+        "photo": "https://vizee-media.s3.amazonaws.com/bb/057a3c60dc48fc85316780c8c48a93/Screen-Shot-2020-11-25-at-6.13.11-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "21463f33-53c2-41ff-bb4f-f7fefa854c7d",
+      "name": "yoyo",
+      "start": "2020-12-16T16:17:53.565+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/49/d1c1be65c04f8cace1662b135e8ae3/PixelPro-Animated-Background-7.mp4",
+      "thumb": "https://vizee-media.s3.amazonaws.com/74/f46085db2b4ba592c53c0991026ecb/PixelPro-Animated-Background-7.jpg",
+      "type": "video",
+      "price": "$12.00",
+      "end": "2020-12-31T16:17:53.566+00:00",
+      "account": {
+        "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+        "name": "mau5trapTV",
+        "username": "mau5trapTV",
+        "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "c6d7e2f1-f2ce-40ed-943d-2e47fa33499b",
+      "name": "Amaya Radio Episode # 1 Exclusive",
+      "start": "2020-11-25T18:48:12.859+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/12/78438d8b6b4fcd85e284fb2e85df2f/116647232_335297010815255_8745698948932777660_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$21.00",
+      "end": "2020-11-25T18:48:12.859+00:00",
+      "account": {
+        "id": "fa704858-eb38-474d-9613-a2e0b0af91b5",
+        "name": "Amaya",
+        "username": "Amaya",
+        "photo": "https://vizee-media.s3.amazonaws.com/9e/b5050a96c2497e855827274a1238d9/Screen-Shot-2020-11-25-at-11.00.03-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "39101ecf-b05f-4a00-a22f-7e679797593c",
+      "name": "Amaya Radio Episode # 2 Exclusive",
+      "start": "2020-11-25T18:47:10.705+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/7f/4432e86ff74c3fbfb3fbf0183053cd/118937994_403142723982489_1992363122886516256_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$21.00",
+      "end": "2020-11-25T18:47:10.705+00:00",
+      "account": {
+        "id": "fa704858-eb38-474d-9613-a2e0b0af91b5",
+        "name": "Amaya",
+        "username": "Amaya",
+        "photo": "https://vizee-media.s3.amazonaws.com/9e/b5050a96c2497e855827274a1238d9/Screen-Shot-2020-11-25-at-11.00.03-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "ecc5e210-a1b2-4a90-a4a4-16d7a092749a",
+      "name": "Marionette Puppet Show Midnight Feature ",
+      "start": "2020-11-27T22:47:33.744+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/0b/12d5c893d840ef88aeaee3c400c928/Screen-Shot-2020-11-27-at-2.54.58-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2021-01-23T22:47:33.745+00:00",
+      "account": {
+        "id": "06502b79-8636-4172-96f9-12d2caa2047e",
+        "name": "Jeremy Sole",
+        "username": "JeremySole",
+        "photo": "https://vizee-media.s3.amazonaws.com/02/f19d4804644814990b4c0437702ab4/J-Sole-800-copy.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "90820f81-6c3c-4783-aee9-13d6e7c5200c",
+      "name": "Massar",
+      "start": "2020-11-26T02:43:44.174+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/a1/4eb9b51d4a4cc1a7a36ff53a2e4479/120938948_3256340934414915_955169776361940738_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-26T02:43:44.174+00:00",
+      "account": {
+        "id": "6eb036ff-27ff-4bcc-b3f6-fd013c1cfbfd",
+        "name": "Tony L Isaac",
+        "username": "tony",
+        "photo": "https://vizee-media.s3.amazonaws.com/d7/564c99a4cd4607a08724cac2cc1a33/Screen-Shot-2020-11-25-at-6.41.18-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "76b96b5c-7aab-48cc-9f99-4f774aff8951",
+      "name": "Prophecies of the Ancient Future Featuring Derun",
+      "start": "2020-11-27T23:51:02.884+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/47/50ee24b1764862a603091abeb7a5ed/95567936_156004329253319_2281420566087463746_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-12-19T23:51:02.884+00:00",
+      "account": {
+        "id": "3fc3721f-965f-498d-940d-1aa29f08df00",
+        "name": "Cosmic Awakenings",
+        "username": "Cosmic",
+        "photo": "https://vizee-media.s3.amazonaws.com/5e/04a14d3bef4d3e9a97f3b736854755/123614358_1860545314111470_6483006341320661298_o.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "76d97f07-f694-44cd-a82a-744f18d799b2",
+      "name": "Live From Echo Mountain ",
+      "start": "2020-12-04T04:02:07.068+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/76/fe67e5fbb443af932c6e0dcd1b6e48/125526833_136079561594585_3471188186463788137_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-12-04T04:02:07.068+00:00",
+      "account": {
+        "id": "adbae0ed-3f4c-48b2-b7c9-f672f18a246e",
+        "name": "Rising Appalachia ",
+        "username": "RisingAppalachia",
+        "photo": "https://vizee-media.s3.amazonaws.com/36/af8800f8b94546906b6792d763b046/Screen-Shot-2020-11-27-at-8.25.08-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "bb3e0803-dc3b-4879-923f-baf82e9bce52",
+      "name": "Special Guests Cory Pesaturo and Yasmine Azaeiz!!!",
+      "start": "2020-11-29T02:05:10.035+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/eb/aab2b370c747609fabf998a9ea4be2/70503692_134795077844256_7641194155131174433_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$99.00",
+      "end": "2020-12-13T02:05:10.035+00:00",
+      "account": {
+        "id": "57de2fb1-ace1-4037-ba35-671e5ac168f5",
+        "name": "Miles Jay",
+        "username": "milesjay",
+        "photo": "https://vizee-media.s3.amazonaws.com/cb/4cc463677a42919243bcd8e228676c/Screen-Shot-2020-11-28-at-6.23.56-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1bb15741-e21a-425e-b7e0-4e237a4b0db7",
+      "name": "Ear Porn 017",
+      "start": "2020-11-29T04:12:35.124+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/65/8100c11d8944ef80f17b83d10d213c/Screen-Shot-2020-11-28-at-8.12.51-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$15.00",
+      "end": "2020-11-29T04:12:35.124+00:00",
+      "account": {
+        "id": "272a6c1a-32d7-4ff6-ac6c-1ed9a080b57f",
+        "name": "CRSTO",
+        "username": "CRSTO",
+        "photo": "https://vizee-media.s3.amazonaws.com/a8/bf40dbc0de4b89b31aeddefa3b2e98/Screen-Shot-2020-11-28-at-8.07.10-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "35eef692-b051-4256-97a4-be50522a26b9",
+      "name": "Renegade Sessions",
+      "start": "2020-11-29T04:16:01.914+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/bb/fc1834ee1b4b65894ee9eb67ffe57f/72976737_1441483936000682_7973138518492899887_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$33.33",
+      "end": "2020-12-13T04:16:01.914+00:00",
+      "account": {
+        "id": "272a6c1a-32d7-4ff6-ac6c-1ed9a080b57f",
+        "name": "CRSTO",
+        "username": "CRSTO",
+        "photo": "https://vizee-media.s3.amazonaws.com/a8/bf40dbc0de4b89b31aeddefa3b2e98/Screen-Shot-2020-11-28-at-8.07.10-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f351bbc7-b67a-4b7f-9030-04d537783aef",
+      "name": "Snoop Dogg, Tupac and a T-Rex, WHAT!? Making the I C Your Bullsh*t Official Music Video",
+      "start": "2020-11-29T06:09:07.74+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/a4/bd769b0cd64b5fad647fc035dcb9b4/Screen-Shot-2020-11-28-at-10.10.23-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$99.00",
+      "end": "2020-12-20T06:09:07.74+00:00",
+      "account": {
+        "id": "e79b21c5-9d58-4771-9be5-172494f0e64a",
+        "name": "Jesse Wellens",
+        "username": "JesseWellens",
+        "photo": "https://vizee-media.s3.amazonaws.com/88/9556f3a84641c2893bddd301cd9f1b/Screen-Shot-2020-11-28-at-9.54.56-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "042cb499-5039-47d1-acf4-21ccae4b362c",
+      "name": "I wrote a poem",
+      "start": "2020-11-25T00:18:10.439+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/b6/8c7638cad546208a0c16328fac3065/Screen-Shot-2020-11-24-at-4.20.46-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-25T00:18:10.439+00:00",
+      "account": {
+        "id": "ddafae41-622f-444d-9b00-c1cc9a97a8aa",
+        "name": "Ashley Hart ",
+        "username": "ashleyhart",
+        "photo": "https://vizee-media.s3.amazonaws.com/45/64d09391d94dc7837f936821e8c7cb/Screen-Shot-2020-11-24-at-4.24.16-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "7c59eec9-f0c8-4a4f-a823-3e07f3f3f81e",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "e58ad4d0-ca66-4770-a242-7ef994fe098c",
+      "name": "Pulse Premiere Release",
+      "start": "2020-11-26T03:46:17.799+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/f1/f5948343134c93b7ba8cde984bbb72/120312312_181186263498285_1916577627347071328_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-26T03:46:17.8+00:00",
+      "account": {
+        "id": "adbae0ed-3f4c-48b2-b7c9-f672f18a246e",
+        "name": "Rising Appalachia ",
+        "username": "RisingAppalachia",
+        "photo": "https://vizee-media.s3.amazonaws.com/36/af8800f8b94546906b6792d763b046/Screen-Shot-2020-11-27-at-8.25.08-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "214adbc2-e7a1-4d61-92ad-c61ab326a775",
+      "name": "Heather Lilleston In Conversation with Pete Maiden",
+      "start": "2020-11-28T00:34:33.152+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/d3/4309de3ad349c7ba1cd9c83638ba1b/91347981_818183188704452_3981684602661777287_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-28T00:34:33.152+00:00",
+      "account": {
+        "id": "468862ba-76c1-4921-ae26-1235e60e410d",
+        "name": "Yoga for Bad People",
+        "username": "Y4BP",
+        "photo": "https://vizee-media.s3.amazonaws.com/90/37732bf1db4789a67889f68041e923/Screen-Shot-2020-11-27-at-4.32.02-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "48ae1ea7-a53f-47ab-b3ca-07a5953f5dee",
+      "name": "Black Nile No Brainer Premiere",
+      "start": "2020-11-25T02:20:58.514+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/dd/a7816075f344dfba51fda402950e67/126210506_367267574362336_609056292110237583_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-25T02:20:58.515+00:00",
+      "account": {
+        "id": "9d2af333-6a25-45a1-a52f-66ed19668c4f",
+        "name": "Alpha Pup",
+        "username": "AlphaPup",
+        "photo": "https://vizee-media.s3.amazonaws.com/30/8771bc39324ab4ae0a8b766b34c42b/Screen-Shot-2020-11-27-at-10.30.01-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "2000a644-b081-469c-bfd9-8e99c1db1a9d",
+      "name": "Yung Joc | It's Going Down X Ysabelle Capitule Choreography",
+      "start": "2020-11-25T00:59:05.921+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/41/c237bd010c40dcbb41729df76aa92d/Screen-Shot-2020-11-24-at-4.59.42-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$39.00",
+      "end": "2020-11-25T00:59:05.921+00:00",
+      "account": {
+        "id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+        "name": "LEVELS",
+        "username": "jeff",
+        "photo": "https://vizee-media.s3.amazonaws.com/1e/56b81affba41728b4b667cd1fb8292/Levels-Cover.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "04b46af7-8d4a-425d-a713-668b99808612",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "2d18f453-d5c0-420d-8654-c4ef9f248b77",
+      "name": "Sabo & Goldcap Desert Sunrise 2020",
+      "start": "2020-11-25T01:42:52.709+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/ba/6db72407db4b28841d690a30f35dc4/Screen-Shot-2020-11-24-at-5.44.39-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$10.00",
+      "end": "2020-11-25T01:42:52.709+00:00",
+      "account": {
+        "id": "fab09ea8-10b4-4c7d-912a-ec7ef7022d5d",
+        "name": "Sol Selectas",
+        "username": "SolSelectas",
+        "photo": "https://vizee-media.s3.amazonaws.com/d5/8e7d4d9b764c0f92d0bcbad5ae60d9/119844922_4201463909886370_8946910972802394747_o.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "dd93f20d-68db-4d85-98f1-ec64ab155a51",
+      "name": "Amaya Artist Agency",
+      "start": "2020-11-30T18:41:04.239+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/bc/7282cbb75c475692a777c6e32814d1/Screen-Shot-2020-11-25-at-1.46.04-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$0.00",
+      "end": "2020-12-20T18:41:04.239+00:00",
+      "account": {
+        "id": "fa704858-eb38-474d-9613-a2e0b0af91b5",
+        "name": "Amaya",
+        "username": "Amaya",
+        "photo": "https://vizee-media.s3.amazonaws.com/9e/b5050a96c2497e855827274a1238d9/Screen-Shot-2020-11-25-at-11.00.03-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "5a92d4a4-4595-4ab9-8c6e-87a8275f00e8",
+      "name": "Parris X Nat X Ysabelle Collab | In Those Jeans",
+      "start": "2020-11-25T00:49:28.523+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/d9/84df54b7eb4459ac9bed36a927237c/Screen-Shot-2020-11-24-at-4.50.06-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$99.00",
+      "end": "2020-11-25T00:49:28.524+00:00",
+      "account": {
+        "id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+        "name": "LEVELS",
+        "username": "jeff",
+        "photo": "https://vizee-media.s3.amazonaws.com/1e/56b81affba41728b4b667cd1fb8292/Levels-Cover.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "04b46af7-8d4a-425d-a713-668b99808612",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "cde87d0d-f9c8-4511-a7dd-70462cbc60e8",
+      "name": "Higher Self",
+      "start": "2020-11-29T03:16:34.271+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/b0/9a4c5c8d2346d6b252bee0266b594b/84670784_881435255642652_540948912325701731_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$9.00",
+      "end": "2021-01-01T03:16:34.271+00:00",
+      "account": {
+        "id": "e14c5cbe-14b9-4673-b579-0b198fe96c5a",
+        "name": "Bad Owl Records",
+        "username": "badowl",
+        "photo": "https://vizee-media.s3.amazonaws.com/a4/920144f19b432ab47546ffb069b0ae/Screen-Shot-2020-11-28-at-7.00.03-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "18c10a33-05ed-4f1e-a9ab-5d2e9bf0ece7",
+      "name": "Deep Reflections",
+      "start": "2020-11-29T04:14:08.442+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/fb/64f070a6b34f4b8295c4dc74c20886/77632127_1441062116042267_8367566029843256839_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$9.00",
+      "end": "2020-12-26T04:14:08.442+00:00",
+      "account": {
+        "id": "272a6c1a-32d7-4ff6-ac6c-1ed9a080b57f",
+        "name": "CRSTO",
+        "username": "CRSTO",
+        "photo": "https://vizee-media.s3.amazonaws.com/a8/bf40dbc0de4b89b31aeddefa3b2e98/Screen-Shot-2020-11-28-at-8.07.10-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f0e4b6eb-4e12-4b42-9111-f16283cf9477",
+      "name": "DJ Unk | Choreography Ysabelle Capitule | Walk It Out",
+      "start": "2020-11-25T00:55:45.505+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/75/5f76f65db14e618b17c5bb5edc5758/Screen-Shot-2020-11-24-at-4.56.12-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$33.00",
+      "end": "2020-11-25T00:55:45.506+00:00",
+      "account": {
+        "id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+        "name": "LEVELS",
+        "username": "jeff",
+        "photo": "https://vizee-media.s3.amazonaws.com/1e/56b81affba41728b4b667cd1fb8292/Levels-Cover.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "4493a51c-06da-4b1e-bfdc-0c965108bcf3",
+      "name": "ALTAR Vedic Fire Ceremony Exclusive ",
+      "start": "2020-11-29T03:40:09.668+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/11/0ea2bef1574024bc9c1decfa5fba94/Screen-Shot-2020-11-28-at-7.43.09-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$9.00",
+      "end": "2020-12-13T03:40:09.668+00:00",
+      "account": {
+        "id": "9ed4a92d-0a4a-4d31-a661-7ae2fbf33e08",
+        "name": "Eli Light",
+        "username": "EliLight",
+        "photo": "https://vizee-media.s3.amazonaws.com/49/978a7e3a424a458d7b4afc73f33886/Screen-Shot-2020-11-28-at-11.58.13-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f85f3132-a40a-4992-896c-8e380fd75630",
+      "name": "Axion Orchestra — Viva Dusty",
+      "start": "2020-11-29T02:01:02.187+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/27/fa9631de7c4fa98ff7e6b7cd994ea4/82809338_193314808458975_7051426969067666518_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$20.00",
+      "end": "2020-11-29T02:01:02.187+00:00",
+      "account": {
+        "id": "57de2fb1-ace1-4037-ba35-671e5ac168f5",
+        "name": "Miles Jay",
+        "username": "milesjay",
+        "photo": "https://vizee-media.s3.amazonaws.com/cb/4cc463677a42919243bcd8e228676c/Screen-Shot-2020-11-28-at-6.23.56-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "2ebc021b-fa1c-4087-9d8c-45d05bb0107e",
+      "name": " mau5trap.tv - LIVE! FREE!",
+      "start": "2020-12-05T12:46:34.449+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/d6/5f5add69c64fd9be03b6ed95bb7649/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$0.00",
+      "end": "2020-12-31T12:46:34.449+00:00",
+      "account": {
+        "id": "77459a2e-427b-4a67-8d53-25f5c2f2ac1a",
+        "name": "deadmau5",
+        "username": "deadmau5",
+        "photo": "https://vizee-media.s3.amazonaws.com/95/761b0ebf5a42049da7f3b7b54f1f4d/Screen-Shot-2020-12-16-at-7.00.49-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1e608b8b-83c7-4d14-9404-2588d86a1bae",
+      "name": "I believe the children are our future ",
+      "start": "2020-11-27T20:00:37.511+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$99.00",
+      "end": "2021-11-13T20:00:37.511+00:00",
+      "account": {
+        "id": "26610b9e-925e-46ac-9576-3b3510e16639",
+        "name": "Sexual Chocolate",
+        "username": "sexualchocolate",
+        "photo": "https://vizee-media.s3.amazonaws.com/0c/d578477af744359ebadf451613b082/Screen-Shot-2020-11-27-at-11.58.53-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1ca02e4e-7a26-4496-86d2-1c55dc4c785f",
+      "name": "Buddy System Premiere",
+      "start": "2020-11-25T01:50:55.369+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/a4/d61058eb054c6e9b254e51d4c41823/Screen-Shot-2020-11-24-at-5.51.16-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-12-27T01:50:55.369+00:00",
+      "account": {
+        "id": "fab09ea8-10b4-4c7d-912a-ec7ef7022d5d",
+        "name": "Sol Selectas",
+        "username": "SolSelectas",
+        "photo": "https://vizee-media.s3.amazonaws.com/d5/8e7d4d9b764c0f92d0bcbad5ae60d9/119844922_4201463909886370_8946910972802394747_o.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f01f36fd-b3c6-4c9a-bfa9-5bc4ff429411",
+      "name": "SOL083 - Satori - Re: Imagined",
+      "start": "2020-11-25T01:52:50.863+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/d6/eefcb774074719894441ff318e8ea8/Screen-Shot-2020-11-24-at-5.52.43-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-25T01:52:50.864+00:00",
+      "account": {
+        "id": "fab09ea8-10b4-4c7d-912a-ec7ef7022d5d",
+        "name": "Sol Selectas",
+        "username": "SolSelectas",
+        "photo": "https://vizee-media.s3.amazonaws.com/d5/8e7d4d9b764c0f92d0bcbad5ae60d9/119844922_4201463909886370_8946910972802394747_o.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f41371e2-6dcd-468f-bac3-6afea5738032",
+      "name": "My Blues Exclusive Premiere",
+      "start": "2020-11-26T02:00:36.801+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/64/c4b7eb7da447bdaecd397bda36c6e6/Screen-Shot-2020-11-25-at-6.01.47-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-19T02:00:36.801+00:00",
+      "account": {
+        "id": "b232b46c-5c76-4e12-831b-181219b63066",
+        "name": "Andy Davis",
+        "username": "andydavis",
+        "photo": "https://vizee-media.s3.amazonaws.com/bb/057a3c60dc48fc85316780c8c48a93/Screen-Shot-2020-11-25-at-6.13.11-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "b9e1d248-c23f-4cea-ae1f-0c85bd57afd5",
+      "name": "[DNSOTF 034] Pippi Ciez - Tales Of Shiva EP incl. Esteble Remix [Clips]",
+      "start": "2020-11-25T03:17:31.167+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/f1/654ef776624d2bad36941e09951774/Screen-Shot-2020-11-24-at-7.17.29-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-25T03:17:31.167+00:00",
+      "account": {
+        "id": "e9afff71-b2c9-4fdb-b88f-55c1386c0304",
+        "name": "Do Not Sit on the Furniture",
+        "username": "donotsit",
+        "photo": "https://vizee-media.s3.amazonaws.com/95/996b69f21b46329853eebc1222162f/Screen-Shot-2020-11-24-at-7.19.34-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "1537abf5-8386-4b43-98e0-608ccc2912bd",
+      "name": "Be Svendsen at bomontiada for Get Closer (Do Not Sit On The Furniture)",
+      "start": "2020-11-25T03:21:14.824+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/8e/934310418c4fc183c83ad094cff319/Screen-Shot-2020-11-24-at-7.22.28-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-25T03:21:14.824+00:00",
+      "account": {
+        "id": "e9afff71-b2c9-4fdb-b88f-55c1386c0304",
+        "name": "Do Not Sit on the Furniture",
+        "username": "donotsit",
+        "photo": "https://vizee-media.s3.amazonaws.com/95/996b69f21b46329853eebc1222162f/Screen-Shot-2020-11-24-at-7.19.34-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "675e5708-35e3-4f43-9799-43c4ba8136f2",
+      "name": "LIVE",
+      "start": "2020-12-04T18:55:27.834+00:00",
+      "photo": null,
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$12.00",
+      "end": "2020-12-25T18:55:27.834+00:00",
+      "account": {
+        "id": "76819289-499d-4671-891a-ad89f22247a0",
+        "name": "mau5trap",
+        "username": "mau5trap",
+        "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "c5d7062a-f1d6-49a4-a16a-c4acac5da8e5",
+      "name": "HCR 007 Joep Mencke",
+      "start": "2020-11-27T23:27:46.526+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/c9/f7bd8feda4478ca9c2d8d0962d282b/79973708_193588201690696_3906025568080058802_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$33.00",
+      "end": "2020-12-31T23:27:46.526+00:00",
+      "account": {
+        "id": "9b074c8e-6f32-40f1-9385-84919c8743af",
+        "name": "Happy Camper Records",
+        "username": "HappyCamper",
+        "photo": "https://vizee-media.s3.amazonaws.com/20/4991a039f54519853d300dc6170a61/0017517463_100.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "c030ba44-fdb5-4ee3-98a2-90d04472d359",
+      "name": "ALTAR FULL MOON SET ",
+      "start": "2020-11-29T00:32:34.852+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/4f/75891a210b4213a796dbd04280741e/101810786_540886490120520_126673314356322454_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$39.00",
+      "end": "2021-01-01T00:32:34.852+00:00",
+      "account": {
+        "id": "9ed4a92d-0a4a-4d31-a661-7ae2fbf33e08",
+        "name": "Eli Light",
+        "username": "EliLight",
+        "photo": "https://vizee-media.s3.amazonaws.com/49/978a7e3a424a458d7b4afc73f33886/Screen-Shot-2020-11-28-at-11.58.13-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "f44f0269-1c42-4d34-ba57-164b17b4a4b4",
+      "name": "Warriors",
+      "start": "2020-11-29T03:19:15.925+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/f9/a9981320134edd9d17689efc4f85b6/121271848_3318685944853900_1673381009419498388_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$30.00",
+      "end": "2020-11-29T03:19:15.926+00:00",
+      "account": {
+        "id": "e14c5cbe-14b9-4673-b579-0b198fe96c5a",
+        "name": "Bad Owl Records",
+        "username": "badowl",
+        "photo": "https://vizee-media.s3.amazonaws.com/a4/920144f19b432ab47546ffb069b0ae/Screen-Shot-2020-11-28-at-7.00.03-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "67a0a430-2d4b-494e-b9e5-e2d2becb71a6",
+      "name": "Ysabelle Capitule Choreography | Missy Elliott - Lose Control",
+      "start": "2020-11-25T01:03:37.092+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/1a/39c04e931e4d65ada144ca902c8aab/Screen-Shot-2020-11-24-at-5.04.48-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$39.00",
+      "end": "2020-11-25T01:03:37.092+00:00",
+      "account": {
+        "id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+        "name": "LEVELS",
+        "username": "jeff",
+        "photo": "https://vizee-media.s3.amazonaws.com/1e/56b81affba41728b4b667cd1fb8292/Levels-Cover.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "04b46af7-8d4a-425d-a713-668b99808612",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "4f8069ec-13ef-49d3-adbb-c5e6f1a83ee1",
+      "name": "3D Ornaments Exclusive",
+      "start": "2020-11-25T02:23:58.907+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/bd/04fa03f7b1484a8a32f1e9af2998e4/124936035_192211419017473_4438685642816714285_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-25T02:23:58.907+00:00",
+      "account": {
+        "id": "9d2af333-6a25-45a1-a52f-66ed19668c4f",
+        "name": "Alpha Pup",
+        "username": "AlphaPup",
+        "photo": "https://vizee-media.s3.amazonaws.com/30/8771bc39324ab4ae0a8b766b34c42b/Screen-Shot-2020-11-27-at-10.30.01-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "4337f2f1-afe5-4bca-b9cd-a56460d294c1",
+      "name": "Specialist Reacts To My Weird Acne Life Hacks with Hyram!",
+      "start": "2020-11-24T22:29:02.939+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/1d/f3b0cc0d00450c85ef66bffe2525ea/Screen-Shot-2020-11-24-at-2.30.20-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-24T22:29:02.939+00:00",
+      "account": {
+        "id": "ff96a62d-fb2f-4c92-adc2-8bf275b4640b",
+        "name": "Rclbeauty101",
+        "username": "Rclbeauty101",
+        "photo": "https://vizee-media.s3.amazonaws.com/b9/546f70f4634dc7a701bbc73d4cf9c7/921411e8d82fef5bd55700fbf9115f28.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "910d30e8-52d1-4c40-a2d1-dac4a47f6157",
+      "name": "Adventurous Hart",
+      "start": "2020-11-25T00:12:51.033+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/37/dbe62e3a824a94a97b4872ce4c8bc7/Screen-Shot-2020-11-24-at-4.16.30-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-25T00:12:51.033+00:00",
+      "account": {
+        "id": "ddafae41-622f-444d-9b00-c1cc9a97a8aa",
+        "name": "Ashley Hart ",
+        "username": "ashleyhart",
+        "photo": "https://vizee-media.s3.amazonaws.com/45/64d09391d94dc7837f936821e8c7cb/Screen-Shot-2020-11-24-at-4.24.16-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "64996528-7401-4405-bb19-928a1220957a",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "aff9c9a7-e535-4bc7-b937-f587984ea5c7",
+      "name": "Ike & Tina Turner 1975",
+      "start": "2020-11-21T01:20:20.633+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/64/014e9129d94969937a93e0c9363de4/ike-tina-turner-1975.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-21T01:20:20.633+00:00",
+      "account": {
+        "id": "6b5f0cd2-bee9-470a-88cf-8139b624fa08",
+        "name": "Salvador Dali",
+        "username": "Dali",
+        "photo": "https://tmp-us-east-1.transloadit.net/eb3fe4610069a4f2bf2bd83a9f84e998?AWSAccessKeyId=AKIAI5FVR7543MX2G34Q&Expires=1606239543&Signature=pcRhsSqdz47%2Fkw2%2FCWjE5Y2otXU%3D",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "a489e9a7-87c2-4115-947d-54241f0ce1b7",
+      "name": "4 Levels Of Makeup: Amateur to Professional Makeup Artist",
+      "start": "2021-01-01T22:38:26.308+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/94/f4a7d77f344020a9b56feb02ef212c/Screen-Shot-2020-11-24-at-2.38.45-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$199.00",
+      "end": "2021-01-30T22:38:26.308+00:00",
+      "account": {
+        "id": "ff96a62d-fb2f-4c92-adc2-8bf275b4640b",
+        "name": "Rclbeauty101",
+        "username": "Rclbeauty101",
+        "photo": "https://vizee-media.s3.amazonaws.com/b9/546f70f4634dc7a701bbc73d4cf9c7/921411e8d82fef5bd55700fbf9115f28.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "6638ce80-90e9-49e4-97ce-b9ad0089f824",
+      "name": "Expanding horizons",
+      "start": "2020-11-25T00:10:01.35+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/cf/27ff54607648c69d62358495c70cf0/Screen-Shot-2020-11-24-at-4.11.58-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-25T00:10:01.35+00:00",
+      "account": {
+        "id": "ddafae41-622f-444d-9b00-c1cc9a97a8aa",
+        "name": "Ashley Hart ",
+        "username": "ashleyhart",
+        "photo": "https://vizee-media.s3.amazonaws.com/45/64d09391d94dc7837f936821e8c7cb/Screen-Shot-2020-11-24-at-4.24.16-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "7c59eec9-f0c8-4a4f-a823-3e07f3f3f81e",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "b45e821f-5582-4b87-94b1-13e40cb85240",
+      "name": "Sahalé - Djiin Remix",
+      "start": "2020-11-27T23:21:53.578+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/69/fda4e143b64b34a5d3597ce76fd5f9/Screen-Shot-2020-11-27-at-3.23.13-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-11-27T23:21:53.578+00:00",
+      "account": {
+        "id": "9b074c8e-6f32-40f1-9385-84919c8743af",
+        "name": "Happy Camper Records",
+        "username": "HappyCamper",
+        "photo": "https://vizee-media.s3.amazonaws.com/20/4991a039f54519853d300dc6170a61/0017517463_100.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "630f6dc3-cc58-44ec-971e-998dc2b663f9",
+      "name": "[DNSOTF 035] Bona Fide - The Other Side Of The Moon [Clips]",
+      "start": "2020-11-25T03:20:19.738+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/7b/638e2d3df0415ca5b68243384cd175/Screen-Shot-2020-11-24-at-7.20.15-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$9.00",
+      "end": "2020-11-25T03:20:19.738+00:00",
+      "account": {
+        "id": "e9afff71-b2c9-4fdb-b88f-55c1386c0304",
+        "name": "Do Not Sit on the Furniture",
+        "username": "donotsit",
+        "photo": "https://vizee-media.s3.amazonaws.com/95/996b69f21b46329853eebc1222162f/Screen-Shot-2020-11-24-at-7.19.34-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "7a3e892f-868e-4829-b3af-34137e1293c1",
+      "name": "Coahuila y Chihuahua",
+      "start": "2020-11-29T00:03:51.564+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/98/f20820a79847a89957a7918c39642a/10000000_389938495509674_2207829437064450741_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$33.00",
+      "end": "2020-12-26T00:03:51.564+00:00",
+      "account": {
+        "id": "ada4c65b-ea36-4a36-83ed-d812b15baa7b",
+        "name": "Alejandro Edda",
+        "username": "ale",
+        "photo": "https://vizee-media.s3.amazonaws.com/5d/c4e20f47c74d118713d3fb0c90c275/Screen-Shot-2020-11-28-at-3.51.07-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ac1730d3-97c7-47e9-abc4-b68c999152ef",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "c598ff86-9eab-4ea9-8935-4cfd105ba51f",
+      "name": "Spontaneous Performances",
+      "start": "2020-11-21T01:27:38.99+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/3c/3efb7c7fb64c718849f072b7a34807/Screen-Shot-2020-11-20-at-5.33.24-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "video",
+      "price": "$199.00",
+      "end": "2020-11-21T01:27:38.991+00:00",
+      "account": {
+        "id": "6b5f0cd2-bee9-470a-88cf-8139b624fa08",
+        "name": "Salvador Dali",
+        "username": "Dali",
+        "photo": "https://tmp-us-east-1.transloadit.net/eb3fe4610069a4f2bf2bd83a9f84e998?AWSAccessKeyId=AKIAI5FVR7543MX2G34Q&Expires=1606239543&Signature=pcRhsSqdz47%2Fkw2%2FCWjE5Y2otXU%3D",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "6f6ff2c2-8cff-4962-8d47-5eabea37e70d",
+      "name": "TheDistillers 20th anniversary livestream",
+      "start": "2020-11-28T19:39:02.953+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/e0/be6fd952b64309bca273fae6a9d1d3/126151858_131333128782327_7805471896359194106_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-28T19:39:02.953+00:00",
+      "account": {
+        "id": "80a6e3aa-abb3-4d63-be8e-30f5a0d02d5e",
+        "name": "Epitaph Records",
+        "username": "Epitaph",
+        "photo": "https://vizee-media.s3.amazonaws.com/e8/bd5a6f5319449581e3cead96853a7d/Screen-Shot-2020-11-28-at-11.26.26-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "fc8787c1-3e86-4a71-999d-8f488aef164f",
+      "name": "Holy Mountain Trailer",
+      "start": "2020-11-21T01:09:54.211+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/47/e3d53d8d474403b6df6083705757aa/holy-mountain.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$9.00",
+      "end": "2020-11-21T01:09:54.211+00:00",
+      "account": {
+        "id": "6b5f0cd2-bee9-470a-88cf-8139b624fa08",
+        "name": "Salvador Dali",
+        "username": "Dali",
+        "photo": "https://tmp-us-east-1.transloadit.net/eb3fe4610069a4f2bf2bd83a9f84e998?AWSAccessKeyId=AKIAI5FVR7543MX2G34Q&Expires=1606239543&Signature=pcRhsSqdz47%2Fkw2%2FCWjE5Y2otXU%3D",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "265ffd0d-96b7-4073-be46-7504fa24ce1f",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "e48027c5-b80c-4a4d-a6e6-00882bc17a6b",
+      "name": "Deantoni Parks \"MANGANESE\"",
+      "start": "2020-11-25T22:25:19.938+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/a8/6f8f2cec234ae29f6288ae4b76d3fa/Screen-Shot-2020-11-25-at-2.28.56-PM.png",
+      "preview": "https://vizee-media.s3.amazonaws.com/3c/3a2070cef24978be129ab71b4c579a/videoplayback-22-.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$19.00",
+      "end": "2020-12-31T22:25:19.938+00:00",
+      "account": {
+        "id": "9d2af333-6a25-45a1-a52f-66ed19668c4f",
+        "name": "Alpha Pup",
+        "username": "AlphaPup",
+        "photo": "https://vizee-media.s3.amazonaws.com/30/8771bc39324ab4ae0a8b766b34c42b/Screen-Shot-2020-11-27-at-10.30.01-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "5ac78ef8-2c1e-4bc8-a6a8-9bb84a3bbf92",
+      "name": "Amaya Radio Episode # 3 Exclusive",
+      "start": "2020-11-25T18:44:56.621+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/d8/66c208f0114ac5b919bc82b5659842/124425063_671022010449599_5719481795259863651_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$22.00",
+      "end": "2020-11-25T18:44:56.622+00:00",
+      "account": {
+        "id": "fa704858-eb38-474d-9613-a2e0b0af91b5",
+        "name": "Amaya",
+        "username": "Amaya",
+        "photo": "https://vizee-media.s3.amazonaws.com/9e/b5050a96c2497e855827274a1238d9/Screen-Shot-2020-11-25-at-11.00.03-AM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "cb4b710e-3b43-4574-81c5-97d3ed116efe",
+      "name": "Cruising in Tulum",
+      "start": "2020-11-29T05:57:26.979+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/12/089723a3ba408f9942c5a80d2b6ae5/127952464_140938731145761_338897357890719755_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$12.00",
+      "end": "2020-11-29T05:57:26.979+00:00",
+      "account": {
+        "id": "e79b21c5-9d58-4771-9be5-172494f0e64a",
+        "name": "Jesse Wellens",
+        "username": "JesseWellens",
+        "photo": "https://vizee-media.s3.amazonaws.com/88/9556f3a84641c2893bddd301cd9f1b/Screen-Shot-2020-11-28-at-9.54.56-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ac1730d3-97c7-47e9-abc4-b68c999152ef",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "dda53d63-3937-4b68-b8ad-a2ddf0d5bccf",
+      "name": "Verified Silver Surfer thru NYC!!",
+      "start": "2020-11-29T06:01:09.268+00:00",
+      "photo": null,
+      "preview": "https://vizee-media.s3.amazonaws.com/89/3a46c74e0e447482b622f5b5ac6812/117490500_131822895266200_7286373310225351642_n.mp4",
+      "thumb": null,
+      "type": "video",
+      "price": "$33.00",
+      "end": "2020-11-29T06:01:09.268+00:00",
+      "account": {
+        "id": "e79b21c5-9d58-4771-9be5-172494f0e64a",
+        "name": "Jesse Wellens",
+        "username": "JesseWellens",
+        "photo": "https://vizee-media.s3.amazonaws.com/88/9556f3a84641c2893bddd301cd9f1b/Screen-Shot-2020-11-28-at-9.54.56-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ac1730d3-97c7-47e9-abc4-b68c999152ef",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "8d11337d-0164-40bb-8f64-5e6b958799a7",
+      "name": "So Glad You Exist Exclusive",
+      "start": "2020-11-29T03:13:08.545+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/3a/e244579469454383bc7796c4833023/118646337_178631627039995_9071989070761547152_n.jpg",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$21.00",
+      "end": "2020-12-26T03:13:08.545+00:00",
+      "account": {
+        "id": "e14c5cbe-14b9-4673-b579-0b198fe96c5a",
+        "name": "Bad Owl Records",
+        "username": "badowl",
+        "photo": "https://vizee-media.s3.amazonaws.com/a4/920144f19b432ab47546ffb069b0ae/Screen-Shot-2020-11-28-at-7.00.03-PM.png",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "ca22d164-f455-464d-9367-c14278dc1a7a",
+      "name": "Going Hard with Ryan and Karaoke ",
+      "start": "2020-11-19T02:00:21.702+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/1f/e34d1ac0d34ee49b5d910dc101d035/IMG_5945.JPG",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$1.00",
+      "end": "2020-11-19T02:30:21.702+00:00",
+      "account": {
+        "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
+        "name": "Ryan Moriarty",
+        "username": "ryanjmo",
+        "photo": "https://vizee-media.s3.amazonaws.com/01/3ac731d8bf4ff886b93f3d389bb24f/D98D12D0-B059-4C26-96C2-FB0BBB76F490_1_201_a.jpeg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    },
+    {
+      "id": "4c73be58-7429-4c04-8929-3bac7f8a3175",
+      "name": "KIM KARDASHIAN’S MAKEUP ARTIST TRIES MY MAKEUP BRAND! ",
+      "start": "2020-11-24T22:36:41.854+00:00",
+      "photo": "https://vizee-media.s3.amazonaws.com/2f/67c3de53014d66a7d08687f5320f5a/Screen-Shot-2020-11-24-at-2.37.47-PM.png",
+      "preview": null,
+      "thumb": null,
+      "type": "live",
+      "price": "$19.00",
+      "end": "2020-11-24T22:36:41.854+00:00",
+      "account": {
+        "id": "ff96a62d-fb2f-4c92-adc2-8bf275b4640b",
+        "name": "Rclbeauty101",
+        "username": "Rclbeauty101",
+        "photo": "https://vizee-media.s3.amazonaws.com/b9/546f70f4634dc7a701bbc73d4cf9c7/921411e8d82fef5bd55700fbf9115f28.jpg",
+        "__typename": "accounts"
+      },
+      "category": {
+        "id": "ce7d43ee-7627-4d36-8ec0-17f6dd9e4d41",
+        "__typename": "categories"
+      },
+      "__typename": "events"
+    }
+  ]
+}
