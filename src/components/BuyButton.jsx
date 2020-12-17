@@ -29,8 +29,8 @@ export default function BuyButton(props) {
       stringify({
         user_id: user?.id,
         event_id: event.id,
-        product_id: product.id,
-        email: values?.email
+        product_id: product?.id,
+        email: user?.email || values?.email
       })
     );
 
@@ -65,7 +65,8 @@ export default function BuyButton(props) {
 
   let hasMultiple = products.length;
 
-  const preBuy = ({ product }) => {
+  const preBuy = (params) => {
+    const { product } = params;
     setProduct(product);
     setModalVisible(false);
     setEmailModalVisible(true);
@@ -120,6 +121,24 @@ export default function BuyButton(props) {
         footer={null}
         onCancel={() => setModalVisible(false)}
       >
+        {!event.account_only && !event.products.length && (
+          <PurchaseOption>
+            {true && (
+              <Button
+                onClick={() =>
+                  user ? buy({ product: null }) : preBuy({ product: null })
+                }
+                type="primary"
+                size="large"
+                style={{ float: 'right' }}
+              >
+                Buy
+              </Button>
+            )}
+            <h1>Admission</h1>
+            <div>{event.price}</div>
+          </PurchaseOption>
+        )}
         {products.map((product) => (
           <PurchaseOption>
             {true && (

@@ -167,8 +167,14 @@ export default function Products() {
       await deleteProduct({ variables: { id } });
       refetch();
     } catch (e) {
-      message.error('An error occurred');
-      throw e;
+      if (e.message.includes('foreign key')) {
+        message.error(
+          'Sorry, this product cannot be deleted because it is in use.'
+        );
+      } else {
+        message.error('An error occurred');
+        throw e;
+      }
     }
   };
 
@@ -196,9 +202,7 @@ export default function Products() {
           {product.recurring && (
             <p>Recurs every {product.access_length} days</p>
           )}
-          {!product.recurring && (
-            <p>Access for {product.access_length} days</p>
-          )}
+          {!product.recurring && <p>Access for {product.access_length} days</p>}
           {product.account_access && (
             <p>Account Access: {product.account_access ? 'Yes' : 'No'}</p>
           )}

@@ -635,6 +635,7 @@
     permission:
       columns:
       - account_id
+      - account_only
       - category_id
       - created
       - created_by
@@ -660,6 +661,7 @@
     permission:
       columns:
       - account_id
+      - account_only
       - category_id
       - created
       - created_by

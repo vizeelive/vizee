@@ -24,6 +24,7 @@ const GET_EVENT_UNAUTH = gql`
       mux_livestream
       mux_id
       status
+      account_only
       account {
         id
         name
@@ -98,6 +99,7 @@ const GET_EVENT_AUTH = gql`
       favorites
       views
       location
+      account_only
       account {
         id
         name
@@ -116,6 +118,7 @@ const GET_EVENT_AUTH = gql`
         products(where: { account_access: { _eq: true } }) {
           id
           name
+          price
           recurring
           access_length
           flexible_price

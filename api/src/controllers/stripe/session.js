@@ -1,28 +1,34 @@
 const config = require('../../config');
 const { parse } = require('zipson');
 const currency = require('currency.js');
-const { subscribe, pay } = require('../../lib/checkout');
+const { pay } = require('../../lib/checkout');
 const { generateImageLink } = require('../../lib');
-const { getCheckoutData } = require('../../queries');
+const {
+  getCheckoutDataProduct,
+  getCheckoutDataEvent
+} = require('../../queries');
 
 module.exports = async function (req, res) {
   let ref = parse(decodeURIComponent(req.query.ref));
   console.log({ ref });
 
   try {
-    var { event, account, product } = await getCheckoutData(ref);
+    if (ref.product_id) {
+      var { event, account, product } = await getCheckoutDataProduct(ref);
+    } else {
+      var { event, account } = await getCheckoutDataEvent(ref);
+    }
   } catch (e) {
     res.status(500).send(e.message);
   }
 
   // TODO check for existing access and return successfully
-
   const account_percent = currency(1 - account.fee_percent / 100);
 
   let price = ref.product_id ? product.price : event.price;
 
   let unit_amount = price.replace('$', '').replace('.', '');
-  let amount = unit_amount * account_percent;
+  let amount = Math.round(unit_amount * account_percent);
 
   let image = generateImageLink({ event, account });
 
@@ -45,4 +51,4 @@ module.exports = async function (req, res) {
     console.error(e);
     res.status(500).send(e.message);
   }
-};
+};;

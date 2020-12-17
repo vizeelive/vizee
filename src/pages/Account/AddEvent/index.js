@@ -69,6 +69,7 @@ const GET_EVENT = gql`
       category_id
       published
       location
+      account_only
       products {
         id
         event_id
@@ -199,6 +200,7 @@ export default function AddEvent(props) {
       description: values.description,
       category_id: values.category_id,
       account_id: values.account_id || account.id,
+      account_only: values.account_only,
       video: event?.video,
       preview: event?.preview,
       photo: event?.photo,

@@ -16,7 +16,8 @@ import {
   Button,
   DatePicker,
   Select,
-  Radio
+  Radio,
+  Switch
 } from 'antd';
 
 const { Title } = Typography;
@@ -45,6 +46,8 @@ export default function AddEventView(props) {
     isUpdatingEvent,
     buttonLabel
   } = props;
+
+  const [accountOnly, setAccountOnly] = useState(event?.account_only);
 
   const [advancedPricing, setAdvancedPricing] = useState(
     event?.products?.length
@@ -202,7 +205,23 @@ export default function AddEventView(props) {
           <Input />
         </Form.Item>
 
-        {!advancedPricing && (
+        <Form.Item
+          name="account_only"
+          label="Full Account Access Only"
+          valuePropName="checked"
+        >
+          <Switch
+            onChange={() => {
+              let val = !accountOnly;
+              if (val) {
+                setAdvancedPricing(false);
+              }
+              setAccountOnly(val);
+            }}
+          />
+        </Form.Item>
+
+        {!accountOnly && !advancedPricing && (
           <Form.Item
             style={{ marginBottom: '0px' }}
             label="Price"
@@ -216,9 +235,9 @@ export default function AddEventView(props) {
           </Form.Item>
         )}
 
-        {!advancedPricing && (
+        {!accountOnly && !advancedPricing && (
           // eslint-disable-next-line
-          <a href="#" onClick={() => setAdvancedPricing(true)}>
+          <a onClick={() => setAdvancedPricing(true)}>
             Show Advanced Pricing Options
           </a>
         )}
@@ -248,9 +267,6 @@ export default function AddEventView(props) {
             Hide Advanced Pricing Options
           </a>
         ) : null}
-
-        <br />
-        <br />
 
         <Form.Item
           name="category_id"

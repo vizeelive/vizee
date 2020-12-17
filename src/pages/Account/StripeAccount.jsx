@@ -56,9 +56,7 @@ export default function StripeAccount(props) {
   };
 
   const handleStripeDashboard = () => {
-    window.open(
-      `https://dashboard.stripe.com/${account.stripe_id}/test/dashboard`
-    );
+    window.open(`https://dashboard.stripe.com/${account.stripe_id}/dashboard`);
   };
 
   if (status === 'refresh') {

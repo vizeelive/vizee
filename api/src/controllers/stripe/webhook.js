@@ -1,6 +1,6 @@
 const { parse } = require('zipson');
 const dayjs = require('dayjs');
-const { getUserAndProduct } = require('../../queries');
+const { getUser, getUserAndProduct } = require('../../queries');
 
 const {
   createAccess,
@@ -28,10 +28,21 @@ module.exports = async function ({ event }) {
       let ref = parse(session.client_reference_id);
       console.log({ ref });
 
-      const { user, product, user_access } = await getUserAndProduct({
-        email: customer.email,
-        product_id: ref.product_id
-      });
+      if (ref.product_id) {
+        var { user, product, user_access } = await getUserAndProduct({
+          email: customer.email,
+          product_id: ref.product_id
+        });
+      } else {
+        var product = {
+          account_access: false,
+          recurring: false,
+          access_length: null
+        };
+        var { user, user_access } = await getUser({
+          email: customer.email
+        });
+      }
 
       // TODO if anon person bought product, and the access already exists, cancel the transaction
 
@@ -53,9 +64,14 @@ module.exports = async function ({ event }) {
         currentExpiry = new Date();
       }
 
-      let expiry = dayjs(currentExpiry)
-        .add(product.access_length, 'day')
-        .format('YYYY-MM-DD HH:mm:ss');
+      let expiry;
+      if (product.access_length) {
+        expiry = dayjs(currentExpiry)
+          .add(product.access_length, 'day')
+          .format('YYYY-MM-DD HH:mm:ss');
+      } else {
+        expiry = dayjs('2061-03-16');
+      }
 
       let object = {
         expiry,

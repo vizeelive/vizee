@@ -6,16 +6,15 @@ const { gql } = require('@apollo/client');
  *
  * @param {object} ref
  */
-async function getCheckoutData(ref) {
+async function getCheckoutDataProduct(ref) {
   try {
     let res = await client.query({
       variables: {
         id: ref.event_id,
-        account_id: ref.account_id,
         product_id: ref.product_id
       },
       query: gql`
-        query getCheckoutData($id: uuid!, $product_id: uuid!) {
+        query getCheckoutDataProduct($id: uuid!, $product_id: uuid!) {
           events_by_pk(id: $id) {
             id
             name
@@ -51,7 +50,48 @@ async function getCheckoutData(ref) {
       product: res.data.products_by_pk
     };
   } catch (e) {
-    console.log('Failed: getEventAndAccount', ref, e);
+    console.log('Failed: getCheckoutDataProduct', ref, e);
+    throw e;
+  }
+}
+
+/**
+ * Fetch event and account to be used by Stripe Session
+ *
+ * @param {object} ref
+ */
+async function getCheckoutDataEvent(ref) {
+  try {
+    let res = await client.query({
+      variables: {
+        id: ref.event_id
+      },
+      query: gql`
+        query getCheckoutDataProduct($id: uuid!) {
+          events_by_pk(id: $id) {
+            id
+            name
+            price
+            photo
+            start
+            account {
+              name
+              photo
+              username
+              fee_percent
+              domain
+              stripe_id
+            }
+          }
+        }
+      `
+    });
+    return {
+      event: res.data.events_by_pk,
+      account: res.data.events_by_pk.account
+    };
+  } catch (e) {
+    console.log('Failed: getCheckoutDataEvent', ref, e);
     throw e;
   }
 }
@@ -156,6 +196,45 @@ async function getUserAndProduct({ email, product_id }) {
   }
 }
 
+/**
+ * Finds a user given an email
+ *
+ * @param {string} email
+ */
+async function getUser({ email }) {
+  try {
+    let res = await client.query({
+      variables: { email },
+      query: gql`
+        query getUser($email: String!) {
+          users(where: { email: { _eq: $email } }) {
+            id
+            access {
+              id
+              expiry
+              event_id
+              account_id
+            }
+          }
+          users_access(where: { email: { _eq: $email } }) {
+            id
+            event_id
+            account_id
+            expiry
+          }
+        }
+      `
+    });
+    return {
+      user: res.data.users[0],
+      user_access: res.data.users_access
+    };
+  } catch (e) {
+    console.log('Failed: getUser', email, e);
+    throw e;
+  }
+}
+
 async function subscriptionPrecheck(variables) {
   try {
     let res = await client.query({
@@ -220,8 +299,10 @@ async function subscriptionPrecheck(variables) {
 
 module.exports = {
   getEvent,
+  getUser,
   getAnonStripeCustomer,
-  getCheckoutData,
+  getCheckoutDataProduct,
+  getCheckoutDataEvent,
   getUserAndProduct,
   subscriptionPrecheck
 };
