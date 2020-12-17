@@ -54,7 +54,7 @@ export const handlers = [
   }),
 
   graphql.query('SearchEvents', (req, res, ctx) => {
-    return res(ctx.data(AnonEventsReport));
+    return res(ctx.data(SearchEvents));
   }),
 
   graphql.query('AnonEventsReport', (req, res, ctx) => {
