@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": "f4695c0d-d4c2-44e9-abb9-85a070db664b",
+      "name": "3 Month Subscription",
+      "description": "A three month subscription",
+      "price": "$13.00",
+      "flexible_price": false,
+      "account_access": false,
+      "recurring": true,
+      "access_length": 30,
+      "__typename": "products"
+    },
+    {
+      "id": "226dbae1-b821-4c9b-b17f-f50d8bc2293b",
+      "name": "Monthly Pass",
+      "description": "all you can watch",
+      "price": "$5.00",
+      "flexible_price": false,
+      "account_access": false,
+      "recurring": true,
+      "access_length": 1,
+      "__typename": "products"
+    }
+  ]
+}

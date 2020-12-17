@@ -11,6 +11,8 @@ import TrackView from './fixtures/TrackView';
 import SearchEvents from './fixtures/SearchEvents';
 import AdminGetAccountByUsername from './fixtures/AdminGetAccountByUsername';
 import FinishSignup from './fixtures/FinishSignup';
+import GetProducts from './fixtures/GetProducts';
+import GetAccount from './fixtures/GetAccount';
 
 Cookie.set('auth0.is.authenticated', true);
 
@@ -37,6 +39,10 @@ export const handlers = [
   //     return res(ctx.data(Response));
   //   }),
 
+  graphql.query('GetAccount', (req, res, ctx) => {
+    return res(ctx.data(GetAccount));
+  }),
+
   graphql.query('FinishSignup', (req, res, ctx) => {
     return res(ctx.data(FinishSignup));
   }),
@@ -51,6 +57,10 @@ export const handlers = [
 
   graphql.mutation('TrackView', (req, res, ctx) => {
     return res(ctx.data(TrackView));
+  }),
+
+  graphql.query('GetProducts', (req, res, ctx) => {
+    return res(ctx.data(GetProducts));
   }),
 
   graphql.query('SearchEvents', (req, res, ctx) => {

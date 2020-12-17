@@ -7,7 +7,7 @@ import { Integrations } from '@sentry/tracing';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.REACT_APP_MOCK) {
   const { worker } = require('./mocks/browser');
   worker.start();
 }

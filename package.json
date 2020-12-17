@@ -66,6 +66,7 @@
   "scripts": {
     "cypress": "cypress open",
     "start": "craco start",
+    "start:mock": "REACT_APP_MOCK=true craco start",
     "build": "craco build",
     "test": "craco test",
     "test:coverage": "npm test -- --coverage --watchAll=false",
