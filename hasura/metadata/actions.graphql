@@ -13,6 +13,13 @@ type Query {
 
 
 type Query {
+  getStripeUrl (
+    username: String!
+  ): getStripeUrlOutput
+}
+
+
+type Query {
   getUmamiToken (
     account_id: uuid!
   ): UmamiToken
@@ -823,5 +830,9 @@ type getEventUrlOutput {
 
 type HelloOutput {
   message : String!
+}
+
+type getStripeUrlOutput {
+  url : String!
 }
 

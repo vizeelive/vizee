@@ -9,11 +9,14 @@ import { Centered } from '../../components/styled/common';
 import Spinner from '../../components/ui/Spinner';
 
 const GET_ACCOUNT = gql`
-  query GetAccount($id: uuid!) {
+  query GetAccount($id: uuid!, $username: String!) {
     accounts_by_pk(id: $id) {
       stripe_data
       stripe_id
       id
+    }
+    getStripeUrl(username: $username) {
+      url
     }
   }
 `;
@@ -25,7 +28,7 @@ export default function StripeAccount(props) {
   username = props.username || username;
 
   const { loading, error, data } = useQuery(GET_ACCOUNT, {
-    variables: { id }
+    variables: { id, username }
   });
 
   if (loading) {
@@ -56,7 +59,7 @@ export default function StripeAccount(props) {
   };
 
   const handleStripeDashboard = () => {
-    window.open(`https://dashboard.stripe.com/${account.stripe_id}/dashboard`);
+    window.open(data.getStripeUrl.url);
   };
 
   if (status === 'refresh') {

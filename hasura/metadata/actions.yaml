@@ -13,6 +13,11 @@ actions:
     forward_client_headers: true
   permissions:
   - role: user
+- name: getStripeUrl
+  definition:
+    kind: ""
+    handler: '{{ACTION_BASE_URL}}'
+    forward_client_headers: true
 - name: getUmamiToken
   definition:
     kind: ""
@@ -439,4 +444,5 @@ custom_types:
   - name: UpdateAccountOutput
   - name: getEventUrlOutput
   - name: HelloOutput
+  - name: getStripeUrlOutput
   scalars: []
