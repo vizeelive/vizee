@@ -28,6 +28,10 @@ export default function useAuth() {
   const [geo, setGeo] = useState();
   const [claims, setClaims] = useState();
 
+  if (process.env.REACT_APP_MOCK) {
+    user = require('./../mocks/fixtures/user.json');
+  }
+
   // @cypress
   const id_token = Cookies.get('id_token');
   const role = Cookies.get('role');

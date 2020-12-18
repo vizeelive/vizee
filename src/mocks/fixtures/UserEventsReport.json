@@ -1,0 +1,84 @@
+{
+  "myaccounts": [
+    {
+      "account": {
+        "id": "3eb9b92f-09b5-4c40-b399-adb342e2ee38",
+        "name": "fdffdsfsdf",
+        "username": "sdfdsf",
+        "followers": [],
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    },
+    {
+      "account": {
+        "id": "580b00ea-7728-43b8-892e-e82ed570fe52",
+        "name": "fsdf",
+        "username": "sdfdsfsdf",
+        "followers": [],
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    },
+    {
+      "account": {
+        "id": "76819289-499d-4671-891a-ad89f22247a0",
+        "name": "mau5trap",
+        "username": "mau5trap",
+        "followers": [],
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
+      "followers": [],
+      "__typename": "accounts"
+    }
+  ],
+  "users_by_pk": {
+    "id": "5b1741f1-d335-45fa-a886-098d130ef6a1",
+    "affiliate_user_id": null,
+    "affiliate_account_id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+    "__typename": "users"
+  },
+  "getEventUrl": {
+    "url": null,
+    "__typename": "getEventUrlOutput"
+  },
+  "events_report": [
+    {
+      "id": "8e4eff3d-990e-4cc6-b853-13e2e34270b6",
+      "type": "live",
+      "name": "dfdsfdsf",
+      "start": "2020-12-02T12:12:55.396+00:00",
+      "end": "2020-12-02T12:12:55.396+00:00",
+      "price": "$12.00",
+      "photo": "https://vizee-media.s3.amazonaws.com/1b/29851ab29f495c9a34c51ea7613a7e/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+      "preview": null,
+      "description": null,
+      "transactions": 0,
+      "favorites": 0,
+      "views": 23,
+      "location": "Los Angeles, CA, USA",
+      "account_only": false,
+      "account": {
+        "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
+        "name": "Ryan Moriarty",
+        "username": "ryanjmo",
+        "photo": "https://vizee-media.s3.amazonaws.com/01/3ac731d8bf4ff886b93f3d389bb24f/D98D12D0-B059-4C26-96C2-FB0BBB76F490_1_201_a.jpeg",
+        "stripe_data": null,
+        "umami_website": "3ce51095-218b-4473-82ff-495900a3bd5c",
+        "access": [],
+        "users": [],
+        "products": [],
+        "__typename": "accounts"
+      },
+      "products": [],
+      "access": [],
+      "__typename": "events_report"
+    }
+  ]
+}

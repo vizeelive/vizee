@@ -13,6 +13,11 @@ import AdminGetAccountByUsername from './fixtures/AdminGetAccountByUsername';
 import FinishSignup from './fixtures/FinishSignup';
 import GetProducts from './fixtures/GetProducts';
 import GetAccount from './fixtures/GetAccount';
+import MyAccounts from './fixtures/MyAccounts';
+import GetHomeData from './fixtures/GetHomeData';
+import UserEventsReport from './fixtures/UserEventsReport';
+import CreateComment from './fixtures/CreateComment';
+import Follow from './fixtures/Follow';
 
 Cookie.set('auth0.is.authenticated', true);
 
@@ -39,6 +44,32 @@ export const handlers = [
   //     return res(ctx.data(Response));
   //   }),
 
+  // MUTATIONS
+  graphql.mutation('TrackView', (req, res, ctx) => {
+    return res(ctx.data(TrackView));
+  }),
+
+  graphql.mutation('CreateComment', (req, res, ctx) => {
+    return res(ctx.data(CreateComment));
+  }),
+
+  graphql.mutation('Follow', (req, res, ctx) => {
+    return res(ctx.data(Follow));
+  }),
+
+  // QUERIES
+  graphql.query('MyAccounts', (req, res, ctx) => {
+    return res(ctx.data(MyAccounts));
+  }),
+
+  graphql.query('UserEventsReport', (req, res, ctx) => {
+    return res(ctx.data(UserEventsReport));
+  }),
+
+  graphql.query('GetHomeData', (req, res, ctx) => {
+    return res(ctx.data(GetHomeData));
+  }),
+
   graphql.query('GetAccount', (req, res, ctx) => {
     return res(ctx.data(GetAccount));
   }),
@@ -53,10 +84,6 @@ export const handlers = [
 
   rest.post('/oauth/token', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(token));
-  }),
-
-  graphql.mutation('TrackView', (req, res, ctx) => {
-    return res(ctx.data(TrackView));
   }),
 
   graphql.query('GetProducts', (req, res, ctx) => {

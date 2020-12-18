@@ -1,0 +1,107 @@
+{
+  "hello": {
+    "message": "Oh, hello!",
+    "__typename": "HelloOutput"
+  },
+  "accounts_users": [
+    {
+      "account": {
+        "id": "3eb9b92f-09b5-4c40-b399-adb342e2ee38",
+        "name": "fdffdsfsdf",
+        "username": "sdfdsf",
+        "photo": "https://vizee-media.s3.amazonaws.com/de/67d25275b34437bfdb1b94933505de/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+        "events": [
+          {
+            "id": "6ce3ae34-0ce8-4abe-9a24-1fcc6b6f8bfc",
+            "name": "dsfdsfsd",
+            "start": "2020-12-03T20:41:31.235+00:00",
+            "location": null,
+            "photo": null,
+            "account": {
+              "name": "fdffdsfsdf",
+              "username": "sdfdsf",
+              "photo": "https://vizee-media.s3.amazonaws.com/de/67d25275b34437bfdb1b94933505de/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+              "__typename": "accounts"
+            },
+            "__typename": "events"
+          }
+        ],
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    },
+    {
+      "account": {
+        "id": "580b00ea-7728-43b8-892e-e82ed570fe52",
+        "name": "fsdf",
+        "username": "sdfdsfsdf",
+        "photo": "https://vizee-media.s3.amazonaws.com/c0/b97ad7e46f4dbc897db9f35bd5a0f4/Screen-Shot-2020-11-14-at-5.29.57-PM.png",
+        "events": [],
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    },
+    {
+      "account": {
+        "id": "76819289-499d-4671-891a-ad89f22247a0",
+        "name": "mau5trap",
+        "username": "mau5trap",
+        "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+        "events": [
+          {
+            "id": "79d0db2c-d060-4515-83ed-3d14675d618f",
+            "name": "The Last Catbender",
+            "start": "2020-12-04T18:11:12.889+00:00",
+            "location": "East 51st Street, Austin, TX, USA",
+            "photo": null,
+            "account": {
+              "name": "mau5trap",
+              "username": "mau5trap",
+              "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+              "__typename": "accounts"
+            },
+            "__typename": "events"
+          },
+          {
+            "id": "dcdbe48a-a49e-41dc-b9cf-045951786dda",
+            "name": "LIVE",
+            "start": "2020-12-04T18:55:27.834+00:00",
+            "location": null,
+            "photo": null,
+            "account": {
+              "name": "mau5trap",
+              "username": "mau5trap",
+              "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+              "__typename": "accounts"
+            },
+            "__typename": "events"
+          },
+          {
+            "id": "675e5708-35e3-4f43-9799-43c4ba8136f2",
+            "name": "LIVE",
+            "start": "2020-12-04T18:55:27.834+00:00",
+            "location": null,
+            "photo": null,
+            "account": {
+              "name": "mau5trap",
+              "username": "mau5trap",
+              "photo": "https://vizee-media.s3.amazonaws.com/78/85711c9887422b9c8b9c633cf5700b/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+              "__typename": "accounts"
+            },
+            "__typename": "events"
+          }
+        ],
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    }
+  ],
+  "transactions": [],
+  "accounts": [
+    {
+      "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+      "username": "mau5trapTV",
+      "__typename": "accounts"
+    }
+  ]
+}
