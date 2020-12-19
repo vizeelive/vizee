@@ -36,7 +36,7 @@ export default function ProfileMenu(props) {
       <div>
         <button
           ref={buttonRef}
-          className="max-w-xs bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-pink-500"
+          className="max-w-xs bg-gray-900 rounded-full flex items-center text-sm shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-pink-500"
           id="user-menu"
           onClick={() => setIsOpen(!isOpen)}
           aria-haspopup="true"
@@ -51,7 +51,7 @@ export default function ProfileMenu(props) {
 
       <Transition
         show={isOpen}
-        className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+        className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black-20"
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"
@@ -66,7 +66,7 @@ export default function ProfileMenu(props) {
           {isNetwork && (
             <Link
               to={`/${username}/manage`}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
               role="menuitem"
             >
               My Account
@@ -75,7 +75,7 @@ export default function ProfileMenu(props) {
           {isNetwork && (
             <Link
               to={`/${username}/manage/settings/${account.id}/account`}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
               role="menuitem"
             >
               Settings
@@ -83,7 +83,7 @@ export default function ProfileMenu(props) {
           )}
           <button
             type="button"
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
             role="menuitem"
             onClick={onLogout}
           >
