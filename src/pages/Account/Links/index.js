@@ -5,6 +5,9 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 
 import { Form, message } from 'antd';
 
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+
 import LinksView from './view';
 
 const GET_LINKS = gql`
@@ -59,7 +62,13 @@ export default function Links() {
   const [deleteLink] = useMutation(DELETE_LINK);
   const [updateLink] = useMutation(UPDATE_LINK);
 
-  if (loading) return 'Loading...';
+  if (loading) {
+    return (
+      <Centered height="calc(100vh - 64px)">
+        <Spinner />
+      </Centered>
+    );
+  }
   if (error) return 'Error.';
 
   const links = data?.links;

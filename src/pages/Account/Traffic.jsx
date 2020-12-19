@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+
 const GET_UMAMI_TOKEN = gql`
   query GetUmamiToken($account_id: uuid!) {
     getUmamiToken(account_id: $account_id) {
@@ -27,7 +30,13 @@ export default function Traffic() {
     }
   }, [data]);
 
-  if (loading) return 'Loading...';
+  if (loading) {
+    return (
+      <Centered height="calc(100vh - 64px)">
+        <Spinner />
+      </Centered>
+    );
+  }
 
   if (error) return 'Error.';
 
@@ -35,14 +44,17 @@ export default function Traffic() {
     <React.Fragment>
       {ready && (
         <iframe
-          style={{ height: '100vh' }}
+          style={{
+            height: 'calc(100vh - 184px)',
+            minHeight: '640px'
+          }}
           title="analytics"
           src={`https://umami.vizee.live`}
           frameBorder="0"
           width="100%"
           height="100%"
-          refererpolicy="origin"
-        ></iframe>
+          referrerpolicy="origin"
+        />
       )}
     </React.Fragment>
   );

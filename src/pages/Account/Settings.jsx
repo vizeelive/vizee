@@ -34,32 +34,34 @@ export default function Settings() {
   };
 
   return (
-    <React.Fragment>
-      <Header>
-        <Title>Settings</Title>
-      </Header>
-      <Tabs defaultActiveKey={tab} onChange={handleOnChange}>
-        <TabPane
-          tab={
-            <span>
-              <YoutubeOutlined /> Account
-            </span>
-          }
-          key="account"
-        >
-          <AddAccount redirect={true} />
-        </TabPane>
-        <TabPane
-          tab={
-            <span>
-              <CreditCardOutlined /> Payment
-            </span>
-          }
-          key="payment"
-        >
-          <StripeAccount />
-        </TabPane>
-      </Tabs>
-    </React.Fragment>
+    <article className="min-h-page">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <Header>
+          <Title>Settings</Title>
+        </Header>
+        <Tabs defaultActiveKey={tab} onChange={handleOnChange}>
+          <TabPane
+            tab={
+              <span>
+                <YoutubeOutlined /> Account
+              </span>
+            }
+            key="account"
+          >
+            <AddAccount redirect={true} />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                <CreditCardOutlined /> Payment
+              </span>
+            }
+            key="payment"
+          >
+            <StripeAccount />
+          </TabPane>
+        </Tabs>
+      </div>
+    </article>
   );
 }

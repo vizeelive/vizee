@@ -1,22 +1,37 @@
-/* purgecss start ignore */
 @tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
 @tailwind components;
-/* purgecss end ignore */
+/* Stop purging. */
+
+html,
+body {
+  @apply bg-black;
+}
+
+/* Start purging... */
 @tailwind utilities;
+/* Stop purging. */
+
+.menu-item {
+  @apply text-base font-medium text-gray-400 hover:text-white hover:bg-white-5;
+}
+
+.menu-item svg {
+  @apply text-gray-500;
+}
+
+.menu-item.menu-active {
+  @apply text-white bg-black-50 hover:text-white hover:bg-black-50;
+}
+
+.menu-item.menu-active svg {
+  @apply text-primary;
+}
 
 :root {
-  --vz-white: #fff;
-  --vz-gray-50: #fafaf9;
-  --vz-gray-100: #f5f5f4;
-  --vz-gray-200: #e7e5e4;
-  --vz-gray-300: #d6d3d1;
-  --vz-gray-400: #a8a29e;
-  --vz-gray-500: #78716c;
-  --vz-gray-600: #57534e;
-  --vz-gray-700: #44403c;
-  --vz-gray-800: #292524;
-  --vz-gray-900: #1c1917;
-  --vz-black: #000;
   --vz-pink-50: #f2e8ec;
   --vz-pink-100: #f1dee7;
   --vz-pink-200: #f3c5de;
@@ -28,18 +43,39 @@
   --vz-pink-800: #b72a51;
   --vz-pink-900: #9f2a4d;
   --vz-primary: var(--vz-pink-600);
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  --vz-gray-50: #fafafa;
+  --vz-gray-100: #f4f4f5;
+  --vz-gray-200: #e4e4e7;
+  --vz-gray-300: #d4d4d8;
+  --vz-gray-400: #a1a1aa;
+  --vz-gray-500: #71717a;
+  --vz-gray-600: #52525b;
+  --vz-gray-700: #3f3f46;
+  --vz-gray-750: #303035;
+  --vz-gray-800: #27272a;
+  --vz-gray-850: #1e1e21;
+  --vz-gray-900: #18181b;
+  --vz-gray-950: #131314;
+  --vz-white-5: rgba(255, 255, 255, 0.05);
+  --vz-white-10: rgba(255, 255, 255, 0.1);
+  --vz-white-20: rgba(255, 255, 255, 0.2);
+  --vz-white-30: rgba(255, 255, 255, 0.3);
+  --vz-white-40: rgba(255, 255, 255, 0.4);
+  --vz-white-50: rgba(255, 255, 255, 0.5);
+  --vz-white-60: rgba(255, 255, 255, 0.6);
+  --vz-white-70: rgba(255, 255, 255, 0.7);
+  --vz-white-80: rgba(255, 255, 255, 0.8);
+  --vz-white-90: rgba(255, 255, 255, 0.9);
+  --vz-white: #fff;
+  --vz-black-5: rgba(5, 5, 5, 0.05);
+  --vz-black-10: rgba(5, 5, 5, 0.1);
+  --vz-black-20: rgba(5, 5, 5, 0.2);
+  --vz-black-30: rgba(5, 5, 5, 0.3);
+  --vz-black-40: rgba(5, 5, 5, 0.4);
+  --vz-black-50: rgba(5, 5, 5, 0.5);
+  --vz-black-60: rgba(5, 5, 5, 0.6);
+  --vz-black-70: rgba(5, 5, 5, 0.7);
+  --vz-black-80: rgba(5, 5, 5, 0.8);
+  --vz-black-90: rgba(5, 5, 5, 0.9);
+  --vz-black: #050505;
 }

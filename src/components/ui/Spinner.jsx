@@ -33,7 +33,7 @@ const Svg = styled.svg.attrs({
   will-change: transform;
 
   circle {
-    stroke: ${({ theme: { colors } }) => colors.black};
+    stroke: ${({ color }) => `var(--vz-${color})`};
     stroke-linecap: round;
     animation: ${dash} 1300ms ease-in-out infinite;
     will-change: stroke-dasharray, stroke-dashoffset;
@@ -42,18 +42,20 @@ const Svg = styled.svg.attrs({
 
 function Spinner(props) {
   return (
-    <Svg size={props.size}>
+    <Svg size={props.size} color={props.color}>
       <circle cx="25" cy="25" r="20" fill="none" strokeWidth="2" />
     </Svg>
   );
 }
 
 Spinner.propTypes = {
-  size: PropTypes.number
+  size: PropTypes.number,
+  color: PropTypes.string
 };
 
 Spinner.defaultProps = {
-  size: 5
+  size: 5,
+  color: 'gray-500'
 };
 
 export default Spinner;

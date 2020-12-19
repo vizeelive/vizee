@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import { Button, Layout, Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
@@ -21,7 +21,6 @@ import {
 } from '@ant-design/icons';
 
 const { Title } = Typography;
-const { Content } = Layout;
 
 const MicrolinkCard = styled.div`
   max-width: 300px;
@@ -31,14 +30,6 @@ const MicrolinkCard = styled.div`
     color: white;
     border: 01px solid #303030;
     margin-bottom: 10px;
-  }
-`;
-
-const MainContent = styled(Content)`
-  padding: 20px;
-
-  img {
-    margin-bottom: 1rem;
   }
 `;
 
@@ -133,7 +124,7 @@ export default function HomeView(props) {
         <meta name="twitter:title" content={`${account.name}`} />
         <meta name="twitter:description" content={account.description} />
       </Helmet>
-      <Content>
+      <article className="min-h-page">
         {account.photo && (
           <img
             style={{
@@ -149,7 +140,7 @@ export default function HomeView(props) {
             width="100%"
           />
         )}
-        <MainContent>
+        <div className="py-8 px-4 sm:px-6 lg:px-8">
           <Header>
             <div>
               {process.env.REACT_APP_ACCOUNT === 'vizee' && (
@@ -258,8 +249,8 @@ export default function HomeView(props) {
               ))}
             </React.Fragment>
           ) : null}
-        </MainContent>
-      </Content>
+        </div>
+      </article>
     </React.Fragment>
   );
 }

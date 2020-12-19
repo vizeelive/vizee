@@ -1,16 +1,11 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route, useParams, useHistory } from 'react-router-dom';
-import { Layout } from 'antd';
-import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 
 import useAuth from 'hooks/useAuth';
-import AccountMenu from 'components/AccountMenu';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
-
-import useBreakpoint from 'hooks/useBreakpoint';
 
 // const AddEvent = React.lazy(() => import('./AddEvent'));
 // const Calendar = React.lazy(() => import('../Calendar'));
@@ -36,27 +31,7 @@ import Traffic from 'pages/Account/Traffic';
 import Users from 'pages/Account/Users';
 import ViewEvent from 'pages/Account/ViewEvent';
 
-const { Content } = Layout;
-
-const Sider = styled(Layout.Sider)`
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  z-index: 5;
-
-  .ant-layout-sider-zero-width-trigger {
-    top: 24px;
-    line-height: 34px;
-  }
-`;
-
-const SiderLayout = styled(Layout)`
-  min-height: calc(100vh - 64px);
-
-  @media (min-width: 992px) {
-    margin-left: 200px;
-  }
-`;
+import AccountLayout from 'components/layout/account/Layout';
 
 const GET_ACCOUNT_UNAUTH = gql`
   query AnonGetAccountByUsername($username: String!) {
@@ -179,15 +154,8 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
 
 export default function Account() {
   const { username } = useParams();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const history = useHistory();
-
-  const [collapsed, setCollapsed] = useState(true);
-  const isLargeScreen = useBreakpoint('lg');
-
-  useEffect(() => {
-    setCollapsed(!isLargeScreen);
-  }, [isLargeScreen]);
 
   Cookies.set('username', username);
 
@@ -226,115 +194,72 @@ export default function Account() {
 
   if (error) return 'Error';
 
+  const handleLogout = () => {
+    Cookies.remove('username');
+    logout();
+  };
+
   // @TODO find by pk, no need for [0]
   const account = data?.account?.[0].account || data?.accounts[0];
-  const isMyAccount =
-    user?.isAdmin ||
-    !!data?.myaccounts?.filter(
-      (acc) => acc.account.username === account.username
-    ).length;
   const myAccounts = data?.myaccounts?.[0]?.account
     ? data.myaccounts.map((acc) => acc.account)
     : data.myaccounts;
 
   return (
-    <React.Fragment>
-      <Layout>
-        {isMyAccount ? (
-          <Sider
-            breakpoint="lg"
-            collapsed={collapsed}
-            collapsedWidth="0"
-            theme="dark"
-            onCollapse={(collapsed, type) => {
-              if (type === 'clickTrigger') {
-                setCollapsed(collapsed);
-              }
-            }}
-          >
-            <AccountMenu
-              user={user}
-              username={username}
-              account={account}
-              myAccounts={myAccounts}
-            />
-          </Sider>
-        ) : null}
-        <SiderLayout>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: 0,
-              padding: '20px',
-              minHeight: 280
-            }}
-          >
-            <Suspense fallback={Spinner}>
-              <Switch>
-                <Route
-                  path="/:username/manage/dashboard"
-                  exact
-                  component={Dashboard}
-                />
-                <Route
-                  path="/:username/manage/traffic/:id/:website"
-                  exact
-                  component={Traffic}
-                />
-                <Route path="/:username/manage/users" exact component={Users} />
-                <Route
-                  path="/:username/manage/events"
-                  exact
-                  component={Events}
-                />
-                <Route
-                  path="/:username/manage/links/:id"
-                  exact
-                  component={Links}
-                />
-                <Route
-                  path="/:username/manage/products/:id"
-                  exact
-                  component={Products}
-                />
-                <Route
-                  path="/:username/manage/events/add"
-                  exact
-                  render={() => (
-                    <AddEvent redirect={`/${username}/manage/events`} />
-                  )}
-                />
-                <Route
-                  path="/:username/manage/events/:id"
-                  exact
-                  component={ViewEvent}
-                />
-                <Route
-                  path="/:username/manage/events/edit/:id"
-                  exact
-                  render={() => (
-                    <AddEvent redirect={`/${username}/manage/events`} />
-                  )}
-                />
-                <Route
-                  path="/:username/manage/settings/:id/:tab/:status?"
-                  component={Settings}
-                />
-                <Route
-                  path="/:username/manage/calendar"
-                  exact
-                  component={Calendar}
-                />
-                <Route
-                  path="/:username/manage"
-                  exact
-                  render={() => <Home account={account} refetch={refetch} />}
-                />
-              </Switch>
-            </Suspense>
-          </Content>
-        </SiderLayout>
-      </Layout>
-    </React.Fragment>
+    <AccountLayout
+      user={user}
+      username={username}
+      account={account}
+      myAccounts={myAccounts}
+      onLogout={handleLogout}
+    >
+      <Suspense fallback={Spinner}>
+        <Switch>
+          <Route
+            path="/:username/manage/dashboard"
+            exact
+            component={Dashboard}
+          />
+          <Route
+            path="/:username/manage/traffic/:id/:website"
+            exact
+            component={Traffic}
+          />
+          <Route path="/:username/manage/users" exact component={Users} />
+          <Route path="/:username/manage/events" exact component={Events} />
+          <Route path="/:username/manage/links/:id" exact component={Links} />
+          <Route
+            path="/:username/manage/products/:id"
+            exact
+            component={Products}
+          />
+          <Route
+            path="/:username/manage/events/add"
+            exact
+            render={() => <AddEvent redirect={`/${username}/manage/events`} />}
+          />
+          <Route
+            path="/:username/manage/events/:id"
+            exact
+            component={ViewEvent}
+          />
+          <Route
+            path="/:username/manage/events/edit/:id"
+            exact
+            render={() => <AddEvent redirect={`/${username}/manage/events`} />}
+          />
+          <Route
+            path="/:username/manage/settings/:id/:tab/:status?"
+            component={Settings}
+          />
+          <Route path="/:username/manage/calendar" exact component={Calendar} />
+          <Route
+            path="/:username/manage"
+            exact
+            render={() => <Home account={account} refetch={refetch} />}
+          />
+        </Switch>
+      </Suspense>
+    </AccountLayout>
   );
 }

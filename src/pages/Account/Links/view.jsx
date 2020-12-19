@@ -66,74 +66,76 @@ export default function LinksView(props) {
   } = props;
 
   return (
-    <React.Fragment>
-      <Header>
-        <Title level={3}>Links</Title>
-        <Button type="primary" onClick={() => setShowModal(true)}>
-          Add Link
-        </Button>
-      </Header>
-      {links.map((link) => (
-        <LinkCard>
-          <CardSwitch
-            loading={isSwitchLoading[link.id]}
-            checked={link.enabled}
-            onChange={(enabled) => handleToggleEnabled(link, enabled)}
-          />
-          <ActionsMenu>
-            <EditOutlined onClick={() => handleClickEdit(link)} />
-            <Popconfirm
-              title="Are you sure?"
-              onConfirm={() => handleClickDelete(link.id)}
-              onCancel={() => {}}
-              okText="Yes"
-              cancelText="No"
-            >
-              <DeleteOutlined />
-            </Popconfirm>
-          </ActionsMenu>
-          <h4>{link.name}</h4>
-          <h5>
-            <Linkify>{link.link}</Linkify>
-          </h5>
-        </LinkCard>
-      ))}
-
-      <Modal
-        title="Create Link"
-        visible={showModal}
-        footer={null}
-        onCancel={() => setShowModal(false)}
-      >
-        <Form name="basic" onFinish={onFinish} layout="vertical" form={form}>
-          <Form.Item name="id"></Form.Item>
-          <Form.Item
-            label="Title"
-            name="name"
-            rules={[{ required: true, message: 'Required' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Link"
-            name="link"
-            rules={[{ required: true, message: 'Required' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="enabled"
-            label="Enabled"
-            valuePropName="checked"
-            initialValue={true}
-          >
-            <Switch />
-          </Form.Item>
-          <Button key="submit" htmlType="submit" type="primary" size="large">
-            Save Link
+    <article className="min-h-page">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <Header>
+          <Title level={3}>Links</Title>
+          <Button type="primary" onClick={() => setShowModal(true)}>
+            Add Link
           </Button>
-        </Form>
-      </Modal>
-    </React.Fragment>
+        </Header>
+        {links.map((link) => (
+          <LinkCard>
+            <CardSwitch
+              loading={isSwitchLoading[link.id]}
+              checked={link.enabled}
+              onChange={(enabled) => handleToggleEnabled(link, enabled)}
+            />
+            <ActionsMenu>
+              <EditOutlined onClick={() => handleClickEdit(link)} />
+              <Popconfirm
+                title="Are you sure?"
+                onConfirm={() => handleClickDelete(link.id)}
+                onCancel={() => {}}
+                okText="Yes"
+                cancelText="No"
+              >
+                <DeleteOutlined />
+              </Popconfirm>
+            </ActionsMenu>
+            <h4>{link.name}</h4>
+            <h5>
+              <Linkify>{link.link}</Linkify>
+            </h5>
+          </LinkCard>
+        ))}
+
+        <Modal
+          title="Create Link"
+          visible={showModal}
+          footer={null}
+          onCancel={() => setShowModal(false)}
+        >
+          <Form name="basic" onFinish={onFinish} layout="vertical" form={form}>
+            <Form.Item name="id"></Form.Item>
+            <Form.Item
+              label="Title"
+              name="name"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Link"
+              name="link"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="enabled"
+              label="Enabled"
+              valuePropName="checked"
+              initialValue={true}
+            >
+              <Switch />
+            </Form.Item>
+            <Button key="submit" htmlType="submit" type="primary" size="large">
+              Save Link
+            </Button>
+          </Form>
+        </Modal>
+      </div>
+    </article>
   );
 }

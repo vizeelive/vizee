@@ -90,51 +90,53 @@ export default function UsersView(props) {
   ];
 
   return (
-    <React.Fragment>
-      <Header>
-        <Title>Users</Title>
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => setShowModal(true)}
-          icon={<UserAddOutlined />}
-        >
-          Add Users
-        </Button>
-      </Header>
-
-      <Table
-        rowKey="id"
-        columns={columns}
-        dataSource={accountUsers}
-        scroll={{ x: 800 }}
-      />
-
-      <Modal
-        title="Add User"
-        visible={showModal}
-        footer={null}
-        onCancel={() => setShowModal(false)}
-      >
-        <Form name="basic" onFinish={onFinish}>
-          <Form.Item name="user_id" label="User">
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select a user"
-            >
-              {addableUsers.map((user) => (
-                <Option key={user.id} value={user.id}>
-                  {user.email}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Button key="submit" htmlType="submit" type="primary" size="large">
-            Add User
+    <article className="min-h-page">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <Header>
+          <Title>Users</Title>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => setShowModal(true)}
+            icon={<UserAddOutlined />}
+          >
+            Add Users
           </Button>
-        </Form>
-      </Modal>
-    </React.Fragment>
+        </Header>
+
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={accountUsers}
+          scroll={{ x: 800 }}
+        />
+
+        <Modal
+          title="Add User"
+          visible={showModal}
+          footer={null}
+          onCancel={() => setShowModal(false)}
+        >
+          <Form name="basic" onFinish={onFinish}>
+            <Form.Item name="user_id" label="User">
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select a user"
+              >
+                {addableUsers.map((user) => (
+                  <Option key={user.id} value={user.id}>
+                    {user.email}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Button key="submit" htmlType="submit" type="primary" size="large">
+              Add User
+            </Button>
+          </Form>
+        </Modal>
+      </div>
+    </article>
   );
 }

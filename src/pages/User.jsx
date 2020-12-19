@@ -1,28 +1,21 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Layout } from 'antd';
 import { gql, useQuery } from '@apollo/client';
-import styled from 'styled-components';
 import Cookies from 'js-cookie';
 
 import Home from './Home/index';
 import AccountHome from './Account/Home';
 import Tickets from './Tickets';
 import Calendar from './Calendar';
-import CreateAccount from './CreateAccount';
 import Account from './Account/Index';
 import Event from './Event';
 import useAuth from 'hooks/useAuth';
 
 import ErrorBoundary from 'components/ErrorBoundary';
-import Header from 'components/Header';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
-import Footer from 'components/Footer';
 
-const UserContent = styled.div`
-  margin-top: 64px;
-`;
+import DefaultLayout from 'components/layout/default/Layout';
 
 const GET_ACCOUNTS_UNAUTH = gql`
   query Accounts {
@@ -107,6 +100,14 @@ export default function User() {
 
   if (error) return 'Error';
 
+  const handleLogin = () => {
+    loginWithRedirect({
+      appState: {
+        returnTo: window.location.href
+      }
+    });
+  };
+
   const handleLogout = () => {
     Cookies.remove('username');
     logout();
@@ -123,46 +124,37 @@ export default function User() {
   const hasTickets = !!data?.transactions?.length;
 
   return (
-    <Layout>
-      <Header
-        user={user}
-        account={account}
-        hasTickets={hasTickets}
-        onLogin={() =>
-          loginWithRedirect({
-            appState: {
-              returnTo: window.location.href
-            }
-          })
-        }
-        onLogout={handleLogout}
-      />
-      <UserContent>
-        <ErrorBoundary>
-          <Switch>
-            <Route path="/tickets" exact component={Tickets} />
-            <Route path="/calendar" exact>
-              <Calendar favorite="true" />
-            </Route>
-            <Route path="/account" exact component={CreateAccount} />
-            <Route path="/:username" exact>
-              <AccountHome />
-            </Route>
-            <Route path="/:username/manage" component={Account} />
-            <Route path="/:username/:id/:status?" exact component={Event} />
-            {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
-              <Route path="/">
-                <Home />
+    <ErrorBoundary>
+      <Switch>
+        <Route path="/:username/manage" component={Account} />
+        <Route path="/">
+          <DefaultLayout
+            user={user}
+            account={account}
+            hasTickets={hasTickets}
+            onLogin={handleLogin}
+            onLogout={handleLogout}
+          >
+            <Switch>
+              <Route path="/tickets" exact component={Tickets} />
+              <Route path="/calendar" exact>
+                <Calendar favorite="true" />
               </Route>
-            ) : (
-              <Route path="/">
-                <AccountHome username="deadmau5" />
-              </Route>
-            )}
-          </Switch>
-        </ErrorBoundary>
-      </UserContent>
-      <Footer />
-    </Layout>
+              <Route path="/:username" exact component={AccountHome} />
+              <Route path="/:username/:id/:status?" exact component={Event} />
+              {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
+                <Route path="/">
+                  <Home />
+                </Route>
+              ) : (
+                <Route path="/">
+                  <AccountHome username="deadmau5" />
+                </Route>
+              )}
+            </Switch>
+          </DefaultLayout>
+        </Route>
+      </Switch>
+    </ErrorBoundary>
   );
 }
