@@ -179,82 +179,87 @@ export default function Products() {
   };
 
   return (
-    <React.Fragment>
-      <Header>
-        <Title level={3}>Products</Title>
-        <Button type="primary" onClick={() => setShowModal(true)}>
-          Add Product
-        </Button>
-      </Header>
+    <article className="min-h-page">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <Header>
+          <Title level={3}>Products</Title>
+          <Button type="primary" onClick={() => setShowModal(true)}>
+            Add Product
+          </Button>
+        </Header>
 
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          title={product.name}
-          bordered={false}
-          style={{ width: 300 }}
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            title={product.name}
+            bordered={false}
+            style={{ width: 300 }}
+          >
+            <p>{product.description}</p>
+            <p>Price: {product.price}</p>
+            {product.flexible_price && (
+              <p>
+                Name Your Own Price: {product.flexible_price ? 'Yes' : 'No'}
+              </p>
+            )}
+            {product.recurring && (
+              <p>Recurs every {product.access_length} days</p>
+            )}
+            {!product.recurring && (
+              <p>Access for {product.access_length} days</p>
+            )}
+            {product.account_access && (
+              <p>Account Access: {product.account_access ? 'Yes' : 'No'}</p>
+            )}
+            <Button onClick={() => handleClickEdit(product)}>Edit</Button>
+            <Popconfirm
+              title="Are you sure?"
+              onConfirm={() => handleClickDelete(product.id)}
+              onCancel={() => {}}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button loading={deletingProduct}>Delete</Button>
+            </Popconfirm>
+          </ProductCard>
+        ))}
+
+        <Modal
+          title="Create Product"
+          visible={showModal}
+          footer={null}
+          onCancel={() => setShowModal(false)}
         >
-          <p>{product.description}</p>
-          <p>Price: {product.price}</p>
-          {product.flexible_price && (
-            <p>Name Your Own Price: {product.flexible_price ? 'Yes' : 'No'}</p>
-          )}
-          {product.recurring && (
-            <p>Recurs every {product.access_length} days</p>
-          )}
-          {!product.recurring && <p>Access for {product.access_length} days</p>}
-          {product.account_access && (
-            <p>Account Access: {product.account_access ? 'Yes' : 'No'}</p>
-          )}
-          <Button onClick={() => handleClickEdit(product)}>Edit</Button>
-          <Popconfirm
-            title="Are you sure?"
-            onConfirm={() => handleClickDelete(product.id)}
-            onCancel={() => {}}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button loading={deletingProduct}>Delete</Button>
-          </Popconfirm>
-        </ProductCard>
-      ))}
+          <Form name="basic" onFinish={onFinish} layout="vertical" form={form}>
+            <Form.Item name="id" style={{ display: 'none' }}></Form.Item>
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <Input />
+            </Form.Item>
 
-      <Modal
-        title="Create Product"
-        visible={showModal}
-        footer={null}
-        onCancel={() => setShowModal(false)}
-      >
-        <Form name="basic" onFinish={onFinish} layout="vertical" form={form}>
-          <Form.Item name="id" style={{ display: 'none' }}></Form.Item>
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: 'Required' }]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="Description"
+              name="description"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label="Description"
-            name="description"
-            rules={[{ required: true, message: 'Required' }]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label="Price"
+              name="price"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <CurrencyInput
+                className="ant-input"
+                style={{ maxWidth: '10rem' }}
+              />
+            </Form.Item>
 
-          <Form.Item
-            label="Price"
-            name="price"
-            rules={[{ required: true, message: 'Required' }]}
-          >
-            <CurrencyInput
-              className="ant-input"
-              style={{ maxWidth: '10rem' }}
-            />
-          </Form.Item>
-
-          {/* <Form.Item
+            {/* <Form.Item
             name="flexible_price"
             label="Name Your Own Price"
             valuePropName="checked"
@@ -263,43 +268,44 @@ export default function Products() {
             <Switch />
           </Form.Item> */}
 
-          <Form.Item
-            name="account_access"
-            label="Full Account Access"
-            valuePropName="checked"
-            initialValue={false}
-          >
-            <Switch />
-          </Form.Item>
+            <Form.Item
+              name="account_access"
+              label="Full Account Access"
+              valuePropName="checked"
+              initialValue={false}
+            >
+              <Switch />
+            </Form.Item>
 
-          <Form.Item
-            label="Access Length (days)"
-            name="access_length"
-            rules={[{ required: true, message: 'Required' }]}
-          >
-            <InputNumber />
-          </Form.Item>
+            <Form.Item
+              label="Access Length (days)"
+              name="access_length"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <InputNumber />
+            </Form.Item>
 
-          <Form.Item
-            name="recurring"
-            label="Recurring"
-            valuePropName="checked"
-            initialValue={true}
-          >
-            <Switch />
-          </Form.Item>
+            <Form.Item
+              name="recurring"
+              label="Recurring"
+              valuePropName="checked"
+              initialValue={true}
+            >
+              <Switch />
+            </Form.Item>
 
-          <Button
-            loading={creatingProduct || updatingProduct}
-            key="submit"
-            htmlType="submit"
-            type="primary"
-            size="large"
-          >
-            Save Product
-          </Button>
-        </Form>
-      </Modal>
-    </React.Fragment>
+            <Button
+              loading={creatingProduct || updatingProduct}
+              key="submit"
+              htmlType="submit"
+              type="primary"
+              size="large"
+            >
+              Save Product
+            </Button>
+          </Form>
+        </Modal>
+      </div>
+    </article>
   );
 }
