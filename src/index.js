@@ -7,12 +7,12 @@ import { Integrations } from '@sentry/tracing';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-if (process.env.REACT_APP_MOCK) {
-  const { worker } = require('./mocks/browser');
-  (async function main() {
-    await worker.start();
-  })();
-}
+// if (process.env.REACT_APP_MOCK) {
+//   const { worker } = require('./mocks/browser');
+//   (async function main() {
+//     await worker.start();
+//   })();
+// }
 
 if (window.Cypress) {
   window.mixpanel = {

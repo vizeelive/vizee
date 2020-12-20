@@ -30,12 +30,12 @@ import Cookies from 'js-cookie';
 Cypress.Commands.add('graphql', (name, params) => {
   cy.intercept('graphql', (req) => {
     if (req.body.operationName === name) {
-      if (params.fixture) {
+      if ('fixture' in params) {
         req.reply({
-          data: require(`../../src/mocks/fixtures/${params.fixture}.json`)
+          data: require(`../fixtures/${params.fixture}.json`)
         });
       } else if (params) {
-        req.reply(params);
+        req.reply({ data: params });
       } else {
         req.reply();
       }

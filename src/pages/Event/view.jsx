@@ -183,32 +183,39 @@ export default function EventPage(props) {
           if (event.canWatch(user, liveData)) {
             if (event.isBroadcast()) {
               return (
-                <VideoPlayer
-                  key={playerKey}
-                  {...videoJsOptions}
-                  style={{ width: '100%' }}
-                />
+                <div data-test-id="event-video-live">
+                  <VideoPlayer
+                    key={playerKey}
+                    {...videoJsOptions}
+                    style={{ width: '100%' }}
+                  />
+                </div>
               );
             } else if (event.isConference()) {
               return (
-                <VideoConference
-                  roomName={`${event.id}-23kjh23kjh232kj3h`}
-                  user={user}
-                />
+                <div data-test-id="event-video-conference">
+                  <VideoConference
+                    roomName={`${event.id}-23kjh23kjh232kj3h`}
+                    user={user}
+                  />
+                </div>
               );
             } else {
               return (
-                <VideoPlayer
-                  key={playerKey}
-                  {...videoJsOptions}
-                  style={{ width: '100%' }}
-                />
+                <div data-test-id="event-video-vod">
+                  <VideoPlayer
+                    key={playerKey}
+                    {...videoJsOptions}
+                    style={{ width: '100%' }}
+                  />
+                </div>
               );
             }
           } else {
             if (event.preview) {
               return (
                 <video
+                  data-test-id="event-preview-video"
                   playsInline
                   src={event.preview}
                   width="100%"
@@ -219,6 +226,7 @@ export default function EventPage(props) {
             } else {
               return (
                 <img
+                  data-test-id="event-preview-image"
                   width="100%"
                   alt={event.name || event?.account?.name}
                   src={`https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=${
