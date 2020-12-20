@@ -4,6 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 
 import Home from './Home/index';
+import CreateAccount from './CreateAccount';
 import AccountHome from './Account/Home';
 import Tickets from './Tickets';
 import Calendar from './Calendar';
@@ -140,6 +141,7 @@ export default function User() {
               <Route path="/calendar" exact>
                 <Calendar favorite="true" />
               </Route>
+              <Route path="/account" exact component={CreateAccount} />
               <Route path="/:username" exact component={AccountHome} />
               <Route path="/:username/:id/:status?" exact component={Event} />
               {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
