@@ -179,7 +179,7 @@ export default function Menu(props) {
             </button> */}
 
             {user ? (
-              <ProfileMenu account={account} onLogout={onLogout} />
+              <ProfileMenu user={user} account={account} onLogout={onLogout} />
             ) : (
               <button
                 data-test-id="menu-login"

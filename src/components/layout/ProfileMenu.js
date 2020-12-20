@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 export default function ProfileMenu(props) {
-  const { account, onLogout } = props;
+  const { user, account, onLogout } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -43,8 +43,8 @@ export default function ProfileMenu(props) {
         >
           <img
             className="h-8 w-8 rounded-full"
-            src={`https://avatars.dicebear.com/api/initials/${account.name}.svg`}
-            alt={username}
+            src={`https://avatars.dicebear.com/api/initials/${user.email}.svg`}
+            alt={user.email}
           />
         </button>
       </div>

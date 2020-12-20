@@ -112,7 +112,7 @@ export default function Layout(props) {
                 </svg>
               </button> */}
 
-              <ProfileMenu account={account} onLogout={onLogout} />
+              <ProfileMenu user={user} account={account} onLogout={onLogout} />
             </div>
           </div>
         </div>
