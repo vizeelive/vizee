@@ -10,7 +10,7 @@ export default function Footer({ className }) {
             href="https://vizee.live"
             className="text-gray-500 hover:text-white transition-none"
           >
-            Vizee
+            <a href="https://www.vizee.live">Vizee</a>
           </a>
           . All rights reserved.
         </p>
