@@ -46,7 +46,7 @@ export default function Events(props) {
   }
 
   return (
-    <Grid>
+    <Grid data-test-id="events">
       {events.map((event) => (
         <EventCard
           key={event.id}

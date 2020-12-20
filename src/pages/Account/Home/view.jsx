@@ -144,7 +144,7 @@ export default function HomeView(props) {
           <Header>
             <div>
               {process.env.REACT_APP_ACCOUNT === 'vizee' && (
-                <Title>{account.name}</Title>
+                <Title data-test-id="account-name">{account.name}</Title>
               )}
               {followers.length >= 10 && (
                 <p>{`${followers} follower${
@@ -225,7 +225,11 @@ export default function HomeView(props) {
 
           {account.description && (
             <AccountDescription>
-              <Title level={3}>Bio</Title>
+              <Title data-test-id="account-bio" level={3}>
+
+                Bio
+
+              </Title>
               <Linkify>{account.description}</Linkify>
             </AccountDescription>
           )}
@@ -237,7 +241,7 @@ export default function HomeView(props) {
           <br />
 
           {account.links.length ? (
-            <React.Fragment>
+            <div data-test-id="links">
               <Title level={3}>Links</Title>
               {account.links.map((link) => (
                 <MicrolinkCard>
@@ -247,7 +251,7 @@ export default function HomeView(props) {
                 //   <a href={link.link}>{link.name}</a>
                 // </LinkCard>
               ))}
-            </React.Fragment>
+            </div>
           ) : null}
         </div>
       </article>

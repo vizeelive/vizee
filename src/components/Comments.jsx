@@ -64,7 +64,7 @@ export default class Comments extends React.Component {
     const { comments, value } = this.state;
 
     return (
-      <>
+      <div data-test-id="comments">
         {this.props.user && !this.props.user.isAdmin && (
           <Comment
             avatar={
@@ -87,7 +87,7 @@ export default class Comments extends React.Component {
         {this.props.user &&
           this.props.user.isAdmin &&
           'Admin cannot leave comments.'}
-      </>
+      </div>
     );
   }
 }

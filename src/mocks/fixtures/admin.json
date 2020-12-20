@@ -1,0 +1,26 @@
+{
+  "https://hasura.io/jwt/claims": {
+    "x-hasura-default-role": "user",
+    "x-hasura-allowed-roles": ["user", "admin"],
+    "x-hasura-user-id": "5b1741f1-d335-45fa-a886-098d130ef6a1"
+  },
+  "nickname": "jeff",
+  "name": "jeff@loiselles.com",
+  "picture": "https://s.gravatar.com/avatar/99ac3540195101d902351e5a045003ab?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fje.png",
+  "updated_at": "2020-12-17T20:37:52.682Z",
+  "email": "jeff@loiselles.com",
+  "email_verified": true,
+  "sub": "email|5fc12c14be03d24dc941322f",
+  "isAdmin": true,
+  "geo": {
+    "ip": "45.17.98.35",
+    "hostname": "45-17-98-35.lightspeed.moblal.sbcglobal.net",
+    "city": "Mobile",
+    "region": "Alabama",
+    "country": "US",
+    "loc": "-88.0430,30.6944",
+    "org": "AS7018 AT&T Services, Inc.",
+    "postal": "36601",
+    "timezone": "America/Chicago"
+  }
+}

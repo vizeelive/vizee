@@ -35,9 +35,12 @@ describe('Event', () => {
     });
   });
   describe('isPurchased', () => {
-    it('should return true when there is a transaction for the user', () => {
+    it('should return true when there is access for the user', () => {
       let data = {
-        transaction: [{}]
+        access: [{}],
+        account: {
+          access: [{}]
+        }
       };
       let event = new Event(data);
       expect(event.isPurchased()).toBe(true);
@@ -65,9 +68,9 @@ describe('Event', () => {
           ]
         }
       };
-      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let user = { id: 'auth0|5f8838b47119bc007640b4af' };
       let event = new Event(data);
-      expect(event.belongsTo(user_id)).toBe(true);
+      expect(event.belongsTo(user)).toBe(true);
     });
   });
   describe('canWatch', () => {
@@ -84,9 +87,9 @@ describe('Event', () => {
           ]
         }
       };
-      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let user = { id: 'auth0|5f8838b47119bc007640b4af' };
       let event = new Event(data);
-      expect(event.canWatch(user_id)).toBe(true);
+      expect(event.canWatch(user)).toBe(true);
     });
     it('should return true when is video and its live and its free', () => {
       let data = {
@@ -148,7 +151,7 @@ describe('Event', () => {
       let data = {
         type: 'broadcast',
         price: '$1.00',
-        transaction: [{}],
+        access: [{}],
         account: {
           users: [
             {
@@ -159,10 +162,10 @@ describe('Event', () => {
           ]
         }
       };
-      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let user = { id: 'auth0|5f8838b47119bc007640b4af' };
       let event = new Event(data);
       let liveData = { status: 'completed' };
-      expect(event.canWatch(user_id, liveData)).toBe(true);
+      expect(event.canWatch(user, liveData)).toBe(true);
     });
     it('should return true when its broadcast and is purchased', () => {
       let data = {
@@ -170,7 +173,7 @@ describe('Event', () => {
         price: '$1.00',
         start: '2020-10-22 21:38:41.825+00',
         end: '2020-10-22 21:48:41.825+00',
-        transaction: [{}],
+        access: [{}],
         account: {
           users: [
             {
@@ -181,9 +184,9 @@ describe('Event', () => {
           ]
         }
       };
-      let user_id = 'auth0|5f8838b47119bc007640b4af';
+      let user = { id: 'auth0|5f8838b47119bc007640b4af' };
       let event = new Event(data);
-      expect(event.canWatch(user_id)).toBe(true);
+      expect(event.canWatch(user)).toBe(true);
     });
     it('should return false when its broadcast and is not purchased', () => {
       let data = {
@@ -191,7 +194,7 @@ describe('Event', () => {
         price: '$1.00',
         start: '2020-10-22 21:38:41.825+00',
         end: '2020-10-22 21:48:41.825+00',
-        transaction: null,
+        access: null,
         account: {
           users: [
             {

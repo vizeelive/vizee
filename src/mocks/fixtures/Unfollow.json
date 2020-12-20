@@ -1,0 +1,6 @@
+{
+  "delete_followers_by_pk": {
+    "id": "d41c0406-a652-4c02-8503-21216d3a51ca",
+    "__typename": "followers"
+  }
+}

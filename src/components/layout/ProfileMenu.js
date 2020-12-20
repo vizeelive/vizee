@@ -33,7 +33,7 @@ export default function ProfileMenu(props) {
 
   return (
     <div className="ml-3 relative">
-      <div>
+      <div data-test-id="menu-profile">
         <button
           ref={buttonRef}
           className="max-w-xs bg-gray-900 rounded-full flex items-center text-sm shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-pink-500"
@@ -89,6 +89,7 @@ export default function ProfileMenu(props) {
             </Link>
           )}
           <button
+            data-test-id="menu-logout"
             type="button"
             className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
             role="menuitem"

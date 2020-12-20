@@ -12,7 +12,7 @@ export default function Menu(props) {
   };
 
   return (
-    <>
+    <div data-test-id="account-menu">
       <div className="flex items-center flex-shrink-0 px-4">
         <Link to="/">
           <img className="h-7 w-auto" src={logoText} alt="Vizee" />
@@ -258,6 +258,6 @@ export default function Menu(props) {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 }

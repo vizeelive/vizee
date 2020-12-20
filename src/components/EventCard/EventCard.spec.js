@@ -70,7 +70,7 @@ describe('EventCard', () => {
         id: '06a15dcd-03cb-4dcd-b052-b9d8a84212cc',
         name: 'Music'
       },
-      transactions: [{}],
+      access: [{}],
       favorites: [
         {
           __typename: 'favorites',
@@ -132,14 +132,14 @@ describe('EventCard', () => {
     //   );
     //   expect(screen.getByText('Video')).toBeInTheDocument();
     // });
-    it('should render unpublished', () => {
-      event.published = false;
-      render(
-        <Router>
-          <EventCard user={user} event={event} />
-        </Router>
-      );
-      expect(screen.getByText('Unpublished')).toBeInTheDocument();
-    });
+    // it('should render unpublished', () => {
+    //   event.published = false;
+    //   render(
+    //     <Router>
+    //       <EventCard user={user} event={event} />
+    //     </Router>
+    //   );
+    //   expect(screen.getByText('Unpublished')).toBeInTheDocument();
+    // });
   });
 });

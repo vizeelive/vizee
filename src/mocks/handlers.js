@@ -1,4 +1,3 @@
-// src/mocks/handlers.js
 import { rest, graphql } from 'msw';
 import Cookie from 'js-cookie';
 
@@ -18,6 +17,7 @@ import GetHomeData from './fixtures/GetHomeData';
 import UserEventsReport from './fixtures/UserEventsReport';
 import CreateComment from './fixtures/CreateComment';
 import Follow from './fixtures/Follow';
+import Unfollow from './fixtures/Unfollow';
 
 Cookie.set('auth0.is.authenticated', true);
 
@@ -55,6 +55,10 @@ export const handlers = [
 
   graphql.mutation('Follow', (req, res, ctx) => {
     return res(ctx.data(Follow));
+  }),
+
+  graphql.mutation('Unfollow', (req, res, ctx) => {
+    return res(ctx.data(Unfollow));
   }),
 
   // QUERIES

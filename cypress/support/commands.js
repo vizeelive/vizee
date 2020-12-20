@@ -27,6 +27,22 @@
 import '@testing-library/cypress/add-commands';
 import Cookies from 'js-cookie';
 
+Cypress.Commands.add('graphql', (name, params) => {
+  cy.intercept('graphql', (req) => {
+    if (req.body.operationName === name) {
+      if (params.fixture) {
+        req.reply({
+          data: require(`../../src/mocks/fixtures/${params.fixture}.json`)
+        });
+      } else if (params) {
+        req.reply(params);
+      } else {
+        req.reply();
+      }
+    }
+  });
+});
+
 Cypress.Commands.add('login', (role) => {
   Cypress.log({
     name: 'loginViaAuth0'

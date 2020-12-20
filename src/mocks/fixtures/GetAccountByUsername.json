@@ -1,0 +1,50 @@
+{
+  "myaccounts": [
+    {
+      "account": {
+        "id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
+        "name": "jeff@viz.ee",
+        "username": "36bjkzqu7e",
+        "__typename": "accounts"
+      },
+      "__typename": "accounts_users"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
+      "name": "jeff@viz.ee",
+      "username": "36bjkzqu7e",
+      "description": null,
+      "photo": null,
+      "instagram": null,
+      "twitter": null,
+      "facebook": null,
+      "created_by": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
+      "umami_id": 205,
+      "events": [
+        {
+          "id": "e18f6a0b-3636-43be-bcd2-9f6a5d06fe75",
+          "name": "sdsfsdf",
+          "photo": null,
+          "preview": null,
+          "start": "2020-12-08T22:12:31.393+00:00",
+          "end": "2020-12-08T22:12:31.393+00:00",
+          "account": {
+            "name": "jeff@viz.ee",
+            "photo": null,
+            "username": "36bjkzqu7e",
+            "__typename": "accounts"
+          },
+          "category": {
+            "id": "06a15dcd-03cb-4dcd-b052-b9d8a84212cc",
+            "__typename": "categories"
+          },
+          "transactions": [],
+          "__typename": "events"
+        }
+      ],
+      "__typename": "accounts"
+    }
+  ]
+}

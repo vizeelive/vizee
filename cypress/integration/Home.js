@@ -1,61 +1,47 @@
-describe('Home', () => {
+describe('HomePage', () => {
   describe('Anonymous', () => {
     it('should pass the happy path', () => {
+      cy.graphql('Accounts', { fixture: 'Accounts' });
+      cy.graphql('AnonGetEvents', { fixture: 'AnonGetEvents' });
       cy.visit('http://localhost:3000');
-
       // menu items
       cy.get('[data-test-id=menu-login').should('exist');
-      cy.get('[data-test-id=menu-logout').should('not.exist');
+      cy.get('[data-test-id=menu-profile').should('not.exist');
       cy.get('[data-test-id=menu-admin').should('not.exist');
       cy.get('[data-test-id=menu-tickets').should('not.exist');
-      cy.get('[data-test-id=menu-account').should('not.exist');
-
-      // navigate to event
       cy.get('[data-test-id=event-card').should('exist');
-      cy.get('[data-test-id=event-card').first().click();
-      cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
-      cy.findByRole('button', { name: /Share/i }).should('exist');
-      cy.get('[data-test-id=event-name').should('exist');
-      cy.get('[data-test-id=event-start').should('exist');
-      cy.get('[data-test-id=account-name').should('exist');
     });
   });
   describe('User', () => {
     before(() => {
-      cy.login();
+      cy.setCookie('test_role', 'user');
     });
     it('should pass the happy path', () => {
+      cy.graphql('Accounts', { fixture: 'Accounts' });
+      cy.graphql('AnonGetEvents', { fixture: 'AnonGetEvents' });
+      cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
+      cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
+      cy.graphql('GetHomeData', { fixture: 'GetHomeData' });
       cy.visit('http://localhost:3000');
-
       // menu items
       cy.get('[data-test-id=menu-login').should('not.exist');
-      cy.get('[data-test-id=menu-logout').should('exist');
-      cy.get('[data-test-id=menu-admin').should('not.exist');
-      cy.get('[data-test-id=menu-account').should('exist');
-
-      // account
-      cy.get('[data-test-id=menu-account').click();
-      cy.get('[data-test-id=account-menu').should('exist');
-      cy.get('[data-test-id=link-create-event').should('exist');
+      cy.get('[data-test-id=menu-profile').should('exist');
     });
   });
   describe('Admin', () => {
     before(() => {
-      cy.login('admin');
+      cy.setCookie('test_role', 'admin');
     });
     it('should pass the happy path', () => {
+      cy.graphql('Accounts', { fixture: 'Accounts' });
+      cy.graphql('AnonGetEvents', { fixture: 'AnonGetEvents' });
+      cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
+      cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
+      cy.graphql('GetHomeData', { fixture: 'GetHomeData' });
       cy.visit('http://localhost:3000');
-
       // menu items
       cy.get('[data-test-id=menu-login').should('not.exist');
-      cy.get('[data-test-id=menu-logout').should('exist');
-      cy.get('[data-test-id=menu-admin').should('exist');
-      cy.get('[data-test-id=menu-account').should('exist');
-
-      // account
-      cy.get('[data-test-id=menu-account').click();
-      cy.get('[data-test-id=account-menu').should('exist');
-      cy.get('[data-test-id=link-create-event').should('exist');
+      cy.get('[data-test-id=menu-profile').should('exist');
     });
   });
 });

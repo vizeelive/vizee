@@ -29,7 +29,10 @@ export default class Event {
     return moment().isAfter(this.end);
   }
   belongsTo(user) {
-    return user?.isAdmin || !!this?.account?.users?.find((u) => u?.user?.id === user.id)
+    return (
+      user?.isAdmin ||
+      !!this?.account?.users?.find((u) => u?.user?.id === user?.id)
+    );
   }
   canWatch(user, liveEvent) {
     let canWatch;

@@ -5,7 +5,7 @@
       "type": "live",
       "name": "Going Hard with Ryan and Karaoke ",
       "start": "2020-11-19T02:00:21.702+00:00",
-      "end": "2020-11-19T02:30:21.702+00:00",
+      "end": "2040-11-19T02:30:21.702+00:00",
       "price": "$1.00",
       "photo": "https://vizee-media.s3.amazonaws.com/1f/e34d1ac0d34ee49b5d910dc101d035/IMG_5945.JPG",
       "preview": null,
@@ -62,7 +62,7 @@
         "name": "Ryan Moriarty",
         "username": "ryanjmo",
         "photo": "https://vizee-media.s3.amazonaws.com/01/3ac731d8bf4ff886b93f3d389bb24f/D98D12D0-B059-4C26-96C2-FB0BBB76F490_1_201_a.jpeg",
-        "stripe_data": null,
+        "stripe_data": true,
         "umami_website": "3ce51095-218b-4473-82ff-495900a3bd5c",
         "products": [],
         "__typename": "accounts"

@@ -28,8 +28,13 @@ export default function useAuth() {
   const [geo, setGeo] = useState();
   const [claims, setClaims] = useState();
 
-  if (process.env.REACT_APP_MOCK) {
-    user = require('./../mocks/fixtures/user.json');
+  if (window.Cypress || process.env.REACT_APP_MOCK) {
+    if (Cookies.get('test_role') === 'user') {
+      user = require('./../mocks/fixtures/user.json');
+    }
+    if (Cookies.get('test_role') === 'admin') {
+      user = require('./../mocks/fixtures/admin.json');
+    }
   }
 
   // @cypress

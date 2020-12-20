@@ -9,7 +9,19 @@ import * as serviceWorker from './serviceWorker';
 
 if (process.env.REACT_APP_MOCK) {
   const { worker } = require('./mocks/browser');
-  worker.start();
+  (async function main() {
+    await worker.start();
+  })();
+}
+
+if (window.Cypress) {
+  window.mixpanel = {
+    identify: () => {},
+    track: () => {},
+    people: {
+      set: () => {}
+    }
+  };
 }
 
 if (process.env.NODE_ENV !== 'development') {

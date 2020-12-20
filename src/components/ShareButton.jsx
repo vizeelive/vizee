@@ -77,6 +77,7 @@ export default function ShareButton(props) {
         </CopyToClipboard>
       </Modal>
       <Button
+        data-test-id="share-button"
         type={type}
         size="large"
         icon={<ShareAltOutlined />}
