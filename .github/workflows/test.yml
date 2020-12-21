@@ -26,7 +26,7 @@ jobs:
           cypress_auth_admin_password: ${{secrets.CYPRESS_AUTH_ADMIN_PASSWORD}}
 
   ui-tests:
-    name: Jest Tests
+    name: Jest UI Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -42,6 +42,26 @@ jobs:
 
       - name: Run tests
         run: npm run test:coverage
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  api-tests:
+    name: Jest API Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Install packages
+        run: npm ci
+        working-directory: ./api
+
+      - name: Run tests
+        run: npx jest
+        working-directory: ./api
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v1

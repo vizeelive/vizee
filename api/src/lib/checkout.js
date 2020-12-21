@@ -1,66 +1,53 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: ''
-});
-
-async function findCustomer(email) {
-  if (!email) return null;
-  const customers = await stripe.customers.list({
-    email: email.toLowerCase(),
-    limit: 1
-  });
-  return customers.data.length ? customers.data[0].id : null;
-}
+const stripe = require('./stripe');
 
 /**
  * Creates a subscription
  *
  * @param {*} params
  */
-async function subscribe(params) {
-  const {
-    ref,
-    origin,
-    account,
-    event,
-    product,
-    unit_amount,
-    image,
-    email
-  } = params;
+// async function subscribe(params) {
+//   const {
+//     ref,
+//     origin,
+//     account,
+//     event,
+//     product,
+//     unit_amount,
+//     image,
+//     email
+//   } = params;
 
-  let customer = await findCustomer(email);
+//   let customer = await stripe.findCustomer(email);
 
-  return stripe.checkout.sessions.create(
-    {
-      mode: 'subscription',
-      ...(customer ? { customer } : { customer_email: email }),
-      client_reference_id: ref,
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            unit_amount,
-            currency: 'usd',
-            recurring: {
-              interval: 'day',
-              interval_count: product.access_length
-            },
-            product_data: {
-              name: `${account.name} Subscription`,
-              images: [image],
-              metadata: {
-                product_id: product.id
-              }
-            }
-          }
-        }
-      ],
-      success_url: `${origin}/${account.username}/${event.id}/success`,
-      cancel_url: `${origin}/${account.username}/${event.id}/cancel`
-    }
-  );
-}
+//   return stripe.createSession({
+//     mode: 'subscription',
+//     ...(customer ? { customer } : { customer_email: email }),
+//     client_reference_id: ref,
+//     payment_method_types: ['card'],
+//     line_items: [
+//       {
+//         quantity: 1,
+//         price_data: {
+//           unit_amount,
+//           currency: 'usd',
+//           recurring: {
+//             interval: 'day',
+//             interval_count: product.access_length
+//           },
+//           product_data: {
+//             name: `${account.name} Subscription`,
+//             images: [image],
+//             metadata: {
+//               product_id: product.id
+//             }
+//           }
+//         }
+//       }
+//     ],
+//     success_url: `${origin}/${account.username}/${event.id}/success`,
+//     cancel_url: `${origin}/${account.username}/${event.id}/cancel`
+//   });
+// }
 
 /**
  * Purchases a single item
@@ -79,9 +66,9 @@ async function pay(params) {
     email
   } = params;
 
-  let customer = await findCustomer(email);
+  let customer = await stripe.findCustomer(email);
 
-  return stripe.checkout.sessions.create({
+  return stripe.createSession({
     mode: 'payment',
     ...(customer ? { customer } : { customer_email: email }),
     client_reference_id: ref,
@@ -111,4 +98,4 @@ async function pay(params) {
   });
 }
 
-module.exports = { subscribe, pay };
+module.exports = { pay };

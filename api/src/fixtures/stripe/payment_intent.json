@@ -1,0 +1,149 @@
+{
+  "id": "pi_1I0TbdFN46jAxE7QHrMt95nj",
+  "object": "payment_intent",
+  "amount": 1499,
+  "amount_capturable": 0,
+  "amount_received": 1499,
+  "application": null,
+  "application_fee_amount": null,
+  "canceled_at": null,
+  "cancellation_reason": null,
+  "capture_method": "automatic",
+  "charges": {
+    "object": "list",
+    "data": [
+      {
+        "id": "ch_1I0TbpFN46jAxE7QqRDB6O22",
+        "object": "charge",
+        "amount": 1499,
+        "amount_captured": 1499,
+        "amount_refunded": 0,
+        "amount_updates": [],
+        "application": null,
+        "application_fee": null,
+        "application_fee_amount": null,
+        "balance_transaction": "txn_1I0TbqFN46jAxE7QQoolgXrT",
+        "billing_details": {
+          "address": {
+            "city": null,
+            "country": "US",
+            "line1": null,
+            "line2": null,
+            "postal_code": "36604",
+            "state": null
+          },
+          "email": "jeff@viz.ee",
+          "name": "lkjlkj",
+          "phone": null
+        },
+        "calculated_statement_descriptor": "VIZEE.LIVE",
+        "captured": true,
+        "created": 1608477249,
+        "currency": "usd",
+        "customer": "cus_IZXztWx64ewLQd",
+        "description": null,
+        "destination": "acct_1HyOm22UrvU1cNxc",
+        "dispute": null,
+        "disputed": false,
+        "failure_code": null,
+        "failure_message": null,
+        "fraud_details": {},
+        "invoice": null,
+        "livemode": false,
+        "metadata": {},
+        "on_behalf_of": null,
+        "order": null,
+        "outcome": {
+          "network_status": "approved_by_network",
+          "reason": null,
+          "risk_level": "normal",
+          "risk_score": 44,
+          "seller_message": "Payment complete.",
+          "type": "authorized"
+        },
+        "paid": true,
+        "payment_intent": "pi_1I0TbdFN46jAxE7QHrMt95nj",
+        "payment_method": "pm_1I0TboFN46jAxE7QNYJYBWMc",
+        "payment_method_details": {
+          "card": {
+            "brand": "visa",
+            "checks": {
+              "address_line1_check": null,
+              "address_postal_code_check": "pass",
+              "cvc_check": "pass"
+            },
+            "country": "US",
+            "exp_month": 3,
+            "exp_year": 2021,
+            "fingerprint": "GSQJy8hBuntlf8Yw",
+            "funding": "credit",
+            "installments": null,
+            "last4": "4242",
+            "network": "visa",
+            "three_d_secure": null,
+            "wallet": null
+          },
+          "type": "card"
+        },
+        "receipt_email": null,
+        "receipt_number": null,
+        "receipt_url": "https://pay.stripe.com/receipts/acct_1GxNPWFN46jAxE7Q/ch_1I0TbpFN46jAxE7QqRDB6O22/rcpt_Ibgzj2HpOPKn75Cz4WxNBzXuRqYBCiB",
+        "refunded": false,
+        "refunds": {
+          "object": "list",
+          "data": [],
+          "has_more": false,
+          "total_count": 0,
+          "url": "/v1/charges/ch_1I0TbpFN46jAxE7QqRDB6O22/refunds"
+        },
+        "review": null,
+        "shipping": null,
+        "source": null,
+        "source_transfer": null,
+        "statement_descriptor": null,
+        "statement_descriptor_suffix": null,
+        "status": "succeeded",
+        "transfer": "tr_1I0TbpFN46jAxE7Qapc0thkq",
+        "transfer_data": {
+          "amount": 1394,
+          "destination": "acct_1HyOm22UrvU1cNxc"
+        },
+        "transfer_group": "group_pi_1I0TbdFN46jAxE7QHrMt95nj"
+      }
+    ],
+    "has_more": false,
+    "total_count": 1,
+    "url": "/v1/charges?payment_intent=pi_1I0TbdFN46jAxE7QHrMt95nj"
+  },
+  "client_secret": "pi_1I0TbdFN46jAxE7QHrMt95nj_secret_yBBXUbIufdIYeaDtHTnGvThyK",
+  "confirmation_method": "automatic",
+  "created": 1608477237,
+  "currency": "usd",
+  "customer": "cus_IZXztWx64ewLQd",
+  "description": null,
+  "invoice": null,
+  "last_payment_error": null,
+  "livemode": false,
+  "metadata": {},
+  "next_action": null,
+  "on_behalf_of": null,
+  "payment_method": "pm_1I0TboFN46jAxE7QNYJYBWMc",
+  "payment_method_options": {
+    "card": {
+      "installments": null,
+      "network": null,
+      "request_three_d_secure": "automatic"
+    }
+  },
+  "payment_method_types": ["card"],
+  "receipt_email": null,
+  "review": null,
+  "setup_future_usage": "off_session",
+  "shipping": null,
+  "source": null,
+  "statement_descriptor": null,
+  "statement_descriptor_suffix": null,
+  "status": "succeeded",
+  "transfer_data": { "amount": 1394, "destination": "acct_1HyOm22UrvU1cNxc" },
+  "transfer_group": "group_pi_1I0TbdFN46jAxE7QHrMt95nj"
+}

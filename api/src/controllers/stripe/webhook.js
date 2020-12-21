@@ -1,5 +1,8 @@
 const { parse } = require('zipson');
 const dayjs = require('dayjs');
+
+const stripe = require('../../lib/stripe');
+
 const { getUser, getUserAndProduct } = require('../../queries');
 
 const {
@@ -10,20 +13,12 @@ const {
   updateUserStripeCustomerId
 } = require('../../mutations');
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: ''
-});
-
 module.exports = async function ({ event }) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
 
-    console.log({ session });
-
     try {
-      const customer = await stripe.customers.retrieve(
-        event.data.object.customer
-      );
+      const customer = await stripe.getCustomer(event.data.object.customer);
 
       let ref = parse(session.client_reference_id);
       console.log({ ref });
@@ -70,7 +65,7 @@ module.exports = async function ({ event }) {
           .add(product.access_length, 'day')
           .format('YYYY-MM-DD HH:mm:ss');
       } else {
-        expiry = dayjs('2061-03-16');
+        expiry = dayjs('2061-03-16').format('YYYY-MM-DD HH:mm:ss');
       }
 
       let object = {
@@ -113,12 +108,12 @@ module.exports = async function ({ event }) {
         });
       }
 
-      const paymentIntent = await stripe.paymentIntents.retrieve(
+      const paymentIntent = await stripe.getPaymentIntent(
         session.payment_intent
       );
 
       if (product.recurring) {
-        const subscription = await stripe.subscriptions.create({
+        const subscription = await stripe.createSubscription({
           customer: session.customer,
           trial_period_days: product.access_length,
           items: [

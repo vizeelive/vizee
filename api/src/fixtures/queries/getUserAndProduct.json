@@ -1,0 +1,21 @@
+{
+  "user": {
+    "__typename": "users",
+    "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
+    "access": []
+  },
+  "product": {
+    "__typename": "products",
+    "price": "$14.99",
+    "account_id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
+    "account_access": true,
+    "recurring": true,
+    "access_length": 30,
+    "account": {
+      "__typename": "accounts",
+      "stripe_id": "acct_1HyOm22UrvU1cNxc"
+    },
+    "events": []
+  },
+  "user_access": []
+}

@@ -87,14 +87,8 @@ app.post(
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    console.log('/stripe/connect/webhook', { event });
-
     if (event.type === 'account.updated') {
       try {
-        console.log('input', {
-          id: event.data.object.id,
-          data: event.data.object
-        });
         await client.mutate({
           variables: {
             id: event.data.object.id,
