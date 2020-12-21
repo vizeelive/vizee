@@ -4,6 +4,7 @@ const UpdateAccount = require('./UpdateAccount');
 const getUmamiToken = require('./getUmamiToken');
 const getEventUrl = require('./getEventUrl');
 const getStripeUrl = require('./getStripeUrl');
+const getStripeCustomerPortalUrl = require('./getStripeCustomerPortalUrl');
 
 module.exports = {
   hello,
@@ -11,5 +12,6 @@ module.exports = {
   UpdateAccount,
   getUmamiToken,
   getEventUrl,
-  getStripeUrl
+  getStripeUrl,
+  getStripeCustomerPortalUrl
 };

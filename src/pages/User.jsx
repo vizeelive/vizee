@@ -33,6 +33,9 @@ const GET_ACCOUNTS_AUTH = gql`
     hello {
       message
     }
+    getStripeCustomerPortalUrl {
+      url
+    }
     accounts_users(where: { user_id: { _eq: $user_id } }) {
       account {
         id
@@ -115,6 +118,11 @@ export default function User() {
   };
 
   // if user, pick first account she has access to
+
+  if (user) {
+    user.portalUrl = data?.getStripeCustomerPortalUrl?.url;
+  }
+
   let account = data?.accounts_users?.[0]?.account;
 
   // if admin, set to the first account we find

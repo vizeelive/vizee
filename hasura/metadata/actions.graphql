@@ -13,6 +13,11 @@ type Query {
 
 
 type Query {
+  getStripeCustomerPortalUrl : getStripeCustomerPortalUrlOutput
+}
+
+
+type Query {
   getStripeUrl (
     username: String!
   ): getStripeUrlOutput
@@ -833,6 +838,10 @@ type HelloOutput {
 }
 
 type getStripeUrlOutput {
+  url : String!
+}
+
+type getStripeCustomerPortalUrlOutput {
   url : String!
 }
 

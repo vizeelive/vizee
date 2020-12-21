@@ -159,6 +159,7 @@ async function getUserAndProduct({ email, product_id }) {
             }
           }
           products_by_pk(id: $product_id) {
+            id
             price
             account_id
             account_access

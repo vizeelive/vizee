@@ -3,6 +3,9 @@
     "message": "Oh, hello!",
     "__typename": "HelloOutput"
   },
+  "getStripeCustomerPortalUrl": {
+    "url": "https://stripe"
+  },
   "accounts_users": [
     {
       "account": {

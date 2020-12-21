@@ -6,6 +6,7 @@
   },
   "product": {
     "__typename": "products",
+    "id": "d9493005-0693-4250-b7f5-b8997938f8ff",
     "price": "$14.99",
     "account_id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
     "account_access": true,

@@ -77,6 +77,9 @@ const GET_ACCOUNT_AUTH = gql`
         username
       }
     }
+    getStripeCustomerPortalUrl {
+      url
+    }
     accounts(where: { username: { _ilike: $username } }) {
       id
       name
@@ -117,6 +120,9 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
       id
       name
       username
+    }
+    getStripeCustomerPortalUrl {
+      url
     }
     accounts(where: { username: { _ilike: $username } }) {
       id
@@ -198,6 +204,10 @@ export default function Account() {
     Cookies.remove('username');
     logout();
   };
+
+  if (user) {
+    user.portalUrl = data?.getStripeCustomerPortalUrl?.url;
+  }
 
   // @TODO find by pk, no need for [0]
   const account = data?.account?.[0].account || data?.accounts[0];

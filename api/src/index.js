@@ -27,6 +27,11 @@ app.post(
   bodyParser.json({ type: 'application/json' }),
   async (req, res) => {
     let action = req.body.action.name;
-    return actions[action](req, res);
+    try {
+      return actions[action](req, res);
+    } catch (e) {
+      console.log(`Missing ${action}`, e);
+      res.status(500);
+    }
   }
 );

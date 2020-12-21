@@ -1,3 +1,4 @@
+const logger = require('../../logger');
 const { parse } = require('zipson');
 const dayjs = require('dayjs');
 
@@ -21,15 +22,18 @@ module.exports = async function ({ event }) {
       const customer = await stripe.getCustomer(event.data.object.customer);
 
       let ref = parse(session.client_reference_id);
-      console.log({ ref });
+      logger.debug({ ref });
 
       if (ref.product_id) {
+        logger.info('Fetching user and product');
         var { user, product, user_access } = await getUserAndProduct({
           email: customer.email,
           product_id: ref.product_id
         });
       } else {
+        logger.info('Fetching user for permanent event access');
         var product = {
+          id: null,
           account_access: false,
           recurring: false,
           access_length: null
@@ -68,39 +72,6 @@ module.exports = async function ({ event }) {
         expiry = dayjs('2061-03-16').format('YYYY-MM-DD HH:mm:ss');
       }
 
-      let object = {
-        expiry,
-
-        ...(product.recurring
-          ? { subscription: true }
-          : { subscription: false }),
-
-        ...(user && user.id ? { user_id: user.id } : { email: customer.email }),
-
-        ...(product.account_access ? { account_id: product.account_id } : null),
-
-        ...(!product.account_access ? { event_id: ref.event_id } : null),
-
-        stripe_customer_id: session.customer,
-        updated: dayjs().format('YYYY-MM-DD HH:mm:ss')
-      };
-
-      if (!access) {
-        createAccess({ object });
-      } else {
-        if (user) {
-          updateAccessById({
-            access_id: access.id,
-            object
-          });
-        } else {
-          updateAccessByEmail({
-            email: customer.email,
-            object
-          });
-        }
-      }
-
       if (user) {
         await updateUserStripeCustomerId({
           user_id: user.id,
@@ -112,8 +83,9 @@ module.exports = async function ({ event }) {
         session.payment_intent
       );
 
+      var subscription;
       if (product.recurring) {
-        const subscription = await stripe.createSubscription({
+        subscription = await stripe.createSubscription({
           customer: session.customer,
           trial_period_days: product.access_length,
           items: [
@@ -137,9 +109,51 @@ module.exports = async function ({ event }) {
         });
       }
 
+      let object = {
+        expiry,
+
+        ...(product.recurring
+          ? { subscription: true }
+          : { subscription: false }),
+
+        ...(user && user.id ? { user_id: user.id } : { email: customer.email }),
+
+        ...(product.account_access ? { account_id: product.account_id } : null),
+
+        ...(product.id ? { product_id: product.id } : null),
+
+        ...(!product.account_access ? { event_id: ref.event_id } : null),
+
+        ...(product.recurring
+          ? { stripe_subscription_id: subscription.id }
+          : null),
+
+        stripe_customer_id: session.customer,
+        updated: dayjs().format('YYYY-MM-DD HH:mm:ss')
+      };
+
+      if (!access) {
+        logger.info('No access, creating.');
+        createAccess({ object });
+      } else {
+        if (user) {
+          logger.info('Found user, updating access');
+          updateAccessById({
+            access_id: access.id,
+            object
+          });
+        } else {
+          logger.info('Creating access with email');
+          updateAccessByEmail({
+            email: customer.email,
+            object
+          });
+        }
+      }
+
       await createTransaction({ customer, ref, user, session });
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       throw e.message;
     }
   }

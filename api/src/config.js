@@ -19,6 +19,4 @@ let config = {
 
 let env = process.env.NODE_ENV || 'dev';
 
-console.log('config', config[env]);
-
 module.exports = config[env];
