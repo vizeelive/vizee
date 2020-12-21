@@ -23,6 +23,7 @@ module.exports = async function getStripeUrl(req, res) {
   const user = getUser(req);
   const { username } = req.body.input;
 
+  user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
   user.isAdmin = user['https://hasura.io/jwt/claims'][
     'x-hasura-allowed-roles'
   ].includes('admin');
@@ -40,6 +41,10 @@ module.exports = async function getStripeUrl(req, res) {
     ) {
       console.log('Unauthorized', { user, data });
       return res.status(401).send('Unauthorized');
+    }
+
+    if (!data.accounts[0].stripe_id) {
+      return res.send({ url: '' });
     }
 
     const loginLink = await stripe.accounts.createLoginLink(
