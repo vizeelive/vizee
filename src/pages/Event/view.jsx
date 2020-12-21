@@ -16,7 +16,6 @@ import StartStreamButton from 'components/StartStreamButton';
 // import RedeemCode from 'components/RedeemCode';
 import BuyButton from 'components/BuyButton';
 import ShareButton from 'components/ShareButton';
-// import SubscribeButton from '../components/SubscribeButton';
 import FollowButton from 'components/FollowButton';
 import VideoPlayer from 'components/VideoPlayer';
 import VideoConference from 'components/VideoConference';
@@ -263,10 +262,10 @@ export default function EventPage(props) {
                 <br />
                 {!event.hasStarted() && <Countdown date={event.start} />}
               </Date>
-              <div>
+              <div data-test-id="event-views">
                 {event.views} Views • {event.favorites} Favorites
               </div>
-              <div>{event.location}</div>
+              <div data-test-id="event-location">{event.location}</div>
             </Col>
 
             <Col xs={24} lg={16}>
@@ -287,9 +286,7 @@ export default function EventPage(props) {
                     follower_id={account?.followers?.[0]?.id}
                   />
                 )}
-                {/* {user && !user.isAdmin && !isMyAccount && (
-                  <SubscribeButton />
-                )} */}
+
                 {(user?.isAdmin || isMyAccount) && event.isBroadcast() && (
                   <StartStreamButton
                     event_id={event.id}
@@ -320,7 +317,7 @@ export default function EventPage(props) {
               <br />
               <br /> */}
 
-              <EventDescription>
+              <EventDescription data-test-id="event-description">
                 <Linkify>{event.description}</Linkify>
               </EventDescription>
 

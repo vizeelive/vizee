@@ -105,7 +105,7 @@ class Countdown extends Component {
     const countDown = this.state;
 
     return (
-      <CountdownContainer>
+      <CountdownContainer data-test-id="event-countdown">
         <div className="Countdown">
           <span className="Countdown-col">
             <span className="Countdown-col-element">

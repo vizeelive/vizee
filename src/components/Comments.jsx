@@ -67,6 +67,7 @@ export default class Comments extends React.Component {
       <div data-test-id="comments">
         {this.props.user && !this.props.user.isAdmin && (
           <Comment
+            data-test-id="comments-editor"
             avatar={
               <Avatar
                 src={`https://avatars.dicebear.com/api/initials/${this.props.user.nickname}.svg`}

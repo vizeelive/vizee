@@ -3,7 +3,7 @@ describe('HomePage', () => {
     it('should pass the happy path', () => {
       cy.graphql('Accounts', { fixture: 'Accounts' });
       cy.graphql('AnonGetEvents', { fixture: 'AnonGetEvents' });
-      cy.visit('http://localhost:3000');
+      cy.visit('/');
       // menu items
       cy.get('[data-test-id=menu-login').should('exist');
       cy.get('[data-test-id=menu-profile').should('not.exist');
@@ -22,7 +22,7 @@ describe('HomePage', () => {
       cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
       cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
       cy.graphql('GetHomeData', { fixture: 'GetHomeData' });
-      cy.visit('http://localhost:3000');
+      cy.visit('/');
       // menu items
       cy.get('[data-test-id=menu-login').should('not.exist');
       cy.get('[data-test-id=menu-profile').should('exist');

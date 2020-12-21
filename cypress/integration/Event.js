@@ -2,11 +2,14 @@ describe('EventPage', () => {
   describe('Anonymous', () => {
     it('should pass happy path', () => {
       cy.graphql('AnonEventsReport', { fixture: 'AnonEventsReport' });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
       cy.findByRole('button', { name: /Share/i }).should('exist');
       cy.get('[data-test-id=event-name').should('not.be.empty');
       cy.get('[data-test-id=event-start').should('not.be.empty');
+      cy.get('[data-test-id=event-description').should('exist');
+      cy.get('[data-test-id=event-views').should('exist');
+      cy.get('[data-test-id=event-location').should('exist');
       cy.get('[data-test-id=account-name').should('not.be.empty');
       cy.get('[data-test-id=comments').should('not.be.empty');
     });
@@ -17,8 +20,11 @@ describe('EventPage', () => {
       cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
     });
     it('should pass happy path', () => {
-      cy.graphql('UserEventsReport', { fixture: 'UserEventsReport' });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].account.username = 'random';
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('creator/a1b2c3');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
       cy.findByRole('button', { name: /Follow/i }).should('exist');
       cy.findByRole('button', { name: /Share/i }).should('exist');
@@ -26,6 +32,7 @@ describe('EventPage', () => {
       cy.get('[data-test-id=event-start').should('not.be.empty');
       cy.get('[data-test-id=account-name').should('not.be.empty');
       cy.get('[data-test-id=comments').should('not.be.empty');
+      cy.get('[data-test-id=comments-editor').should('exist');
     });
     it('should be able to see LIVE NOW tag', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
@@ -35,7 +42,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.findByText('LIVE NOW').should('exist');
     });
     it('should be able to see video preview', () => {
@@ -44,7 +51,7 @@ describe('EventPage', () => {
         cy.graphql('UserEventsReport', fixture);
       });
 
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.findByText('PREVIEW').should('exist');
       cy.get('[data-test-id=event-preview-video').should('exist');
     });
@@ -54,13 +61,16 @@ describe('EventPage', () => {
         cy.graphql('UserEventsReport', fixture);
       });
 
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.findByText('PREVIEW').should('exist');
       cy.get('[data-test-id=event-preview-image').should('exist');
     });
     it('should see buy button when has no access', () => {
-      cy.graphql('UserEventsReport', { fixture: 'UserEventsReport' });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].account.username = 'random';
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('creator/a1b2c3');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
     });
     it('should not see buy button when has full account access', () => {
@@ -68,7 +78,7 @@ describe('EventPage', () => {
         fixture.events_report[0].account.access = [{ id: 'a1b2c3' }];
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('not.exist');
     });
     it('should not see buy button when has event access', () => {
@@ -76,7 +86,7 @@ describe('EventPage', () => {
         fixture.events_report[0].access = [{ id: 'a1b2c3' }];
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('not.exist');
     });
     it('should see live video when has access', () => {
@@ -89,7 +99,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.get('[data-test-id=event-video-live').should('exist');
     });
     it('should see conference when has access', () => {
@@ -102,7 +112,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.get('[data-test-id=event-video-conference').should('exist');
     });
     it('should see prerecorded video when has access', () => {
@@ -115,33 +125,61 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('http://localhost:3000/creator/a1b2c3');
+      cy.visit('creator/a1b2c3');
       cy.get('[data-test-id=event-video-vod').should('exist');
     });
-    // should see countdown timer
+    it('should see countdown timer when event is in future', () => {
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].start = new Date(
+          new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+        );
+        fixture.events_report[0].start = new Date(
+          new Date().getTime() + 6 * 24 * 60 * 60 * 1000
+        );
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('creator/a1b2c3');
+      cy.get('[data-test-id=event-countdown').should('exist');
+    });
+    it('should see Start Stream when event is broadcast', () => {
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].type = 'live';
+        fixture.events_report[0].start = new Date(
+          new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+        );
+        fixture.events_report[0].start = new Date(
+          new Date().getTime() + 6 * 24 * 60 * 60 * 1000
+        );
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('ryanjmo/a1b2c3');
+      cy.findByRole('button', { name: /Start Live Stream/i }).should('exist');
+    });
   });
-  // describe('Creator', () => {
-  //   it('should pass happy path', () => {
-  //     cy.graphql('AnonEventsReport', { fixture: 'AnonEventsReport' });
-  //     cy.visit('http://localhost:3000/creator/a1b2c3');
-  //     cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
-  //     cy.findByRole('button', { name: /Share/i }).should('exist');
-  //     cy.get('[data-test-id=event-name').should('not.be.empty');
-  //     cy.get('[data-test-id=event-start').should('not.be.empty');
-  //     cy.get('[data-test-id=account-name').should('not.be.empty');
-  //     cy.get('[data-test-id=comments').should('not.be.empty');
-  //   });
-  // });
-  // describe('Admin', () => {
-  //   it('should pass happy path', () => {
-  //     cy.graphql('AnonEventsReport', { fixture: 'AnonEventsReport' });
-  //     cy.visit('http://localhost:3000/creator/a1b2c3');
-  //     cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
-  //     cy.findByRole('button', { name: /Share/i }).should('exist');
-  //     cy.get('[data-test-id=event-name').should('not.be.empty');
-  //     cy.get('[data-test-id=event-start').should('not.be.empty');
-  //     cy.get('[data-test-id=account-name').should('not.be.empty');
-  //     cy.get('[data-test-id=comments').should('not.be.empty');
-  //   });
-  // });
+  describe('Admin', () => {
+    beforeEach(() => {
+      cy.setCookie('test_role', 'admin');
+      cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
+    });
+    it('should pass happy path', () => {
+      cy.graphql('UserEventsReport', { fixture: 'UserEventsReport' });
+      cy.visit('creator/a1b2c3');
+      cy.findByRole('button', { name: /Share/i }).should('exist');
+      cy.findByRole('button', { name: /Manage/i }).should('exist');
+    });
+    it('should see Start Stream when event is broadcast', () => {
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].type = 'live';
+        fixture.events_report[0].start = new Date(
+          new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+        );
+        fixture.events_report[0].start = new Date(
+          new Date().getTime() + 6 * 24 * 60 * 60 * 1000
+        );
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('creator/a1b2c3');
+      cy.findByRole('button', { name: /Start Live Stream/i }).should('exist');
+    });
+  });
 });

@@ -63,13 +63,7 @@ export default function useAffiliate(props) {
         }
       });
     }
-  }, [
-    affiliateLoginUser,
-    affiliateLoginUser.affiliate_account_id,
-    affiliateLoginUser.id,
-    affiliate_account_id,
-    updateAffiliate
-  ]);
+  }, [affiliateLoginUser, affiliate_account_id, updateAffiliate]);
 
   return { setAffiliateLoginUser, setAffiliateUserId, setAffiliateAccountId };
 }
