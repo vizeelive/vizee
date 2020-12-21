@@ -187,23 +187,25 @@ export default function Events(props) {
   }
 
   return (
-    <React.Fragment>
-      <Header>
-        <Title>Events</Title>
-        <Link to={ui.addUrl}>
-          <Button icon={<VideoCameraOutlined />} type="primary" size="large">
-            Create Event
-          </Button>
-        </Link>
-      </Header>
+    <article className="min-h-page">
+      <div className="py-8 px-4 sm:px-6 lg:px-8">
+        <Header>
+          <Title>Events</Title>
+          <Link to={ui.addUrl}>
+            <Button icon={<VideoCameraOutlined />} type="primary" size="large">
+              Create Event
+            </Button>
+          </Link>
+        </Header>
 
-      <Table
-        rowKey="id"
-        columns={columns}
-        dataSource={tableData}
-        scroll={{ x: 1200 }}
-      />
-    </React.Fragment>
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={tableData}
+          scroll={{ x: 1200 }}
+        />
+      </div>
+    </article>
   );
 }
 
