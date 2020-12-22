@@ -154,7 +154,7 @@ export default function User() {
               <Route path="/:username/:id/:status?" exact component={Event} />
               {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
                 <Route path="/">
-                  <Home />
+                  <Home onLogin={handleLogin} />
                 </Route>
               ) : (
                 <Route path="/">

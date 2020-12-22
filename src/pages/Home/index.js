@@ -153,7 +153,7 @@ const SEARCH_EVENTS_AUTH = gql`
   }
 `;
 
-export default function Home() {
+export default function Home(props) {
   const { user } = useAuth();
 
   const { loading, error, data, refetch } = useQuery(
@@ -175,7 +175,7 @@ export default function Home() {
     searchEvents({ variables: { q: `%${val}%` } });
   };
 
-  const props = {
+  const viewProps = {
     user,
     error,
     loading,
@@ -184,8 +184,9 @@ export default function Home() {
     search,
     isMobile,
     searchData,
-    refetch
+    refetch,
+    onLogin: props.onLogin
   };
 
-  return <HomeView {...props} />;
+  return <HomeView {...viewProps} />;
 }
