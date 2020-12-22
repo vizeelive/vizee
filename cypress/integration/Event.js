@@ -7,9 +7,9 @@ describe('EventPage', () => {
       cy.findByRole('button', { name: /Share/i }).should('exist');
       cy.get('[data-test-id=event-name').should('not.be.empty');
       cy.get('[data-test-id=event-start').should('not.be.empty');
-      cy.get('[data-test-id=event-description').should('exist');
-      cy.get('[data-test-id=event-views').should('exist');
-      cy.get('[data-test-id=event-location').should('exist');
+      cy.get('[data-test-id=event-description').should('not.be.empty');
+      cy.get('[data-test-id=event-views').should('not.be.empty');
+      cy.get('[data-test-id=event-location').should('not.be.empty');
       cy.get('[data-test-id=account-name').should('not.be.empty');
       cy.get('[data-test-id=comments').should('not.be.empty');
     });

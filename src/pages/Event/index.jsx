@@ -19,6 +19,7 @@ const GET_EVENT_UNAUTH = gql`
       photo
       preview
       favorites
+      description
       views
       location
       mux_livestream
