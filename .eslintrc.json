@@ -1,7 +1,10 @@
 {
-  "plugins": [
-    "cypress",
-    "react",
-    "react-hooks"
-  ]
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["cypress", "react", "react-hooks"]
 }
