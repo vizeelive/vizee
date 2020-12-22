@@ -31,6 +31,34 @@ body {
   @apply text-primary;
 }
 
+.video-chat-grid {
+  grid-template-rows: auto;
+  grid-auto-rows: 1fr;
+}
+
+@media (max-width: 1023px) and (orientation: portrait) {
+  .video-chat-grid.show-chat {
+    height: calc(100vh - var(--vz-nav-height));
+  }
+}
+
+@media (max-width: 1023px) and (orientation: landscape) {
+  .event-chat {
+    height: calc(100vh - var(--vz-nav-height));
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-chat-grid {
+    grid-template-rows: none;
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.chat-input::placeholder {
+  color: var(--vz-gray-500);
+}
+
 :root {
   --vz-pink-50: #f2e8ec;
   --vz-pink-100: #f1dee7;

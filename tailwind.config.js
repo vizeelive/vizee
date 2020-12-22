@@ -59,11 +59,27 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            a: {
+              color: theme('colors.pink.600'),
+              '&:hover': {
+                color: theme('colors.pink.700')
+              },
+              textDecoration: 'none'
+            }
+          }
+        }
+      }),
       minHeight: {
         page: 'calc(100vh - 184px)'
+      },
+      maxWidth: {
+        prose: '65ch'
       }
     }
   },
   variants: {},
-  plugins: []
+  plugins: [require('@tailwindcss/typography')]
 };

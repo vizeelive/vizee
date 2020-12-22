@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 
 import Mapper from 'services/mapper';
-import Countdown from 'components/Countdown';
+import Countdown from 'components/Event/Countdown';
 
 import styled from 'styled-components';
 

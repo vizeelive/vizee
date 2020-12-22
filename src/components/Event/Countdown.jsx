@@ -1,28 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-const CountdownContainer = styled.div`
-  .Countdown {
-    margin: 10px auto;
-    padding-bottom: 20px;
-  }
-
-  .Countdown-col {
-    display: inline-block;
-  }
-
-  .Countdown-col-element {
-    display: inline-block;
-    margin: 0 20px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .Countdown-col-element strong {
-    font-size: 20px;
-  }
-`;
 
 // https://medium.com/@kristin_baumann/react-countdown-6455838b6faf
 class Countdown extends Component {
@@ -38,6 +15,10 @@ class Countdown extends Component {
   }
 
   componentDidMount() {
+    const initial = this.calculateCountdown(this.props.date);
+    if (initial) {
+      this.setState(initial);
+    }
     // update every second
     this.interval = setInterval(() => {
       const date = this.calculateCountdown(this.props.date);
@@ -105,37 +86,45 @@ class Countdown extends Component {
     const countDown = this.state;
 
     return (
-      <CountdownContainer data-test-id="event-countdown">
-        <div className="Countdown">
-          <span className="Countdown-col">
-            <span className="Countdown-col-element">
-              <strong>{this.addLeadingZeros(countDown.days)}</strong>
-              <span>{countDown.days === 1 ? 'Day' : 'Days'}</span>
+      <div className="my-3 mx-auto" data-test-id="event-countdown">
+        <span className="inline-block">
+          <span className="flex flex-col items-center mx-3">
+            <strong className="text-3xl font-sans font-bold">
+              {this.addLeadingZeros(countDown.days)}
+            </strong>
+            <span className="text-gray-500 font-sans">
+              {countDown.days === 1 ? 'Day' : 'Days'}
             </span>
           </span>
+        </span>
 
-          <span className="Countdown-col">
-            <span className="Countdown-col-element">
-              <strong>{this.addLeadingZeros(countDown.hours)}</strong>
-              <span>Hours</span>
-            </span>
+        <span className="inline-block">
+          <span className="flex flex-col items-center mx-3">
+            <strong className="text-3xl font-sans font-bold">
+              {this.addLeadingZeros(countDown.hours)}
+            </strong>
+            <span className="text-gray-500 font-sans">Hours</span>
           </span>
+        </span>
 
-          <span className="Countdown-col">
-            <span className="Countdown-col-element">
-              <strong>{this.addLeadingZeros(countDown.min)}</strong>
-              <span>Min</span>
-            </span>
+        <span className="inline-block">
+          <span className="flex flex-col items-center mx-3">
+            <strong className="text-3xl font-sans font-bold">
+              {this.addLeadingZeros(countDown.min)}
+            </strong>
+            <span className="text-gray-500 font-sans">Min</span>
           </span>
+        </span>
 
-          <span className="Countdown-col">
-            <span className="Countdown-col-element">
-              <strong>{this.addLeadingZeros(countDown.sec)}</strong>
-              <span>Sec</span>
-            </span>
+        <span className="inline-block">
+          <span className="flex flex-col items-center mx-3">
+            <strong className="text-3xl font-sans font-bold">
+              {this.addLeadingZeros(countDown.sec)}
+            </strong>
+            <span className="text-gray-500 font-sans">Sec</span>
           </span>
-        </div>
-      </CountdownContainer>
+        </span>
+      </div>
     );
   }
 }

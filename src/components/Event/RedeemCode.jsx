@@ -64,9 +64,13 @@ export default function RedeemCode(props) {
           </Button>
         </Form>
       </Modal>
-      <Button size="large" onClick={() => setIsModalOpen(true)}>
+      <button
+        type="button"
+        className="inline-flex items-center px-4 py-2 border border-gray-700 rounded-md shadow-sm text-sm lg:text-base font-medium text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+        onClick={() => setIsModalOpen(true)}
+      >
         Redeem Code
-      </Button>
+      </button>
     </React.Fragment>
   );
 }

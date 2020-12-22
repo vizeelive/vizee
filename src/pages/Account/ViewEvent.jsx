@@ -238,67 +238,69 @@ export default function ViewEvent() {
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
   return (
-    <React.Fragment>
-      <Menu>
-        <ShareButton url={`${origin}/${username}/${event.id}`} />
-        <Button type="primary" size="large">
-          <Link to={`/${username}/manage/events/edit/${event.id}`}>
-            Edit Event
-          </Link>
-        </Button>
-      </Menu>
-      <h2>
-        <Link to={`/events/${event.id}`}>{event.name}</Link>
-      </h2>
-      <div>
-        <CalendarOutlined /> {moment(event.start).format('MMMM Do h:mm a')} -{' '}
-        {moment(event.end).format('MMMM Do h:mm a')}
-      </div>
-      <div>
-        <small>{event.location}</small>
-      </div>
-      <Divider />
-      {/* <div>{event.description}</div> */}
+    <article className="min-h-page">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <Menu>
+          <ShareButton url={`${origin}/${username}/${event.id}`} />
+          <Button type="primary" size="large">
+            <Link to={`/${username}/manage/events/edit/${event.id}`}>
+              Edit Event
+            </Link>
+          </Button>
+        </Menu>
+        <h2>
+          <Link to={`/events/${event.id}`}>{event.name}</Link>
+        </h2>
+        <div>
+          <CalendarOutlined /> {moment(event.start).format('MMMM Do h:mm a')} -{' '}
+          {moment(event.end).format('MMMM Do h:mm a')}
+        </div>
+        <div>
+          <small>{event.location}</small>
+        </div>
+        <Divider />
+        {/* <div>{event.description}</div> */}
 
-      <Row gutter={16}>
-        <Col span={4}>
-          <Statistic
-            title="Revenue"
-            value={event.revenue || '$0'}
-            precision={2}
-          />
-        </Col>
-        <Col span={4}>
-          <Statistic title="Tickets" value={event.transactions} />
-        </Col>
-        <Col span={4}>
-          <Statistic title="Views" value={event.views || 0} />
-        </Col>
-        <Col span={4}>
-          <Statistic title="Favorites" value={event.favorites} />
-        </Col>
-      </Row>
+        <Row gutter={16}>
+          <Col span={4}>
+            <Statistic
+              title="Revenue"
+              value={event.revenue || '$0'}
+              precision={2}
+            />
+          </Col>
+          <Col span={4}>
+            <Statistic title="Tickets" value={event.transactions} />
+          </Col>
+          <Col span={4}>
+            <Statistic title="Views" value={event.views || 0} />
+          </Col>
+          <Col span={4}>
+            <Statistic title="Favorites" value={event.favorites} />
+          </Col>
+        </Row>
 
-      <Divider />
+        <Divider />
 
-      <Tabs>
-        <TabPane tab="Traffic" key="traffic">
-          {' '}
-          <TrafficMap views={views} />
-          <Table rowKey="id" columns={viewColumns} dataSource={viewData} />
-        </TabPane>
-        <TabPane tab="Transactions" key="account">
-          <Table rowKey="id" columns={columns} dataSource={transactionData} />
-        </TabPane>
-        {user.isAdmin && (
-          <TabPane tab="Access Codes" key="codes">
-            <Button onClick={handleGenerateCodes}>Generate Code</Button>
-            <br />
-            <br />
-            <Table rowKey="id" columns={codeColumns} dataSource={codeData} />
+        <Tabs>
+          <TabPane tab="Traffic" key="traffic">
+            {' '}
+            <TrafficMap views={views} />
+            <Table rowKey="id" columns={viewColumns} dataSource={viewData} />
           </TabPane>
-        )}
-      </Tabs>
-    </React.Fragment>
+          <TabPane tab="Transactions" key="account">
+            <Table rowKey="id" columns={columns} dataSource={transactionData} />
+          </TabPane>
+          {user.isAdmin && (
+            <TabPane tab="Access Codes" key="codes">
+              <Button onClick={handleGenerateCodes}>Generate Code</Button>
+              <br />
+              <br />
+              <Table rowKey="id" columns={codeColumns} dataSource={codeData} />
+            </TabPane>
+          )}
+        </Tabs>
+      </div>
+    </article>
   );
 }

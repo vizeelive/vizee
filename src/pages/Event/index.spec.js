@@ -28,7 +28,7 @@ jest.mock('../../hooks/useAffiliate', () => {
 //   };
 // });
 
-// jest.mock('../components/CommentsContainer', () => {
+// jest.mock('../components/Event/CommentsContainer', () => {
 //   return {
 //     __esModule: true,
 //     default: () => {

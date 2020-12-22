@@ -43,7 +43,7 @@ describe('EventPage', () => {
         cy.graphql('UserEventsReport', fixture);
       });
       cy.visit('creator/a1b2c3');
-      cy.findByText('LIVE NOW').should('exist');
+      cy.findByText('Live Now').should('exist');
     });
     it('should be able to see video preview', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
@@ -52,7 +52,7 @@ describe('EventPage', () => {
       });
 
       cy.visit('creator/a1b2c3');
-      cy.findByText('PREVIEW').should('exist');
+      cy.findByText('Preview').should('exist');
       cy.get('[data-test-id=event-preview-video').should('exist');
     });
     it('should be able to see image preview', () => {
@@ -62,7 +62,7 @@ describe('EventPage', () => {
       });
 
       cy.visit('creator/a1b2c3');
-      cy.findByText('PREVIEW').should('exist');
+      cy.findByText('Preview').should('exist');
       cy.get('[data-test-id=event-preview-image').should('exist');
     });
     it('should see buy button when has no access', () => {

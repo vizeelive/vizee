@@ -1,8 +1,6 @@
-import config from '../config';
+import config from '../../config';
 import React, { useState } from 'react';
-import { Button, Alert, Modal } from 'antd';
-
-import { PlayCircleOutlined } from '@ant-design/icons';
+import { Alert, Modal } from 'antd';
 
 export default function StartStreamButton(props) {
   const [streamKey, setStreamKey] = useState(props.streamKey);
@@ -44,14 +42,34 @@ export default function StartStreamButton(props) {
           style={{ marginBottom: '1.5rem' }}
         />
       </Modal>
-      <Button
-        type="primary"
-        size="large"
-        icon={<PlayCircleOutlined />}
+      <button
+        type="button"
+        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
         onClick={handleStartLivestream}
       >
+        {/* Heroicon name: play */}
+        <svg
+          className="-ml-1 mr-2 h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
         Start Live Stream
-      </Button>
+      </button>
     </React.Fragment>
   );
 }

@@ -1,92 +1,27 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
+import cn from 'classnames';
 
-import { Button, Tag, Row, Col, Modal, Result } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
+import { Button, Modal, Result } from 'antd';
 
-import Countdown from 'components/Countdown';
-import Comments from 'components/CommentsContainer';
-import StartStreamButton from 'components/StartStreamButton';
-// import RedeemCode from 'components/RedeemCode';
-import BuyButton from 'components/BuyButton';
-import ShareButton from 'components/ShareButton';
-import FollowButton from 'components/FollowButton';
-import VideoPlayer from 'components/VideoPlayer';
-import VideoConference from 'components/VideoConference';
+import Countdown from 'components/Event/Countdown';
+import Comments from 'components/Event/CommentsContainer';
+import StartStreamButton from 'components/Event/StartStreamButton';
+// import RedeemCode from 'components/Event/RedeemCode';
+import BuyButton from 'components/Event/BuyButton';
+import ShareButton from 'components/Event/ShareButton';
+import FollowButton from 'components/Event/FollowButton';
+import EventContent from 'components/Event/EventContent';
+import AvatarHandle from 'components/AvatarHandle';
+// import ChatToggle from 'components/Event/ChatToggle';
 
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
-
-const Content = styled.div`
-  margin: 20px 20px 50px;
-  min-height: calc(50vh - 64px);
-  display: flex;
-  justify-content: center;
-
-  & > div {
-    flex: 1 1 0;
-    max-width: 960px;
-  }
-`;
-
-const MainContent = styled.div`
-  img,
-  video {
-    height: 30vh;
-  }
-`;
-
-const EventName = styled.h1`
-  margin-bottom: 0 !important;
-`;
-
-const EventDescription = styled.p`
-  border-top: 1px solid ${({ theme }) => theme.colors.gray['500']};
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-`;
-
-const LiveTag = styled(Tag)`
-  font-weight: 700;
-  font-size: 18px;
-  padding: 3px 7px;
-  font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial;
-`;
-
-const Date = styled.time`
-  display: inline-block;
-  margin-bottom: 1rem;
-`;
-
-const ActionsContainer = styled.div`
-  margin: 0.75rem 0;
-
-  & > button,
-  & > a {
-    margin-bottom: 1rem;
-    margin-right: 0.5rem;
-  }
-
-  @media (min-width: 992px) {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-
-    & > button,
-    & > a {
-      margin-left: 0.5rem;
-      margin-right: 0;
-    }
-  }
-`;
 
 export default function EventPage(props) {
   const {
@@ -105,10 +40,11 @@ export default function EventPage(props) {
   const { loginWithRedirect } = useAuth();
   const history = useHistory();
   const [showModal] = useState(status === 'success' ? true : false);
+  const [showChat] = useState(false);
 
   if (loading) {
     return (
-      <Centered padded>
+      <Centered height="calc(100vh - 184px)">
         <Spinner />
       </Centered>
     );
@@ -122,6 +58,220 @@ export default function EventPage(props) {
     : null;
 
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+
+  const renderBadges = () => {
+    if (!event.isLive() && event.canWatch(user, liveData)) {
+      return null;
+    }
+    return (
+      <div className="mt-2 flex items-center lg:mr-6">
+        {event.isLive && (
+          <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
+            Live Now
+          </span>
+        )}
+        {!event.canWatch(user, liveData) && (
+          <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
+            Preview
+          </span>
+        )}
+      </div>
+    );
+  };
+
+  const renderInfo = () => (
+    <div className="lg:flex lg:items-start lg:justify-between px-6 sm:px-0">
+      <div className="flex-1 min-w-0">
+        <h2
+          className="text-2xl font-sans font-bold leading-7 text-white m-0 sm:text-3xl sm:leading-10"
+          data-test-id="event-name"
+        >
+          {event.name}
+        </h2>
+        <div className="mt-1 flex flex-col lg:flex-row lg:flex-wrap lg:mt-0">
+          {renderBadges()}
+          <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6 lg:-ml-2">
+            {/* Heroicon name: calendar */}
+            <svg
+              className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            {`Start${!event.hasStarted() ? 's' : 'ed'} ${moment(
+              event.start
+            ).format('MMMM Do h:mma')}`}
+          </div>
+          {event.location && (
+            <div
+              className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6"
+              data-test-id="event-location"
+            >
+              {/* Heroicon name: location-marker */}
+              <svg
+                className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              {event.location}
+            </div>
+          )}
+          <div className="lg:flex lg:flex-nowrap" data-test-id="event-views">
+            <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
+              {/* Heroicon name: eye */}
+              <svg
+                className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+              <strong>{event.views}</strong>
+              &nbsp;Views
+            </div>
+            <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
+              {/* Heroicon name: eye */}
+              <svg
+                className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              <strong>{event.favorites}</strong>
+              &nbsp;Favorites
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-5 flex flex-wrap lg:mt-0 lg:ml-4">
+        {!user?.isAdmin &&
+          !isMyAccount &&
+          event.account.stripe_data &&
+          !event.isFree() &&
+          !event.isPurchased() && (
+            <span className="mr-3 lg:mr-0 lg:ml-3">
+              <BuyButton user={user} event={event} />
+            </span>
+          )}
+
+        {/* {user && (
+          <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
+            <RedeemCode event_id={event.id} user_id={user.id} />
+          </span>
+        )} */}
+
+        {user && !user.isAdmin && !isMyAccount && (
+          <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
+            <FollowButton
+              account_id={event.account.id}
+              follower_id={account?.followers?.[0]?.id}
+            />
+          </span>
+        )}
+
+        {/* {user && !user.isAdmin && !isMyAccount && (
+          <SubscribeButton />
+        )} */}
+
+        {(user?.isAdmin || isMyAccount) && event.isBroadcast() && (
+          <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
+            <StartStreamButton
+              event_id={event.id}
+              streamKey={liveData?.mux_livestream?.streamKey}
+            />
+          </span>
+        )}
+
+        <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
+          <ShareButton
+            url={`${origin}/${event.account.username}/${event.id}`}
+          />
+        </span>
+
+        {(user?.isAdmin || isMyAccount) && (
+          <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
+            <Link to={`/${event.account.username}/manage/events/${event.id}`}>
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-gray-700 rounded-md shadow-sm text-sm lg:text-base font-medium text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+              >
+                {/* Heroicon name: cog */}
+                <svg
+                  className="-ml-1 mr-2 h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Manage
+              </button>
+            </Link>
+          </span>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <React.Fragment>
@@ -177,155 +327,77 @@ export default function EventPage(props) {
           />
         </Modal>
       )}
-      <MainContent>
-        {(() => {
-          if (event.canWatch(user, liveData)) {
-            if (event.isBroadcast()) {
-              return (
-                <div data-test-id="event-video-live">
-                  <VideoPlayer
-                    key={playerKey}
-                    {...videoJsOptions}
-                    style={{ width: '100%' }}
-                  />
-                </div>
-              );
-            } else if (event.isConference()) {
-              return (
-                <div data-test-id="event-video-conference">
-                  <VideoConference
-                    roomName={`${event.id}-23kjh23kjh232kj3h`}
-                    user={user}
-                  />
-                </div>
-              );
-            } else {
-              return (
-                <div data-test-id="event-video-vod">
-                  <VideoPlayer
-                    key={playerKey}
-                    {...videoJsOptions}
-                    style={{ width: '100%' }}
-                  />
-                </div>
-              );
-            }
-          } else {
-            if (event.preview) {
-              return (
-                <video
-                  data-test-id="event-preview-video"
-                  playsInline
-                  src={event.preview}
-                  width="100%"
-                  muted
-                  controls
-                />
-              );
-            } else {
-              return (
-                <img
-                  data-test-id="event-preview-image"
-                  width="100%"
-                  alt={event.name || event?.account?.name}
-                  src={`https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=${
-                    window.innerWidth
-                  }&h=${window.innerHeight * 0.3}`}
-                />
-              );
-            }
-          }
-        })()}
-      </MainContent>
-      <Content>
-        <div>
-          <Row>
-            {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}{' '}
-            {!event.canWatch(user, liveData) && (
-              <LiveTag color="#333333">PREVIEW</LiveTag>
-            )}{' '}
-          </Row>
-          <Row>
-            <EventName data-test-id="event-name">{event.name}</EventName>
-          </Row>
-          <Row>
-            <h2 data-test-id="account-name">
-              <Link to={`/${event.account.username}`}>
-                {event.account.name}
-              </Link>
-            </h2>
-          </Row>
-          <Row gutter={32}>
-            <Col xs={24} lg={8}>
-              <Date data-test-id="event-start">
-                {moment(event.start).format('MMMM Do h:mma')}
-                <br />
-                {!event.hasStarted() && <Countdown date={event.start} />}
-              </Date>
-              <div data-test-id="event-views">
-                {event.views} Views • {event.favorites} Favorites
-              </div>
-              <div data-test-id="event-location">{event.location}</div>
-            </Col>
-
-            <Col xs={24} lg={16}>
-              <ActionsContainer>
-                {!user?.isAdmin &&
-                  !isMyAccount &&
-                  event.account.stripe_data &&
-                  !event.isFree() &&
-                  !event.isPurchased() && (
-                    <BuyButton user={user} event={event} />
-                  )}
-
-                {/* {user && <RedeemCode event_id={event.id} user_id={user.id} />} */}
-
-                {user && !user.isAdmin && !isMyAccount && (
-                  <FollowButton
-                    account_id={event.account.id}
-                    follower_id={account?.followers?.[0]?.id}
-                  />
-                )}
-
-                {(user?.isAdmin || isMyAccount) && event.isBroadcast() && (
-                  <StartStreamButton
-                    event_id={event.id}
-                    streamKey={liveData?.mux_livestream?.streamKey}
-                  />
-                )}
-                <ShareButton
-                  url={`${origin}/${event.account.username}/${event.id}`}
-                />
-                {(user?.isAdmin || isMyAccount) && (
-                  <Link
-                    to={`/${event.account.username}/manage/events/${event.id}`}
-                  >
-                    <Button size="large" icon={<SettingOutlined />}>
-                      Manage
-                    </Button>
-                  </Link>
-                )}
-              </ActionsContainer>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={24} lg={16}>
-              {/* {event.isPurchased() ? <Tag color="green">Purchased</Tag> : null}
-              {event.isFree() && <Tag color="blue">Free!</Tag>}
-              {event.isBroadcast() && <Tag color="cyan">Broadcast</Tag>}
-              {event.isVideo() && <Tag color="gold">Video</Tag>}
-              <br />
-              <br /> */}
-
-              <EventDescription data-test-id="event-description">
-                <Linkify>{event.description}</Linkify>
-              </EventDescription>
-
-              <Comments event={event} user={user} />
-            </Col>
-          </Row>
+      <article className="max-w-screen-lg 2xl:max-w-screen-xl mx-auto sm:px-6 lg:px-8 page-min-height">
+        <div
+          className={cn('grid video-chat-grid gap-y-6 sm:py-6 lg:py-8', {
+            'show-chat': showChat
+          })}
+        >
+          <section>
+            <EventContent
+              event={event}
+              user={user}
+              liveData={liveData}
+              playerKey={playerKey}
+              videoJsOptions={videoJsOptions}
+              coverPhoto={coverPhoto}
+            />
+          </section>
+          {/* @todo: Integrate chat */}
+          {/* <aside
+            className={cn('relative event-chat', {
+              'lg:w-96': showChat,
+              'h-8 lg:w-8': !showChat
+            })}
+          >
+            <div
+              className={cn({
+                hidden: !showChat,
+                block: showChat
+              })}
+            >
+              <h1 className="text-5xl sm:text-6xl text-gray-900 text-center font-bold font-sans py-24">
+                Chat
+              </h1>
+            </div>
+            <ChatToggle
+              showChat={showChat}
+              onToggle={() => setShowChat(!showChat)}
+            />
+          </aside> */}
         </div>
-      </Content>
+        <div className="my-6">{renderInfo()}</div>
+
+        {!event.hasStarted() && (
+          <div className="my-6 px-6 sm:px-0">
+            <p className="text-base font-semibold text-gray-300 m-0">
+              Event starts in&hellip;
+            </p>
+            <Countdown date={event.start} />
+          </div>
+        )}
+
+        <div className="my-8 px-6 sm:px-0">
+          {/* <div className="my-6">
+            {event.isPurchased() ? <Tag color="green">Purchased</Tag> : null}
+            {event.isFree() && <Tag color="blue">Free!</Tag>}
+            {event.isBroadcast() && <Tag color="cyan">Broadcast</Tag>}
+            {event.isVideo() && <Tag color="gold">Video</Tag>}
+          </div> */}
+          <AvatarHandle account={event.account} />
+          <div
+            className="prose text-gray-500 pl-14 ml-1"
+            data-test-id="event-description"
+          >
+            <Linkify>
+              <p>{event.description || <em>No description provided</em>}</p>
+            </Linkify>
+          </div>
+          <div className="max-w-prose my-8">
+            <Comments event={event} user={user} />
+          </div>
+        </div>
+      </article>
     </React.Fragment>
   );
 }

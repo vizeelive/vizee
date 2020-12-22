@@ -8,9 +8,9 @@ export default function Footer({ className }) {
           &copy; {`${new Date().getFullYear()} `}
           <a
             href="https://vizee.live"
-            className="text-gray-500 hover:text-white transition-none"
+            className="text-primary hover:text-pink-700 transition-none"
           >
-            <a href="https://www.vizee.live">Vizee</a>
+            Vizee
           </a>
           . All rights reserved.
         </p>

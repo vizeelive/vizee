@@ -17,7 +17,6 @@ export default function HomeView(props) {
     user,
     loading,
     error,
-    isMobile,
     categories,
     events,
     refetch,
@@ -27,7 +26,7 @@ export default function HomeView(props) {
 
   if (loading) {
     return (
-      <Centered height="calc(100vh - 64px)">
+      <Centered height="calc(100vh - 184px)">
         <Spinner />
       </Centered>
     );
@@ -38,24 +37,6 @@ export default function HomeView(props) {
   const MainContent = styled.main`
     padding: 0 20px 20px;
     min-height: calc(100vh - 64px);
-  `;
-
-  const Hero = styled.div`
-    height: 300px;
-
-    video {
-      height: 300px;
-    }
-  `;
-
-  const HeroText = styled.div`
-    position: relative;
-    bottom: 75%;
-    color: white;
-    font-size: ${(props) => (props.isMobile ? 'x-large' : 'xxx-large')};
-    font-weight: 100;
-    text-align: center;
-    opacity: 0.8;
   `;
 
   return (
@@ -85,13 +66,13 @@ export default function HomeView(props) {
               </nav>
             </div>
 
-            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-24">
+            <header className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-24">
               <div className="sm:text-center lg:text-left">
-                <h1 className="text-5xl tracking-tight font-extrabold text-gray-100 sm:text-6xl md:text-7xl">
+                <h1 className="text-5xl tracking-tight font-sans font-extrabold text-gray-100 sm:text-6xl md:text-7xl">
                   <span className="block">Premium</span>{' '}
                   <span className="block text-pink-600">video network</span>
                 </h1>
-                <p className="mt-3 text-lg text-gray-500 sm:mt-5 sm:text-xl sm:max-w-xl sm:mx-auto md:mt-5 md:text-2xl lg:mx-0">
+                <p className="mt-3 text-lg text-gray-500 font-sans sm:mt-5 sm:text-xl sm:max-w-xl sm:mx-auto md:mt-5 md:text-2xl lg:mx-0">
                   Sell videos.{' '}
                   <span className="text-gray-200 font-semibold">
                     Earn up to 90% of every dollar.
@@ -100,24 +81,18 @@ export default function HomeView(props) {
                 <div className="mt-5 xs:mt-12 xs:flex xs:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     {!user && (
-                      <a
+                      <button
+                        type="button"
                         onClick={onLogin}
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 md:text-lg md:px-10 lg:text-xl"
                       >
-                        Get started
-                      </a>
+                        Get Started
+                      </button>
                     )}
-                  </div>
-                  <div className="mt-3 xs:mt-0 xs:ml-3">
-                    {/* <a href="https://www.vizee.live">
-                      <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-white-10 hover:bg-white-20 md:text-lg md:px-10 lg:text-xl">
-                        Browse Events
-                      </a>
-                    </a> */}
                   </div>
                 </div>
               </div>
-            </main>
+            </header>
           </div>
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">

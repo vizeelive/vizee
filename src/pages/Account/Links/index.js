@@ -64,7 +64,7 @@ export default function Links() {
 
   if (loading) {
     return (
-      <Centered height="calc(100vh - 64px)">
+      <Centered height="calc(100vh - 184px)">
         <Spinner />
       </Centered>
     );
