@@ -73,18 +73,21 @@ export default function useAuth() {
     fetchData();
   }, [getIdTokenClaims]);
 
-  const wsLink = new WebSocketLink({
-    uri: config.graphql.replace('https', 'wss'),
-    options: {
-      reconnect: true,
-      connectionParams: {
-        headers: {
-          Authorization: `Bearer ` + (id_token || claims?.__raw),
-          'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
+  var wsLink;
+  if (id_token || claims?.__raw) {
+    wsLink = new WebSocketLink({
+      uri: config.graphql.replace('https', 'wss'),
+      options: {
+        reconnect: true,
+        connectionParams: {
+          headers: {
+            Authorization: `Bearer ` + (id_token || claims?.__raw),
+            'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
+          }
         }
       }
-    }
-  });
+    });
+  }
 
   const httpLink = createHttpLink({
     uri: config.graphql
@@ -123,19 +126,28 @@ export default function useAuth() {
     }
   });
 
-  const link = ApolloLink.split(
-    // split based on operation type
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-    wsLink,
-    httpLink
-  );
+  if (wsLink) {
+    var link = ApolloLink.split(
+      // split based on operation type
+      ({ query }) => {
+        const { kind, operation } = getMainDefinition(query);
+        return kind === 'OperationDefinition' && operation === 'subscription';
+      },
+      wsLink,
+      httpLink
+    );
+  }
+
+  var links = [authLink, errorLink];
+  if (wsLink) {
+    links.push(link);
+  } else {
+    links.push(httpLink);
+  }
 
   let client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: ApolloLink.from([authLink, errorLink, link]),
+    link: ApolloLink.from(links),
     defaultHttpLink: false,
     defaultOptions: {
       watchQuery: {
