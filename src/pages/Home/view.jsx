@@ -61,13 +61,13 @@ export default function HomeView(props) {
       {/* {!isMobile && <Map events={events} />} */}
       <Hero>
         <video
-          src="https://vizee-media.s3.amazonaws.com/concert.mp4"
+          src="https://vizee-media.s3.amazonaws.com/layers.mp4"
           width="100%"
           height="300px"
           autoPlay
           muted
           loop
-          style={{ objectFit: 'cover', opacity: '0.2' }}
+          style={{ objectFit: 'cover' }}
         />
         <HeroText
           className="animate__animated animate__zoomInRight"
