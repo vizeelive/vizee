@@ -88,7 +88,8 @@ export default function AddAccount(props) {
   }, [loadAccount, params]);
 
   const account = data?.accounts_by_pk;
-  const isSubmitDisabled = !photoUrl && !account?.photo;
+  const isSubmitDisabled = false;
+  // const isSubmitDisabled = !photoUrl && !account?.photo;
 
   const onFinish = async (values) => {
     let photo = photoUrl || account?.photo;
@@ -106,10 +107,11 @@ export default function AddAccount(props) {
       values.facebook = new SocialLinks().sanitize('facebook', values.facebook);
     }
 
-    if (!photo) {
-      message.error('Photo is required to create an account');
-      return;
-    }
+    // if (!photo) {
+    //   message.error('Photo is required to create an account');
+    //   return;
+    // }
+
     let result;
     try {
       if (params.id) {
@@ -123,7 +125,7 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
-              photo,
+              ...(photo ? { photo } : null),
               ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }
           }
@@ -164,7 +166,7 @@ export default function AddAccount(props) {
       window.mixpanel.track('Account Created');
       message.success('Successfully saved account');
       if (props.redirect === true) {
-        history.push(`/${username}/manage`);
+        history.push(`/${username}/manage/dashboard`);
       } else if (props.redirect) {
         history.push(props.redirect);
       } else {

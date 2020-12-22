@@ -185,7 +185,7 @@ export default function Home(props) {
     isMobile,
     searchData,
     refetch,
-    onLogin: props.onLogin
+    onSignup: props.onSignup
   };
 
   return <HomeView {...viewProps} />;

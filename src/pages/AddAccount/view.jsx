@@ -50,7 +50,7 @@ export default function AddAccountView(props) {
 
   const formLayout = isLargeScreen
     ? {
-        labelCol: { span: 4 },
+        labelCol: { span: 10 },
         wrapperCol: { span: 20 }
       }
     : null;
@@ -72,7 +72,11 @@ export default function AddAccountView(props) {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Name"
+          label={
+            <span>
+              Name <span className="text-gray-500">(ex. `The Band`)</span>
+            </span>
+          }
           name="name"
           rules={[{ required: true, message: 'Required' }]}
         >
@@ -80,7 +84,11 @@ export default function AddAccountView(props) {
         </Form.Item>
 
         <Form.Item
-          label="Username"
+          label={
+            <span>
+              Username <span className="text-gray-500">(ex. `theband`)</span>
+            </span>
+          }
           name="username"
           validateStatus={validationErrors.username ? 'error' : 'success'}
           help={validationErrors.username ?? null}

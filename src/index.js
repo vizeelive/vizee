@@ -37,7 +37,9 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 const onRedirectCallback = (appState) => {
-  if (appState?.returnTo) {
+  if (appState?.onboarding) {
+    window.history.pushState({}, '', '/signup');
+  } else if (appState?.returnTo) {
     window.history.pushState({}, '', appState.returnTo);
   }
 };

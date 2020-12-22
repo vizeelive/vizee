@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 
@@ -85,6 +85,7 @@ const GET_ACCOUNTS_AUTH = gql`
 `;
 
 export default function User() {
+  const location = useLocation();
   const { user, logout, loginWithRedirect } = useAuth();
 
   const { loading, error, data } = useQuery(
@@ -104,21 +105,6 @@ export default function User() {
 
   if (error) return 'Error';
 
-  const handleLogin = () => {
-    loginWithRedirect({
-      appState: {
-        returnTo: window.location.href
-      }
-    });
-  };
-
-  const handleLogout = () => {
-    Cookies.remove('username');
-    logout({ returnTo: window.location.origin });
-  };
-
-  // if user, pick first account she has access to
-
   if (user) {
     user.portalUrl = data?.getStripeCustomerPortalUrl?.url;
   }
@@ -130,7 +116,34 @@ export default function User() {
     account = data?.accounts?.[0];
   }
 
+  // redirect user to account settings, if just signing up
+  if (location.pathname === '/signup') {
+    window.location.href = `/${account.username}/manage/settings/${account.id}/account`;
+    return null;
+  }
+
   const hasTickets = !!data?.transactions?.length;
+
+  const handleLogin = () => {
+    loginWithRedirect({
+      appState: {
+        returnTo: window.location.href
+      }
+    });
+  };
+
+  const handleSignup = () => {
+    loginWithRedirect({
+      appState: {
+        onboarding: true
+      }
+    });
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('username');
+    logout({ returnTo: window.location.origin });
+  };
 
   return (
     <ErrorBoundary>
@@ -154,7 +167,7 @@ export default function User() {
               <Route path="/:username/:id/:status?" exact component={Event} />
               {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
                 <Route path="/">
-                  <Home onLogin={handleLogin} />
+                  <Home onSignup={handleSignup} />
                 </Route>
               ) : (
                 <Route path="/">

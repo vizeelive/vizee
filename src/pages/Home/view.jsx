@@ -21,7 +21,7 @@ export default function HomeView(props) {
     events,
     refetch,
     search,
-    onLogin
+    onSignup
   } = props;
 
   if (loading) {
@@ -41,7 +41,6 @@ export default function HomeView(props) {
 
   return (
     <React.Fragment>
-      {/* {!isMobile && <Map events={events} />} */}
       <div className="relative bg-black overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-black sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
@@ -83,7 +82,7 @@ export default function HomeView(props) {
                     {!user && (
                       <button
                         type="button"
-                        onClick={onLogin}
+                        onClick={onSignup}
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 md:text-lg md:px-10 lg:text-xl"
                       >
                         Get Started
