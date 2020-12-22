@@ -13,7 +13,7 @@ const GET_EVENTS_AUTH = gql`
       first_name
       last_name
     }
-    events {
+    events(where: { published: { _eq: true } }) {
       id
       name
       start

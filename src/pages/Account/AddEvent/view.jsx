@@ -313,6 +313,14 @@ export default function AddEventView(props) {
               <Input.TextArea rows={4} />
             </Form.Item>
 
+            <Form.Item
+              name="published"
+              label="Published"
+              valuePropName="checked"
+            >
+              <Switch />
+            </Form.Item>
+
             <Form.Item {...tailLayout}>
               <Centered style={{ padding: '1rem' }}>
                 <Button

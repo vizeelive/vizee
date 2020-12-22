@@ -197,6 +197,7 @@ export default function AddEvent(props) {
       name: values.name,
       type: values.type,
       price: values.price,
+      published: values.published,
       description: values.description,
       category_id: values.category_id,
       account_id: values.account_id || account.id,
