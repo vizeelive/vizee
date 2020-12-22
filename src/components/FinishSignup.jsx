@@ -27,7 +27,7 @@ export default function FinishSignup() {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const { data } = useQuery(GET_USER, { variables: { id: user?.id } });
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser, { loading: updating }] = useMutation(UPDATE_USER);
 
   useEffect(() => {
     if (data) {
@@ -79,7 +79,12 @@ export default function FinishSignup() {
             >
               <Input />
             </Form.Item>
-            <Button key="submit" htmlType="submit" type="primary">
+            <Button
+              key="submit"
+              htmlType="submit"
+              type="primary"
+              loading={updating}
+            >
               OK
             </Button>
           </Form>
