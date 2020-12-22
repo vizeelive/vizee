@@ -118,7 +118,7 @@ export default function HomeView(props) {
       <Helmet>
         <meta property="og:image" content={account.photo} />
         <meta property="og:title" content={`${account.name}`} />
-        <meta property="og:description" content={account.description} />
+        <meta property="og:description" content={account.description || ''} />
         <meta name="twitter:image" content={account.photo} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${account.name}`} />
@@ -226,9 +226,7 @@ export default function HomeView(props) {
           {account.description && (
             <AccountDescription>
               <Title data-test-id="account-bio" level={3}>
-
                 Bio
-
               </Title>
               <Linkify>{account.description}</Linkify>
             </AccountDescription>
