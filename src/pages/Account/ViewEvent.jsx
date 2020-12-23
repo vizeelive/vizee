@@ -254,7 +254,9 @@ export default function ViewEvent() {
           </Button>
         </Menu>
         <h2>
-          <Link to={`/events/${event.id}`}>{event.name}</Link>
+          <Link to={`/events/${event.id}`} className="text-2xl">
+            {event.name}
+          </Link>
         </h2>
         <div>
           <CalendarOutlined /> {moment(event.start).format('MMMM Do h:mm a')} -{' '}
@@ -296,14 +298,14 @@ export default function ViewEvent() {
           <TabPane tab="Transactions" key="account">
             <Table rowKey="id" columns={columns} dataSource={transactionData} />
           </TabPane>
-          {user.isAdmin && (
+          {/* {user.isAdmin && (
             <TabPane tab="Access Codes" key="codes">
               <Button onClick={handleGenerateCodes}>Generate Code</Button>
               <br />
               <br />
               <Table rowKey="id" columns={codeColumns} dataSource={codeData} />
             </TabPane>
-          )}
+          )} */}
         </Tabs>
       </div>
     </article>
