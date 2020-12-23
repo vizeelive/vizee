@@ -293,6 +293,7 @@ export default function EventPage() {
         type: 'application/x-mpegurl'
       });
     } else {
+      videoJsOptions.muted = true;
       videoJsOptions.sources.push({
         src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'
       });
