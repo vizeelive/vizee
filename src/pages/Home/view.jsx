@@ -95,14 +95,16 @@ export default function HomeView(props) {
           </div>
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <video
-            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-            src="https://vizee-media.s3.amazonaws.com/layers.mp4"
-            autoPlay
-            playsInline
-            muted
-            loop
-          />
+          <a href="https://www.vizee.live/layers">
+            <video
+              className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+              src="https://vizee-media.s3.amazonaws.com/layers.mp4"
+              autoPlay
+              playsInline
+              muted
+              loop
+            />
+          </a>
         </div>
       </div>
 
