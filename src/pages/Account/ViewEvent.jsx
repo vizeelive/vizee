@@ -164,6 +164,10 @@ export default function ViewEvent() {
       dataIndex: 'last_name'
     },
     {
+      title: 'Email',
+      dataIndex: 'email'
+    },
+    {
       title: 'City',
       dataIndex: 'city'
     },
@@ -181,10 +185,11 @@ export default function ViewEvent() {
     return {
       id: t.id,
       price: t.price,
-      first_name: t.user.first_name,
-      last_name: t.user.last_name,
-      city: t.user.city,
-      country: t.user.country
+      email: t.email,
+      first_name: t?.user?.first_name,
+      last_name: t?.user?.last_name,
+      city: t?.user?.city,
+      country: t?.user?.country
     };
   });
 
