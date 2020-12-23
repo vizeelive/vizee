@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 
@@ -86,6 +86,7 @@ const GET_ACCOUNTS_AUTH = gql`
 
 export default function User() {
   const location = useLocation();
+  const history = useHistory();
   const { user, logout, loginWithRedirect } = useAuth();
 
   const { loading, error, data } = useQuery(
@@ -120,6 +121,11 @@ export default function User() {
   if (location.pathname === '/signup') {
     window.location.href = `/${account.username}/manage/settings/${account.id}/account`;
     return null;
+  }
+
+  // redirect user if not logged in
+  if (location.pathname.includes('manage') && !user) {
+    history.push('/');
   }
 
   const hasTickets = !!data?.transactions?.length;
