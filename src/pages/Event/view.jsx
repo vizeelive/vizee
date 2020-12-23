@@ -196,7 +196,8 @@ export default function EventPage(props) {
           !isMyAccount &&
           event.account.stripe_data &&
           !event.isFree() &&
-          !event.isPurchased() && (
+          !event.isPurchased() &&
+          !event.hasEnded() && (
             <span className="mr-3 lg:mr-0 lg:ml-3">
               <BuyButton user={user} event={event} />
             </span>
