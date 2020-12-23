@@ -17,7 +17,10 @@ import FinishSignup from 'components/FinishSignup';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
-process.env.NODE_ENV !== 'development' && LogRocket.init('vizee/vizee');
+// dont initialize LogRocket for dev or robots (Linux)
+process.env.NODE_ENV !== 'development' &&
+  !navigator.platform.includes('Linux') &&
+  LogRocket.init('vizee/vizee');
 
 function App() {
   const { isLoading, user, setGeo, client, error } = useAuth();
