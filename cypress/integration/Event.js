@@ -19,7 +19,7 @@ describe('EventPage', () => {
       cy.setCookie('test_role', 'user');
       cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
     });
-    it('should pass happy path', () => {
+    it.only('should pass happy path', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
         fixture.events_report[0].account.username = 'random';
         cy.graphql('UserEventsReport', fixture);
