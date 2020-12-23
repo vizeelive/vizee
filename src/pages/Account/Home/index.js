@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import useAuth from 'hooks/useAuth';
 import Mapper from 'services/mapper';
@@ -118,6 +118,7 @@ const GET_ACCOUNT_USER = gql`
 `;
 
 export default function Home(props) {
+  const history = useHistory();
   const location = useLocation();
   const { username: usernameParam } = useParams();
   const { setAffiliateLoginUser, setAffiliateAccountId } = useAffiliate();
@@ -146,6 +147,12 @@ export default function Home(props) {
       setAffiliateAccountId(account.id);
     }
   }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user]);
+
+  // redirects if account doesnt exist
+  if (!loading && !account) {
+    history.push('/');
+    return null;
+  }
 
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
