@@ -89,9 +89,16 @@ export default function User() {
   const history = useHistory();
   const { user, logout, loginWithRedirect } = useAuth();
 
+  /**
+   * These fetch policies stop `getStripeCustomerPortalUrl` above from reloading forever
+   * TODO fix this crap
+   * https://github.com/apollographql/apollo-client/issues/6760
+   */
   const { loading, error, data } = useQuery(
     user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
     {
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-first',
       variables: { user_id: user?.id }
     }
   );
