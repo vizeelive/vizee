@@ -9,6 +9,9 @@ import { message } from 'antd';
 
 import AddEventView from './view';
 
+import Spinner from 'components/ui/Spinner';
+import { Centered } from 'components/styled/common';
+
 const GET_ACCOUNTS = gql`
   query GetAccounts($username: String) {
     account: accounts(where: { username: { _eq: $username } }) {
@@ -304,7 +307,12 @@ export default function AddEvent(props) {
   };
 
   // prevents form creation because it doesn't like to re-render
-  if (params.id && !event) return 'Loading...';
+  if (params.id && !event)
+    return (
+      <Centered padded>
+        <Spinner />
+      </Centered>
+    );
 
   // form data does not necessarily match db model. we have to reformat
   let eventData = {

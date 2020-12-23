@@ -246,7 +246,7 @@ export default function Account() {
           <Route
             path="/:username/manage/events/add"
             exact
-            render={() => <AddEvent redirect={`/${username}/manage/events`} />}
+            render={() => <AddEvent redirect={`/${username}/manage`} />}
           />
           <Route
             path="/:username/manage/events/:id"
@@ -256,7 +256,7 @@ export default function Account() {
           <Route
             path="/:username/manage/events/edit/:id"
             exact
-            render={() => <AddEvent redirect={`/${username}/manage/events`} />}
+            render={() => <AddEvent redirect={`/${username}/manage`} />}
           />
           <Route
             path="/:username/manage/settings/:id/:tab/:status?"
