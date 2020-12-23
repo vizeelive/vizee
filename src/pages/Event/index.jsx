@@ -283,13 +283,20 @@ export default function EventPage() {
     videoJsOptions = {
       autoplay: true,
       controls: true,
+      loop: true,
       aspectRatio: '16:9',
       sources: []
     };
-    videoJsOptions.sources.push({
-      src: event.video,
-      type: 'application/x-mpegurl'
-    });
+    if (event.video) {
+      videoJsOptions.sources.push({
+        src: event.video,
+        type: 'application/x-mpegurl'
+      });
+    } else {
+      videoJsOptions.sources.push({
+        src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'
+      });
+    }
   }
 
   return (
