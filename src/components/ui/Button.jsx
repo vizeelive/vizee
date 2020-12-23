@@ -7,6 +7,7 @@ function Button(props) {
     block,
     disabled,
     ghost,
+    icon,
     offset,
     size,
     type,
@@ -59,8 +60,7 @@ function Button(props) {
       onClick={onClick}
       {...other}
     >
-      {props.icon &&
-        React.cloneElement(props.icon, { className: '-ml-1 mr-2' })}
+      {icon && React.cloneElement(icon, { className: '-ml-1 mr-2' })}
       {children}
     </button>
   );
@@ -70,6 +70,7 @@ Button.propTypes = {
   block: PropTypes.bool,
   disabled: PropTypes.bool,
   ghost: PropTypes.bool,
+  icon: PropTypes.element,
   offset: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'default', 'large', 'responsive']),
   type: PropTypes.oneOf(['default', 'primary']),
