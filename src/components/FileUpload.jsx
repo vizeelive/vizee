@@ -25,6 +25,7 @@ function FileUpload(props) {
     });
     uppy
       .use(Dashboard, {
+        theme: 'dark',
         proudlyDisplayPoweredByUppy: false,
         inline: true,
         height: 300,
