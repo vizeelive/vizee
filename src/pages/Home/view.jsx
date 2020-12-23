@@ -74,7 +74,7 @@ export default function HomeView(props) {
                 <p className="mt-3 text-lg text-gray-500 font-sans sm:mt-5 sm:text-xl sm:max-w-xl sm:mx-auto md:mt-5 md:text-2xl lg:mx-0">
                   Sell videos.{' '}
                   <span className="text-gray-200 font-semibold">
-                    Earn up to 90% of every dollar.
+                    Earn up to 80% of every dollar.
                   </span>
                 </p>
                 <div className="mt-5 xs:mt-12 xs:flex xs:justify-center lg:justify-start">
