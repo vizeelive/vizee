@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import Spinner from './Spinner';
 
 function Button(props) {
   const {
@@ -9,6 +10,7 @@ function Button(props) {
     ghost,
     icon,
     offset,
+    loading,
     size,
     type,
     onClick,
@@ -42,6 +44,31 @@ function Button(props) {
 
   const disabledClasses = 'opacity-25 pointer-events-none cursor-not-allowed';
 
+  const spinnerStyle =
+    size === 'small'
+      ? {
+          size: 1,
+          classes: cn({
+            'mr-3': icon,
+            'mr-2': !icon
+          })
+        }
+      : size === 'medium'
+      ? {
+          size: 1.25,
+          classes: cn({
+            'mr-5': icon,
+            'mr-4': !icon
+          })
+        }
+      : {
+          size: 1.33,
+          classes: cn({
+            'mr-5': icon,
+            'mr-4': !icon
+          })
+        };
+
   return (
     <button
       type="button"
@@ -60,6 +87,13 @@ function Button(props) {
       onClick={onClick}
       {...other}
     >
+      {loading && (
+        <Spinner
+          className={spinnerStyle.classes}
+          size={spinnerStyle.size}
+          color="white"
+        />
+      )}
       {icon && React.cloneElement(icon, { className: '-ml-1 mr-2' })}
       {children}
     </button>
@@ -71,6 +105,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   ghost: PropTypes.bool,
   icon: PropTypes.element,
+  loading: PropTypes.bool,
   offset: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'default', 'large', 'responsive']),
   type: PropTypes.oneOf(['default', 'primary']),
@@ -82,6 +117,7 @@ Button.defaultProps = {
   block: false,
   disabled: false,
   ghost: false,
+  loading: false,
   offset: 'black',
   size: 'default',
   type: 'default',
