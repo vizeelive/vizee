@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import cn from 'classnames';
+import Button from 'components/ui/Button';
 import ProfileMenu from '../ProfileMenu';
 import logo from '../../../svg/vizee-logo.svg';
 import logoText from '../../../svg/vizee-logo-text.svg';
@@ -181,14 +182,15 @@ export default function Menu(props) {
             {user ? (
               <ProfileMenu user={user} account={account} onLogout={onLogout} />
             ) : (
-              <button
-                data-test-id="menu-login"
-                type="button"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+              <Button
+                type="primary"
+                size="responsive"
                 onClick={onLogin}
+                offset="gray-850"
+                data-test-id="menu-login"
               >
                 Sign In
-              </button>
+              </Button>
             )}
           </div>
         </div>
