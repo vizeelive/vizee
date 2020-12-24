@@ -376,6 +376,7 @@
         created_by: x-hasura-User-Id
       columns:
       - account_id
+      - account_only
       - category_id
       - description
       - end
@@ -385,6 +386,7 @@
       - photo
       - preview
       - price
+      - published
       - start
       - thumb
       - type
