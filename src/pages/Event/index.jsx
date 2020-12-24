@@ -101,6 +101,8 @@ const GET_EVENT_AUTH = gql`
       views
       location
       account_only
+      mux_livestream
+      status
       account {
         id
         name
