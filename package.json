@@ -28,6 +28,7 @@
     "@uppy/tus": "^1.7.9",
     "animate.css": "^4.1.1",
     "antd": "^4.8.5",
+    "apollo-link-logger": "^2.0.0",
     "assert": "^2.0.0",
     "autoprefixer": "^10.0.2",
     "classnames": "^2.2.6",

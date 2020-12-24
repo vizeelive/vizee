@@ -9,6 +9,8 @@ import {
   InMemoryCache
 } from '@apollo/client';
 
+import apolloLogger from 'apollo-link-logger';
+
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { setContext } from '@apollo/link-context';
@@ -138,7 +140,7 @@ export default function useAuth() {
     );
   }
 
-  var links = [authLink, errorLink];
+  var links = [apolloLogger, authLink, errorLink];
   if (wsLink) {
     links.push(link);
   } else {
