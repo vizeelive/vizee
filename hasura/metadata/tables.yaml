@@ -419,6 +419,7 @@
     permission:
       columns:
       - account_id
+      - account_only
       - category_id
       - created
       - created_by
@@ -439,6 +440,7 @@
       - status
       - thumb
       - type
+      - video
       filter:
         _or:
         - published:
@@ -454,6 +456,7 @@
     permission:
       columns:
       - account_id
+      - account_only
       - category_id
       - description
       - end
@@ -463,6 +466,7 @@
       - photo
       - preview
       - price
+      - published
       - start
       - thumb
       - type
