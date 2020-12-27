@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.2.1",
+    "@apollo/client": "^3.3.6",
     "@apollo/link-context": "^2.0.0-beta.3",
     "@auth0/auth0-react": "^1.1.0",
     "@craco/craco": "^5.7.0",

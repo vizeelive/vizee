@@ -33,9 +33,6 @@ const GET_ACCOUNTS_AUTH = gql`
     hello {
       message
     }
-    getStripeCustomerPortalUrl {
-      url
-    }
     accounts_users(where: { user_id: { _eq: $user_id } }) {
       account {
         id
@@ -97,8 +94,8 @@ export default function User() {
   const { loading, error, data } = useQuery(
     user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
     {
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'cache-first',
+      // fetchPolicy: 'network-only',
+      // nextFetchPolicy: 'cache-first',
       variables: { user_id: user?.id }
     }
   );

@@ -1,0 +1,49 @@
+{
+  "event": {
+    "__typename": "events",
+    "price": "$0.00",
+    "type": "live",
+    "mux_livestream": {
+      "id": "4h2Sq02c4tRjAyv5o5h00dOBcnLEgiIvDg6isgepiZEfo",
+      "status": "ready",
+      "tracks": [
+        {
+          "id": "9V8syJUXUWe8rt68M1lUQyMC5txG6rQnzE01M00JskbhI",
+          "type": "video",
+          "max_width": 1152,
+          "max_height": 720,
+          "max_frame_rate": 30
+        },
+        {
+          "id": "5SpAH01Z4yH02S7pClz2kezfddgDxDxtxTeChlecArMY8",
+          "type": "audio",
+          "max_channels": 2,
+          "max_channel_layout": "stereo"
+        }
+      ],
+      "duration": 25.833333,
+      "created_at": 1609071785,
+      "mp4_support": "none",
+      "aspect_ratio": "8:5",
+      "playback_ids": [
+        {
+          "id": "QAgZhucB7Nk9NBIJFhE9a9bjx00ZsVfWuFi1O016KEOJ8",
+          "policy": "signed"
+        }
+      ],
+      "master_access": "none",
+      "live_stream_id": "lujbRSfgcIFKJdxvg023mxrc7b6gWnV21czJAWPLLAS00",
+      "recording_times": [
+        {
+          "duration": 25.687,
+          "started_at": { "nanos": 214000000, "seconds": 1609071785 }
+        }
+      ],
+      "max_stored_frame_rate": 30,
+      "max_stored_resolution": "HD"
+    },
+    "mux_asset_id": null
+  },
+  "eventAccess": [],
+  "accountAccess": []
+}

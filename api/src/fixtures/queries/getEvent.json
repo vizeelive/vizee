@@ -1,0 +1,24 @@
+{
+  "__typename": "events",
+  "id": "95451df9-d6a1-408b-a252-b95603aaa0fe",
+  "account_id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
+  "account": {
+    "__typename": "accounts",
+    "users": [
+      {
+        "__typename": "accounts_users",
+        "user": {
+          "__typename": "users",
+          "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f"
+        }
+      },
+      {
+        "__typename": "accounts_users",
+        "user": {
+          "__typename": "users",
+          "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76"
+        }
+      }
+    ]
+  }
+}

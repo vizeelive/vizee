@@ -43,8 +43,7 @@ export default class Event {
     } else {
       canWatch =
         (liveEvent?.status !== 'idle' && this.belongsTo(user)) ||
-        this.isFree() ||
-        this.isPurchased();
+        (this.isLive() && (this.isFree() || this.isPurchased()));
     }
     return !!canWatch;
   }

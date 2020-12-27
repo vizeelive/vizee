@@ -62,6 +62,9 @@ jobs:
       - name: Run tests
         run: npx jest
         working-directory: ./api
+        env:
+          MUX_TOKEN_ID: nada
+          MUX_TOKEN_SECRET: nada
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v1

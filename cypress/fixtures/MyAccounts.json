@@ -4,7 +4,8 @@
     "__typename": "HelloOutput"
   },
   "getStripeCustomerPortalUrl": {
-    "url": "https://stripe"
+    "url": "https://example.com/stripe",
+    "__typename": "getStripeCustomerPortalUrlOutput"
   },
   "accounts_users": [
     {

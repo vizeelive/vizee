@@ -9,6 +9,9 @@ import Mapper from 'services/mapper';
 
 const GET_EVENT_UNAUTH = gql`
   query AnonEventsReport($id: uuid!) {
+    getEventUrl(id: $id) {
+      url
+    }
     events_report(where: { id: { _eq: $id } }) {
       id
       type
@@ -170,7 +173,7 @@ export default function EventPage() {
 
   const variables = user ? { id, user_id: user?.id, username } : { id };
 
-  const { loading, error, data } = useQuery(
+  const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
     {
       variables
@@ -190,6 +193,12 @@ export default function EventPage() {
   ).length;
 
   const account_id = event?.account?.id;
+
+  useEffect(() => {
+    if (liveData) {
+      refetch();
+    }
+  }, [liveData]);
 
   useEffect(() => {
     if (user?.id && data) {
@@ -233,9 +242,6 @@ export default function EventPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const liveEvent = liveData?.events_by_pk;
-  const videoStatus = event?.status || liveEvent?.status;
-
   let videoJsOptions = {
     autoplay: true,
     controls: true,
@@ -243,63 +249,39 @@ export default function EventPage() {
     sources: []
   };
 
-  let playerKey = liveData?.mux_id;
-  if (videoStatus === 'live') {
-    playerKey = Math.random();
-    videoJsOptions = {
-      autoplay: true,
-      controls: true,
-      aspectRatio: '16:9',
-      sources: []
-    };
-    videoJsOptions.sources.push({
-      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
-      type: 'application/x-mpegurl'
-    });
-  } else if (videoStatus === 'completed') {
-    playerKey = Math.random();
-    videoJsOptions = {
-      autoplay: true,
-      controls: true,
-      aspectRatio: '16:9',
-      sources: []
-    };
-    videoJsOptions.sources.push({
-      src: `https://stream.mux.com/${liveEvent?.mux_livestream?.playback_ids?.[0]?.id}.m3u8`,
-      type: 'application/x-mpegurl'
-    });
-  } else if (videoStatus === 'livestream') {
-    playerKey = Math.random();
-    videoJsOptions = {
-      autoplay: true,
-      controls: true,
-      aspectRatio: '16:9',
-      sources: []
-    };
-    videoJsOptions.sources.push({
-      src: event?.mux_livestream?.url || liveEvent?.mux_livestream?.url,
-      type: 'application/x-mpegurl'
-    });
-  } else {
-    playerKey = Math.random();
-    videoJsOptions = {
-      autoplay: true,
-      controls: true,
-      loop: true,
-      aspectRatio: '16:9',
-      sources: []
-    };
-    if (event.video) {
+  let playerKey = Math.random();
+
+  switch (event?.status) {
+    // TODO remove this temporary hack
+    case 'livestream':
+      videoJsOptions.sources.push({
+        src:
+          event?.mux_livestream?.url ||
+          liveData?.events_by_pk?.mux_livestream?.url,
+        type: 'application/x-mpegurl'
+      });
+      break;
+    case 'live':
+    case 'completed':
       videoJsOptions.sources.push({
         src: event.video,
         type: 'application/x-mpegurl'
       });
-    } else {
-      videoJsOptions.muted = true;
-      videoJsOptions.sources.push({
-        src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'
-      });
-    }
+      break;
+    default:
+      if (!loading) {
+        if (event.belongsTo(user)) {
+          videoJsOptions.muted = true;
+          videoJsOptions.sources.push({
+            src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'
+          });
+        } else {
+          videoJsOptions.muted = true;
+          videoJsOptions.sources.push({
+            src: 'https://vizee-media.s3.amazonaws.com/begin.mp4'
+          });
+        }
+      }
   }
 
   return (

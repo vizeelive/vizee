@@ -103,7 +103,15 @@ async function getEvent(id) {
       query: gql`
         query getEvent($id: uuid!) {
           events_by_pk(id: $id) {
+            id
             account_id
+            account {
+              users {
+                user {
+                  id
+                }
+              }
+            }
           }
         }
       `
@@ -111,6 +119,52 @@ async function getEvent(id) {
     return res.data.events_by_pk;
   } catch (e) {
     console.log('Failed: getEvent', id);
+    throw e;
+  }
+}
+
+async function getUserAccess(params) {
+  let { user_id, event_id, account_id, expiry } = params;
+  try {
+    let res = await client.query({
+      variables: { user_id, event_id, account_id, expiry },
+      query: gql`
+        query getUserAccess(
+          $user_id: uuid
+          $expiry: timestamptz!
+          $account_id: uuid!
+          $event_id: uuid!
+        ) {
+          event: events_by_pk(id: $event_id) {
+            price
+            type
+            mux_livestream
+            mux_asset_id
+          }
+          eventAccess: users_access(
+            where: {
+              event_id: { _eq: $event_id }
+              user_id: { _eq: $user_id }
+              expiry: { _gt: $expiry }
+            }
+          ) {
+            id
+          }
+          accountAccess: users_access(
+            where: {
+              account_id: { _eq: $account_id }
+              user_id: { _eq: $user_id }
+              expiry: { _gt: $expiry }
+            }
+          ) {
+            id
+          }
+        }
+      `
+    });
+    return res.data;
+  } catch (e) {
+    console.log('Failed: getUserAccess', params);
     throw e;
   }
 }
@@ -305,5 +359,6 @@ module.exports = {
   getCheckoutDataProduct,
   getCheckoutDataEvent,
   getUserAndProduct,
-  subscriptionPrecheck
+  subscriptionPrecheck,
+  getUserAccess
 };

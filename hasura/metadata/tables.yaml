@@ -405,12 +405,15 @@
       - id
       - location
       - location_pos
+      - mux_id
+      - mux_livestream
       - name
       - photo
       - preview
       - price
       - published
       - start
+      - status
       - thumb
       - type
       - video

@@ -139,10 +139,9 @@ app.get('/mux/asset/create', async function (req, res) {
 app.get('/mux/stream/create', async function (req, res) {
   let id = req.query.id;
 
-  // TODO @security super insecure
   let result = await Video.LiveStreams.create({
-    playback_policy: 'public',
-    new_asset_settings: { playback_policy: 'public' }
+    playback_policy: 'signed',
+    new_asset_settings: { playback_policy: 'signed' }
   });
 
   console.log({ result });

@@ -409,7 +409,7 @@ EventPage.propTypes = {
   event: PropTypes.object.isRequired,
   account: PropTypes.object,
   user: PropTypes.object,
-  playerKey: PropTypes.number.isRequired,
+  playerKey: PropTypes.number,
   videoJsOptions: PropTypes.object.isRequired,
   liveData: PropTypes.object,
   status: PropTypes.string

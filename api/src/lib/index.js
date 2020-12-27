@@ -7,8 +7,16 @@ const dayjs = require('dayjs');
  * @param {object} req the reques
  */
 function getUser(req) {
+  if (!('authorization' in req.headers)) {
+    return { id: null, isAdmin: false };
+  }
   const token = req.headers.authorization.replace('Bearer ', '');
-  return jwt_decode(token);
+  let user = jwt_decode(token);
+  user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
+  user.isAdmin = user['https://hasura.io/jwt/claims'][
+    'x-hasura-allowed-roles'
+  ].includes('admin');
+  return user;
 }
 
 /**

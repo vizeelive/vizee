@@ -10,9 +10,7 @@ import {
 } from '@apollo/client';
 
 import apolloLogger from 'apollo-link-logger';
-
 import { useAuth0 } from '@auth0/auth0-react';
-
 import { setContext } from '@apollo/link-context';
 import { onError } from '@apollo/client/link/error';
 import { WebSocketLink } from '@apollo/client/link/ws';
@@ -75,21 +73,23 @@ export default function useAuth() {
     fetchData();
   }, [getIdTokenClaims]);
 
-  var wsLink;
-  if (id_token || claims?.__raw) {
-    wsLink = new WebSocketLink({
-      uri: config.graphql.replace('https', 'wss'),
-      options: {
-        reconnect: true,
-        connectionParams: {
-          headers: {
-            Authorization: `Bearer ` + (id_token || claims?.__raw),
-            'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
-          }
+  let token = id_token || claims?.__raw;
+  var wsLink = new WebSocketLink({
+    uri: config.graphql.replace('https', 'wss'),
+    options: {
+      reconnect: true,
+      connectionParams: {
+        headers: {
+          ...(token
+            ? {
+                Authorization: `Bearer ${token}`,
+                'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
+              }
+            : null)
         }
       }
-    });
-  }
+    }
+  });
 
   const httpLink = createHttpLink({
     uri: config.graphql
@@ -128,28 +128,19 @@ export default function useAuth() {
     }
   });
 
-  if (wsLink) {
-    var link = ApolloLink.split(
-      // split based on operation type
-      ({ query }) => {
-        const { kind, operation } = getMainDefinition(query);
-        return kind === 'OperationDefinition' && operation === 'subscription';
-      },
-      wsLink,
-      httpLink
-    );
-  }
-
-  var links = [apolloLogger, authLink, errorLink];
-  if (wsLink) {
-    links.push(link);
-  } else {
-    links.push(httpLink);
-  }
+  var link = ApolloLink.split(
+    // split based on operation type
+    ({ query }) => {
+      const { kind, operation } = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
+    },
+    wsLink,
+    httpLink
+  );
 
   let client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: ApolloLink.from(links),
+    link: ApolloLink.from([apolloLogger, authLink, errorLink, link]),
     defaultHttpLink: false,
     defaultOptions: {
       watchQuery: {

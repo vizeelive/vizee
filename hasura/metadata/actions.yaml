@@ -12,6 +12,7 @@ actions:
     handler: '{{ACTION_BASE_URL}}'
     forward_client_headers: true
   permissions:
+  - role: public
   - role: user
 - name: getStripeCustomerPortalUrl
   definition:
