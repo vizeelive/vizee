@@ -1,7 +1,12 @@
 import React from 'react';
 import videojs from 'video.js';
+import qualityLevels from 'videojs-contrib-quality-levels';
+import hlsQualitySelector from 'videojs-hls-quality-selector';
 import 'videojs-mux';
 import 'video.js/dist/video-js.min.css';
+
+videojs.registerPlugin('qualityLevels', qualityLevels);
+videojs.registerPlugin('hlsQualitySelector', hlsQualitySelector);
 
 export default class VideoPlayer extends React.Component {
   componentDidMount() {
@@ -27,6 +32,9 @@ export default class VideoPlayer extends React.Component {
       this.props
     );
     this.player = videojs(this.videoNode, options, function onPlayerReady() {
+      this.hlsQualitySelector({
+        displayCurrentQuality: true
+      });
       // console.log('onPlayerReady', this);
     });
   }
