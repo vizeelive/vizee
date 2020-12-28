@@ -9,7 +9,7 @@ module.exports = async function (req, res) {
     let result = await getEventUrl({ event_id, user });
     res.send(result);
   } catch (e) {
-    logger.error(e, { event_id, user });
+    logger.error(e.message, { event_id, user });
     res.status(500).send(e.message);
   }
 };

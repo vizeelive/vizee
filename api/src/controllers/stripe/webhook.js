@@ -22,7 +22,7 @@ module.exports = async function ({ event }) {
       const customer = await stripe.getCustomer(event.data.object.customer);
 
       let ref = parse(session.client_reference_id);
-      logger.debug({ ref });
+      logger.debug('ref', { ref });
 
       if (ref.product_id) {
         logger.info('Fetching user and product');
@@ -153,7 +153,7 @@ module.exports = async function ({ event }) {
 
       await createTransaction({ customer, ref, user, session });
     } catch (e) {
-      logger.error(e);
+      logger.error('checkout.session.completed', e.message);
       throw e.message;
     }
   }
