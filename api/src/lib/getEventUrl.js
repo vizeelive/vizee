@@ -32,14 +32,14 @@ module.exports = async function (params) {
 
   let playbackId;
   if (data.event.type === 'live') {
-    playbackId = data?.event?.mux_livestream?.playback_ids[0].id;
+    playbackId = data?.event?.mux_livestream?.playback_ids[0];
   } else {
     playbackId = await createPlaybackId(data.event.mux_asset_id, {
       policy: 'signed'
     });
   }
 
-  const token = createToken(playbackId);
+  const token = createToken(playbackId.id);
 
   return {
     url: `https://stream.mux.com/${playbackId}.m3u8?token=${token}`
