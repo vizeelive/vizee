@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Tabs, Input } from 'antd';
+import { Helmet } from 'react-helmet';
 
 // import Map from '../components/Map';
 import Events from 'components/Events';
@@ -41,6 +42,27 @@ export default function HomeView(props) {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <meta
+          property="og:image"
+          content={'https://vizee.imgix.net/vizee-meta.png?w=500'}
+        />
+        <meta property="og:title" content={'Vizee'} />
+        <meta
+          property="og:description"
+          content={'The best way to sell your videos'}
+        />
+        <meta
+          name="twitter:image"
+          content={'https://vizee.imgix.net/vizee-meta.png?w=500'}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={'Vizee'} />
+        <meta
+          name="twitter:description"
+          content={'The best way to sell your videos'}
+        />
+      </Helmet>
       <div className="relative bg-black overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-black sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
