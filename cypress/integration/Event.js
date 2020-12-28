@@ -34,7 +34,7 @@ describe('EventPage', () => {
       cy.get('[data-test-id=comments').should('not.be.empty');
       cy.get('[data-test-id=comments-editor').should('exist');
     });
-    it('should be able to see LIVE NOW tag', () => {
+    it('should be able to see AVAILABLE NOW tag', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
         fixture.events_report[0].start = new Date();
         fixture.events_report[0].end = new Date(
@@ -43,7 +43,7 @@ describe('EventPage', () => {
         cy.graphql('UserEventsReport', fixture);
       });
       cy.visit('creator/a1b2c3');
-      cy.findByText('Live Now').should('exist');
+      cy.findByText('Available Now').should('exist');
     });
     it('should be able to see video preview', () => {
       cy.fixture('UserEventsReport').then((fixture) => {

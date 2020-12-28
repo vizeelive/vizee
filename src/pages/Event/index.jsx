@@ -270,7 +270,7 @@ export default function EventPage() {
       break;
     default:
       if (!loading) {
-        if (event.belongsTo(user)) {
+        if (event.belongsTo?.(user)) {
           videoJsOptions.muted = true;
           videoJsOptions.sources.push({
             src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'

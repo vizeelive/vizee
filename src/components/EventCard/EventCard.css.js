@@ -84,3 +84,14 @@ export const LiveTag = styled(Tag)`
   padding: 3px 7px;
   font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 `;
+
+export const AvailableTag = styled(Tag)`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 3px 7px;
+  font-family: 'FoundersGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial;
+`;

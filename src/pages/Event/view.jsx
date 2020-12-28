@@ -65,7 +65,12 @@ export default function EventPage(props) {
     }
     return (
       <div className="mt-2 flex items-center lg:mr-6">
-        {event.isLive && (
+        {event.isAvailable() && (
+          <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
+            Available Now
+          </span>
+        )}
+        {event.isLive() && (
           <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
             Live Now
           </span>

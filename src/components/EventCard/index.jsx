@@ -16,7 +16,8 @@ import {
   CardMenu,
   ManageLink,
   EditLink,
-  LiveTag
+  LiveTag,
+  AvailableTag
 } from './EventCard.css';
 
 function EventCard(props) {
@@ -69,7 +70,6 @@ function EventCard(props) {
   const renderTags = () => {
     const start = moment(event.start);
     const end = moment(event.end);
-    const isLive = moment().isBetween(start, end);
     // const isPurchased = event?.transactions?.length;
     // const isFree = event.price === '$0.00';
     // const isBroadcast = event.type === 'live';
@@ -78,7 +78,12 @@ function EventCard(props) {
     return (
       <TagsContainer>
         {/* {isPurchased ? <Tag color="green">Purchased</Tag> : null} */}
-        {isLive && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
+        {!event.isLive() && event.isAvailable() && (
+          <AvailableTag color="#ee326e">AVAILABLE NOW</AvailableTag>
+        )}
+        {event.isLive() && !event.isAvailable() && (
+          <LiveTag color="#ee326e">LIVE NOW</LiveTag>
+        )}
         {/* {isFree && <Tag color="blue">Free!</Tag>} */}
         {/* {isBroadcast && <Tag color="cyan">Broadcast</Tag>} */}
         {/* {isVideo && <Tag color="gold">Video</Tag>} */}

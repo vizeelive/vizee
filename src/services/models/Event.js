@@ -13,8 +13,11 @@ export default class Event {
   isFree() {
     return this?.price === '$0.00';
   }
-  isLive() {
+  isAvailable() {
     return moment().isBetween(this.start, this.end);
+  }
+  isLive() {
+    return this.status === 'live';
   }
   isPurchased() {
     return !!this?.access?.length || !!this?.account?.access?.length;
@@ -39,11 +42,11 @@ export default class Event {
     if (this.type === 'video') {
       canWatch =
         this.belongsTo(user) ||
-        (this.isLive() && (this.isFree() || this.isPurchased()));
+        (this.isAvailable() && (this.isFree() || this.isPurchased()));
     } else {
       canWatch =
         (liveEvent?.status !== 'idle' && this.belongsTo(user)) ||
-        (this.isLive() && (this.isFree() || this.isPurchased()));
+        (this.isAvailable() && (this.isFree() || this.isPurchased()));
     }
     return !!canWatch;
   }

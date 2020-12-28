@@ -116,7 +116,7 @@ describe('EventCard', () => {
       expect(screen.getByTestId('favorite')).toBeInTheDocument();
 
       // tags
-      expect(screen.getByText('LIVE NOW')).toBeInTheDocument();
+      expect(screen.getByText('AVAILABLE NOW')).toBeInTheDocument();
       // expect(screen.getByText('Broadcast')).toBeInTheDocument();
       // expect(screen.getByText('Purchased')).toBeInTheDocument();
       // expect(screen.getByText('Free!')).toBeInTheDocument();
