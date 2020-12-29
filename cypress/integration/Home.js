@@ -11,6 +11,7 @@ describe('HomePage', () => {
       cy.get('[data-test-id=menu-tickets').should('not.exist');
       cy.get('[data-test-id=event-card').should('exist');
     });
+    // it('should not show event that are excluded from the network via (on_network)', () => {});
   });
   describe('User', () => {
     before(() => {

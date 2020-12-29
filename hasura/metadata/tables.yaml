@@ -409,6 +409,7 @@
       - mux_id
       - mux_livestream
       - name
+      - on_network
       - photo
       - preview
       - price
@@ -419,11 +420,8 @@
       - type
       - video
       filter:
-        _and:
-        - published:
-            _eq: true
-        - on_network:
-            _eq: true
+        published:
+          _eq: true
   - role: user
     permission:
       columns:

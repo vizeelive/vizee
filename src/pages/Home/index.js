@@ -13,7 +13,7 @@ const GET_EVENTS_AUTH = gql`
       first_name
       last_name
     }
-    events(where: { published: { _eq: true } }) {
+    events(where: { on_network: { _eq: true } }) {
       id
       name
       start
@@ -57,7 +57,7 @@ const GET_EVENTS_AUTH = gql`
 
 const GET_EVENTS_UNAUTH = gql`
   query AnonGetEvents {
-    events {
+    events(where: { on_network: { _eq: true } }) {
       id
       name
       start
