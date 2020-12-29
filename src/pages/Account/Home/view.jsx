@@ -113,6 +113,10 @@ export default function HomeView(props) {
 
   if (error) return 'Error';
 
+  let photo =
+    account.photo ||
+    `https://dummyimage.com/1216x684/000/fff.png&text=${account.name}`;
+
   return (
     <React.Fragment>
       <Helmet>
@@ -125,14 +129,14 @@ export default function HomeView(props) {
         <meta name="twitter:description" content={account.description} />
       </Helmet>
       <article className="min-h-page">
-        {account.photo && (
+        {photo && (
           <img
             style={{
               objectFit: 'cover',
               objectPosition: 'top'
               // maxHeight: '20vh'
             }}
-            src={account.photo}
+            src={photo}
             // src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
             //   window.innerWidth
             // }&h=${window.innerHeight * 0.4}`}
