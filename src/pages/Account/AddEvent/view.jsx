@@ -317,6 +317,16 @@ export default function AddEventView(props) {
               name="published"
               label="Published"
               valuePropName="checked"
+              initialValue={true}
+            >
+              <Switch />
+            </Form.Item>
+
+            <Form.Item
+              name="on_network"
+              label="Display on Vizee Network"
+              valuePropName="checked"
+              initialValue={true}
             >
               <Switch />
             </Form.Item>

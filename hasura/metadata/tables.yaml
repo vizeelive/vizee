@@ -383,6 +383,7 @@
       - location
       - location_pos
       - name
+      - on_network
       - photo
       - preview
       - price
@@ -418,8 +419,11 @@
       - type
       - video
       filter:
-        published:
-          _eq: true
+        _and:
+        - published:
+            _eq: true
+        - on_network:
+            _eq: true
   - role: user
     permission:
       columns:
@@ -437,6 +441,7 @@
       - mux_id
       - mux_livestream
       - name
+      - on_network
       - photo
       - preview
       - price

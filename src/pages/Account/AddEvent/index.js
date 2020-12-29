@@ -71,6 +71,7 @@ const GET_EVENT = gql`
       account_id
       category_id
       published
+      on_network
       location
       account_only
       products {
@@ -201,6 +202,7 @@ export default function AddEvent(props) {
       type: values.type,
       price: values.price,
       published: values.published,
+      on_network: values.on_network,
       description: values.description,
       category_id: values.category_id,
       account_id: values.account_id || account.id,
