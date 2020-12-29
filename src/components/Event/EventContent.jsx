@@ -61,12 +61,21 @@ function EventContent(props) {
         data-test-id="event-preview-image"
         width="100%"
         alt={event.name || event?.account?.name}
-        src={`https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=1216&h=684`}
+        src={
+          !coverPhoto
+            ? `https://dummyimage.com/1216x684/000/fff.png&text=${event.name}`
+            : `https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=1216&h=684`
+        }
       />
     );
   };
 
-  return canWatch ? renderEventVideo() : renderPreview();
+  // @TODO dont sign video links that aren't available yet
+  if (!event.isAvailable()) {
+    return renderPreview();
+  } else {
+    return canWatch ? renderEventVideo() : renderPreview();
+  }
 }
 
 EventContent.propTypes = {

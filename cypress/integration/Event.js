@@ -34,7 +34,7 @@ describe('EventPage', () => {
       cy.get('[data-test-id=comments').should('not.be.empty');
       cy.get('[data-test-id=comments-editor').should('exist');
     });
-    it('should be able to see AVAILABLE NOW tag', () => {
+    it('should be able to see AVAILABLE NOW tag when inside time window', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
         fixture.events_report[0].start = new Date();
         fixture.events_report[0].end = new Date(
@@ -45,26 +45,55 @@ describe('EventPage', () => {
       cy.visit('creator/a1b2c3');
       cy.findByText('Available Now').should('exist');
     });
-    it('should be able to see video preview', () => {
-      cy.fixture('UserEventsReport').then((fixture) => {
-        fixture.events_report[0].preview = 'https://example.com/video.mp4';
-        cy.graphql('UserEventsReport', fixture);
+    describe('preview', () => {
+      it('should be able to see dummy cover photo when no event photo/video and account photo available', () => {
+        cy.fixture('UserEventsReport').then((fixture) => {
+          delete fixture.events_report[0].photo;
+          delete fixture.events_report[0].preview;
+          delete fixture.events_report[0].account.photo;
+          cy.graphql('UserEventsReport', fixture);
+        });
+        cy.visit('creator/a1b2c3');
+        cy.findByText('Preview').should('exist');
+        cy.get('[data-test-id=event-preview-image').should('be.visible');
+        cy.get('[data-test-id=event-preview-image').should(
+          'have.attr',
+          'src',
+          'https://dummyimage.com/1216x684/000/fff.png&text=dfdsfdsf'
+        );
       });
-
-      cy.visit('creator/a1b2c3');
-      cy.findByText('Preview').should('exist');
-      cy.get('[data-test-id=event-preview-video').should('exist');
-    });
-    it('should be able to see image preview', () => {
-      cy.fixture('UserEventsReport').then((fixture) => {
-        delete fixture.events_report[0].preview;
-        cy.graphql('UserEventsReport', fixture);
+      it('should be able to see account photo when no event photo/video is available', () => {
+        cy.fixture('UserEventsReport').then((fixture) => {
+          delete fixture.events_report[0].photo;
+          delete fixture.events_report[0].preview;
+          cy.graphql('UserEventsReport', fixture);
+        });
+        cy.visit('creator/a1b2c3');
+        cy.findByText('Preview').should('exist');
+        cy.get('[data-test-id=event-preview-image').should('be.visible');
       });
+      it('should be able to see video preview over photo preview', () => {
+        cy.fixture('UserEventsReport').then((fixture) => {
+          fixture.events_report[0].preview = 'https://example.com/video.mp4';
+          cy.graphql('UserEventsReport', fixture);
+        });
 
-      cy.visit('creator/a1b2c3');
-      cy.findByText('Preview').should('exist');
-      cy.get('[data-test-id=event-preview-image').should('exist');
+        cy.visit('creator/a1b2c3');
+        cy.findByText('Preview').should('exist');
+        cy.get('[data-test-id=event-preview-video').should('exist');
+      });
+      it('should be able to see event image preview when there is no video preview', () => {
+        cy.fixture('UserEventsReport').then((fixture) => {
+          delete fixture.events_report[0].account.photo;
+          delete fixture.events_report[0].preview;
+          cy.graphql('UserEventsReport', fixture);
+        });
+        cy.visit('creator/a1b2c3');
+        cy.findByText('Preview').should('exist');
+        cy.get('[data-test-id=event-preview-image').should('exist');
+      });
     });
+
     it('should see buy button when has no access', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
         fixture.events_report[0].account.username = 'random';

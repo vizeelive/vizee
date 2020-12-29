@@ -120,7 +120,7 @@ describe('getEventUrl', () => {
     getUserAccessFixture.event.type = 'video';
     queries.getUserAccess.mockReturnValue(getUserAccessFixture);
 
-    mux.createPlaybackId.mockReturnValue('a1b2c3');
+    mux.createPlaybackId.mockReturnValue({ id: 'a1b2c3' });
     mux.createToken.mockReturnValue(
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImVGR000Rk9UY1BNYXl1VmVmM1ZoRUlUeHhpc25JajJ3c0prZkk0YmUwMU8wMCJ9.eyJ0aW1lIjoxLCJleHAiOjE2MDk2Nzg1MDEsImF1ZCI6InYiLCJzdWIiOiJRQWdaaHVjQjdOazlOQklKRmhFOWE5Ymp4MDBac1ZmV3VGaTFPMDE2S0VPSjgifQ.aP7LNFQZ5FzPrqHyGQ1mXAx_HQ_eNjySCiG2UsiastL_63JhCvjwrQkhPK837Kp-TvCzSy2iRftWd_5dcd-Q59x_C-QCS_xaSuZjGdWzjUczztz4Z59YnRMUkrem7fBCllFzCJkd9Mm5d3dHIXlaXrTVObaTOABlhmBayvIfe1qAqvPa4nhY3Wsu0WdIrsOqBx-s0HPAbM0qMVTx_FbfkeQX4MTzqjc8BdMl_hN4AAKfuq8Sj6zipCKNqVSpNfXAybZnAODPfOTxlorcTukgd6NxcZuAskARDn2SThALx5VBXlfZkM0120ALOjDVzNgqne7SRAjUZSGx6Eja2EbEIQ'
     );

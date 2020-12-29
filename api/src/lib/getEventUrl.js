@@ -42,6 +42,6 @@ module.exports = async function (params) {
   const token = createToken(playbackId.id);
 
   return {
-    url: `https://stream.mux.com/${playbackId}.m3u8?token=${token}`
+    url: `https://stream.mux.com/${playbackId.id}.m3u8?token=${token}`
   };
 };

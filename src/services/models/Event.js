@@ -31,6 +31,9 @@ export default class Event {
   hasEnded() {
     return moment().isAfter(this.end);
   }
+  image() {
+    return this?.photo || this?.account?.photo;
+  }
   belongsTo(user) {
     return (
       user?.isAdmin ||

@@ -7,6 +7,9 @@ import useAuth from 'hooks/useAuth';
 import EventView from './view';
 import Mapper from 'services/mapper';
 
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
+
 const GET_EVENT_UNAUTH = gql`
   query AnonEventsReport($id: uuid!) {
     getEventUrl(id: $id) {
@@ -242,6 +245,18 @@ export default function EventPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  if (loading) {
+    return (
+      <Centered height="calc(100vh - 184px)">
+        <Spinner />
+      </Centered>
+    );
+  }
+
+  if (error) return 'Error';
+
+  let playerKey = Math.random();
+
   let videoJsOptions = {
     autoplay: true,
     controls: true,
@@ -249,45 +264,53 @@ export default function EventPage() {
     sources: []
   };
 
-  let playerKey = Math.random();
-
-  switch (event?.status) {
-    // TODO remove this temporary hack
-    case 'livestream':
-      videoJsOptions.sources.push({
-        src:
-          event?.mux_livestream?.url ||
-          liveData?.events_by_pk?.mux_livestream?.url,
-        type: 'application/x-mpegurl'
-      });
-      break;
-    case 'live':
-    case 'completed':
-      videoJsOptions.sources.push({
-        src: event.video,
-        type: 'application/x-mpegurl'
-      });
-      break;
-    default:
-      if (!loading) {
-        if (event.belongsTo?.(user)) {
-          videoJsOptions.muted = true;
-          videoJsOptions.sources.push({
-            src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'
-          });
-        } else {
-          videoJsOptions.muted = true;
-          videoJsOptions.sources.push({
-            src: 'https://vizee-media.s3.amazonaws.com/begin.mp4'
-          });
+  if (!event?.isBroadcast?.()) {
+    videoJsOptions.sources.push({
+      src: event?.video,
+      type: 'application/x-mpegurl'
+    });
+  } else {
+    switch (event?.status) {
+      // TODO remove this temporary hack
+      case 'livestream':
+        videoJsOptions.sources.push({
+          src:
+            event?.mux_livestream?.url ||
+            liveData?.events_by_pk?.mux_livestream?.url,
+          type: 'application/x-mpegurl'
+        });
+        break;
+      case 'live':
+      case 'completed':
+        videoJsOptions.sources.push({
+          src: event.video,
+          type: 'application/x-mpegurl'
+        });
+        break;
+      default:
+        if (!loading) {
+          if (event.belongsTo?.(user)) {
+            videoJsOptions.muted = true;
+            videoJsOptions.sources.push({
+              src: 'https://vizee-media.s3.amazonaws.com/ready.mp4'
+            });
+          } else {
+            videoJsOptions.muted = true;
+            videoJsOptions.sources.push({
+              src: 'https://vizee-media.s3.amazonaws.com/begin.mp4'
+            });
+          }
         }
-      }
+    }
   }
+
+  const coverPhoto = event.image()?.includes('amazonaws')
+    ? event.image().replace('https://vizee-media.s3.amazonaws.com/', '')
+    : event.image();
 
   return (
     <EventView
-      loading={loading}
-      error={error}
+      coverPhoto={coverPhoto}
       account={account}
       event={event}
       isMyAccount={isMyAccount}

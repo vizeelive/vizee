@@ -20,13 +20,9 @@ import EventContent from 'components/Event/EventContent';
 import AvatarHandle from 'components/AvatarHandle';
 // import ChatToggle from 'components/Event/ChatToggle';
 
-import { Centered } from 'components/styled/common';
-import Spinner from 'components/ui/Spinner';
-
 export default function EventPage(props) {
   const {
-    loading,
-    error,
+    coverPhoto,
     event,
     account,
     isMyAccount,
@@ -41,21 +37,6 @@ export default function EventPage(props) {
   const history = useHistory();
   const [showModal] = useState(status === 'success' ? true : false);
   const [showChat] = useState(false);
-
-  if (loading) {
-    return (
-      <Centered height="calc(100vh - 184px)">
-        <Spinner />
-      </Centered>
-    );
-  }
-
-  if (error) return 'Error';
-
-  let originalPhoto = event?.photo || event?.account?.photo;
-  const coverPhoto = originalPhoto
-    ? originalPhoto.replace('https://vizee-media.s3.amazonaws.com/', '')
-    : null;
 
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
@@ -409,8 +390,6 @@ export default function EventPage(props) {
 }
 
 EventPage.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.bool,
   event: PropTypes.object.isRequired,
   account: PropTypes.object,
   user: PropTypes.object,
