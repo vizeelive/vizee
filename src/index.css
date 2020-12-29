@@ -59,6 +59,10 @@ body {
   color: var(--vz-gray-500);
 }
 
+.event-badges > span:not(:last-child) {
+  @apply mr-2;
+}
+
 :root {
   --vz-pink-50: #f2e8ec;
   --vz-pink-100: #f1dee7;

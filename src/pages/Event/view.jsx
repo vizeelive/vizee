@@ -45,19 +45,19 @@ export default function EventPage(props) {
       return null;
     }
     return (
-      <div className="mt-2 flex items-center lg:mr-6">
+      <div className="mt-2 flex items-center lg:mr-6 event-badges">
         {event.isAvailable() && (
-          <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
             Available Now
           </span>
         )}
         {event.isLive() && (
-          <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
             Live Now
           </span>
         )}
         {!event.canWatch(user, liveData) && (
-          <span className="inline-flex items-center px-2 py-0.5 mr-2 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
             Preview
           </span>
         )}
@@ -76,7 +76,7 @@ export default function EventPage(props) {
         </h2>
         <div className="mt-1 flex flex-col lg:flex-row lg:flex-wrap lg:mt-0">
           {renderBadges()}
-          <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6 lg:-ml-2">
+          <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
             {/* Heroicon name: calendar */}
             <svg
               className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-500"
