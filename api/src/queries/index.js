@@ -138,6 +138,8 @@ async function getUserAccess(params) {
           event: events_by_pk(id: $event_id) {
             price
             type
+            start
+            end
             mux_livestream
             mux_asset_id
           }

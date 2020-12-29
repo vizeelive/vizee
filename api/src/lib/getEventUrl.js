@@ -1,6 +1,10 @@
 const dayjs = require('dayjs');
+const logger = require('../logger');
+const isBetween = require('dayjs/plugin/isBetween');
 const { getEvent, getUserAccess } = require('../queries');
 const { createToken, createPlaybackId } = require('../lib/mux');
+
+dayjs.extend(isBetween);
 
 module.exports = async function (params) {
   const { user, event_id } = params;
@@ -26,9 +30,20 @@ module.exports = async function (params) {
     return { url: null };
   }
 
-  if (!data.event.mux_livestream?.playback_ids && !data.event.mux_asset_id) {
-    return { url: null };
-  }
+if (!dayjs().isBetween(data.event.start, data.event.end)) {
+  logger.info('Current date is not within event window');
+  return { url: null };
+}
+
+if (data.event.type === 'live' && !data.event.mux_livestream?.playback_ids) {
+  logger.info('Live event does not have a playback id');
+  return { url: null };
+}
+
+if (data.event.type === 'video' && !data.event.mux_asset_id) {
+  logger.info('Video event does not have a mux asset id');
+  return { url: null };
+}
 
   let playbackId;
   if (data.event.type === 'live') {
