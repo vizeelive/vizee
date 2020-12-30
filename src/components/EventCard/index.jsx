@@ -81,9 +81,7 @@ function EventCard(props) {
         {!event.isLive() && event.isAvailable() && (
           <AvailableTag color="#ee326e">AVAILABLE NOW</AvailableTag>
         )}
-        {event.isLive() && !event.isAvailable() && (
-          <LiveTag color="#ee326e">LIVE NOW</LiveTag>
-        )}
+        {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
         {/* {isFree && <Tag color="blue">Free!</Tag>} */}
         {/* {isBroadcast && <Tag color="cyan">Broadcast</Tag>} */}
         {/* {isVideo && <Tag color="gold">Video</Tag>} */}
