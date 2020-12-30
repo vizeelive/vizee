@@ -78,7 +78,10 @@ function EventCard(props) {
     return (
       <TagsContainer>
         {/* {isPurchased ? <Tag color="green">Purchased</Tag> : null} */}
-        {!event.isLive() && event.isAvailable() && (
+        {event.isBroadcast() && event.isAvailable() && !event.isLive() && (
+          <AvailableTag color="#ee326e">STREAM STARTING</AvailableTag>
+        )}
+        {!event.isBroadcast() && event.isAvailable() && !event.isLive() && (
           <AvailableTag color="#ee326e">AVAILABLE NOW</AvailableTag>
         )}
         {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
