@@ -155,6 +155,9 @@ const WATCH_MUX = gql`
     events_by_pk(id: $id) {
       mux_livestream
       mux_id
+      type
+      start
+      end
       status
     }
   }

@@ -41,12 +41,14 @@ export default function EventPage(props) {
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
   const renderBadges = () => {
-    if (!event.isLive() && event.canWatch(user, liveData)) {
-      return null;
-    }
     return (
       <div className="mt-2 flex items-center lg:mr-6 event-badges">
-        {event.isAvailable() && (
+        {event.isBroadcast() && event.isAvailable() && !event.isLive() && (
+          <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
+            Stream Starting...
+          </span>
+        )}
+        {!event.isBroadcast() && event.isAvailable() && !event.isLive() && (
           <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
             Available Now
           </span>
@@ -56,7 +58,7 @@ export default function EventPage(props) {
             Live Now
           </span>
         )}
-        {!event.canWatch(user, liveData) && (
+        {event.preview && !event.canWatch(user, liveData) && (
           <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
             Preview
           </span>
