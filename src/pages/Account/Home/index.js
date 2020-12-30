@@ -30,6 +30,7 @@ export const GET_ACCOUNT_ANON = gql`
         thumb
         start
         end
+        type
         published
         status
         account {
@@ -89,6 +90,7 @@ const GET_ACCOUNT_USER = gql`
         thumb
         start
         end
+        type
         published
         status
         account {
