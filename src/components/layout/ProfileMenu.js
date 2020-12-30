@@ -28,7 +28,7 @@ export default function ProfileMenu(props) {
     setIsOpen(false);
   }, [location]);
 
-  const username = Cookies.get('username') || account.username;
+  const username = Cookies.get('username') || account?.username;
   const isNetwork = process.env.REACT_APP_ACCOUNT === 'vizee';
 
   return (
@@ -63,7 +63,7 @@ export default function ProfileMenu(props) {
         aria-labelledby="user-menu"
       >
         <div ref={menuRef}>
-          {isNetwork && (
+          {account && isNetwork && (
             <Link
               to={`/${username}/manage`}
               className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
@@ -79,14 +79,17 @@ export default function ProfileMenu(props) {
           >
             Create new account
           </Link>
-          <a
-            href={user.portalUrl}
-            className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
-            role="menuitem"
-          >
-            Subscriptions
-          </a>
-          {isNetwork && (
+          {account &&
+          (
+            <a
+              href={user.portalUrl}
+              className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
+              role="menuitem"
+            >
+              Subscriptions
+            </a>
+          )}
+          {account && isNetwork && (
             <Link
               to={`/${username}/manage/settings/${account.id}/account`}
               className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"

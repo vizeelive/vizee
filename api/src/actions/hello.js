@@ -1,13 +1,17 @@
 const fetch = require('node-fetch');
 const { getUser } = require('../lib');
+const logger = require('../logger');
 const execute = require('../execute');
 
-const { getAnonStripeCustomer } = require('../queries');
-const { updateUserStripeCustomerId, fixAnonAccess } = require('../mutations');
+const { getAnonStripeCustomer, getUnlinkedUsers } = require('../queries');
+const {
+  updateUserStripeCustomerId,
+  fixAnonAccess,
+  linkAccountUser
+} = require('../mutations');
 
 /**
- * Finds anonymous purchases via email and updates the user and
- * stripe_customer_id with the correct user
+ * Links anonymous purchases and creator account invites
  *
  * @param {*} req
  * @param {*} res
@@ -21,14 +25,23 @@ module.exports = async function hello(req, res) {
 
   try {
     let email = user.email;
-    let user_id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
 
     let stripe_customer_id = await getAnonStripeCustomer(email);
     if (stripe_customer_id) {
-      await updateUserStripeCustomerId({ user_id, stripe_customer_id });
+      await updateUserStripeCustomerId({
+        user_id: user.id,
+        stripe_customer_id
+      });
     }
 
-    await fixAnonAccess({ email, user_id });
+    await fixAnonAccess({ email, user_id: user.id });
+
+    logger.info(`getUnlinkedUsers: ${email}`);
+    let unlinkedUsers = await getUnlinkedUsers(email);
+    unlinkedUsers.map((u) => {
+      logger.info(`linking`, { id: u.id, user_id: u.emailUser.id });
+      linkAccountUser({ id: u.id, user_id: u.emailUser.id });
+    });
 
     res.send({ message: 'Oh, hello!' });
   } catch (e) {

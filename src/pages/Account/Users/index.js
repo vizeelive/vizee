@@ -16,16 +16,12 @@ const GET_USERS = gql`
       username
       users {
         id
+        email
         user {
           id
           email
         }
       }
-    }
-    users(order_by: { name: asc }) {
-      id
-      name
-      email
     }
   }
 `;
@@ -67,20 +63,16 @@ export default function Users() {
 
   if (data) {
     account = data?.accounts?.[0];
-    accountUsers = account?.users.filter((u) => u.user.id !== user.id);
-    users = data?.users;
-
-    addableUsers = users
-      .filter((u) => u.email)
-      .filter((u) => u.id !== user.id)
-      .filter((u) => !!!find(accountUsers, (au) => au.user.id === u.id));
+    accountUsers = account?.users.map((user) => {
+      return { ...user, email: user?.user?.email || user.email };
+    });
   }
 
   const onFinish = async (values) => {
     try {
       await addUser({
         variables: {
-          object: { user_id: values.user_id, account_id: account.id }
+          object: { email: values.email, account_id: account.id }
         }
       });
       window.mixpanel.track('User Added');

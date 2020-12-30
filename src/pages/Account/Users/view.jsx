@@ -12,7 +12,8 @@ import {
   Select,
   Table,
   Popconfirm,
-  Typography
+  Typography,
+  Input
 } from 'antd';
 
 const { Option } = Select;
@@ -40,8 +41,7 @@ export default function UsersView(props) {
     setShowModal,
     showModal,
     accountUsers,
-    onFinish,
-    addableUsers
+    onFinish
   } = props;
 
   if (loading) {
@@ -56,7 +56,7 @@ export default function UsersView(props) {
   const columns = [
     {
       title: 'email',
-      dataIndex: ['user', 'email'],
+      dataIndex: ['email'],
       key: 'email'
     },
     {
@@ -118,18 +118,12 @@ export default function UsersView(props) {
           onCancel={() => setShowModal(false)}
         >
           <Form name="basic" onFinish={onFinish}>
-            <Form.Item name="user_id" label="User">
-              <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select a user"
-              >
-                {addableUsers.map((user) => (
-                  <Option key={user.id} value={user.id}>
-                    {user.email}
-                  </Option>
-                ))}
-              </Select>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[{ required: true, message: 'Required' }]}
+            >
+              <Input />
             </Form.Item>
             <Button key="submit" htmlType="submit" type="primary" size="large">
               Add User

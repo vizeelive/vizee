@@ -194,6 +194,28 @@ async function getAnonStripeCustomer(email) {
   }
 }
 
+async function getUnlinkedUsers(email) {
+  try {
+    let res = await client.query({
+      variables: { email },
+      query: gql`
+        query getUnlinkedUsers($email: String!) {
+          accounts_users(where: { email: { _eq: $email } }) {
+            id
+            emailUser {
+              id
+            }
+          }
+        }
+      `
+    });
+    return res.data.accounts_users;
+  } catch (e) {
+    console.log('Failed: getUnlinkedUsers', email);
+    throw e;
+  }
+}
+
 /**
  * Finds a user given an email, and gets the product
  *
@@ -362,5 +384,6 @@ module.exports = {
   getCheckoutDataEvent,
   getUserAndProduct,
   subscriptionPrecheck,
-  getUserAccess
+  getUserAccess,
+  getUnlinkedUsers
 };

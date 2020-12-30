@@ -211,6 +211,14 @@
   - name: account
     using:
       foreign_key_constraint_on: account_id
+  - name: emailUser
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        column_mapping:
+          email: email
   - name: user
     using:
       foreign_key_constraint_on: user_id
@@ -223,6 +231,7 @@
             _eq: X-Hasura-User-Id
       columns:
       - account_id
+      - email
       - user_id
       backend_only: false
   select_permissions:
@@ -243,6 +252,7 @@
       - account_id
       - created
       - created_by
+      - email
       - id
       - user_id
       filter:

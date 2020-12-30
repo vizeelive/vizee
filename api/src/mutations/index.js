@@ -55,6 +55,30 @@ async function fixAnonTransactions({ email, user_id }) {
   }
 }
 
+async function linkAccountUser({ id, user_id }) {
+  try {
+    await client.mutate({
+      variables: {
+        id,
+        user_id
+      },
+      mutation: gql`
+        mutation linkAccountUser($id: uuid!, $user_id: uuid!) {
+          update_accounts_users_by_pk(
+            pk_columns: { id: $id }
+            _set: { user_id: $user_id }
+          ) {
+            id
+          }
+        }
+      `
+    });
+  } catch (e) {
+    console.error('Failed: linkAccountUser', id, user_id, e);
+    throw e;
+  }
+}
+
 async function fixAnonAccess({ email, user_id }) {
   try {
     await client.mutate({
@@ -180,5 +204,6 @@ module.exports = {
   updateAccessById,
   updateAccessByEmail,
   createTransaction,
-  updateUserStripeCustomerId
+  updateUserStripeCustomerId,
+  linkAccountUser
 };
