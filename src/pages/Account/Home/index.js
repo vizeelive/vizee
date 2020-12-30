@@ -31,6 +31,7 @@ export const GET_ACCOUNT_ANON = gql`
         start
         end
         published
+        status
         account {
           name
           username
@@ -89,6 +90,7 @@ const GET_ACCOUNT_USER = gql`
         start
         end
         published
+        status
         account {
           name
           username
