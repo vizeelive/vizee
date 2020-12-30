@@ -1,4 +1,5 @@
 describe('EventPage', () => {
+
   describe('Anonymous', () => {
     it('should pass happy path', () => {
       cy.graphql('AnonEventsReport', { fixture: 'AnonEventsReport' });
@@ -14,6 +15,7 @@ describe('EventPage', () => {
       cy.get('[data-test-id=comments').should('not.be.empty');
     });
   });
+
   describe('User', () => {
     beforeEach(() => {
       cy.setCookie('test_role', 'user');
@@ -57,6 +59,20 @@ describe('EventPage', () => {
       cy.visit('creator/a1b2c3');
       cy.findByText('Available Now').should('exist');
     });
+    it('should be able to see STREAM ENDED tag when live event has ended', () => {
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].type = 'live';
+        fixture.events_report[0].status = 'completed';
+        fixture.events_report[0].start = new Date();
+        fixture.events_report[0].end = new Date(
+          new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+        );
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('creator/a1b2c3');
+      cy.findByText('Stream Ended').should('exist');
+    });
+
     describe('Cover', () => {
       it('should be able to see dummy cover photo when no event photo/video and account photo available', () => {
         cy.fixture('UserEventsReport').then((fixture) => {
@@ -194,6 +210,7 @@ describe('EventPage', () => {
       cy.findByRole('button', { name: /Start Live Stream/i }).should('exist');
     });
   });
+
   describe('Admin', () => {
     beforeEach(() => {
       cy.setCookie('test_role', 'admin');

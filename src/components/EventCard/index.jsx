@@ -70,6 +70,7 @@ function EventCard(props) {
   const renderTags = () => {
     const start = moment(event.start);
     const end = moment(event.end);
+
     // const isPurchased = event?.transactions?.length;
     // const isFree = event.price === '$0.00';
     // const isBroadcast = event.type === 'live';
@@ -78,7 +79,7 @@ function EventCard(props) {
     return (
       <TagsContainer>
         {/* {isPurchased ? <Tag color="green">Purchased</Tag> : null} */}
-        {event.isBroadcast() && event.isAvailable() && !event.isLive() && (
+        {event.isStreamStarting() && (
           <AvailableTag color="#ee326e">STREAM STARTING</AvailableTag>
         )}
         {!event.isBroadcast() && event.isAvailable() && !event.isLive() && (

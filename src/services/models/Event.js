@@ -19,6 +19,25 @@ export default class Event {
   isLive() {
     return this.status === 'live';
   }
+  isComplete() {
+    return this.status === 'completed';
+  }
+  isStreamComplete() {
+    return (
+      this.isBroadcast() &&
+      this.isAvailable() &&
+      !this.isLive() &&
+      this.isComplete()
+    );
+  }
+  isStreamStarting() {
+    return (
+      this.isBroadcast() &&
+      this.isAvailable() &&
+      !this.isLive() &&
+      !this.isComplete()
+    );
+  }
   isPurchased() {
     return !!this?.access?.length || !!this?.account?.access?.length;
   }

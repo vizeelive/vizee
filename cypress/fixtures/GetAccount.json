@@ -2,30 +2,15 @@
   "myaccounts": [
     {
       "account": {
-        "id": "3eb9b92f-09b5-4c40-b399-adb342e2ee38",
-        "name": "fdffdsfsdf",
-        "username": "sdfdsf",
-        "followers": [],
-        "__typename": "accounts"
-      },
-      "__typename": "accounts_users"
-    },
-    {
-      "account": {
-        "id": "580b00ea-7728-43b8-892e-e82ed570fe52",
-        "name": "fsdf",
-        "username": "sdfdsfsdf",
-        "followers": [],
-        "__typename": "accounts"
-      },
-      "__typename": "accounts_users"
-    },
-    {
-      "account": {
-        "id": "76819289-499d-4671-891a-ad89f22247a0",
-        "name": "mau5trap",
+        "id": "5b1741f1-d335-45fa-a886-098d130ef6a1",
+        "name": "jeff@viz.ee",
         "username": "mau5trap",
-        "followers": [],
+        "followers": [
+          {
+            "id": "3cf299ec-b349-43e8-9e4c-20a855446ef9",
+            "__typename": "followers"
+          }
+        ],
         "__typename": "accounts"
       },
       "__typename": "accounts_users"
@@ -33,61 +18,54 @@
   ],
   "accounts": [
     {
-      "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
-      "name": "mau5trapTV",
-      "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
-      "username": "mau5trapTV",
-      "description": "Deadmau5 and friends",
-      "instagram": "https://instagram.com/mau5trap",
+      "id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
+      "name": "jeff@viz.ee",
+      "photo": null,
+      "username": "36bjkzqu7e",
+      "description": "I am a bio",
+      "instagram": null,
       "facebook": null,
       "twitter": null,
-      "followers": [],
+      "followers": [
+        {
+          "id": "3cf299ec-b349-43e8-9e4c-20a855446ef9",
+          "__typename": "followers"
+        }
+      ],
       "links": [
         {
-          "name": "Mau5shop",
-          "link": "https://mau5hop.com/",
+          "name": "Cool Link",
+          "link": "http://example.com",
           "__typename": "links"
         }
       ],
       "events": [
         {
-          "id": "40369ee2-4321-4b58-8c98-8c7b868fb556",
-          "location": "deadmau5 Show & Party Plitt Center, East 51st Street, Austin, TX, USA",
-          "name": "The Last Catbender",
-          "photo": null,
-          "thumb": "https://vizee-media.s3.amazonaws.com/5f/78905496184569acf7798a457b4277/129301242_1281476848869692_2796116836564068886_n.jpg",
-          "start": "2020-12-04T18:33:16.388+00:00",
-          "end": "2020-12-24T18:33:00+00:00",
+          "id": "172828cf-ff89-43fe-a58e-e570470cf7af",
+          "location": null,
+          "name": "gdfg",
+          "photo": "https://vizee-media.s3.amazonaws.com/f2/faa6165992494b913f1d43b1631fc5/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
+          "thumb": null,
+          "start": "2020-12-24T15:23:40.74+00:00",
+          "end": "2020-12-24T15:23:40.74+00:00",
+          "type": "video",
           "published": true,
+          "status": "idle",
           "account": {
-            "name": "mau5trapTV",
-            "username": "mau5trapTV",
-            "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+            "name": "jeff@viz.ee",
+            "username": "36bjkzqu7e",
+            "photo": null,
             "users": [
               {
                 "user": {
-                  "id": "bcd28fbb-8c7f-4c1b-af4e-610f2f6665f8",
+                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
                   "__typename": "users"
                 },
                 "__typename": "accounts_users"
               },
               {
                 "user": {
-                  "id": "9736399c-16ea-4767-8abf-92844ee413c9",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "954f0d35-a47c-445c-a4cb-324de646a098",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "e1a886ad-9358-41da-9d0c-cc04d7edc8ff",
+                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
                   "__typename": "users"
                 },
                 "__typename": "accounts_users"
@@ -99,139 +77,175 @@
           "__typename": "events"
         },
         {
-          "id": "72470ea2-d50f-468c-b0c4-59875df1331d",
+          "id": "127fd97f-aab0-4881-8523-92fcd6e922ff",
           "location": null,
-          "name": "Awesome Video",
+          "name": "yoooo",
+          "photo": "https://vizee-media.s3.amazonaws.com/7f/a808d913f84ea3a0b35125d613b200/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
+          "thumb": null,
+          "start": "2020-12-24T14:35:08.284+00:00",
+          "end": "2020-12-31T14:35:08.284+00:00",
+          "type": "live",
+          "published": true,
+          "status": "completed",
+          "account": {
+            "name": "jeff@viz.ee",
+            "username": "36bjkzqu7e",
+            "photo": null,
+            "users": [
+              {
+                "user": {
+                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              },
+              {
+                "user": {
+                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              }
+            ],
+            "__typename": "accounts"
+          },
+          "favorites": [],
+          "__typename": "events"
+        },
+        {
+          "id": "e18f6a0b-3636-43be-bcd2-9f6a5d06fe75",
+          "location": null,
+          "name": "sdsfsdf",
+          "photo": "https://vizee-media.s3.amazonaws.com/fe/deb10b6c904f3da21d6f5a9dd5cd81/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
+          "thumb": null,
+          "start": "2020-12-22T22:12:31.393+00:00",
+          "end": "2020-12-23T22:12:31.393+00:00",
+          "type": "video",
+          "published": true,
+          "status": "idle",
+          "account": {
+            "name": "jeff@viz.ee",
+            "username": "36bjkzqu7e",
+            "photo": null,
+            "users": [
+              {
+                "user": {
+                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              },
+              {
+                "user": {
+                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              }
+            ],
+            "__typename": "accounts"
+          },
+          "favorites": [],
+          "__typename": "events"
+        },
+        {
+          "id": "e543ac1a-0f23-4295-a870-3d6c592fc18a",
+          "location": null,
+          "name": "live test",
+          "photo": "https://vizee-media.s3.amazonaws.com/7f/00d9351d184750955d3cedec2354f6/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
+          "thumb": null,
+          "start": "2020-12-26T20:31:31.816+00:00",
+          "end": "2020-12-31T20:31:31.816+00:00",
+          "type": "live",
+          "published": true,
+          "status": "live",
+          "account": {
+            "name": "jeff@viz.ee",
+            "username": "36bjkzqu7e",
+            "photo": null,
+            "users": [
+              {
+                "user": {
+                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              },
+              {
+                "user": {
+                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              }
+            ],
+            "__typename": "accounts"
+          },
+          "favorites": [],
+          "__typename": "events"
+        },
+        {
+          "id": "95451df9-d6a1-408b-a252-b95603aaa0fe",
+          "location": null,
+          "name": "anon test",
+          "photo": "https://vizee-media.s3.amazonaws.com/39/c72f3eef324de98f183792f08cc34a/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
+          "thumb": null,
+          "start": "2020-12-26T21:10:31.082+00:00",
+          "end": "2020-12-31T21:10:31.082+00:00",
+          "type": "live",
+          "published": true,
+          "status": "completed",
+          "account": {
+            "name": "jeff@viz.ee",
+            "username": "36bjkzqu7e",
+            "photo": null,
+            "users": [
+              {
+                "user": {
+                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              },
+              {
+                "user": {
+                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
+                  "__typename": "users"
+                },
+                "__typename": "accounts_users"
+              }
+            ],
+            "__typename": "accounts"
+          },
+          "favorites": [],
+          "__typename": "events"
+        },
+        {
+          "id": "6cd01eb5-f7ef-4276-b5cf-4e8d9865cc57",
+          "location": null,
+          "name": "YOLO",
           "photo": null,
           "thumb": null,
-          "start": "2020-12-04T19:34:48.614+00:00",
-          "end": "2020-12-18T19:34:48.614+00:00",
+          "start": "2020-12-28T19:27:54.117+00:00",
+          "end": "2020-12-28T19:27:54.117+00:00",
+          "type": "video",
           "published": true,
+          "status": "idle",
           "account": {
-            "name": "mau5trapTV",
-            "username": "mau5trapTV",
-            "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
+            "name": "jeff@viz.ee",
+            "username": "36bjkzqu7e",
+            "photo": null,
             "users": [
               {
                 "user": {
-                  "id": "bcd28fbb-8c7f-4c1b-af4e-610f2f6665f8",
+                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
                   "__typename": "users"
                 },
                 "__typename": "accounts_users"
               },
               {
                 "user": {
-                  "id": "9736399c-16ea-4767-8abf-92844ee413c9",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "954f0d35-a47c-445c-a4cb-324de646a098",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "e1a886ad-9358-41da-9d0c-cc04d7edc8ff",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "9fb90165-8efd-47c0-8df2-4b24ca9a7ec3",
-          "location": null,
-          "name": "LIVE",
-          "photo": null,
-          "thumb": null,
-          "start": "2020-12-04T19:40:12.452+00:00",
-          "end": "2020-12-25T19:40:12.452+00:00",
-          "published": true,
-          "account": {
-            "name": "mau5trapTV",
-            "username": "mau5trapTV",
-            "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
-            "users": [
-              {
-                "user": {
-                  "id": "bcd28fbb-8c7f-4c1b-af4e-610f2f6665f8",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9736399c-16ea-4767-8abf-92844ee413c9",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "954f0d35-a47c-445c-a4cb-324de646a098",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "e1a886ad-9358-41da-9d0c-cc04d7edc8ff",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "21463f33-53c2-41ff-bb4f-f7fefa854c7d",
-          "location": null,
-          "name": "yoyo",
-          "photo": null,
-          "thumb": "https://vizee-media.s3.amazonaws.com/74/f46085db2b4ba592c53c0991026ecb/PixelPro-Animated-Background-7.jpg",
-          "start": "2020-12-16T16:17:53.565+00:00",
-          "end": "2020-12-31T16:17:53.566+00:00",
-          "published": true,
-          "account": {
-            "name": "mau5trapTV",
-            "username": "mau5trapTV",
-            "photo": "https://vizee-media.s3.amazonaws.com/3c/cdbfa651c7485d9b36a74ab99117a0/Screen-Shot-2020-12-03-at-3.04.31-PM.png",
-            "users": [
-              {
-                "user": {
-                  "id": "bcd28fbb-8c7f-4c1b-af4e-610f2f6665f8",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9736399c-16ea-4767-8abf-92844ee413c9",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "954f0d35-a47c-445c-a4cb-324de646a098",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "e1a886ad-9358-41da-9d0c-cc04d7edc8ff",
+                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
                   "__typename": "users"
                 },
                 "__typename": "accounts_users"
@@ -248,15 +262,15 @@
   ],
   "followers_aggregate": {
     "aggregate": {
-      "count": 0,
+      "count": 1,
       "__typename": "followers_aggregate_fields"
     },
     "__typename": "followers_aggregate"
   },
   "users_by_pk": {
-    "id": "5b1741f1-d335-45fa-a886-098d130ef6a1",
+    "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
     "affiliate_user_id": null,
-    "affiliate_account_id": "a5313017-1d84-427e-aec4-28f5a23cc93a",
+    "affiliate_account_id": "57de2fb1-ace1-4037-ba35-671e5ac168f5",
     "__typename": "users"
   }
 }

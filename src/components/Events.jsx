@@ -63,6 +63,6 @@ export default function Events(props) {
 
 Events.propTypes = {
   refetch: PropTypes.func.isRequired,
-  category: PropTypes.string.isRequired,
+  category: PropTypes.string,
   events: PropTypes.array.isRequired
 };

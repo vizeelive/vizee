@@ -7,8 +7,6 @@ import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
 
-import { Centered } from 'components/styled/common';
-import Spinner from 'components/ui/Spinner';
 import ShareButton from 'components/ShareButton';
 import FollowButton from 'components/FollowButton';
 import Linkify from 'react-linkify';
@@ -102,16 +100,6 @@ export default function HomeView(props) {
     location,
     refetch
   } = props;
-
-  if (loading) {
-    return (
-      <Centered height="full">
-        <Spinner />
-      </Centered>
-    );
-  }
-
-  if (error) return 'Error';
 
   let photo =
     account.photo ||

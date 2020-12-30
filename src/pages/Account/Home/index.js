@@ -6,6 +6,8 @@ import Mapper from 'services/mapper';
 import useAffiliate from 'hooks/useAffiliate';
 
 import HomeView from './view';
+import { Centered } from 'components/styled/common';
+import Spinner from 'components/ui/Spinner';
 
 export const GET_ACCOUNT_ANON = gql`
   query GetAccount($username: String!) {
@@ -158,14 +160,18 @@ export default function Home(props) {
     return null;
   }
 
+  if (loading) {
+    return (
+      <Centered height="full">
+        <Spinner />
+      </Centered>
+    );
+  }
+
+  if (error) return 'Error';
+
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
-
   const shareUrl = `${origin}/${username}`;
-
-  // const accountPhoto = account.photo.replace(
-  //   'https://vizee-media.s3.amazonaws.com/',
-  //   ''
-  // );
 
   return (
     <HomeView
