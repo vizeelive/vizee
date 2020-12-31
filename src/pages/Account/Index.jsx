@@ -23,6 +23,7 @@ import AddEvent from 'pages/Account/AddEvent';
 import Calendar from 'pages/Calendar';
 import Dashboard from 'pages/Account/Dashboard';
 import Events from 'pages/Events';
+import AffiliateReport from 'pages/Account/AffiliateReport';
 import Home from 'pages/Account/Home';
 import Links from 'pages/Account/Links';
 import Products from 'pages/Account/Products';
@@ -252,6 +253,11 @@ export default function Account() {
             path="/:username/manage/events/:id"
             exact
             component={ViewEvent}
+          />
+          <Route
+            path="/:username/manage/affiliate"
+            exact
+            component={AffiliateReport}
           />
           <Route
             path="/:username/manage/events/edit/:id"

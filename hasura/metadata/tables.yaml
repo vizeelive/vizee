@@ -272,6 +272,21 @@
             _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: affiliate_report
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - affiliate_id
+      - account_name
+      - event_name
+      - price
+      - created
+      filter:
+        affiliate_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: categories
   select_permissions:
   - role: public

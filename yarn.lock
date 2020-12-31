@@ -8869,6 +8869,11 @@ cuid@^2.1.1:
   resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.8.tgz"
   integrity sha512-xiEMER6E7TlTPnDxrM4eRiC6TRgjNX9xzEZ5U/Se2YJKr7Mq4pJn/2XEHjl3STcSh96GmkHPcBXLES8M29wyyg==
 
+currency.js@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/currency.js/-/currency.js-2.0.3.tgz#3f266c241074eabfa4a6a53c3f477fac17c781a7"
+  integrity sha512-3rtzulRMwUJHmH0EPKiO/taYEGWlLSG2rpBOaHhfaY1dPGqK595mjg4t4bksy7glHEPZry7l5xSpXECs1eFrWg==
+
 custom-error-instance@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/custom-error-instance/-/custom-error-instance-2.1.1.tgz"
