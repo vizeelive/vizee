@@ -167,7 +167,11 @@ export default function User() {
               </Route>
               <Route path="/account" exact component={CreateAccount} />
               <Route path="/:username" exact component={AccountHome} />
-              <Route path="/:username/:id/:status?" exact component={Event} />
+              <Route
+                path="/:username/:id/:status(success)?/:userCode?"
+                exact
+                component={Event}
+              />
               {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
                 <Route path="/">
                   <Home onSignup={handleSignup} />

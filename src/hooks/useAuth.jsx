@@ -55,6 +55,7 @@ export default function useAuth() {
 
   if (user) {
     user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
+    user.code = user['https://hasura.io/jwt/claims']['x-hasura-user-code'];
     user.isAdmin = user['https://hasura.io/jwt/claims'][
       'x-hasura-allowed-roles'
     ].includes('admin');

@@ -41,13 +41,16 @@ const CopyButton = styled.button.attrs({
 `;
 
 export default function ShareButton(props) {
+  const { user } = props;
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
   const handleCopy = () => {
     message.success('Copied link');
   };
 
-  const url = props.url || window.location.href.replace('/manage/events', '');
+  const url =
+    (props.url || window.location.href.replace('/manage/events', '')) +
+    `/${user?.code}`;
 
   return (
     <React.Fragment>
@@ -113,5 +116,6 @@ export default function ShareButton(props) {
 
 ShareButton.propTypes = {
   url: PropTypes.string,
-  primary: PropTypes.bool
+  primary: PropTypes.bool,
+  user: PropTypes.object
 };

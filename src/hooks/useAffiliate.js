@@ -58,8 +58,8 @@ export default function useAffiliate(props) {
       updateAffiliate({
         variables: {
           id: affiliateLoginUser.id,
-          affiliate_account_id: Cookies.get('affiliate_account_id')
-          // affiliate_user_id
+          affiliate_account_id: Cookies.get('affiliate_account_id'),
+          affiliate_user_id: Cookies.get('affiliate_user_id')
         }
       });
     }

@@ -227,6 +227,7 @@ export default function EventPage(props) {
         <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
           <ShareButton
             url={`${origin}/${event.account.username}/${event.id}`}
+            user={user}
           />
         </span>
 

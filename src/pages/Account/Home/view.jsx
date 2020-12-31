@@ -167,7 +167,7 @@ export default function HomeView(props) {
                 />
               )}
 
-              <ShareButton url={shareUrl} />
+              <ShareButton url={shareUrl} user={user} />
 
               {(user?.isAdmin || isMyAccount) &&
                 !location.pathname.includes('manage') && (

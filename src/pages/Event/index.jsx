@@ -64,7 +64,7 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 const GET_EVENT_AUTH = gql`
-  query UserEventsReport($id: uuid!, $user_id: uuid!, $username: String!) {
+  query UserEventsReport($id: uuid!, $user_id: uuid!, $username: String!, $affiliate_code: String!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -88,6 +88,9 @@ const GET_EVENT_AUTH = gql`
       id
       affiliate_user_id
       affiliate_account_id
+    }
+    affiliate: users(where: { code: { _eq: $affiliate_code }}) {
+      id
     }
     getEventUrl(id: $id) {
       url
@@ -172,12 +175,16 @@ const TRACK_VIEW = gql`
 `;
 
 export default function EventPage() {
-  const { id, username, status } = useParams();
+  const { id, username, status, userCode } = useParams();
   const { user } = useAuth();
-  const { setAffiliateLoginUser, setAffiliateAccountId } = useAffiliate();
+  const {
+    setAffiliateLoginUser,
+    setAffiliateAccountId,
+    setAffiliateUserId
+  } = useAffiliate();
   const [trackView] = useMutation(TRACK_VIEW);
 
-  const variables = user ? { id, user_id: user?.id, username } : { id };
+  const variables = user ? { id, user_id: user?.id, username, affiliate_code: userCode } : { id };
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
@@ -209,6 +216,9 @@ export default function EventPage() {
   useEffect(() => {
     if (user?.id && data) {
       setAffiliateLoginUser(data.users_by_pk);
+    }
+    if (data?.affiliate) {
+      setAffiliateUserId(data.affiliate?.[0]?.id);
     }
     if (event?.account?.id) {
       setAffiliateAccountId(event.account.id);

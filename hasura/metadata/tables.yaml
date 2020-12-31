@@ -192,6 +192,7 @@
       - facebook
       - id
       - instagram
+      - logo
       - name
       - photo
       - stripe_data
@@ -1105,6 +1106,7 @@
       - affiliate_account_id
       - affiliate_user_id
       - city
+      - code
       - country
       - email
       - first_name
