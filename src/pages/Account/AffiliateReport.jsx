@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 import currency from 'currency.js';
 
 import { Centered } from 'components/styled/common';
@@ -34,8 +34,8 @@ const Header = styled.header`
   }
 `;
 
-const GET_AFFILIATE_REPORT = gql`
-  query getAffiliateReport {
+const WATCH_AFFILIATE_REPORT = gql`
+  subscription watchAffiliateReport {
     affiliate_report {
       price
       event_name
@@ -47,7 +47,9 @@ const GET_AFFILIATE_REPORT = gql`
 `;
 
 export default function AffiliateReport() {
-  const { loading, error, data, refetch } = useQuery(GET_AFFILIATE_REPORT);
+  const { loading, error, data, refetch } = useSubscription(
+    WATCH_AFFILIATE_REPORT
+  );
 
   if (loading) {
     return (
