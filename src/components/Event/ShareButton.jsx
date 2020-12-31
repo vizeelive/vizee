@@ -48,7 +48,7 @@ export default function ShareButton(props) {
     message.success('Copied link');
   };
 
-  const url = props.url || window.location.href.replace('/manage/events', '');
+  let url = props.url || window.location.href.replace('/manage/events', '');
   if (user?.code) {
     url += `/${user.code}`;
   }

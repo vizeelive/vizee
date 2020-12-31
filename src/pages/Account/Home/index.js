@@ -10,7 +10,14 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 export const GET_ACCOUNT_ANON = gql`
-  query GetAccount($username: String!, $now: timestamptz!) {
+  query GetAccount(
+    $username: String!
+    $now: timestamptz!
+    $affiliate_code: String
+  ) {
+    affiliate: users(where: { code: { _eq: $affiliate_code } }) {
+      id
+    }
     accounts(where: { username: { _ilike: $username } }) {
       id
       name
@@ -54,7 +61,15 @@ export const GET_ACCOUNT_ANON = gql`
 `;
 
 const GET_ACCOUNT_USER = gql`
-  query GetAccount($username: String!, $user_id: uuid!, $now: timestamptz!) {
+  query GetAccount(
+    $username: String!
+    $user_id: uuid!
+    $now: timestamptz!
+    $affiliate_code: String
+  ) {
+    affiliate: users(where: { code: { _eq: $affiliate_code } }) {
+      id
+    }
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -128,8 +143,12 @@ let now = new Date();
 export default function Home(props) {
   const history = useHistory();
   const location = useLocation();
-  const { username: usernameParam } = useParams();
-  const { setAffiliateLoginUser, setAffiliateAccountId } = useAffiliate();
+  const { username: usernameParam, userCode } = useParams();
+  const {
+    setAffiliateLoginUser,
+    setAffiliateAccountId,
+    setAffiliateUserId
+  } = useAffiliate();
   const { user } = useAuth();
 
   const username = props.username || usernameParam;
@@ -137,7 +156,9 @@ export default function Home(props) {
   const { loading, error, data, refetch } = useQuery(
     user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
     {
-      variables: user ? { username, user_id: user.id, now } : { username, now }
+      variables: user
+        ? { username, user_id: user.id, now, affiliate_code: userCode }
+        : { username, now }
     }
   );
 
@@ -150,6 +171,9 @@ export default function Home(props) {
   useEffect(() => {
     if (user?.id && data) {
       setAffiliateLoginUser(data.users_by_pk);
+    }
+    if (data?.affiliate) {
+      setAffiliateUserId(data.affiliate?.[0]?.id);
     }
     if (account?.id) {
       setAffiliateAccountId(account.id);

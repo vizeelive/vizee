@@ -166,7 +166,11 @@ export default function User() {
                 <Calendar favorite="true" />
               </Route>
               <Route path="/account" exact component={CreateAccount} />
-              <Route path="/:username" exact component={AccountHome} />
+              <Route
+                path="/:username/:userCode(\w{0,12})?"
+                exact
+                component={AccountHome}
+              />
               <Route
                 path="/:username/:id/:status(success)?/:userCode?"
                 exact
