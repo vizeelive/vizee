@@ -54,7 +54,7 @@ export const GET_ACCOUNT_ANON = gql`
 `;
 
 const GET_ACCOUNT_USER = gql`
-  query GetAccount($username: String!, $user_id: uuid!, $now: timstamptz!) {
+  query GetAccount($username: String!, $user_id: uuid!, $now: timestamptz!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
