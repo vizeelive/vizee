@@ -13,7 +13,7 @@ const GET_EVENTS_AUTH = gql`
       first_name
       last_name
     }
-    events(where: { on_network: { _eq: true } }) {
+    events(where: { on_network: { _eq: true }, end: { _gte: $now } }) {
       id
       name
       start
@@ -56,8 +56,8 @@ const GET_EVENTS_AUTH = gql`
 `;
 
 const GET_EVENTS_UNAUTH = gql`
-  query AnonGetEvents {
-    events(where: { on_network: { _eq: true } }) {
+  query AnonGetEvents($now: timestamptz) {
+    events(where: { on_network: { _eq: true }, end: { _gte: $now } }) {
       id
       name
       start
@@ -153,12 +153,15 @@ const SEARCH_EVENTS_AUTH = gql`
   }
 `;
 
+// when this was inside the component, it caused an infinite render loop
+let now = new Date();
+
 export default function Home(props) {
   const { user } = useAuth();
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENTS_AUTH : GET_EVENTS_UNAUTH,
-    { variables: { id: user?.id } }
+    { variables: { id: user?.id, now } }
   );
 
   const [searchEvents, { data: searchData }] = useLazyQuery(

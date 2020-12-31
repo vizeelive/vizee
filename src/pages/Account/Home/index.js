@@ -10,7 +10,7 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 export const GET_ACCOUNT_ANON = gql`
-  query GetAccount($username: String!) {
+  query GetAccount($username: String!, $now: timestamptz!) {
     accounts(where: { username: { _ilike: $username } }) {
       id
       name
@@ -24,7 +24,7 @@ export const GET_ACCOUNT_ANON = gql`
         name
         link
       }
-      events {
+      events(where: { end: { _gte: $now } }) {
         id
         location
         name
@@ -54,7 +54,7 @@ export const GET_ACCOUNT_ANON = gql`
 `;
 
 const GET_ACCOUNT_USER = gql`
-  query GetAccount($username: String!, $user_id: uuid!) {
+  query GetAccount($username: String!, $user_id: uuid!, $now: timstamptz!) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -84,7 +84,7 @@ const GET_ACCOUNT_USER = gql`
         name
         link
       }
-      events {
+      events(where: { end: { _gte: $now } }) {
         id
         location
         name
@@ -123,6 +123,8 @@ const GET_ACCOUNT_USER = gql`
   }
 `;
 
+let now = new Date();
+
 export default function Home(props) {
   const history = useHistory();
   const location = useLocation();
@@ -135,7 +137,7 @@ export default function Home(props) {
   const { loading, error, data, refetch } = useQuery(
     user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
     {
-      variables: user ? { username, user_id: user.id } : { username }
+      variables: user ? { username, user_id: user.id, now } : { username, now }
     }
   );
 
