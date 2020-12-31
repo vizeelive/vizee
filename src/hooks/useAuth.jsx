@@ -118,6 +118,7 @@ export default function useAuth() {
         if (message.includes('JWT')) {
           logout();
         }
+        // TODO capture error in Sentry!
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         );

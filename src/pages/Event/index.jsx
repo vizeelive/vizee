@@ -11,7 +11,10 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 const GET_EVENT_UNAUTH = gql`
-  query AnonEventsReport($id: uuid!) {
+  query AnonEventsReport($id: uuid!, $affiliate_code: String) {
+    affiliate: users(where: { code: { _eq: $affiliate_code } }) {
+      id
+    }
     getEventUrl(id: $id) {
       url
     }

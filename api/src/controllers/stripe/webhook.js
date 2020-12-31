@@ -151,7 +151,13 @@ module.exports = async function ({ event }) {
         }
       }
 
-      await createTransaction({ customer, ref, user, session });
+      await createTransaction({
+        customer,
+        ref,
+        user,
+        session,
+        affiliate_id: ref?.affiliate
+      });
     } catch (e) {
       logger.error('checkout.session.completed', e.message);
       throw e.message;

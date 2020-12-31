@@ -1097,7 +1097,9 @@
   - role: public
     permission:
       columns:
+      - code
       - first_name
+      - id
       - last_name
       filter: {}
   - role: user

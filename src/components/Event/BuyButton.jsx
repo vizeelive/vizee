@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { stringify } from 'zipson';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
+import Cookies from 'js-cookie';
 
 import { Button, Modal, message, Form, Input } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
@@ -30,7 +31,8 @@ export default function BuyButton(props) {
         user_id: user?.id,
         event_id: event.id,
         product_id: product?.id,
-        email: user?.email || values?.email
+        email: user?.email || values?.email,
+        affiliate: Cookies.get('affiliate_user_id')
       })
     );
 

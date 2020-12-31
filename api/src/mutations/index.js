@@ -170,7 +170,7 @@ async function createAccess({ object }) {
 }
 
 async function createTransaction(params) {
-  const { customer, ref, user, session } = params;
+  const { customer, ref, user, session, affiliate_id } = params;
 
   try {
     return client.mutate({
@@ -180,7 +180,8 @@ async function createTransaction(params) {
           event_id: ref.event_id,
           ...(user && user.id ? { user_id: user.id } : null),
           price: session.amount_total / 100,
-          ref: session.payment_intent
+          ref: session.payment_intent,
+          affiliate_id
         }
       },
       mutation: gql`

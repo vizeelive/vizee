@@ -14,6 +14,7 @@ describe('EventPage', () => {
       cy.get('[data-test-id=account-name').should('not.be.empty');
       cy.get('[data-test-id=comments').should('not.be.empty');
     });
+    // it('buy button should not appear when stripe_data is empty')
   });
 
   describe('User', () => {
