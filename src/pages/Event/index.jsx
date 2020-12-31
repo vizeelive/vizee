@@ -64,7 +64,12 @@ const GET_EVENT_UNAUTH = gql`
 `;
 
 const GET_EVENT_AUTH = gql`
-  query UserEventsReport($id: uuid!, $user_id: uuid!, $username: String!, $affiliate_code: String!) {
+  query UserEventsReport(
+    $id: uuid!
+    $user_id: uuid!
+    $username: String!
+    $affiliate_code: String
+  ) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
       where: { user_id: { _eq: $user_id } }
@@ -89,7 +94,7 @@ const GET_EVENT_AUTH = gql`
       affiliate_user_id
       affiliate_account_id
     }
-    affiliate: users(where: { code: { _eq: $affiliate_code }}) {
+    affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
     }
     getEventUrl(id: $id) {
