@@ -7,7 +7,7 @@ import Mapper from '../../services/mapper';
 import HomeView from './view';
 
 const GET_EVENTS_AUTH = gql`
-  query GetHomeData($id: uuid!) {
+  query GetHomeData($id: uuid!, $now: timestamptz!) {
     users_by_pk(id: $id) {
       id
       first_name
@@ -56,7 +56,7 @@ const GET_EVENTS_AUTH = gql`
 `;
 
 const GET_EVENTS_UNAUTH = gql`
-  query AnonGetEvents($now: timestamptz) {
+  query AnonGetEvents($now: timestamptz!) {
     events(where: { on_network: { _eq: true }, end: { _gte: $now } }) {
       id
       name
