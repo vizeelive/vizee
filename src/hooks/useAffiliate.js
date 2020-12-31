@@ -51,8 +51,8 @@ export default function useAffiliate(props) {
 
   useEffect(() => {
     if (
-      affiliateLoginUser.id &&
-      !affiliateLoginUser.affiliate_account_id &&
+      affiliateLoginUser?.id &&
+      !affiliateLoginUser?.affiliate_account_id &&
       affiliate_account_id
     ) {
       updateAffiliate({
