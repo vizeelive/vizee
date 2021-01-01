@@ -50,7 +50,7 @@ export default function AffiliateReport() {
 
   if (error) return 'Error';
 
-  const commissionPercent = 0.1;
+  const commissionPercent = 0.02;
   let total = 0;
   let commissionTotal = 0;
   data.affiliate_report.forEach((line) => {
