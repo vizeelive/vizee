@@ -24,7 +24,7 @@ export default function Menu(props) {
   };
 
   const handleClickHelp = () => {
-    window.$chatwoot.toggle();
+    Intercom('show');
     if (isOpen) {
       setIsOpen(false);
     }

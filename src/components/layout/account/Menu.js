@@ -259,7 +259,7 @@ export default function Menu(props) {
             <button
               type="button"
               className={`${className.inactive} w-full text-left`}
-              onClick={() => window.$chatwoot.toggle()}
+              onClick={() => Intercom('show')}
             >
               {/* Heroicon name: question-mark-circle */}
               <svg

@@ -79,7 +79,7 @@ function MainMenu(props) {
       <Menu.Item
         data-test-id="menu-help"
         key="/help"
-        onClick={(e) => window.$chatwoot.toggle()}
+        onClick={(e) => Intercom('show')}
       >
         Help
       </Menu.Item>
