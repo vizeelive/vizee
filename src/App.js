@@ -58,6 +58,13 @@ function App() {
   }
 
   if (process.env.NODE_ENV !== 'development' && user) {
+    window.Intercom('boot', {
+      app_id: 'relku1cr',
+      email: user.email,
+      created_at: new Date(),
+      name: user.name,
+      user_id: user.id
+    });
     LogRocket.identify(user.id, {
       name: user.name,
       email: user.email
