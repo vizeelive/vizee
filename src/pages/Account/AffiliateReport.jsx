@@ -50,7 +50,7 @@ export default function AffiliateReport() {
 
   if (error) return 'Error';
 
-  const commissionPercent = 0.2;
+  const commissionPercent = 0.1;
   let total = 0;
   let commissionTotal = 0;
   data.affiliate_report.forEach((line) => {
@@ -106,9 +106,7 @@ export default function AffiliateReport() {
               </div>
               <div className="bg-gray-950 px-5 py-3">
                 <div className="text-sm">
-                  <div
-                    className="font-medium text-pink-600 hover:text-pink-800"
-                  >
+                  <div className="font-medium text-pink-600 hover:text-pink-800">
                     Total revenue from sales
                   </div>
                 </div>
@@ -157,10 +155,8 @@ export default function AffiliateReport() {
               </div>
               <div className="bg-gray-950 px-5 py-3">
                 <div className="text-sm">
-                  <div
-                    className="font-medium text-pink-600 hover:text-pink-800"
-                  >
-                    Total commission from sales
+                  <div className="font-medium text-pink-600 hover:text-pink-800">
+                    10% commission net revenue
                   </div>
                 </div>
               </div>
