@@ -106,7 +106,7 @@ async function getEvent(id) {
             id
             account_id
             account {
-              users {
+              users(where: { user_id: { _is_null: false } }) {
                 user {
                   id
                 }
