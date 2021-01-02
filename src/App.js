@@ -65,6 +65,9 @@ function App() {
       name: user.name,
       user_id: user.id
     });
+    window.Intercom('update', {
+      logrocketURL: `https://app.logrocket.com/vizee/vizee/sessions?u=${user.id}`
+    });
     LogRocket.identify(user.id, {
       name: user.name,
       email: user.email
