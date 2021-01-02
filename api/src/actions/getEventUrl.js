@@ -11,5 +11,6 @@ module.exports = async function (req, res) {
   } catch (e) {
     logger.error(e.message, { event_id, user });
     res.status(500).send(e.message);
+    throw e;
   }
 };
