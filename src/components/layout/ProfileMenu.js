@@ -31,6 +31,10 @@ export default function ProfileMenu(props) {
   const username = Cookies.get('username') || account?.username;
   const isNetwork = process.env.REACT_APP_ACCOUNT === 'vizee';
 
+  let photo =
+    user.picture ||
+    `https://avatars.dicebear.com/api/initials/${user.email}.svg`;
+
   return (
     <div className="ml-3 relative">
       <div data-test-id="menu-profile">
@@ -43,7 +47,7 @@ export default function ProfileMenu(props) {
         >
           <img
             className="h-8 w-8 rounded-full"
-            src={`https://avatars.dicebear.com/api/initials/${user.email}.svg`}
+            src={photo}
             alt={user.email}
           />
         </button>
@@ -79,8 +83,7 @@ export default function ProfileMenu(props) {
           >
             Create new account
           </Link>
-          {account &&
-          (
+          {account && (
             <a
               href={user.portalUrl}
               className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
