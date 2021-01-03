@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import config from '../config';
 import Cookies from 'js-cookie';
+import * as Sentry from '@sentry/react';
 
 import {
   ApolloLink,
@@ -112,13 +113,17 @@ export default function useAuth() {
     return context;
   });
 
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
+  const errorLink = onError((errorParams) => {
+    const { graphQLErrors, networkError, operation } = errorParams;
     if (graphQLErrors)
-      graphQLErrors.map(({ message, locations, path }) => {
+      graphQLErrors.map((params) => {
+        const { message, locations, path } = params;
         if (message.includes('JWT')) {
           logout();
         }
-        // TODO capture error in Sentry!
+        Sentry.captureException(
+          `GraphQL Error (${operation.operationName}): ${message}`
+        );
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         );
@@ -126,6 +131,9 @@ export default function useAuth() {
       });
 
     if (networkError) {
+      Sentry.captureException(
+        `GraphQL Error (${operation.operationName}): ${message}`
+      );
       console.log(`[Network error]: ${networkError}`, networkError);
     }
   });

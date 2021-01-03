@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'logger';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import useAuth from 'hooks/useAuth';
@@ -181,8 +182,8 @@ export default function Home(props) {
     }
   }, [account, data, setAffiliateAccountId, setAffiliateLoginUser, user]);
 
-  // redirects if account doesnt exist
   if (!loading && !account) {
+    logger.info(`Account '${username}' was not found, redirecting to home`);
     history.push('/');
     return null;
   }

@@ -25,15 +25,23 @@ if (window.Cypress) {
 }
 
 if (process.env.NODE_ENV !== 'development') {
-    Sentry.init({
-      dsn:
-        'https://16f3e02884104cff9010e2a196d9183e@o473703.ingest.sentry.io/5508932',
-      integrations: [new Integrations.BrowserTracing()],
+  Sentry.init({
+    dsn:
+      'https://16f3e02884104cff9010e2a196d9183e@o473703.ingest.sentry.io/5508932',
+    integrations: [new Integrations.BrowserTracing()],
+    // beforeSend(event, hint) {
+    //   // Check if it is an exception, and if so, show the report dialog
+    //   console.log({ hint });
+    //   if (event.exception) {
+    //     Sentry.showReportDialog({ eventId: event.event_id });
+    //   }
+    //   return event;
+    // },
 
-      // We recommend adjusting this value in production, or using tracesSampler
-      // for finer control
-      tracesSampleRate: 1.0
-    });
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0
+  });
 }
 
 const onRedirectCallback = (appState) => {
