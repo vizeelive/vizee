@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import useAuth from 'hooks/useAuth';
@@ -214,3 +215,7 @@ export default function Home(props) {
     />
   );
 }
+
+Home.PropTypes = {
+  username: PropTypes.string.isRequired
+};

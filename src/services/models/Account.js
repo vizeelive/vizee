@@ -5,4 +5,13 @@ export default class Account {
   canSell() {
     return !!this.stripe_id;
   }
+  cover() {
+    let name = this.name.split('@').shift();
+    return (
+      this?.photo ||
+      `https://ogi.sh/gzzIXzt5-?title=**${name}**&imageUrl=https://source.unsplash.com/featured?concert`
+      // `https://ogi.sh/gzzIXzt5-?title=**${this.name}**&imageUrl=https://source.unsplash.com/random`
+      // `https://dummyimage.com/1216x684/000/fff.png&text=${this.name}`
+    );
+  }
 }

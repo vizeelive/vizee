@@ -93,38 +93,32 @@ export default function HomeView(props) {
     user,
     isMyAccount,
     username,
-    error,
-    loading,
     followers,
     shareUrl,
     location,
     refetch
   } = props;
 
-  let photo =
-    account.photo ||
-    `https://dummyimage.com/1216x684/000/fff.png&text=${account.name}`;
-
   return (
     <React.Fragment>
       <Helmet>
-        <meta property="og:image" content={account.photo} />
+        <meta property="og:image" content={account.cover()} />
         <meta property="og:title" content={`${account.name}`} />
         <meta property="og:description" content={account.description || ''} />
-        <meta name="twitter:image" content={account.photo} />
+        <meta name="twitter:image" content={account.cover()} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${account.name}`} />
         <meta name="twitter:description" content={account.description} />
       </Helmet>
       <article className="min-h-page">
-        {photo && (
+        {account.cover() && (
           <img
             style={{
               objectFit: 'cover',
               objectPosition: 'top'
               // maxHeight: '20vh'
             }}
-            src={photo}
+            src={account.cover()}
             // src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
             //   window.innerWidth
             // }&h=${window.innerHeight * 0.4}`}

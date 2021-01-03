@@ -52,7 +52,7 @@ function EventCard(props) {
     return (
       <img
         alt={event?.thumb || event?.account?.name || event?.name}
-        src={event?.thumb || event.photo || event.account.photo}
+        src={event.cover()}
       />
     );
   };

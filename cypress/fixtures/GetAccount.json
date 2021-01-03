@@ -1,23 +1,618 @@
 {
+  "affiliate": [
+    {
+      "__typename": "users",
+      "id": "01188bba-3285-4f1d-8a07-2e3049a03ae5"
+    },
+    {
+      "__typename": "users",
+      "id": "0627ea13-74ca-4353-9114-6bfc4ac38904"
+    },
+    {
+      "__typename": "users",
+      "id": "0b0dd766-2899-42e0-b577-134f20c417aa"
+    },
+    {
+      "__typename": "users",
+      "id": "0b16daae-4fa8-4950-b3a7-1a9cacc6b2eb"
+    },
+    {
+      "__typename": "users",
+      "id": "0be5b5ba-7c01-4eca-9637-e75a9a22bc75"
+    },
+    {
+      "__typename": "users",
+      "id": "0e6364b9-b652-4afc-8e11-cd9da00c6408"
+    },
+    {
+      "__typename": "users",
+      "id": "10c6378c-fab1-4696-8f72-39b3def051d7"
+    },
+    {
+      "__typename": "users",
+      "id": "1132d9a4-0fcd-4bfa-a0e7-18435828dbbd"
+    },
+    {
+      "__typename": "users",
+      "id": "16e2d423-66f0-485f-a74e-6d6e0011315f"
+    },
+    {
+      "__typename": "users",
+      "id": "19c01ec7-a444-4dbc-9f4b-3f5b6a0fee0b"
+    },
+    {
+      "__typename": "users",
+      "id": "1ede9325-1e24-4bd1-896a-70e62310fbca"
+    },
+    {
+      "__typename": "users",
+      "id": "1eec18ae-942f-4108-9b22-2682a06a96a9"
+    },
+    {
+      "__typename": "users",
+      "id": "1efa7450-b499-4381-b7e7-08b85f932f19"
+    },
+    {
+      "__typename": "users",
+      "id": "1f614ad5-7868-432b-8ce1-34cac394d40e"
+    },
+    {
+      "__typename": "users",
+      "id": "210db3b6-1cd2-4fea-bb0e-db39a1b3cd74"
+    },
+    {
+      "__typename": "users",
+      "id": "2184ca2d-7c28-4abb-816b-029f6cc05a5f"
+    },
+    {
+      "__typename": "users",
+      "id": "21c4ec63-7427-49f8-bb66-592ac91da95a"
+    },
+    {
+      "__typename": "users",
+      "id": "22cbbccf-b236-4901-867f-9bec6b9550b4"
+    },
+    {
+      "__typename": "users",
+      "id": "267ed0ac-4ad2-4dec-99af-d891107d7d41"
+    },
+    {
+      "__typename": "users",
+      "id": "283d0c61-2195-4c77-8e51-1b3a03ccebf0"
+    },
+    {
+      "__typename": "users",
+      "id": "2ae5e492-7b03-4f76-81ad-87cf4c5453e8"
+    },
+    {
+      "__typename": "users",
+      "id": "2af58d67-c548-4c3f-a515-bdb0a1192ce9"
+    },
+    {
+      "__typename": "users",
+      "id": "2d97e0a0-18de-472b-9408-941657f7f926"
+    },
+    {
+      "__typename": "users",
+      "id": "2d9deb2e-265e-4c3f-887d-80f747ab083f"
+    },
+    {
+      "__typename": "users",
+      "id": "2e677984-72db-44ea-b8a8-f8bc7f23461d"
+    },
+    {
+      "__typename": "users",
+      "id": "3012249a-3c80-4e39-92ce-56430c3efd43"
+    },
+    {
+      "__typename": "users",
+      "id": "323d39f9-e0a8-4091-8b8d-7a29999912ea"
+    },
+    {
+      "__typename": "users",
+      "id": "324eb5aa-5e7d-4f85-8412-eb6a2dbe95b6"
+    },
+    {
+      "__typename": "users",
+      "id": "34acf189-4f89-4364-9f3e-7aadd11483a3"
+    },
+    {
+      "__typename": "users",
+      "id": "35887563-8ab3-4bc5-ad09-ad432f3c35c1"
+    },
+    {
+      "__typename": "users",
+      "id": "37a20c61-fcb0-4d28-bf08-575f25f0b43d"
+    },
+    {
+      "__typename": "users",
+      "id": "38b12a5c-3e80-42a9-a177-c5a22ccfca98"
+    },
+    {
+      "__typename": "users",
+      "id": "3959f8ad-805a-4f7a-9c75-326aef8d13af"
+    },
+    {
+      "__typename": "users",
+      "id": "3c03ee92-b224-477e-8126-7f215c693297"
+    },
+    {
+      "__typename": "users",
+      "id": "3e0f78cc-e89b-4a35-a92a-3a698ea9b7ab"
+    },
+    {
+      "__typename": "users",
+      "id": "3e57bf22-b7f5-4c80-bbd6-ba7636d417c6"
+    },
+    {
+      "__typename": "users",
+      "id": "3ea77bb1-3847-42b8-b27c-330dbb1cbe64"
+    },
+    {
+      "__typename": "users",
+      "id": "3ffa6e26-a506-4103-aa1d-e249b10905ea"
+    },
+    {
+      "__typename": "users",
+      "id": "411c830e-5960-4cbe-8856-09e0d1a32367"
+    },
+    {
+      "__typename": "users",
+      "id": "43856a0e-8ff9-4227-a0e1-43b3af60b638"
+    },
+    {
+      "__typename": "users",
+      "id": "4602b809-0592-407e-aec9-1c1adf2943c3"
+    },
+    {
+      "__typename": "users",
+      "id": "467662a7-6275-4d67-97f2-702d263625a7"
+    },
+    {
+      "__typename": "users",
+      "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f"
+    },
+    {
+      "__typename": "users",
+      "id": "4928a78d-39ba-44f5-8e47-487fe6557a9e"
+    },
+    {
+      "__typename": "users",
+      "id": "492963b5-463f-43cf-a574-4f77ea4b3c2f"
+    },
+    {
+      "__typename": "users",
+      "id": "4a173b11-264a-4484-bae6-c437fdd99010"
+    },
+    {
+      "__typename": "users",
+      "id": "4ebac292-17a1-4c97-a30b-3d3543fb30ec"
+    },
+    {
+      "__typename": "users",
+      "id": "4f4bd4c9-9446-4129-bf58-a609b3c97e9b"
+    },
+    {
+      "__typename": "users",
+      "id": "50a4a25a-5f67-4cc3-9e67-90ab9f6f6615"
+    },
+    {
+      "__typename": "users",
+      "id": "510f8ce4-88b8-46a5-86d4-3ee58b0b4922"
+    },
+    {
+      "__typename": "users",
+      "id": "5243fe5a-ce26-4763-b68b-a2d45b8d5d50"
+    },
+    {
+      "__typename": "users",
+      "id": "524591e6-959b-44b1-b927-a7e3ed9e4d61"
+    },
+    {
+      "__typename": "users",
+      "id": "531ad0de-d9fc-4390-8de1-35fcfb39b55b"
+    },
+    {
+      "__typename": "users",
+      "id": "594a8008-0c9c-4ef7-b283-92e22693b59c"
+    },
+    {
+      "__typename": "users",
+      "id": "598e7aa8-250b-48ff-8d9b-d16f510799b8"
+    },
+    {
+      "__typename": "users",
+      "id": "59a12ad5-67df-4f46-9855-2b81599562d1"
+    },
+    {
+      "__typename": "users",
+      "id": "59b79246-f757-4033-a208-2858ec9fdb5d"
+    },
+    {
+      "__typename": "users",
+      "id": "5b1741f1-d335-45fa-a886-098d130ef6a1"
+    },
+    {
+      "__typename": "users",
+      "id": "60a9392a-ac73-4f34-af9a-f870c8fe9b31"
+    },
+    {
+      "__typename": "users",
+      "id": "63d2bdef-b8c8-4577-a3b1-3a10cdaf0e5c"
+    },
+    {
+      "__typename": "users",
+      "id": "6a4e123e-8d68-48d4-8a25-e0443f7d0d0d"
+    },
+    {
+      "__typename": "users",
+      "id": "6d401161-8257-4b80-9a67-1c9e23b27b6f"
+    },
+    {
+      "__typename": "users",
+      "id": "6f09a346-24cf-4e5d-9cc2-61ab0b87ae9a"
+    },
+    {
+      "__typename": "users",
+      "id": "7005164a-5530-430e-b144-a8dde0a26cbd"
+    },
+    {
+      "__typename": "users",
+      "id": "7147166c-9ff0-4f25-ab5e-cf368569f44c"
+    },
+    {
+      "__typename": "users",
+      "id": "73594285-8ca4-4088-b7de-2026e691e05d"
+    },
+    {
+      "__typename": "users",
+      "id": "76512b3e-40e0-4d18-9161-a8d4cf0e552b"
+    },
+    {
+      "__typename": "users",
+      "id": "789eb297-0e25-419d-a175-4790a2981e22"
+    },
+    {
+      "__typename": "users",
+      "id": "7a391755-2cfc-4bad-b7fd-cf4f6fdcdf02"
+    },
+    {
+      "__typename": "users",
+      "id": "84331d43-76bb-425c-8c91-48a77f5f62eb"
+    },
+    {
+      "__typename": "users",
+      "id": "876e1a22-73b3-4aac-b4d2-5cb7b221950b"
+    },
+    {
+      "__typename": "users",
+      "id": "8876b420-16d7-4fea-82c2-13a6ac7ced60"
+    },
+    {
+      "__typename": "users",
+      "id": "8c602922-3106-4010-8e34-99de0faac1e1"
+    },
+    {
+      "__typename": "users",
+      "id": "8f3b94ec-7dd5-49cf-9e14-ecda9d6c7ccf"
+    },
+    {
+      "__typename": "users",
+      "id": "8ff5e799-dc71-46a9-93e1-b6aee83299aa"
+    },
+    {
+      "__typename": "users",
+      "id": "91533032-570c-48a3-b86c-11e9a0cae54b"
+    },
+    {
+      "__typename": "users",
+      "id": "91f717a0-d1ef-4c8d-8009-8c5c73f73f8a"
+    },
+    {
+      "__typename": "users",
+      "id": "94005833-7e2d-4977-8086-9e5a78aad26b"
+    },
+    {
+      "__typename": "users",
+      "id": "954f0d35-a47c-445c-a4cb-324de646a098"
+    },
+    {
+      "__typename": "users",
+      "id": "9736399c-16ea-4767-8abf-92844ee413c9"
+    },
+    {
+      "__typename": "users",
+      "id": "978dc344-2e3e-489f-b0a5-94e04bf6b297"
+    },
+    {
+      "__typename": "users",
+      "id": "98100ae2-0cf2-4b3e-814a-d680b2c8fe61"
+    },
+    {
+      "__typename": "users",
+      "id": "9a281c15-232c-4605-ab48-466e4afeefd5"
+    },
+    {
+      "__typename": "users",
+      "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76"
+    },
+    {
+      "__typename": "users",
+      "id": "9c7a9dfb-2364-4f82-a9d4-1e98b5db75b4"
+    },
+    {
+      "__typename": "users",
+      "id": "9cff5037-8e95-41b3-b144-17a9973ce085"
+    },
+    {
+      "__typename": "users",
+      "id": "9cffa547-6b9c-46d2-aa1b-4ad47804565f"
+    },
+    {
+      "__typename": "users",
+      "id": "9edd3080-26e4-4973-bbfe-5b67d6cda965"
+    },
+    {
+      "__typename": "users",
+      "id": "9f4d498d-5376-4620-a958-17fa44035bd4"
+    },
+    {
+      "__typename": "users",
+      "id": "9fa83bda-d1d8-4bb8-a9e2-944f87191b11"
+    },
+    {
+      "__typename": "users",
+      "id": "a0a4e42a-dbea-4138-ab03-3d5baa8f79e1"
+    },
+    {
+      "__typename": "users",
+      "id": "a210d06b-27b1-4c85-9895-3502dd6979c3"
+    },
+    {
+      "__typename": "users",
+      "id": "a572799a-417b-4387-b6fe-e46d1f3b8866"
+    },
+    {
+      "__typename": "users",
+      "id": "a8a3f28a-3c9e-4078-a1fa-482025624cbb"
+    },
+    {
+      "__typename": "users",
+      "id": "a8f75ca0-bd49-41aa-8682-f277948aebe6"
+    },
+    {
+      "__typename": "users",
+      "id": "aa6abb81-59fd-406e-b991-41c0d00e8ee9"
+    },
+    {
+      "__typename": "users",
+      "id": "abe6fcd2-e0b0-4981-a338-faf38ac23f4e"
+    },
+    {
+      "__typename": "users",
+      "id": "ac8ebc0e-ce1c-47f4-b424-6ed63ea54345"
+    },
+    {
+      "__typename": "users",
+      "id": "ad473afb-40e1-4a9d-b3fd-1d09d7edcccc"
+    },
+    {
+      "__typename": "users",
+      "id": "ae0f87b9-1386-47db-b992-6f710e11a92b"
+    },
+    {
+      "__typename": "users",
+      "id": "afd9712c-9913-4d47-bf03-699640588176"
+    },
+    {
+      "__typename": "users",
+      "id": "b0cb83f1-a602-4934-9738-3afba992214f"
+    },
+    {
+      "__typename": "users",
+      "id": "b2b0e953-def5-4ecc-a663-97d9b63b62fe"
+    },
+    {
+      "__typename": "users",
+      "id": "b40f027c-a9a2-4587-ad13-e8a87f6a389d"
+    },
+    {
+      "__typename": "users",
+      "id": "b5b26dc5-7bc7-4e7b-ba3b-c0f4af97ef0e"
+    },
+    {
+      "__typename": "users",
+      "id": "baba2b81-faa2-4720-895e-90eb6586b6f0"
+    },
+    {
+      "__typename": "users",
+      "id": "bb4bc889-0588-4860-94b9-f7a6b7f1796b"
+    },
+    {
+      "__typename": "users",
+      "id": "bcd28fbb-8c7f-4c1b-af4e-610f2f6665f8"
+    },
+    {
+      "__typename": "users",
+      "id": "be4107cf-80c9-4538-853e-3673cc4c0c6f"
+    },
+    {
+      "__typename": "users",
+      "id": "be8bb2cc-841a-47f5-910a-3fd3e5868c47"
+    },
+    {
+      "__typename": "users",
+      "id": "c0a19fcc-e85b-4dab-8fad-e6cd99de16af"
+    },
+    {
+      "__typename": "users",
+      "id": "c180dc5a-80b5-44d8-81e7-b7db24ad9b24"
+    },
+    {
+      "__typename": "users",
+      "id": "c3db15d9-9bc2-4038-b961-b6eb0841a94e"
+    },
+    {
+      "__typename": "users",
+      "id": "c4023acd-ba7d-4977-b9dd-03c8183ee9b6"
+    },
+    {
+      "__typename": "users",
+      "id": "c40463c6-7556-4c08-af74-1c6c1557bbab"
+    },
+    {
+      "__typename": "users",
+      "id": "c455823e-c208-4946-a150-0722c05274e2"
+    },
+    {
+      "__typename": "users",
+      "id": "c5983234-2559-44cb-b6f2-4b0a3e2c5621"
+    },
+    {
+      "__typename": "users",
+      "id": "c968930e-adb1-4d01-9ec1-275c2c201950"
+    },
+    {
+      "__typename": "users",
+      "id": "cacc61ad-ed24-46b1-8b2c-d820522b87bb"
+    },
+    {
+      "__typename": "users",
+      "id": "cb10a1bf-f2d6-4267-9d28-8dbadeacad66"
+    },
+    {
+      "__typename": "users",
+      "id": "cb15d01d-3e9d-4fbf-b3c2-9ac58be4f011"
+    },
+    {
+      "__typename": "users",
+      "id": "cef81baf-6f42-483c-b08e-2d7feadbae14"
+    },
+    {
+      "__typename": "users",
+      "id": "d1822443-ba82-494b-90b2-c38aaa55b244"
+    },
+    {
+      "__typename": "users",
+      "id": "d3bc154e-9336-4d4a-b718-cd55082cf75c"
+    },
+    {
+      "__typename": "users",
+      "id": "d510a951-c799-4507-a0c0-210a43438424"
+    },
+    {
+      "__typename": "users",
+      "id": "d64f84dc-d9f8-4f43-b880-bb51f6cc1449"
+    },
+    {
+      "__typename": "users",
+      "id": "d6766bc2-780f-414c-8310-0b3bab15bd34"
+    },
+    {
+      "__typename": "users",
+      "id": "d68c4feb-4e8d-4927-a02b-12a65628497f"
+    },
+    {
+      "__typename": "users",
+      "id": "d7da1d16-64bb-46e5-b447-1e028812dd96"
+    },
+    {
+      "__typename": "users",
+      "id": "da62db3c-34e8-4ca8-9cbf-0e0385354a18"
+    },
+    {
+      "__typename": "users",
+      "id": "db31b3a6-9e52-4cde-b1a1-7dd71e64cd34"
+    },
+    {
+      "__typename": "users",
+      "id": "dcb689e3-df48-4863-a0ef-0f8f4cbcf28f"
+    },
+    {
+      "__typename": "users",
+      "id": "de51ab8d-604d-4988-823d-a31b42cac36b"
+    },
+    {
+      "__typename": "users",
+      "id": "df613164-be62-430d-8d82-d9391a83c062"
+    },
+    {
+      "__typename": "users",
+      "id": "e184d0da-50cf-48a6-a934-212006c98fc8"
+    },
+    {
+      "__typename": "users",
+      "id": "e1a886ad-9358-41da-9d0c-cc04d7edc8ff"
+    },
+    {
+      "__typename": "users",
+      "id": "e4b7a38c-36c0-45cc-bd00-46a2a2180c25"
+    },
+    {
+      "__typename": "users",
+      "id": "e81a38dd-5232-4152-b8ce-b9281521b2de"
+    },
+    {
+      "__typename": "users",
+      "id": "eeaf2247-9a6d-42b7-a1e6-33e2f1d00f8f"
+    },
+    {
+      "__typename": "users",
+      "id": "ef47b7f7-70f8-4427-a40b-b638d347c133"
+    },
+    {
+      "__typename": "users",
+      "id": "efce1407-bbfe-42ff-9057-70b8118d03db"
+    },
+    {
+      "__typename": "users",
+      "id": "f007b78f-2856-48da-8624-5f1c4c8daff3"
+    },
+    {
+      "__typename": "users",
+      "id": "f09b9396-c2a5-4bc5-bcfb-c72496aed9b6"
+    },
+    {
+      "__typename": "users",
+      "id": "f41d89e9-97df-4873-9141-fb66473360fa"
+    },
+    {
+      "__typename": "users",
+      "id": "f6e6b38f-ab77-489a-beae-f92634e21d3b"
+    },
+    {
+      "__typename": "users",
+      "id": "f7a43eb2-f28b-45cb-92d7-f2e85a064d83"
+    },
+    {
+      "__typename": "users",
+      "id": "f7cb9166-1c29-4e14-ab24-c17ce4b4c56d"
+    },
+    {
+      "__typename": "users",
+      "id": "f8253793-8f08-410c-b5f4-f468d468de6d"
+    }
+  ],
   "myaccounts": [
     {
+      "__typename": "accounts_users",
       "account": {
-        "id": "5b1741f1-d335-45fa-a886-098d130ef6a1",
+        "__typename": "accounts",
+        "id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
         "name": "jeff@viz.ee",
-        "username": "mau5trap",
+        "username": "36bjkzqu7e",
         "followers": [
           {
-            "id": "3cf299ec-b349-43e8-9e4c-20a855446ef9",
-            "__typename": "followers"
+            "__typename": "followers",
+            "id": "3cf299ec-b349-43e8-9e4c-20a855446ef9"
           }
-        ],
-        "__typename": "accounts"
-      },
-      "__typename": "accounts_users"
+        ]
+      }
     }
   ],
   "accounts": [
     {
+      "__typename": "accounts",
       "id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
       "name": "jeff@viz.ee",
       "photo": null,
@@ -28,249 +623,68 @@
       "twitter": null,
       "followers": [
         {
-          "id": "3cf299ec-b349-43e8-9e4c-20a855446ef9",
-          "__typename": "followers"
+          "__typename": "followers",
+          "id": "3cf299ec-b349-43e8-9e4c-20a855446ef9"
         }
       ],
       "links": [
         {
+          "__typename": "links",
           "name": "Cool Link",
-          "link": "http://example.com",
-          "__typename": "links"
+          "link": "http://example.com"
         }
       ],
       "events": [
         {
-          "id": "172828cf-ff89-43fe-a58e-e570470cf7af",
+          "__typename": "events",
+          "id": "d4312db8-4f09-431b-b8c2-47feb4b607d7",
           "location": null,
-          "name": "gdfg",
-          "photo": "https://vizee-media.s3.amazonaws.com/f2/faa6165992494b913f1d43b1631fc5/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
-          "thumb": null,
-          "start": "2020-12-24T15:23:40.74+00:00",
-          "end": "2020-12-24T15:23:40.74+00:00",
-          "type": "video",
-          "published": true,
-          "status": "idle",
-          "account": {
-            "name": "jeff@viz.ee",
-            "username": "36bjkzqu7e",
-            "photo": null,
-            "users": [
-              {
-                "user": {
-                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "127fd97f-aab0-4881-8523-92fcd6e922ff",
-          "location": null,
-          "name": "yoooo",
-          "photo": "https://vizee-media.s3.amazonaws.com/7f/a808d913f84ea3a0b35125d613b200/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
-          "thumb": null,
-          "start": "2020-12-24T14:35:08.284+00:00",
-          "end": "2020-12-31T14:35:08.284+00:00",
-          "type": "live",
-          "published": true,
-          "status": "completed",
-          "account": {
-            "name": "jeff@viz.ee",
-            "username": "36bjkzqu7e",
-            "photo": null,
-            "users": [
-              {
-                "user": {
-                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "e18f6a0b-3636-43be-bcd2-9f6a5d06fe75",
-          "location": null,
-          "name": "sdsfsdf",
-          "photo": "https://vizee-media.s3.amazonaws.com/fe/deb10b6c904f3da21d6f5a9dd5cd81/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
-          "thumb": null,
-          "start": "2020-12-22T22:12:31.393+00:00",
-          "end": "2020-12-23T22:12:31.393+00:00",
-          "type": "video",
-          "published": true,
-          "status": "idle",
-          "account": {
-            "name": "jeff@viz.ee",
-            "username": "36bjkzqu7e",
-            "photo": null,
-            "users": [
-              {
-                "user": {
-                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "e543ac1a-0f23-4295-a870-3d6c592fc18a",
-          "location": null,
-          "name": "live test",
-          "photo": "https://vizee-media.s3.amazonaws.com/7f/00d9351d184750955d3cedec2354f6/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
-          "thumb": null,
-          "start": "2020-12-26T20:31:31.816+00:00",
-          "end": "2020-12-31T20:31:31.816+00:00",
-          "type": "live",
-          "published": true,
-          "status": "live",
-          "account": {
-            "name": "jeff@viz.ee",
-            "username": "36bjkzqu7e",
-            "photo": null,
-            "users": [
-              {
-                "user": {
-                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "95451df9-d6a1-408b-a252-b95603aaa0fe",
-          "location": null,
-          "name": "anon test",
-          "photo": "https://vizee-media.s3.amazonaws.com/39/c72f3eef324de98f183792f08cc34a/1_JIsMpQ778DiL8NakxGLWSQ.jpg",
-          "thumb": null,
-          "start": "2020-12-26T21:10:31.082+00:00",
-          "end": "2020-12-31T21:10:31.082+00:00",
-          "type": "live",
-          "published": true,
-          "status": "completed",
-          "account": {
-            "name": "jeff@viz.ee",
-            "username": "36bjkzqu7e",
-            "photo": null,
-            "users": [
-              {
-                "user": {
-                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              },
-              {
-                "user": {
-                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
-              }
-            ],
-            "__typename": "accounts"
-          },
-          "favorites": [],
-          "__typename": "events"
-        },
-        {
-          "id": "6cd01eb5-f7ef-4276-b5cf-4e8d9865cc57",
-          "location": null,
-          "name": "YOLO",
+          "name": "TEST",
           "photo": null,
           "thumb": null,
-          "start": "2020-12-28T19:27:54.117+00:00",
-          "end": "2020-12-28T19:27:54.117+00:00",
+          "start": "2021-01-02T00:14:16.639+00:00",
+          "end": "2021-01-31T00:14:16.639+00:00",
           "type": "video",
           "published": true,
           "status": "idle",
           "account": {
+            "__typename": "accounts",
             "name": "jeff@viz.ee",
             "username": "36bjkzqu7e",
             "photo": null,
             "users": [
               {
+                "__typename": "accounts_users",
                 "user": {
-                  "id": "469ce32b-3927-4e84-8750-3dabd8e1b31f",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
+                  "__typename": "users",
+                  "id": "5b1741f1-d335-45fa-a886-098d130ef6a1"
+                }
               },
               {
+                "__typename": "accounts_users",
                 "user": {
-                  "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
-                  "__typename": "users"
-                },
-                "__typename": "accounts_users"
+                  "__typename": "users",
+                  "id": "ad473afb-40e1-4a9d-b3fd-1d09d7edcccc"
+                }
               }
-            ],
-            "__typename": "accounts"
+            ]
           },
-          "favorites": [],
-          "__typename": "events"
+          "favorites": []
         }
-      ],
-      "__typename": "accounts"
+      ]
     }
   ],
   "followers_aggregate": {
+    "__typename": "followers_aggregate",
     "aggregate": {
-      "count": 1,
-      "__typename": "followers_aggregate_fields"
-    },
-    "__typename": "followers_aggregate"
+      "__typename": "followers_aggregate_fields",
+      "count": 1
+    }
   },
   "users_by_pk": {
+    "__typename": "users",
     "id": "9b9f0fa0-8b9c-436b-87e6-6df090a74c76",
     "affiliate_user_id": null,
-    "affiliate_account_id": "57de2fb1-ace1-4037-ba35-671e5ac168f5",
-    "__typename": "users"
+    "affiliate_account_id": "57de2fb1-ace1-4037-ba35-671e5ac168f5"
   }
 }

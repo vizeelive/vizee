@@ -3,7 +3,7 @@ describe('EventPage', () => {
   describe('Anonymous', () => {
     it('should pass happy path', () => {
       cy.graphql('AnonEventsReport', { fixture: 'AnonEventsReport' });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
       cy.findByRole('button', { name: /Share/i }).should('exist');
       cy.get('[data-test-id=event-name').should('not.be.empty');
@@ -27,7 +27,7 @@ describe('EventPage', () => {
         fixture.events_report[0].account.username = 'random';
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
       cy.findByRole('button', { name: /Follow/i }).should('exist');
       cy.findByRole('button', { name: /Share/i }).should('exist');
@@ -45,7 +45,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByText('Stream Starting...').should('exist');
     });
     it('should be able to see AVAILABLE NOW tag when video event inside time window', () => {
@@ -57,7 +57,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByText('Available Now').should('exist');
     });
     it('should be able to see STREAM ENDED tag when live event has ended', () => {
@@ -70,7 +70,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByText('Stream Ended').should('exist');
     });
 
@@ -82,7 +82,7 @@ describe('EventPage', () => {
           delete fixture.events_report[0].account.photo;
           cy.graphql('UserEventsReport', fixture);
         });
-        cy.visit('creator/a1b2c3');
+        cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
         cy.get('[data-test-id=event-preview-image').should('be.visible');
         cy.get('[data-test-id=event-preview-image').should(
           'have.attr',
@@ -96,7 +96,7 @@ describe('EventPage', () => {
           delete fixture.events_report[0].preview;
           cy.graphql('UserEventsReport', fixture);
         });
-        cy.visit('creator/a1b2c3');
+        cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
         cy.get('[data-test-id=event-preview-image').should('be.visible');
       });
       it('should be able to see video preview over photo preview', () => {
@@ -105,7 +105,7 @@ describe('EventPage', () => {
           cy.graphql('UserEventsReport', fixture);
         });
 
-        cy.visit('creator/a1b2c3');
+        cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
         cy.findByText('Preview').should('exist');
         cy.get('[data-test-id=event-preview-video').should('exist');
       });
@@ -115,7 +115,7 @@ describe('EventPage', () => {
           delete fixture.events_report[0].preview;
           cy.graphql('UserEventsReport', fixture);
         });
-        cy.visit('creator/a1b2c3');
+        cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
         cy.get('[data-test-id=event-preview-image').should('exist');
       });
     });
@@ -125,7 +125,7 @@ describe('EventPage', () => {
         fixture.events_report[0].account.username = 'random';
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
     });
     it('should not see buy button when has full account access', () => {
@@ -133,7 +133,7 @@ describe('EventPage', () => {
         fixture.events_report[0].account.access = [{ id: 'a1b2c3' }];
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('not.exist');
     });
     it('should not see buy button when has event access', () => {
@@ -141,7 +141,7 @@ describe('EventPage', () => {
         fixture.events_report[0].access = [{ id: 'a1b2c3' }];
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('not.exist');
     });
     it('should see live video when has access', () => {
@@ -154,7 +154,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.get('[data-test-id=event-video-live').should('exist');
     });
     it('should see conference when has access', () => {
@@ -167,7 +167,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.get('[data-test-id=event-video-conference').should('exist');
     });
     it('should see prerecorded video when has access', () => {
@@ -180,7 +180,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.get('[data-test-id=event-video-vod').should('exist');
     });
     it('should see countdown timer when event is in future', () => {
@@ -193,7 +193,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.get('[data-test-id=event-countdown').should('exist');
     });
     it('should see Start Stream when event is broadcast', () => {
@@ -207,7 +207,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('ryanjmo/a1b2c3');
+      cy.visit('ryanjmo/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Start Live Stream/i }).should('exist');
     });
   });
@@ -219,7 +219,7 @@ describe('EventPage', () => {
     });
     it('should pass happy path', () => {
       cy.graphql('UserEventsReport', { fixture: 'UserEventsReport' });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Share/i }).should('exist');
       cy.findByRole('button', { name: /Manage/i }).should('exist');
     });
@@ -234,7 +234,7 @@ describe('EventPage', () => {
         );
         cy.graphql('UserEventsReport', fixture);
       });
-      cy.visit('creator/a1b2c3');
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Start Live Stream/i }).should('exist');
     });
   });

@@ -45,22 +45,6 @@ const GET_ACCOUNT_UNAUTH = gql`
       twitter
       facebook
       created_by
-      events {
-        id
-        name
-        photo
-        preview
-        start
-        end
-        account {
-          name
-          photo
-          username
-        }
-        category {
-          id
-        }
-      }
     }
   }
 `;
@@ -92,25 +76,6 @@ const GET_ACCOUNT_AUTH = gql`
       facebook
       created_by
       umami_id
-      events {
-        id
-        name
-        photo
-        preview
-        start
-        end
-        account {
-          name
-          photo
-          username
-        }
-        category {
-          id
-        }
-        transactions {
-          id
-        }
-      }
     }
   }
 `;
@@ -136,25 +101,6 @@ const GET_ACCOUNT_AUTH_ADMIN = gql`
       facebook
       created_by
       umami_id
-      events {
-        id
-        name
-        photo
-        preview
-        start
-        end
-        account {
-          name
-          photo
-          username
-        }
-        category {
-          id
-        }
-        transactions {
-          id
-        }
-      }
     }
   }
 `;
@@ -269,11 +215,7 @@ export default function Account() {
             component={Settings}
           />
           <Route path="/:username/manage/calendar" exact component={Calendar} />
-          <Route
-            path="/:username/manage"
-            exact
-            render={() => <Home account={account} refetch={refetch} />}
-          />
+          <Route path="/:username/manage" exact render={() => <Home />} />
         </Switch>
       </Suspense>
     </AccountLayout>

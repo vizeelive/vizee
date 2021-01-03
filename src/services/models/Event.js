@@ -22,6 +22,14 @@ export default class Event {
   isComplete() {
     return this.status === 'completed';
   }
+  cover() {
+    return (
+      this?.thumb ||
+      this?.photo ||
+      this?.account?.photo ||
+      `https://dummyimage.com/1216x684/000/fff.png&text=${this.name}`
+    );
+  }
   isStreamComplete() {
     return (
       this.isBroadcast() &&

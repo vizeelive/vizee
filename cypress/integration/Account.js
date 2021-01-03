@@ -19,7 +19,7 @@ describe('AccountPage', () => {
       cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
       cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
       cy.graphql('GetAccountByUsername', { fixture: 'GetAccountByUsername' });
-      cy.visit('/mau5trap/manage');
+      cy.visit('/36bjkzqu7e/manage');
       cy.get('[data-test-id=account-menu').should('exist');
       cy.get('[data-test-id=link-create-event').should('exist');
       cy.get('[data-test-id=account-name').should('exist');
