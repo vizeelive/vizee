@@ -6,7 +6,7 @@ const GET_STRIPE_URL_DATA = `
 query getStripeUrlData($username: String!) {
   accounts(where: {username: {_eq: $username}}) {
     stripe_id
-    users {
+    users(where: { user_id: { _is_null: false } }) {
       user {
         id
       }
