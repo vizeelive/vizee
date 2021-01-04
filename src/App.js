@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/react';
 import React, { useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// import VersionChecker from 'components/VersionChecker';
+import VersionChecker from 'components/VersionChecker';
 import PrivateRoute from 'components/PrivateRoute';
 import useAuth from 'hooks/useAuth';
 import Admin from 'pages/Admin/Index';
@@ -83,7 +83,7 @@ function App() {
 
   return (
     <Theme>
-      {/* <VersionChecker /> */}
+      <VersionChecker />
       <ApolloProvider client={client}>
         {user && user.id && <FinishSignup />}
         <Router>
