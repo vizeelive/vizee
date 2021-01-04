@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import logger from 'logger';
 import { Button, notification } from 'antd';
 
+let url = `${config.ui}/version.txt`;
+
 export default function VersionChecker() {
   const [version, setVersion] = useState(null);
 
   useEffect(() => {
     async function getData() {
-      let current = await (await fetch(`${config.ui}/version.txt`)).text();
+      let current = await (await fetch(url)).text();
       logger.info(`Latest version: ${current}`);
       setVersion(current);
     }
@@ -22,8 +24,9 @@ export default function VersionChecker() {
         return;
       }
       interval = setInterval(async () => {
-        let latest = await (await fetch(`${config.ui}/version.txt`)).text();
-        if (!version && version !== latest) {
+        let latest = await (await fetch(url)).text();
+        if (version !== latest) {
+          setVersion(latest);
           notification.open({
             message: `A new version is available!`,
             duration: 0,
