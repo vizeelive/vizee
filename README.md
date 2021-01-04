@@ -4,7 +4,6 @@
 # Vizee.live
 
 An video monetization and social networking platform for artists and creators.
-
 ## Setup
 
 This monorepo contains a few things:
