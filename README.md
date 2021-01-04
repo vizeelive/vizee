@@ -10,7 +10,7 @@ An video monetization and social networking platform for artists and creators.
 This monorepo contains a few things:
 
 * `/api` (Node.js API)
-* `/express` (Prerender.io)
+* `/express` (Prerender.io) (currently replaced by Netlify)
 * `/hasura` (Hasura metadata)
 * `/src/` (React UI)
 
