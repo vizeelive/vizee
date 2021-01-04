@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery, useMutation } from '@apollo/client';
 
-import { message } from 'antd';
+import { message, notification } from 'antd';
 
 import AddEventView from './view';
 
@@ -192,6 +192,17 @@ export default function AddEvent(props) {
     account = data.account[0];
   }
 
+  const openNotificationWithIcon = (type) => {
+    notification[type]({
+      message: 'Oops!',
+      description: 'Please correct the errors above highlighted in red.'
+    });
+  };
+
+  const onFinishFailed = (values) => {
+    openNotificationWithIcon('error');
+  };
+
   const onFinish = async (values) => {
     let [start, end] = values.range;
 
@@ -341,6 +352,7 @@ export default function AddEvent(props) {
       error={error}
       eventData={eventData}
       onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
       setEvent={setEvent}
       handleVideoUpload={handleVideoUpload}
       handleUppyError={handleUppyError}

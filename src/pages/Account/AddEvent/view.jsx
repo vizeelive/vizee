@@ -33,6 +33,7 @@ export default function AddEventView(props) {
     error,
     eventData,
     onFinish,
+    onFinishFailed,
     setEvent,
     handleVideoUpload,
     handleUppyError,
@@ -112,6 +113,7 @@ export default function AddEventView(props) {
             layout={layout}
             initialValues={eventData}
             onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
           >
             <Form.Item label="Event Type" name="type">
               <Radio.Group
