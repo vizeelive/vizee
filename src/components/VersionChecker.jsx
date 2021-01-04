@@ -10,6 +10,9 @@ export default function VersionChecker() {
 
   useEffect(() => {
     async function getData() {
+      if (process.env.NODE_ENV === 'development') {
+        return;
+      }
       let current = await (await fetch(url)).text();
       logger.info(`Latest version: ${current}`);
       setVersion(current);
