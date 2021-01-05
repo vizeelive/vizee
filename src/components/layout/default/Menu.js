@@ -207,7 +207,7 @@ export default function Menu(props) {
           block: isOpen
         })}
       >
-        <div className="flex-1 flex flex-col overflow-y-auto pb-4">
+        <div className="flex-1 flex flex-col overflow-y-auto pt-1 pb-4">
           <div className="px-2 space-y-1">
             {/* {user?.isAdmin && (
               <Link to="/admin" className={className.mobile.inactive}>
@@ -241,6 +241,7 @@ export default function Menu(props) {
               exact
               className={className.mobile.inactive}
               activeClassName={className.mobile.active}
+              onClick={() => setIsOpen(false)}
             >
               {/* Heroicon name: lightning-bolt */}
               <svg
@@ -267,6 +268,7 @@ export default function Menu(props) {
                 exact
                 className={className.mobile.inactive}
                 activeClassName={className.mobile.active}
+                onClick={() => setIsOpen(false)}
               >
                 {/* Heroicon name: ticket */}
                 <svg
@@ -294,6 +296,7 @@ export default function Menu(props) {
                 exact
                 className={className.mobile.inactive}
                 activeClassName={className.mobile.active}
+                onClick={() => setIsOpen(false)}
               >
                 <svg
                   className="mr-3 h-6 w-6"
