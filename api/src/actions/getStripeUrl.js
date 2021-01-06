@@ -1,19 +1,6 @@
 const { getUser } = require('../lib');
-const execute = require('../execute');
 const dayjs = require('dayjs');
-
-const GET_STRIPE_URL_DATA = `
-query getStripeUrlData($username: String!) {
-  accounts(where: {username: {_eq: $username}}) {
-    stripe_id
-    users(where: { user_id: { _is_null: false } }) {
-      user {
-        id
-      }
-    }
-  }
-}
-`;
+const { getStripeUrlData } = require('../queries');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
@@ -23,17 +10,8 @@ module.exports = async function getStripeUrl(req, res) {
   const user = getUser(req);
   const { username } = req.body.input;
 
-  user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
-  user.isAdmin = user['https://hasura.io/jwt/claims'][
-    'x-hasura-allowed-roles'
-  ].includes('admin');
-
   try {
-    let { data } = await execute(
-      GET_STRIPE_URL_DATA,
-      { username },
-      req.headers
-    );
+    let data = await getStripeUrlData(username);
 
     if (
       !user.isAdmin &&

@@ -123,6 +123,30 @@ async function getEvent(id) {
   }
 }
 
+async function getStripeUrlData(username) {
+  try {
+    let res = await client.query({
+      variables: { username },
+      query: gql`
+        query getStripeUrlData($username: String!) {
+          accounts(where: { username: { _eq: $username } }) {
+            stripe_id
+            users(where: { user_id: { _is_null: false } }) {
+              user {
+                id
+              }
+            }
+          }
+        }
+      `
+    });
+    return res.data;
+  } catch (e) {
+    console.log('Failed: getStripeUrlData', username);
+    throw e;
+  }
+}
+
 async function getUserAccess(params) {
   let { user_id, event_id, account_id, expiry } = params;
   try {
@@ -385,5 +409,6 @@ module.exports = {
   getUserAndProduct,
   subscriptionPrecheck,
   getUserAccess,
-  getUnlinkedUsers
+  getUnlinkedUsers,
+  getStripeUrlData
 };
