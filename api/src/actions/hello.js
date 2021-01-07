@@ -38,10 +38,13 @@ module.exports = async function hello(req, res) {
 
     logger.info(`getUnlinkedUsers: ${email}`);
     let unlinkedUsers = await getUnlinkedUsers(email);
-    unlinkedUsers.map((u) => {
-      logger.info(`linking`, { id: u.id, user_id: u.emailUser.id });
-      linkAccountUser({ id: u.id, user_id: u.emailUser.id });
-    });
+
+    await Promise.all(
+      unlinkedUsers.map(async (u) => {
+        logger.info(`linking`, { id: u.id, user_id: u.emailUser.id });
+        await linkAccountUser({ id: u.id, user_id: u.emailUser.id });
+      })
+    );
 
     res.send({ message: 'Oh, hello!' });
   } catch (e) {
