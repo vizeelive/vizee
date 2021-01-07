@@ -7,6 +7,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 });
 
 module.exports = async function getStripeUrl(req, res) {
+  const defaultResponse = { url: '' };
   const user = getUser(req);
   const { username } = req.body.input;
 
@@ -17,12 +18,12 @@ module.exports = async function getStripeUrl(req, res) {
       !user.isAdmin &&
       !data.accounts[0].users.filter((u) => u.user.id === user.id).length
     ) {
-      console.log('Unauthorized', { user, data });
-      return res.status(401).send('Unauthorized');
+      console.log('getStripeUrl: Unauthorized', JSON.stringify({ user, data }));
+      return res.send(defaultResponse);
     }
 
     if (!data.accounts[0].stripe_id) {
-      return res.send({ url: '' });
+      return res.send(defaultResponse);
     }
 
     const loginLink = await stripe.accounts.createLoginLink(
@@ -30,7 +31,11 @@ module.exports = async function getStripeUrl(req, res) {
     );
     res.send({ url: loginLink.url });
   } catch (e) {
-    console.log(e);
-    res.status(500).send(e.message);
+    console.log(
+      'getStripeUrl: Unauthorized',
+      e,
+      JSON.stringify({ user, username, data })
+    );
+    return res.send(defaultResponse);
   }
 };
