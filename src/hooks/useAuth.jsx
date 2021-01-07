@@ -131,9 +131,7 @@ export default function useAuth() {
       });
 
     if (networkError) {
-      Sentry.captureException(
-        `GraphQL Error (${operation.operationName}): ${message}`
-      );
+      Sentry.captureException(`GraphQL Error (${operation.operationName})`);
       console.log(`[Network error]: ${networkError}`, networkError);
     }
   });
