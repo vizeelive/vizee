@@ -17,11 +17,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 module.exports = async function getStripeUrl(req, res) {
   const user = getUser(req);
 
-  user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
-  user.isAdmin = user['https://hasura.io/jwt/claims'][
-    'x-hasura-allowed-roles'
-  ].includes('admin');
-
   try {
     let { data } = await execute(
       GET_STRIPE_CUSTOMER_ID,

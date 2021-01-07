@@ -19,10 +19,6 @@ module.exports = async function getUmamiToken(req, res) {
   const user = getUser(req);
   const { account_id } = req.body.input;
 
-  user.isAdmin = user['https://hasura.io/jwt/claims'][
-    'x-hasura-allowed-roles'
-  ].includes('admin');
-
   let { data } = await execute(GET_ACCOUNT_USERS, { account_id }, req.headers);
   console.log({ user });
   console.log(data.accounts_by_pk.users);
