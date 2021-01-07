@@ -42,7 +42,7 @@ module.exports = async function hello(req, res) {
     await Promise.all(
       unlinkedUsers.map(async (u) => {
         logger.info(`linking`, { id: u.id, user_id: u.emailUser.id });
-        await linkAccountUser({ id: u.id, user_id: u.emailUser.id });
+        return linkAccountUser({ id: u.id, user_id: u.emailUser.id });
       })
     );
 
