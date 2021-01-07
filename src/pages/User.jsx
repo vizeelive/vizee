@@ -182,7 +182,7 @@ export default function User() {
                 </Route>
               ) : (
                 <Route path="/">
-                  <AccountHome username="deadmau5" />
+                  <AccountHome username={process.env.REACT_APP_ACCOUNT} />
                 </Route>
               )}
             </Switch>
