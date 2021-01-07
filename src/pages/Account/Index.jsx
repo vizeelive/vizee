@@ -149,7 +149,7 @@ export default function Account() {
 
   const handleLogout = () => {
     Cookies.remove('username');
-    logout();
+    logout({ returnTo: window.location.origin });
   };
 
   if (user) {
