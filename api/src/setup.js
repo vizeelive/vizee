@@ -14,7 +14,7 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
-      'x-hasura-defalt-role': 'admin'
+      'x-hasura-role': 'admin'
     }
   };
 });
