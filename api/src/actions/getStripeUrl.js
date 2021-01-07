@@ -23,6 +23,10 @@ module.exports = async function getStripeUrl(req, res) {
     }
 
     if (!data.accounts[0].stripe_id) {
+      console.log(
+        'getStripeUrl: could not find stripe_id',
+        JSON.stringify({ user, username, data })
+      );
       return res.send(defaultResponse);
     }
 
