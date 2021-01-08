@@ -98,7 +98,7 @@ export default function Menu(props) {
                   </React.Fragment>
                 ) : (
                   <img
-                    className="h-7 w-auto"
+                    className="h-12 w-auto"
                     src={process.env.REACT_APP_LOGO}
                     alt="logo"
                   />
