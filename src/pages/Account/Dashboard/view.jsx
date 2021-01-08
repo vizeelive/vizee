@@ -1,16 +1,29 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
-import ShareButton from 'components/ShareButton';
-import StripeAccount from 'pages/Account/StripeAccount';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
-import { Statistic, Row, Col, Button, Typography, Steps } from 'antd';
+import { Typography } from 'antd';
+import styled from 'styled-components';
 
-const { Step } = Steps;
+import Statistic from 'components/ui/Statistic';
+import Steps from './Steps';
+
 const { Title } = Typography;
+
+const Header = styled.header`
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      margin: 0;
+    }
+  }
+`;
 
 export default function DashboardView(props) {
   const {
@@ -37,101 +50,156 @@ export default function DashboardView(props) {
 
   return (
     <article className="min-h-page">
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <Title>{account.name}</Title>
+      <Header />
+      <div className="mt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-lg sm:text-2xl lg:text-lg xl:text-2xl leading-6 font-medium text-gray-200">
+            {account.name}
+          </h2>
 
-        {!stepsComplete && (
-          <Steps direction="vertical" size="small" current={step}>
-            <Step
-              title="Create account"
-              description="Your account has been successfully created."
+          {!stepsComplete && (
+            <Steps
+              step={step}
+              username={username}
+              account={account}
+              shareLink={shareLink}
+              firstEventIsLive={firstEventIsLive}
+              firstEventLink={firstEventIsLive}
             />
-            <Step
-              title="Payout"
-              description={
-                <React.Fragment>
-                  <div>
-                    Provide your bank details or debit card to get paid.
-                  </div>
-                  {step === 1 && (
-                    <StripeAccount id={account.id} username={username} />
-                  )}
-                </React.Fragment>
-              }
-            />
-            <Step
-              title="Create Event"
-              description={
-                <React.Fragment>
-                  <div>Create your first event to sell</div>
-                  {step === 2 && (
-                    <Link
-                      to={`/${username}/manage/events/add?redirect=dashboard`}
+          )}
+
+          {stepsComplete && (
+            <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+              {/* Cards */}
+
+              <Statistic
+                name="Revenue"
+                value={account.revenue}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: currency-dollar */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      <Button type="primary">Create Event</Button>
-                    </Link>
-                  )}
-                </React.Fragment>
-              }
-            />
-            <Step
-              title="Share Link"
-              description={
-                <React.Fragment>
-                  {step === 3 && (
-                    <div>
-                      Share your event link on social media in order to sell
-                      tickets
-                      <br />
-                      <ShareButton primary={true} url={shareLink} />
-                    </div>
-                  )}
-                </React.Fragment>
-              }
-            />
-            <Step
-              title="Go Live!"
-              description={
-                <React.Fragment>
-                  <div>
-                    If your event is a livestream, go live at the correct time!
-                  </div>
-                  {step === 4 && firstEventIsLive && (
-                    <Link to={firstEventLink}>
-                      <Button type="primary">View Event</Button>
-                    </Link>
-                  )}
-                </React.Fragment>
-              }
-            />
-          </Steps>
-        )}
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
 
-        {stepsComplete && (
-          <React.Fragment>
-            <Row gutter={16}>
-              <Col span={4}>
-                <Statistic
-                  title="Revenue"
-                  value={account.revenue}
-                  precision={2}
-                />
-              </Col>
-              <Col span={4}>
-                <Statistic title="Views" value={account.views} />
-              </Col>
-              <Col span={4}>
-                <Statistic title="Favorites" value={account.favorites} />
-              </Col>
-              <Col span={4}>
-                <Statistic title="Followers" value={account.followers} />
-              </Col>
-              <Col span={4}>
-                <Statistic title="Events" value={account.events} />
-              </Col>
-            </Row>
-          </React.Fragment>
-        )}
+              <Statistic
+                name="Views"
+                value={account.viewcount}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: eye */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
+
+              <Statistic
+                name="Favorites"
+                value={account.favoritecount}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: heart */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
+
+              <Statistic
+                name="Followers"
+                value={account.followercount}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: people */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
+
+              <Statistic
+                name="Events"
+                value={account.eventcount}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: video-camera */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );
