@@ -103,6 +103,7 @@ export default function HomeView(props) {
                   <div className="rounded-md shadow">
                     {!user && (
                       <button
+                        data-test-id="get-started"
                         type="button"
                         onClick={onSignup}
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 md:text-lg md:px-10 lg:text-xl"

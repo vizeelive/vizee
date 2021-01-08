@@ -45,7 +45,10 @@ export default function useAuth() {
     user = {
       name: 'jeff@pixwel.com',
       sub: 'auth0|5f8838b47119bc007640b4af',
-      'https://hasura.io/jwt/claims': { 'x-hasura-allowed-roles': ['user'] }
+      'https://hasura.io/jwt/claims': {
+        'x-hasura-user-id': '5b1741f1-d335-45fa-a886-098d130ef6a1',
+        'x-hasura-allowed-roles': ['user']
+      }
     };
     if (role === 'admin') {
       user['https://hasura.io/jwt/claims']['x-hasura-allowed-roles'].push(
@@ -65,6 +68,7 @@ export default function useAuth() {
     window.mixpanel.people.set({
       $email: user.email
     });
+    console.log({ id_token, user, role });
   }
 
   useEffect(() => {
