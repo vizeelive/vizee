@@ -68,7 +68,6 @@ export default function useAuth() {
     window.mixpanel.people.set({
       $email: user.email
     });
-    console.log({ id_token, user, role });
   }
 
   useEffect(() => {
