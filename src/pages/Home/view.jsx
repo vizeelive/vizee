@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Tabs, Input } from 'antd';
 import { Helmet } from 'react-helmet';
+import ReactRotatingText from 'react-rotating-text';
+// import CountUp from 'react-countup';
 
 // import Map from '../components/Map';
 import Events from 'components/Events';
@@ -91,13 +93,28 @@ export default function HomeView(props) {
               <div className="sm:text-center lg:text-left">
                 <h1 className="text-5xl tracking-tight font-sans font-extrabold text-gray-100 sm:text-6xl md:text-7xl">
                   <span className="block">Premium</span>{' '}
-                  <span className="block text-pink-600">video network</span>
+                  <span className="block text-pink-600">
+                    <ReactRotatingText
+                      items={[
+                        'video network',
+                        'livestreaming',
+                        'money maker',
+                        'engagement',
+                        'coolness'
+                      ]}
+                    />
+                  </span>
                 </h1>
                 <p className="mt-3 text-lg text-gray-500 font-sans sm:mt-5 sm:text-xl sm:max-w-xl sm:mx-auto md:mt-5 md:text-2xl lg:mx-0">
                   Sell videos.{' '}
                   <span className="text-gray-200 font-semibold">
                     Earn up to 80% of every dollar.
                   </span>
+                  {/* <div className="text-sm text-gray-500 font-semibold">
+                    <CountUp end={1201} duration={20} /> events • &nbsp;
+                    <CountUp end={5001} duration={20} /> views • &nbsp;
+                    <CountUp end={313} duration={20} /> members
+                  </div> */}
                 </p>
                 <div className="mt-5 xs:mt-12 xs:flex xs:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
