@@ -1,22 +1,31 @@
 import config from '../../config';
 import React, { useState } from 'react';
-import { Alert, Modal } from 'antd';
+import { gql, useMutation } from '@apollo/client';
+import { Alert, Modal, message } from 'antd';
+import logger from 'logger';
+
+const CREATE_STREAM = gql`
+  mutation createStream($event_id: uuid!) {
+    createStream(event_id: $event_id) {
+      stream_key
+    }
+  }
+`;
 
 export default function StartStreamButton(props) {
-  const [streamKey, setStreamKey] = useState(props.streamKey);
+  const [streamKey, setStreamKey] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [createStream] = useMutation(CREATE_STREAM);
 
   const handleStartLivestream = async () => {
-    let res = await fetch(
-      `${config.api}/mux/stream/create?id=${props.event_id}`,
-      {
-        method: 'GET'
-      }
-    );
-    let data = await res.json();
-    console.log(data);
-    setStreamKey(data.stream_key);
-    setModalVisible(true);
+    try {
+      let res = await createStream({ variables: { event_id: props.event_id } });
+      setStreamKey(res.data.createStream.stream_key);
+      setModalVisible(true);
+    } catch (e) {
+      logger.error(e.message);
+      message.error(e.message);
+    }
   };
 
   return (

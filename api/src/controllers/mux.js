@@ -64,49 +64,47 @@ app.post(
 );
 
 app.get('/mux/asset/create', async function (req, res) {
-
   let url = req.query.url;
 
-//   const respond = (res, code, messages) => {
-//   if (code !== 200) {
-//     console.error({ messages, code })
-//   }
+  //   const respond = (res, code, messages) => {
+  //   if (code !== 200) {
+  //     console.error({ messages, code })
+  //   }
 
-//   res.writeHead(code, {
-//     'Content-Type'                : 'application/json',
-//     'Access-Control-Allow-Origin' : '*',
-//     'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-//   })
+  //   res.writeHead(code, {
+  //     'Content-Type'                : 'application/json',
+  //     'Access-Control-Allow-Origin' : '*',
+  //     'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+  //   })
 
-//   if (messages) {
-//     res.write(JSON.stringify({ messages }))
-//   }
+  //   if (messages) {
+  //     res.write(JSON.stringify({ messages }))
+  //   }
 
-//   res.end()
-// }
+  //   res.end()
+  // }
 
-//   const form = new formidable.IncomingForm()
-//     form.parse(req, (err, fields, files) => {
-//       if (err) {
-//         return respond(res, 500, [`Error while parsing multipart form`, err])
-//       }
+  //   const form = new formidable.IncomingForm()
+  //     form.parse(req, (err, fields, files) => {
+  //       if (err) {
+  //         return respond(res, 500, [`Error while parsing multipart form`, err])
+  //       }
 
-//       // if (!checkSignature(fields, process.env.AUTH_SECRET)) {
-//       //   return respond(res, 403, [
-//       //     `Error while checking signatures`,
-//       //     `No match so payload was tampered with, or an invalid Auth Secret was used`,
-//       //   ])
-//       // }
+  //       // if (!checkSignature(fields, process.env.AUTH_SECRET)) {
+  //       //   return respond(res, 403, [
+  //       //     `Error while checking signatures`,
+  //       //     `No match so payload was tampered with, or an invalid Auth Secret was used`,
+  //       //   ])
+  //       // }
 
-//       let assembly = {}
-//       try {
-//         assembly = JSON.parse(fields.transloadit)
-//         var url = assembly.results[':original'][0].ssl_url);
-//       } catch (err) {
-//         return respond(res, 500, [`Error while parsing transloadit field`, err])
-//       }
-//     });
-
+  //       let assembly = {}
+  //       try {
+  //         assembly = JSON.parse(fields.transloadit)
+  //         var url = assembly.results[':original'][0].ssl_url);
+  //       } catch (err) {
+  //         return respond(res, 500, [`Error while parsing transloadit field`, err])
+  //       }
+  //     });
 
   try {
     const asset = await Video.Assets.create({
@@ -134,43 +132,4 @@ app.get('/mux/asset/create', async function (req, res) {
     console.log(url, e);
     res.status(500).send(e.message);
   }
-});
-
-app.get('/mux/stream/create', async function (req, res) {
-  let id = req.query.id;
-
-  let result = await Video.LiveStreams.create({
-    playback_policy: 'signed',
-    new_asset_settings: { playback_policy: 'signed' }
-  });
-
-  console.log({ result });
-
-  try {
-    await client.mutate({
-      variables: {
-        id,
-        mux_id: result.id,
-        data: result
-      },
-      mutation: gql`
-        mutation UpdateMuxLivestream(
-          $id: uuid!
-          $mux_id: String
-          $data: jsonb!
-        ) {
-          update_events_by_pk(
-            pk_columns: { id: $id }
-            _set: { mux_id: $mux_id, mux_livestream: $data }
-          ) {
-            id
-          }
-        }
-      `
-    });
-  } catch (e) {
-    console.error(e);
-  }
-
-  res.json(result);
 });

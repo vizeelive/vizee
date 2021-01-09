@@ -1,4 +1,4 @@
-const logger = require('../logger');
+const logger = require('../logger')(module);
 const { getUser } = require('../lib');
 const getEventUrl = require('../lib/getEventUrl');
 

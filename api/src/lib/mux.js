@@ -13,4 +13,11 @@ function createPlaybackId(id) {
   });
 }
 
-module.exports = { createToken, createPlaybackId };
+function createStream() {
+  return Video.LiveStreams.create({
+    playback_policy: 'signed',
+    new_asset_settings: { playback_policy: 'signed' }
+  });
+}
+
+module.exports = { createStream, createToken, createPlaybackId };

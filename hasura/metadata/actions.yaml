@@ -6,6 +6,13 @@ actions:
     forward_client_headers: true
   permissions:
   - role: user
+- name: createStream
+  definition:
+    kind: synchronous
+    handler: '{{ACTION_BASE_URL}}'
+    forward_client_headers: true
+  permissions:
+  - role: user
 - name: getEventUrl
   definition:
     kind: ""
@@ -446,6 +453,7 @@ custom_types:
   - name: UpdateAccountUsersObjRelInsertInput
   - name: UpdateAccountUsersInsertInput
   - name: UpdateAccountUsersOnConflict
+  - name: SampleInput
   objects:
   - name: MyMutationOutput
   - name: CreateAccountOutput
@@ -456,4 +464,5 @@ custom_types:
   - name: HelloOutput
   - name: getStripeUrlOutput
   - name: getStripeCustomerPortalUrlOutput
+  - name: createStreamOutput
   scalars: []

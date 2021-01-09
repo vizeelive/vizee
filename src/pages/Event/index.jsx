@@ -31,7 +31,6 @@ const GET_EVENT_UNAUTH = gql`
       description
       views
       location
-      mux_livestream
       mux_id
       status
       account_only
@@ -118,7 +117,6 @@ const GET_EVENT_AUTH = gql`
       views
       location
       account_only
-      mux_livestream
       status
       account {
         id
@@ -164,7 +162,6 @@ const GET_EVENT_AUTH = gql`
 const WATCH_MUX = gql`
   subscription WatchEventLiveStatus($id: uuid!) {
     events_by_pk(id: $id) {
-      mux_livestream
       mux_id
       type
       start
@@ -293,14 +290,14 @@ export default function EventPage() {
   } else {
     switch (event?.status) {
       // TODO remove this temporary hack
-      case 'livestream':
-        videoJsOptions.sources.push({
-          src:
-            event?.mux_livestream?.url ||
-            liveData?.events_by_pk?.mux_livestream?.url,
-          type: 'application/x-mpegurl'
-        });
-        break;
+      // case 'livestream':
+      //   videoJsOptions.sources.push({
+      //     src:
+      //       event?.mux_livestream?.url ||
+      //       liveData?.events_by_pk?.mux_livestream?.url,
+      //     type: 'application/x-mpegurl'
+      //   });
+      //   break;
       case 'live':
       case 'completed':
         videoJsOptions.sources.push({

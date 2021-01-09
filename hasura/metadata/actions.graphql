@@ -5,6 +5,13 @@ type Mutation {
 }
 
 
+type Mutation {
+  createStream (
+    event_id: uuid!
+  ): createStreamOutput
+}
+
+
 type Query {
   getEventUrl (
     id: uuid!
@@ -807,6 +814,11 @@ input UpdateAccountUsersOnConflict {
   where : UpdateAccountUsersBoolExp
 }
 
+input SampleInput {
+  username : String!
+  password : String!
+}
+
 type MyMutationOutput {
   id : uuid!
 }
@@ -843,5 +855,9 @@ type getStripeUrlOutput {
 
 type getStripeCustomerPortalUrlOutput {
   url : String!
+}
+
+type createStreamOutput {
+  stream_key : String!
 }
 

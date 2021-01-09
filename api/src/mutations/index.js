@@ -1,5 +1,36 @@
+const logger = require('../logger')(module);
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
+
+async function updateMuxLivestream(params) {
+  let { id, mux_id, data } = params;
+  try {
+    await client.mutate({
+      variables: {
+        id,
+        mux_id,
+        data
+      },
+      mutation: gql`
+        mutation updateMuxLivestream(
+          $id: uuid!
+          $mux_id: String
+          $data: jsonb!
+        ) {
+          update_events_by_pk(
+            pk_columns: { id: $id }
+            _set: { mux_id: $mux_id, mux_livestream: $data }
+          ) {
+            id
+          }
+        }
+      `
+    });
+  } catch (e) {
+    logger.error('Failed: updateMuxLivestream', params, e);
+    throw e;
+  }
+}
 
 async function updateUserStripeCustomerId(params) {
   let { user_id, stripe_customer_id } = params;
@@ -24,7 +55,7 @@ async function updateUserStripeCustomerId(params) {
       `
     });
   } catch (e) {
-    console.error('Failed: updateUserStripeCustomerId', params, e);
+    logger.error('Failed: updateUserStripeCustomerId', params, e);
     throw e;
   }
 }
@@ -50,7 +81,7 @@ async function fixAnonTransactions({ email, user_id }) {
       `
     });
   } catch (e) {
-    console.error('Failed: fixAnonTransactions', email, user_id, e);
+    logger.error('Failed: fixAnonTransactions', email, user_id, e);
     throw e;
   }
 }
@@ -74,7 +105,7 @@ async function linkAccountUser({ id, user_id }) {
       `
     });
   } catch (e) {
-    console.error('Failed: linkAccountUser', id, user_id, e);
+    logger.error('Failed: linkAccountUser', id, user_id, e);
     throw e;
   }
 }
@@ -98,7 +129,7 @@ async function fixAnonAccess({ email, user_id }) {
       `
     });
   } catch (e) {
-    console.error('Failed: fixAnonAccess', email, user_id, e);
+    logger.error('Failed: fixAnonAccess', email, user_id, e);
     throw e;
   }
 }
@@ -122,7 +153,7 @@ async function updateAccessById({ access_id, object }) {
       `
     });
   } catch (e) {
-    console.error('Failed: updateAccessById', access_id, object);
+    logger.error('Failed: updateAccessById', access_id, object);
     throw e;
   }
 }
@@ -146,7 +177,7 @@ async function updateAccessByEmail({ email, object }) {
       `
     });
   } catch (e) {
-    console.error('Failed: updateAccessByEmail', email, object);
+    logger.error('Failed: updateAccessByEmail', email, object);
     throw e;
   }
 }
@@ -164,7 +195,7 @@ async function createAccess({ object }) {
       `
     });
   } catch (e) {
-    console.error('Failed: createAccess', object);
+    logger.error('Failed: createAccess', object);
     throw e;
   }
 }
@@ -193,7 +224,7 @@ async function createTransaction(params) {
       `
     });
   } catch (e) {
-    console.error('Failed: createTransaction', params);
+    logger.error('Failed: createTransaction', params);
     throw e;
   }
 }
@@ -206,5 +237,6 @@ module.exports = {
   updateAccessByEmail,
   createTransaction,
   updateUserStripeCustomerId,
-  linkAccountUser
+  linkAccountUser,
+  updateMuxLivestream
 };

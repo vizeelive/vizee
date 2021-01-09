@@ -100,9 +100,7 @@ export default function EventPage(props) {
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            {`Available on ${moment(
-              event.start
-            ).format('MMMM Do h:mma')}`}
+            {`Available on ${moment(event.start).format('MMMM Do h:mma')}`}
           </div>
           <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
             {/* Heroicon name: calendar */}
@@ -121,9 +119,7 @@ export default function EventPage(props) {
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            {`Until ${moment(event.end).format(
-              'MMMM Do h:mma'
-            )}`}
+            {`Until ${moment(event.end).format('MMMM Do h:mma')}`}
           </div>
           {event.location && (
             <div
@@ -238,10 +234,7 @@ export default function EventPage(props) {
 
         {(user?.isAdmin || isMyAccount) && event.isBroadcast() && (
           <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
-            <StartStreamButton
-              event_id={event.id}
-              streamKey={liveData?.mux_livestream?.streamKey}
-            />
+            <StartStreamButton event_id={event.id} />
           </span>
         )}
 

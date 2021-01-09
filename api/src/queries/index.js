@@ -1,3 +1,4 @@
+const logger = require('../logger')(module);
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
 
@@ -50,7 +51,7 @@ async function getCheckoutDataProduct(ref) {
       product: res.data.products_by_pk
     };
   } catch (e) {
-    console.log('Failed: getCheckoutDataProduct', ref, e);
+    logger.error('Failed: getCheckoutDataProduct', ref, e);
     throw e;
   }
 }
@@ -91,7 +92,7 @@ async function getCheckoutDataEvent(ref) {
       account: res.data.events_by_pk.account
     };
   } catch (e) {
-    console.log('Failed: getCheckoutDataEvent', ref, e);
+    logger.error('Failed: getCheckoutDataEvent', ref, e);
     throw e;
   }
 }
@@ -104,6 +105,7 @@ async function getEvent(id) {
         query getEvent($id: uuid!) {
           events_by_pk(id: $id) {
             id
+            mux_livestream
             account_id
             account {
               users(where: { user_id: { _is_null: false } }) {
@@ -118,7 +120,7 @@ async function getEvent(id) {
     });
     return res.data.events_by_pk;
   } catch (e) {
-    console.log('Failed: getEvent', id);
+    logger.error('Failed: getEvent', { id });
     throw e;
   }
 }
@@ -142,7 +144,7 @@ async function getStripeUrlData(username) {
     });
     return res.data;
   } catch (e) {
-    console.log('Failed: getStripeUrlData', username);
+    logger.error('Failed: getStripeUrlData', username);
     throw e;
   }
 }
@@ -190,7 +192,7 @@ async function getUserAccess(params) {
     });
     return res.data;
   } catch (e) {
-    console.log('Failed: getUserAccess', params);
+    logger.error('Failed: getUserAccess', params);
     throw e;
   }
 }
@@ -213,7 +215,7 @@ async function getAnonStripeCustomer(email) {
       ? res.data.users_access[0].stripe_customer_id
       : null;
   } catch (e) {
-    console.log('Failed: getAnonStripeCustomer', email);
+    logger.error('Failed: getAnonStripeCustomer', email);
     throw e;
   }
 }
@@ -235,7 +237,7 @@ async function getUnlinkedUsers(email) {
     });
     return res.data.accounts_users;
   } catch (e) {
-    console.log('Failed: getUnlinkedUsers', email);
+    logger.error('Failed: getUnlinkedUsers', email);
     throw e;
   }
 }
@@ -294,7 +296,7 @@ async function getUserAndProduct({ email, product_id }) {
       user_access: res.data.users_access
     };
   } catch (e) {
-    console.log('Failed: getUserAndProduct', email, product_id, e);
+    logger.error('Failed: getUserAndProduct', email, product_id, e);
     throw e;
   }
 }
@@ -333,7 +335,7 @@ async function getUser({ email }) {
       user_access: res.data.users_access
     };
   } catch (e) {
-    console.log('Failed: getUser', email, e);
+    logger.error('Failed: getUser', email, e);
     throw e;
   }
 }
@@ -395,7 +397,7 @@ async function subscriptionPrecheck(variables) {
     });
     return res.data;
   } catch (e) {
-    console.log('Failed: subscriptionPrecheck', email, event_product_id, e);
+    logger.error('Failed: subscriptionPrecheck', email, event_product_id, e);
     throw e;
   }
 }
