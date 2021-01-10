@@ -10,7 +10,7 @@ module.exports = async function (req, res) {
     res.send(result);
   } catch (e) {
     logger.error(e.message, { event_id, user });
-    res.status(500).send(e.message);
+    res.status(400).send({ message: e.message });
     throw e;
   }
 };
