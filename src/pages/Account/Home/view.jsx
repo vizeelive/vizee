@@ -2,13 +2,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import { Button, Typography } from 'antd';
+import Button from 'components/ui/Button';
+import { Typography } from 'antd';
 import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
 
-import ShareButton from 'components/ShareButton';
-import FollowButton from 'components/FollowButton';
+import BuyButton from 'components/Event/BuyButton';
+import ShareButton from 'components/Event/ShareButton';
+import FollowButton from 'components/Event/FollowButton';
 import Linkify from 'react-linkify';
 
 import {
@@ -144,11 +146,7 @@ export default function HomeView(props) {
                   to={`/${username}/manage/events/add`}
                   data-test-id="link-create-event"
                 >
-                  <Button
-                    icon={<VideoCameraOutlined />}
-                    type="primary"
-                    size="large"
-                  >
+                  <Button icon={<VideoCameraOutlined />} type="primary">
                     Create Event
                   </Button>
                 </Link>
@@ -161,12 +159,16 @@ export default function HomeView(props) {
                 />
               )}
 
+              {account.stripe_id && account.products?.length ? (
+                <BuyButton account={account} />
+              ) : null}
+
               <ShareButton url={shareUrl} user={user} />
 
               {(user?.isAdmin || isMyAccount) &&
                 !location.pathname.includes('manage') && (
                   <Link to={`/${account.username}/manage`}>
-                    <Button size="large">Manage</Button>
+                    <Button>Manage</Button>
                   </Link>
                 )}
 

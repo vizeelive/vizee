@@ -4,6 +4,7 @@ const currency = require('currency.js');
 const { pay } = require('../../lib/checkout');
 const { generateImageLink } = require('../../lib');
 const {
+  getCheckoutDataAccount,
   getCheckoutDataProduct,
   getCheckoutDataEvent
 } = require('../../queries');
@@ -14,7 +15,7 @@ module.exports = async function (req, res) {
 
   try {
     if (ref.product_id) {
-      var { event, account, product } = await getCheckoutDataProduct(ref);
+      var { event, account, product } = await getCheckoutDataAccount(ref);
     } else {
       var { event, account } = await getCheckoutDataEvent(ref);
     }

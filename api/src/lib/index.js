@@ -26,12 +26,18 @@ function getUser(req) {
  */
 function generateImageLink(params) {
   const { event, account } = params;
-  let date = dayjs(event.start).format('MMM D, YYYY h:mm A');
+  let date = dayjs(event?.start).format('MMM D, YYYY h:mm A');
   let title = encodeURIComponent(account.name);
-  let subtitle = encodeURIComponent(event.name);
-  return `https://ogi.sh/article?title=${title}&eyebrow=${date}&subtitle=${subtitle}&imageUrl=${
-    event.photo || account.photo
-  }`;
+  let subtitle = encodeURIComponent(event?.name);
+  if (event) {
+       return `https://ogi.sh/article?title=${title}&eyebrow=${date}&subtitle=${subtitle}&imageUrl=${
+         event?.photo || account.photo
+       }`;
+  } else {
+       return `https://ogi.sh/article?title=${title}&imageUrl=${
+         event?.photo || account.photo
+       }`;
+  }
 }
 
 module.exports = { getUser, generateImageLink };

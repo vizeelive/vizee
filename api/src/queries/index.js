@@ -57,6 +57,50 @@ async function getCheckoutDataProduct(ref) {
 }
 
 /**
+ * Fetch account to be used by Stripe Session
+ *
+ * @param {object} ref
+ */
+async function getCheckoutDataAccount(ref) {
+  try {
+    let res = await client.query({
+      variables: {
+        product_id: ref.product_id
+      },
+      query: gql`
+        query getCheckoutDataAccount($product_id: uuid!) {
+          products_by_pk(id: $product_id) {
+            id
+            name
+            price
+            recurring
+            account_id
+            access_length
+            events {
+              id
+            }
+            account {
+              name
+              username
+              photo
+              stripe_id
+              fee_percent
+            }
+          }
+        }
+      `
+    });
+    return {
+      account: res.data.products_by_pk.account,
+      product: res.data.products_by_pk
+    };
+  } catch (e) {
+    logger.error('Failed: getCheckoutDataAccount', ref, e);
+    throw e;
+  }
+}
+
+/**
  * Fetch event and account to be used by Stripe Session
  *
  * @param {object} ref
@@ -68,7 +112,7 @@ async function getCheckoutDataEvent(ref) {
         id: ref.event_id
       },
       query: gql`
-        query getCheckoutDataProduct($id: uuid!) {
+        query getCheckoutDataEvent($id: uuid!) {
           events_by_pk(id: $id) {
             id
             name
@@ -412,5 +456,6 @@ module.exports = {
   subscriptionPrecheck,
   getUserAccess,
   getUnlinkedUsers,
-  getStripeUrlData
+  getStripeUrlData,
+  getCheckoutDataAccount
 };

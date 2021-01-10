@@ -77,7 +77,7 @@ async function pay(params) {
       setup_future_usage: 'off_session',
       transfer_data: {
         amount,
-        destination: event.account.stripe_id
+        destination: account.stripe_id
       }
     },
     line_items: [
@@ -87,14 +87,18 @@ async function pay(params) {
           unit_amount,
           currency: 'usd',
           product_data: {
-            name: `${event.name} - ${account.name}`,
+            name: event ? `${event.name} - ${account.name}` : `${account.name}`,
             images: [image]
           }
         }
       }
     ],
-    success_url: `${origin}/${account.username}/${event.id}/success`,
-    cancel_url: `${origin}/${account.username}/${event.id}/cancel`
+    success_url: event
+      ? `${origin}/${account.username}/${event.id}/success`
+      : `${origin}/${account.username}/success`,
+    cancel_url: event
+      ? `${origin}/${account.username}/${event.id}/cancel`
+      : `${origin}/${account.username}/cancel`
   });
 }
 

@@ -26,12 +26,22 @@ export const GET_ACCOUNT_ANON = gql`
       photo
       username
       description
+      stripe_id
       followers {
         id
       }
       links {
         name
         link
+      }
+      products(where: { account_access: { _eq: true } }) {
+        id
+        name
+        price
+        recurring
+        account_access
+        flexible_price
+        description
       }
       events(where: { end: { _gte: $now } }) {
         id
@@ -94,12 +104,22 @@ const GET_ACCOUNT_USER = gql`
       instagram
       facebook
       twitter
+      stripe_id
       followers {
         id
       }
       links {
         name
         link
+      }
+      products(where: { account_access: { _eq: true } }) {
+        id
+        name
+        price
+        recurring
+        account_access
+        flexible_price
+        description
       }
       events(where: { end: { _gte: $now } }) {
         id

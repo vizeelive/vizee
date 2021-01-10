@@ -1,5 +1,6 @@
 import config from 'config';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { stringify } from 'zipson';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
@@ -17,7 +18,7 @@ const PurchaseOption = styled.div`
 `;
 
 export default function BuyButton(props) {
-  const { event, user } = props;
+  const { account, event, user } = props;
   const [form] = Form.useForm();
   const [product, setProduct] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,7 +30,7 @@ export default function BuyButton(props) {
     let ref = encodeURIComponent(
       stringify({
         user_id: user?.id,
-        event_id: event.id,
+        event_id: event?.id,
         product_id: product?.id,
         email: user?.email || values?.email,
         affiliate: Cookies.get('affiliate_user_id')
@@ -61,11 +62,25 @@ export default function BuyButton(props) {
     }
   };
 
-  let products = event.products
-    .map((product) => product.product)
-    .concat(event.account.products);
+  let products;
 
-  let hasMultiple = products.length;
+  if (account) {
+    products = account.products;
+  } else {
+    products = event.products
+      .map((product) => product.product)
+      .concat(event.account.products);
+  }
+
+  let hasMultiple = products?.length || false;
+  let onlySubscriptions = products.every((product) => product.recurring);
+
+  let label;
+  if (account) {
+    label = onlySubscriptions ? 'Subscribe' : 'Get Access';
+  } else {
+    label = `Buy Ticket ${!hasMultiple ? `(${event.price})` : ''}`;
+  }
 
   const preBuy = (params) => {
     const { product } = params;
@@ -105,7 +120,7 @@ export default function BuyButton(props) {
             d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
           />
         </svg>
-        Buy Ticket {!hasMultiple ? `(${event.price})` : null}
+        {label}
       </button>
       <Modal
         title="Buy"
@@ -137,7 +152,7 @@ export default function BuyButton(props) {
         footer={null}
         onCancel={() => setModalVisible(false)}
       >
-        {!event.account_only && !event.products.length && (
+        {!account && !event.account_only && !event.products.length && (
           <PurchaseOption>
             {true && (
               <Button
@@ -164,7 +179,7 @@ export default function BuyButton(props) {
                 size="large"
                 style={{ float: 'right' }}
               >
-                Buy
+                {product.recurring ? 'Subscribe' : 'Buy'}
               </Button>
             )}
             <h1>{product.name}</h1>
@@ -181,3 +196,8 @@ export default function BuyButton(props) {
     </React.Fragment>
   );
 }
+
+BuyButton.propTypes = {
+  user: PropTypes.object,
+  event: PropTypes.object
+};
