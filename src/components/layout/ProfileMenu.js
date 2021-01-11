@@ -85,6 +85,7 @@ export default function ProfileMenu(props) {
           </Link>
           {account && (
             <a
+              data-test-id="menu-subscriptions"
               href={user.portalUrl}
               className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
               role="menuitem"

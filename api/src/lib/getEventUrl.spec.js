@@ -161,6 +161,7 @@ describe('getEventUrl', () => {
 
     let getUserAccessFixture = fixture('queries/getUserAccess');
     getUserAccessFixture.event.type = 'video';
+    getUserAccessFixture.event.mux_asset_id = null;
     queries.getUserAccess.mockReturnValue(getUserAccessFixture);
 
     mux.createPlaybackId.mockReturnValue({ id: 'a1b2c3' });

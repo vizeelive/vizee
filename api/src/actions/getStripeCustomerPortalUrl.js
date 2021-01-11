@@ -1,3 +1,4 @@
+const config = require('../config');
 const { getUser } = require('../lib');
 const execute = require('../execute');
 const dayjs = require('dayjs');
@@ -30,12 +31,12 @@ module.exports = async function getStripeUrl(req, res) {
 
     const portalsession = await stripe.billingPortal.sessions.create({
       customer: data.users_by_pk.stripe_customer_id,
-      return_url: 'https://www.vizee.live'
+      return_url: config.ui
     });
 
     res.send({ url: portalsession.url });
   } catch (e) {
     console.log(e);
-    res.status(500).send(e.message);
+    res.status(400).send({ message: e.message });
   }
 };

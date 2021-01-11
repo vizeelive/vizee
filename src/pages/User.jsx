@@ -33,6 +33,9 @@ const GET_ACCOUNTS_AUTH = gql`
     hello {
       message
     }
+    getStripeCustomerPortalUrl {
+      url
+    }
     accounts_users(where: { user_id: { _eq: $user_id } }) {
       account {
         id
