@@ -27,6 +27,7 @@ export default function useAuth() {
     error
   } = useAuth0();
   const [geo, setGeo] = useState();
+  const [client, setClient] = useState();
   const [claims, setClaims] = useState();
 
   if (window.Cypress || process.env.REACT_APP_MOCK) {
@@ -78,95 +79,98 @@ export default function useAuth() {
     fetchData();
   }, [getIdTokenClaims]);
 
-  let token = id_token || claims?.__raw;
-  var wsLink = new WebSocketLink({
-    uri: config.graphql.replace('https', 'wss'),
-    options: {
-      reconnect: true,
-      connectionParams: {
+  useEffect(() => {
+    let token = id_token || claims?.__raw;
+    var wsLink = new WebSocketLink({
+      uri: config.graphql.replace('https', 'wss'),
+      options: {
+        reconnect: true,
+        connectionParams: {
+          headers: {
+            ...(token
+              ? {
+                  Authorization: `Bearer ${token}`,
+                  'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
+                }
+              : null)
+          }
+        }
+      }
+    });
+
+    const httpLink = createHttpLink({
+      uri: config.graphql
+    });
+
+    const authLink = setContext((_, { headers }) => {
+      let context = {
         headers: {
-          ...(token
-            ? {
-                Authorization: `Bearer ${token}`,
-                'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
-              }
-            : null)
+          ...headers
+        }
+      };
+      if (claims || id_token) {
+        context.headers['Authorization'] =
+          `Bearer ` + (claims?.__raw || id_token);
+        if (user.isAdmin) {
+          context.headers['X-Hasura-Role'] = `admin`;
         }
       }
-    }
-  });
+      return context;
+    });
 
-  const httpLink = createHttpLink({
-    uri: config.graphql
-  });
+    const errorLink = onError((errorParams) => {
+      const { graphQLErrors, networkError, operation } = errorParams;
+      if (graphQLErrors)
+        graphQLErrors.map((params) => {
+          const { message, locations, path } = params;
+          if (message.includes('JWT')) {
+            logout();
+          }
+          Sentry.captureException(
+            `GraphQL Error (${operation.operationName}): ${message}`
+          );
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          );
+          return null;
+        });
 
-  const authLink = setContext((_, { headers }) => {
-    let context = {
-      headers: {
-        ...headers
+      if (networkError) {
+        Sentry.captureException(`GraphQL Error (${operation.operationName})`);
+        console.log(`[Network error]: ${networkError}`, networkError);
       }
-    };
-    if (claims || id_token) {
-      context.headers['Authorization'] =
-        `Bearer ` + (claims?.__raw || id_token);
-      if (user.isAdmin) {
-        context.headers['X-Hasura-Role'] = `admin`;
-      }
-    }
-    return context;
-  });
+    });
 
-  const errorLink = onError((errorParams) => {
-    const { graphQLErrors, networkError, operation } = errorParams;
-    if (graphQLErrors)
-      graphQLErrors.map((params) => {
-        const { message, locations, path } = params;
-        if (message.includes('JWT')) {
-          logout();
+    var link = ApolloLink.split(
+      // split based on operation type
+      ({ query }) => {
+        const { kind, operation } = getMainDefinition(query);
+        return kind === 'OperationDefinition' && operation === 'subscription';
+      },
+      wsLink,
+      httpLink
+    );
+
+    let res = new ApolloClient({
+      cache: new InMemoryCache(),
+      link: ApolloLink.from([apolloLogger, authLink, errorLink, link]),
+      defaultHttpLink: false,
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: 'network-only'
+          // errorPolicy: 'all'
+        },
+        query: {
+          fetchPolicy: 'network-only'
+          // errorPolicy: 'all'
+        },
+        mutate: {
+          // errorPolicy: 'all'
         }
-        Sentry.captureException(
-          `GraphQL Error (${operation.operationName}): ${message}`
-        );
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        );
-        return null;
-      });
-
-    if (networkError) {
-      Sentry.captureException(`GraphQL Error (${operation.operationName})`);
-      console.log(`[Network error]: ${networkError}`, networkError);
-    }
-  });
-
-  var link = ApolloLink.split(
-    // split based on operation type
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-    wsLink,
-    httpLink
-  );
-
-  let client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: ApolloLink.from([apolloLogger, authLink, errorLink, link]),
-    defaultHttpLink: false,
-    defaultOptions: {
-      watchQuery: {
-        fetchPolicy: 'network-only'
-        // errorPolicy: 'all'
-      },
-      query: {
-        fetchPolicy: 'network-only'
-        // errorPolicy: 'all'
-      },
-      mutate: {
-        // errorPolicy: 'all'
       }
-    }
-  });
+    });
+    setClient(res);
+  }, [claims]);
 
   if (user && geo) {
     user.geo = geo;
