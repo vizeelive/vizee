@@ -45,6 +45,7 @@
     "moment": "^2.29.0",
     "msw": "^0.24.2",
     "postcss": "^8.1.10",
+    "posthog-js": "^1.8.0",
     "react": "^16.13.1",
     "react-big-calendar": "^0.28.0",
     "react-copy-to-clipboard": "^5.0.2",

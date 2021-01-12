@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import config from '../config';
 import Cookies from 'js-cookie';
 import * as Sentry from '@sentry/react';
+import posthog from 'posthog-js';
 
 import {
   ApolloLink,
@@ -64,6 +65,12 @@ export default function useAuth() {
     user.isAdmin = user['https://hasura.io/jwt/claims'][
       'x-hasura-allowed-roles'
     ].includes('admin');
+
+    posthog.init('mg9G9n0xj7ktBE9NfalasObycP6BJfzFWjWrEGO4CIs', {
+      api_host: 'https://vizee-posthog.herokuapp.com'
+    });
+    posthog.identify(user.id);
+    posthog.people.set({ email: user.email });
 
     window.mixpanel.identify(user.id);
     window.mixpanel.people.set({
