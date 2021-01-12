@@ -9,7 +9,7 @@ actions:
 - name: createProduct
   definition:
     kind: synchronous
-    handler: https://9e0747d9c4c9.ngrok.io
+    handler: '{{ACTION_BASE_URL}}'
     forward_client_headers: true
   permissions:
   - role: user
@@ -70,7 +70,7 @@ actions:
 - name: updateProduct
   definition:
     kind: synchronous
-    handler: https://9e0747d9c4c9.ngrok.io
+    handler: '{{ACTION_BASE_URL}}'
     forward_client_headers: true
   permissions:
   - role: user
