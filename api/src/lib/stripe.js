@@ -3,6 +3,12 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 });
 
 module.exports = {
+  createProduct: (product) => {
+    return stripe.products.create(product);
+  },
+  updateProduct: (id, product) => {
+    return stripe.products.update(id, product);
+  },
   getCustomer: (customer) => {
     return stripe.customers.retrieve(customer);
   },

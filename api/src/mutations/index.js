@@ -2,6 +2,52 @@ const logger = require('../logger')(module);
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
 
+async function createProduct(params) {
+  const { object } = params;
+  try {
+    let res = await client.mutate({
+      variables: { object },
+      mutation: gql`
+        mutation createProduct($object: products_insert_input!) {
+          insert_products_one(object: $object) {
+            id
+          }
+        }
+      `
+    });
+    return res.data.insert_products_one;
+  } catch (e) {
+    logger.error('Failed: createProduct', params, e);
+    throw e;
+  }
+}
+
+async function updateProduct(params) {
+  const { product_id, object } = params;
+  try {
+    let res = await client.mutate({
+      variables: { product_id, object },
+      mutation: gql`
+        mutation updateProduct(
+          $product_id: uuid!
+          $object: products_set_input!
+        ) {
+          update_products_by_pk(
+            pk_columns: { id: $product_id }
+            _set: $object
+          ) {
+            id
+          }
+        }
+      `
+    });
+    return res.data.update_products_by_pk;
+  } catch (e) {
+    logger.error('Failed: updateProduct', params, e);
+    throw e;
+  }
+}
+
 async function updateMuxLivestream(params) {
   let { id, mux_id, data } = params;
   try {
@@ -238,5 +284,7 @@ module.exports = {
   createTransaction,
   updateUserStripeCustomerId,
   linkAccountUser,
-  updateMuxLivestream
+  updateMuxLivestream,
+  createProduct,
+  updateProduct
 };

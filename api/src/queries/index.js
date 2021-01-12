@@ -169,6 +169,66 @@ async function getEvent(id) {
   }
 }
 
+async function getAccount(params) {
+  const { account_id } = params;
+  try {
+    let res = await client.query({
+      variables: { account_id },
+      query: gql`
+        query getAccount($account_id: uuid!) {
+          accounts_by_pk(id: $account_id) {
+            id
+            name
+            users {
+              user {
+                id
+              }
+            }
+          }
+        }
+      `
+    });
+    return {
+      account: res.data.accounts_by_pk
+    };
+  } catch (e) {
+    logger.error('Failed: getAccount', params);
+    throw e;
+  }
+}
+
+async function getAccountAndProduct(params) {
+  const { product_id } = params;
+  try {
+    let res = await client.query({
+      variables: { product_id },
+      query: gql`
+        query getAccountAndProduct($product_id: uuid!) {
+          products_by_pk(id: $product_id) {
+            id
+            stripe_product_id
+            account {
+              name
+              users {
+                user {
+                  id
+                }
+              }
+            }
+          }
+        }
+      `
+    });
+    return {
+      account: res.data.products_by_pk.account,
+      product: res.data.products_by_pk
+    };
+  } catch (e) {
+    logger.error('Failed: getAccountAndProduct', params);
+    throw e;
+  }
+}
+
 async function getStripeUrlData(username) {
   try {
     let res = await client.query({
@@ -206,6 +266,7 @@ async function getUserAccess(params) {
           $event_id: uuid!
         ) {
           event: events_by_pk(id: $event_id) {
+            id
             price
             type
             start
@@ -313,6 +374,7 @@ async function getUserAndProduct({ email, product_id }) {
             account_access
             recurring
             access_length
+            stripe_product_id
             account {
               stripe_id
             }
@@ -457,5 +519,7 @@ module.exports = {
   getUserAccess,
   getUnlinkedUsers,
   getStripeUrlData,
-  getCheckoutDataAccount
+  getCheckoutDataAccount,
+  getAccountAndProduct,
+  getAccount
 };

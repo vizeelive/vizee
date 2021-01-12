@@ -92,7 +92,7 @@ module.exports = async function ({ event }) {
             {
               price_data: {
                 currency: 'usd',
-                product: process.env.STRIPE_SUBSCRIPTION_PRODUCT,
+                product: product.stripe_product_id,
                 unit_amount: product.price.replace('$', '').replace('.', ''),
                 recurring: {
                   interval: 'day',

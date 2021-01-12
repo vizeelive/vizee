@@ -36,8 +36,8 @@ const Header = styled.header`
 `;
 
 const CREATE_PRODUCT = gql`
-  mutation CreateProduct($object: products_insert_input!) {
-    insert_products_one(object: $object) {
+  mutation createProduct($object: CreateProductProductsInsertInput!) {
+    createProduct(object: $object) {
       id
     }
   }
@@ -62,8 +62,11 @@ const GET_PRODUCTS = gql`
 `;
 
 const UPDATE_PRODUCT = gql`
-  mutation UpdateProduct($id: uuid!, $_set: products_set_input!) {
-    update_products_by_pk(pk_columns: { id: $id }, _set: $_set) {
+  mutation updateProduct(
+    $product_id: uuid!
+    $object: UpdateProductProductsSetInput!
+  ) {
+    updateProduct(id: $product_id, object: $object) {
       id
     }
   }
@@ -126,8 +129,8 @@ export default function Products() {
       try {
         await updateProduct({
           variables: {
-            id: data.id,
-            _set
+            product_id: data.id,
+            object: _set
           }
         });
         message.success('Successfully updated product');

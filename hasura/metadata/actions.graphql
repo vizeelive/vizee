@@ -6,6 +6,13 @@ type Mutation {
 
 
 type Mutation {
+  createProduct (
+    object: CreateProductProductsInsertInput!
+  ): CreateProductOutput
+}
+
+
+type Mutation {
   createStream (
     event_id: uuid!
   ): createStreamOutput
@@ -56,6 +63,14 @@ type Mutation {
     id: uuid!
     object: UpdateAccountInput!
   ): UpdateAccountOutput
+}
+
+
+type Mutation {
+  updateProduct (
+    id: uuid!
+    object: UpdateProductProductsSetInput!
+  ): UpdateProductOutput
 }
 
 
@@ -157,6 +172,7 @@ enum UpdateAccountEventsUpdateColumn {
   """ column name """ end
   """ column name """ id
   """ column name """ name
+  """ column name """ logo
   """ column name """ photo
   """ column name """ preview
   """ column name """ price
@@ -225,6 +241,231 @@ enum UpdateAccountUsersUpdateColumn {
   """ column name """ id
   """ column name """ last_name
   """ column name """ name
+}
+
+enum CreateProductCategoriesConstraint {
+  """ unique or primary key constraint """ categories_pkey
+}
+
+enum CreateProductCategoriesUpdateColumn {
+  """ column name """ id
+  """ column name """ name
+}
+
+enum CreateProductEventsConstraint {
+  """ unique or primary key constraint """ events_mux_id_key
+  """ unique or primary key constraint """ events_pkey
+  """ unique or primary key constraint """ events_video_key
+}
+
+enum CreateProductEventsUpdateColumn {
+  """ column name """ account_id
+  """ column name """ account_only
+  """ column name """ category_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ end
+  """ column name """ id
+  """ column name """ location
+  """ column name """ location_pos
+  """ column name """ mux_asset_id
+  """ column name """ mux_id
+  """ column name """ mux_livestream
+  """ column name """ name
+  """ column name """ on_network
+  """ column name """ photo
+  """ column name """ preview
+  """ column name """ price
+  """ column name """ published
+  """ column name """ start
+  """ column name """ status
+  """ column name """ thumb
+  """ column name """ type
+  """ column name """ video
+}
+
+enum CreateProductUsersAccessConstraint {
+  """ unique or primary key constraint """ users_access_pkey
+}
+
+enum CreateProductUsersAccessUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ email
+  """ column name """ event_id
+  """ column name """ expiry
+  """ column name """ id
+  """ column name """ product_id
+  """ column name """ stripe_customer_id
+  """ column name """ stripe_subscription_id
+  """ column name """ subscription
+  """ column name """ updated
+  """ column name """ user_id
+}
+
+enum CreateProductAccountsUsersConstraint {
+  """ unique or primary key constraint """ accounts_users_pkey
+  """ unique or primary key constraint """ accounts_users_unique
+}
+
+enum CreateProductAccountsUsersUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ email
+  """ column name """ id
+  """ column name """ user_id
+}
+
+enum CreateProductFollowersConstraint {
+  """ unique or primary key constraint """ subscribers_pkey
+  """ unique or primary key constraint """ subscriptions_account_id_user_id_key
+}
+
+enum CreateProductFollowersUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ id
+  """ column name """ user_id
+}
+
+enum CreateProductTransactionsConstraint {
+  """ unique or primary key constraint """ transactions_pkey
+}
+
+enum CreateProductTransactionsUpdateColumn {
+  """ column name """ affiliate_id
+  """ column name """ created
+  """ column name """ email
+  """ column name """ event_id
+  """ column name """ id
+  """ column name """ price
+  """ column name """ ref
+  """ column name """ user_id
+}
+
+enum CreateProductUsersConstraint {
+  """ unique or primary key constraint """ users_code_key
+  """ unique or primary key constraint """ users_pkey
+  """ unique or primary key constraint """ users_sub_key
+}
+
+enum CreateProductUsersUpdateColumn {
+  """ column name """ affiliate_account_id
+  """ column name """ affiliate_user_id
+  """ column name """ city
+  """ column name """ code
+  """ column name """ country
+  """ column name """ created
+  """ column name """ email
+  """ column name """ first_name
+  """ column name """ id
+  """ column name """ last_name
+  """ column name """ name
+  """ column name """ state
+  """ column name """ stripe_customer_id
+  """ column name """ sub
+}
+
+enum CreateProductCommentsConstraint {
+  """ unique or primary key constraint """ comments_pkey
+}
+
+enum CreateProductCommentsUpdateColumn {
+  """ column name """ body
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ event_id
+  """ column name """ id
+}
+
+enum CreateProductFavoritesConstraint {
+  """ unique or primary key constraint """ favorites_event_id_created_by_key
+  """ unique or primary key constraint """ favorites_pkey
+}
+
+enum CreateProductFavoritesUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ event_id
+  """ column name """ id
+}
+
+enum CreateProductProductsConstraint {
+  """ unique or primary key constraint """ products_pkey
+}
+
+enum CreateProductProductsUpdateColumn {
+  """ column name """ access_length
+  """ column name """ account_access
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ flexible_price
+  """ column name """ id
+  """ column name """ name
+  """ column name """ price
+  """ column name """ recurring
+}
+
+enum CreateProductEventsProductsConstraint {
+  """ unique or primary key constraint """ events_products_pkey
+}
+
+enum CreateProductEventsProductsUpdateColumn {
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ event_id
+  """ column name """ id
+  """ column name """ product_id
+}
+
+enum CreateProductLinksConstraint {
+  """ unique or primary key constraint """ links_pkey
+}
+
+enum CreateProductLinksUpdateColumn {
+  """ column name """ account_id
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ enabled
+  """ column name """ id
+  """ column name """ link
+  """ column name """ name
+}
+
+enum CreateProductAccountsConstraint {
+  """ unique or primary key constraint """ accounts_pkey
+  """ unique or primary key constraint """ accounts_username_idx
+  """ unique or primary key constraint """ accounts_username_key
+}
+
+enum CreateProductAccountsUpdateColumn {
+  """ column name """ created
+  """ column name """ created_by
+  """ column name """ description
+  """ column name """ domain
+  """ column name """ facebook
+  """ column name """ fee_percent
+  """ column name """ id
+  """ column name """ instagram
+  """ column name """ logo
+  """ column name """ name
+  """ column name """ photo
+  """ column name """ stripe_data
+  """ column name """ stripe_id
+  """ column name """ subscription_rate
+  """ column name """ tpl_backgroundcolor
+  """ column name """ tpl_color
+  """ column name """ tpl_primarycolor
+  """ column name """ twitter
+  """ column name """ umami_id
+  """ column name """ umami_username
+  """ column name """ umami_website
+  """ column name """ username
 }
 
 input MyMutationAccountsInsertInput {
@@ -531,6 +772,7 @@ input UpdateAccountInput {
   fee_percent : Int
   instagram : String
   name : String
+  logo : String
   photo : String
   twitter : String
   username : String
@@ -554,6 +796,7 @@ input UpdateAccountEventsInsertInput {
   favorites : UpdateAccountFavoritesArrRelInsertInput
   id : uuid
   name : String
+  logo : String
   photo : String
   preview : String
   price : money
@@ -579,6 +822,7 @@ input UpdateAccountAccountsInsertInput {
   id : uuid
   instagram : String
   name : String
+  logo : String
   photo : String
   twitter : String
   username : String
@@ -625,6 +869,7 @@ input UpdateAccountEventsBoolExp {
   favorites : UpdateAccountFavoritesBoolExp
   id : UpdateAccountUuidComparisonExp
   name : UpdateAccountStringComparisonExp
+  logo : UpdateAccountStringComparisonExp
   photo : UpdateAccountStringComparisonExp
   preview : UpdateAccountStringComparisonExp
   price : UpdateAccountMoneyComparisonExp
@@ -648,6 +893,7 @@ input UpdateAccountAccountsBoolExp {
   id : UpdateAccountUuidComparisonExp
   instagram : UpdateAccountStringComparisonExp
   name : UpdateAccountStringComparisonExp
+  logo : UpdateAccountStringComparisonExp
   photo : UpdateAccountStringComparisonExp
   twitter : UpdateAccountStringComparisonExp
   username : UpdateAccountStringComparisonExp
@@ -819,6 +1065,761 @@ input SampleInput {
   password : String!
 }
 
+input CreateProductProductsInsertInput {
+  access_length : Int
+  account : CreateProductAccountsObjRelInsertInput
+  account_access : Boolean
+  account_id : uuid
+  created : timestamptz
+  created_by : uuid
+  creator : CreateProductUsersObjRelInsertInput
+  description : String
+  events : CreateProductEventsProductsArrRelInsertInput
+  flexible_price : Boolean
+  id : uuid
+  name : String
+  price : money
+  recurring : Boolean
+}
+
+input CreateProductAccountsObjRelInsertInput {
+  data : CreateProductAccountsInsertInput!
+  on_conflict : CreateProductAccountsOnConflict
+}
+
+input CreateProductAccountsInsertInput {
+  access : CreateProductUsersAccessValidArrRelInsertInput
+  created : timestamptz
+  created_by : String
+  description : String
+  domain : String
+  events : CreateProductEventsArrRelInsertInput
+  facebook : String
+  favorites : CreateProductFavoritesArrRelInsertInput
+  fee_percent : Int
+  followers : CreateProductFollowersArrRelInsertInput
+  id : uuid
+  instagram : String
+  links : CreateProductLinksArrRelInsertInput
+  logo : String
+  name : String
+  photo : String
+  products : CreateProductProductsArrRelInsertInput
+  stripe_data : jsonb
+  stripe_id : String
+  subscription_rate : Int
+  tpl_backgroundcolor : String
+  tpl_color : String
+  tpl_primarycolor : String
+  twitter : String
+  umami_id : Int
+  umami_username : String
+  umami_website : uuid
+  username : String
+  users : CreateProductAccountsUsersArrRelInsertInput
+}
+
+input CreateProductUsersAccessValidArrRelInsertInput {
+  data : [CreateProductUsersAccessValidInsertInput!]!
+}
+
+input CreateProductUsersAccessValidInsertInput {
+  account_id : uuid
+  created : timestamptz
+  email : String
+  event_id : uuid
+  expiry : timestamptz
+  id : uuid
+  subscription : Boolean
+  updated : timestamptz
+  user_id : uuid
+}
+
+input CreateProductEventsArrRelInsertInput {
+  data : [CreateProductEventsInsertInput!]!
+  on_conflict : CreateProductEventsOnConflict
+}
+
+input CreateProductEventsInsertInput {
+  account : CreateProductAccountsObjRelInsertInput
+  account_id : uuid
+  account_only : Boolean
+  category : CreateProductCategoriesObjRelInsertInput
+  category_id : uuid
+  comments : CreateProductCommentsArrRelInsertInput
+  created : timestamptz
+  created_by : uuid
+  description : String
+  end : timestamptz
+  favorites : CreateProductFavoritesArrRelInsertInput
+  id : uuid
+  location : String
+  location_pos : point
+  mux_asset_id : String
+  mux_id : String
+  mux_livestream : jsonb
+  name : String
+  on_network : Boolean
+  photo : String
+  preview : String
+  price : money
+  products : CreateProductEventsProductsArrRelInsertInput
+  published : Boolean
+  start : timestamptz
+  status : String
+  thumb : String
+  transactions : CreateProductTransactionsArrRelInsertInput
+  type : String
+  user : CreateProductUsersObjRelInsertInput
+  video : String
+}
+
+input CreateProductCategoriesObjRelInsertInput {
+  data : CreateProductCategoriesInsertInput!
+  on_conflict : CreateProductCategoriesOnConflict
+}
+
+input CreateProductCategoriesInsertInput {
+  id : uuid
+  name : String
+}
+
+input CreateProductCategoriesOnConflict {
+  constraint : CreateProductCategoriesConstraint!
+  update_columns : [CreateProductCategoriesUpdateColumn!]!
+  where : CreateProductCategoriesBoolExp
+}
+
+input CreateProductCategoriesBoolExp {
+  _and : [CreateProductCategoriesBoolExp]
+  _not : CreateProductCategoriesBoolExp
+  _or : [CreateProductCategoriesBoolExp]
+  id : CreateProductUuidComparisonExp
+  name : CreateProductStringComparisonExp
+}
+
+input CreateProductUuidComparisonExp {
+  _eq : uuid
+  _gt : uuid
+  _gte : uuid
+  _in : [uuid!]
+  _is_null : Boolean
+  _lt : uuid
+  _lte : uuid
+  _neq : uuid
+  _nin : [uuid!]
+}
+
+input CreateProductStringComparisonExp {
+  _eq : String
+  _gt : String
+  _gte : String
+  _ilike : String
+  _in : [String!]
+  _is_null : Boolean
+  _like : String
+  _lt : String
+  _lte : String
+  _neq : String
+  _nilike : String
+  _nin : [String!]
+  _nlike : String
+  _nsimilar : String
+  _similar : String
+}
+
+input CreateProductCommentsArrRelInsertInput {
+  data : [CreateProductCommentsInsertInput!]!
+  on_conflict : CreateProductCommentsOnConflict
+}
+
+input CreateProductCommentsInsertInput {
+  body : String
+  created : timestamptz
+  created_by : uuid
+  event : CreateProductEventsObjRelInsertInput
+  event_id : uuid
+  id : uuid
+  user : CreateProductUsersObjRelInsertInput
+}
+
+input CreateProductEventsObjRelInsertInput {
+  data : CreateProductEventsInsertInput!
+  on_conflict : CreateProductEventsOnConflict
+}
+
+input CreateProductEventsOnConflict {
+  constraint : CreateProductEventsConstraint!
+  update_columns : [CreateProductEventsUpdateColumn!]!
+  where : CreateProductEventsBoolExp
+}
+
+input CreateProductEventsBoolExp {
+  _and : [CreateProductEventsBoolExp]
+  _not : CreateProductEventsBoolExp
+  _or : [CreateProductEventsBoolExp]
+  account : CreateProductAccountsBoolExp
+  account_id : CreateProductUuidComparisonExp
+  account_only : CreateProductBooleanComparisonExp
+  category : CreateProductCategoriesBoolExp
+  category_id : CreateProductUuidComparisonExp
+  comments : CreateProductCommentsBoolExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  description : CreateProductStringComparisonExp
+  end : CreateProductTimestamptzComparisonExp
+  favorites : CreateProductFavoritesBoolExp
+  id : CreateProductUuidComparisonExp
+  location : CreateProductStringComparisonExp
+  location_pos : CreateProductPointComparisonExp
+  mux_asset_id : CreateProductStringComparisonExp
+  mux_id : CreateProductStringComparisonExp
+  mux_livestream : CreateProductJsonbComparisonExp
+  name : CreateProductStringComparisonExp
+  on_network : CreateProductBooleanComparisonExp
+  photo : CreateProductStringComparisonExp
+  preview : CreateProductStringComparisonExp
+  price : CreateProductMoneyComparisonExp
+  products : CreateProductEventsProductsBoolExp
+  published : CreateProductBooleanComparisonExp
+  start : CreateProductTimestamptzComparisonExp
+  status : CreateProductStringComparisonExp
+  thumb : CreateProductStringComparisonExp
+  transactions : CreateProductTransactionsBoolExp
+  type : CreateProductStringComparisonExp
+  user : CreateProductUsersBoolExp
+  video : CreateProductStringComparisonExp
+}
+
+input CreateProductAccountsBoolExp {
+  _and : [CreateProductAccountsBoolExp]
+  _not : CreateProductAccountsBoolExp
+  _or : [CreateProductAccountsBoolExp]
+  access : CreateProductUsersAccessValidBoolExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductStringComparisonExp
+  description : CreateProductStringComparisonExp
+  domain : CreateProductStringComparisonExp
+  events : CreateProductEventsBoolExp
+  facebook : CreateProductStringComparisonExp
+  favorites : CreateProductFavoritesBoolExp
+  fee_percent : CreateProductIntComparisonExp
+  followers : CreateProductFollowersBoolExp
+  id : CreateProductUuidComparisonExp
+  instagram : CreateProductStringComparisonExp
+  links : CreateProductLinksBoolExp
+  logo : CreateProductStringComparisonExp
+  name : CreateProductStringComparisonExp
+  photo : CreateProductStringComparisonExp
+  products : CreateProductProductsBoolExp
+  stripe_data : CreateProductJsonbComparisonExp
+  stripe_id : CreateProductStringComparisonExp
+  subscription_rate : CreateProductIntComparisonExp
+  tpl_backgroundcolor : CreateProductStringComparisonExp
+  tpl_color : CreateProductStringComparisonExp
+  tpl_primarycolor : CreateProductStringComparisonExp
+  twitter : CreateProductStringComparisonExp
+  umami_id : CreateProductIntComparisonExp
+  umami_username : CreateProductStringComparisonExp
+  umami_website : CreateProductUuidComparisonExp
+  username : CreateProductStringComparisonExp
+  users : CreateProductAccountsUsersBoolExp
+}
+
+input CreateProductUsersAccessValidBoolExp {
+  _and : [CreateProductUsersAccessValidBoolExp]
+  _not : CreateProductUsersAccessValidBoolExp
+  _or : [CreateProductUsersAccessValidBoolExp]
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  email : CreateProductStringComparisonExp
+  event_id : CreateProductUuidComparisonExp
+  expiry : CreateProductTimestamptzComparisonExp
+  id : CreateProductUuidComparisonExp
+  subscription : CreateProductBooleanComparisonExp
+  updated : CreateProductTimestamptzComparisonExp
+  user_id : CreateProductUuidComparisonExp
+}
+
+input CreateProductTimestamptzComparisonExp {
+  _eq : timestamptz
+  _gt : timestamptz
+  _gte : timestamptz
+  _in : [timestamptz!]
+  _is_null : Boolean
+  _lt : timestamptz
+  _lte : timestamptz
+  _neq : timestamptz
+  _nin : [timestamptz!]
+}
+
+input CreateProductBooleanComparisonExp {
+  _eq : Boolean
+  _gt : Boolean
+  _gte : Boolean
+  _in : [Boolean!]
+  _is_null : Boolean
+  _lt : Boolean
+  _lte : Boolean
+  _neq : Boolean
+  _nin : [Boolean!]
+}
+
+input CreateProductFavoritesBoolExp {
+  _and : [CreateProductFavoritesBoolExp]
+  _not : CreateProductFavoritesBoolExp
+  _or : [CreateProductFavoritesBoolExp]
+  account : CreateProductAccountsBoolExp
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  event : CreateProductEventsBoolExp
+  event_id : CreateProductUuidComparisonExp
+  id : CreateProductUuidComparisonExp
+}
+
+input CreateProductIntComparisonExp {
+  _eq : Int
+  _gt : Int
+  _gte : Int
+  _in : [Int!]
+  _is_null : Boolean
+  _lt : Int
+  _lte : Int
+  _neq : Int
+  _nin : [Int!]
+}
+
+input CreateProductFollowersBoolExp {
+  _and : [CreateProductFollowersBoolExp]
+  _not : CreateProductFollowersBoolExp
+  _or : [CreateProductFollowersBoolExp]
+  account : CreateProductAccountsBoolExp
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  id : CreateProductUuidComparisonExp
+  user : CreateProductUsersBoolExp
+  user_id : CreateProductUuidComparisonExp
+}
+
+input CreateProductUsersBoolExp {
+  _and : [CreateProductUsersBoolExp]
+  _not : CreateProductUsersBoolExp
+  _or : [CreateProductUsersBoolExp]
+  access : CreateProductUsersAccessBoolExp
+  accounts : CreateProductAccountsUsersBoolExp
+  affiliate_account : CreateProductAccountsBoolExp
+  affiliate_account_id : CreateProductUuidComparisonExp
+  affiliate_user : CreateProductUsersBoolExp
+  affiliate_user_id : CreateProductUuidComparisonExp
+  city : CreateProductStringComparisonExp
+  code : CreateProductStringComparisonExp
+  country : CreateProductStringComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  email : CreateProductStringComparisonExp
+  events : CreateProductEventsBoolExp
+  first_name : CreateProductStringComparisonExp
+  id : CreateProductUuidComparisonExp
+  last_name : CreateProductStringComparisonExp
+  name : CreateProductStringComparisonExp
+  state : CreateProductStringComparisonExp
+  stripe_customer_id : CreateProductStringComparisonExp
+  sub : CreateProductStringComparisonExp
+  subscriptions : CreateProductFollowersBoolExp
+  transactions : CreateProductTransactionsBoolExp
+}
+
+input CreateProductUsersAccessBoolExp {
+  _and : [CreateProductUsersAccessBoolExp]
+  _not : CreateProductUsersAccessBoolExp
+  _or : [CreateProductUsersAccessBoolExp]
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  email : CreateProductStringComparisonExp
+  event : CreateProductEventsBoolExp
+  event_id : CreateProductUuidComparisonExp
+  expiry : CreateProductTimestamptzComparisonExp
+  id : CreateProductUuidComparisonExp
+  product_id : CreateProductUuidComparisonExp
+  stripe_customer_id : CreateProductStringComparisonExp
+  stripe_subscription_id : CreateProductStringComparisonExp
+  subscription : CreateProductBooleanComparisonExp
+  updated : CreateProductTimestamptzComparisonExp
+  user_id : CreateProductUuidComparisonExp
+}
+
+input CreateProductAccountsUsersBoolExp {
+  _and : [CreateProductAccountsUsersBoolExp]
+  _not : CreateProductAccountsUsersBoolExp
+  _or : [CreateProductAccountsUsersBoolExp]
+  account : CreateProductAccountsBoolExp
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  email : CreateProductStringComparisonExp
+  emailUser : CreateProductUsersBoolExp
+  id : CreateProductUuidComparisonExp
+  user : CreateProductUsersBoolExp
+  user_id : CreateProductUuidComparisonExp
+}
+
+input CreateProductTransactionsBoolExp {
+  _and : [CreateProductTransactionsBoolExp]
+  _not : CreateProductTransactionsBoolExp
+  _or : [CreateProductTransactionsBoolExp]
+  affiliate_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  email : CreateProductStringComparisonExp
+  event : CreateProductEventsBoolExp
+  event_id : CreateProductUuidComparisonExp
+  id : CreateProductUuidComparisonExp
+  price : CreateProductMoneyComparisonExp
+  ref : CreateProductStringComparisonExp
+  user : CreateProductUsersBoolExp
+  user_id : CreateProductUuidComparisonExp
+}
+
+input CreateProductMoneyComparisonExp {
+  _eq : money
+  _gt : money
+  _gte : money
+  _in : [money!]
+  _is_null : Boolean
+  _lt : money
+  _lte : money
+  _neq : money
+  _nin : [money!]
+}
+
+input CreateProductLinksBoolExp {
+  _and : [CreateProductLinksBoolExp]
+  _not : CreateProductLinksBoolExp
+  _or : [CreateProductLinksBoolExp]
+  account : CreateProductAccountsBoolExp
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  enabled : CreateProductBooleanComparisonExp
+  id : CreateProductUuidComparisonExp
+  link : CreateProductStringComparisonExp
+  name : CreateProductStringComparisonExp
+  user : CreateProductUsersBoolExp
+}
+
+input CreateProductProductsBoolExp {
+  _and : [CreateProductProductsBoolExp]
+  _not : CreateProductProductsBoolExp
+  _or : [CreateProductProductsBoolExp]
+  access_length : CreateProductIntComparisonExp
+  account : CreateProductAccountsBoolExp
+  account_access : CreateProductBooleanComparisonExp
+  account_id : CreateProductUuidComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  creator : CreateProductUsersBoolExp
+  description : CreateProductStringComparisonExp
+  events : CreateProductEventsProductsBoolExp
+  flexible_price : CreateProductBooleanComparisonExp
+  id : CreateProductUuidComparisonExp
+  name : CreateProductStringComparisonExp
+  price : CreateProductMoneyComparisonExp
+  recurring : CreateProductBooleanComparisonExp
+}
+
+input CreateProductEventsProductsBoolExp {
+  _and : [CreateProductEventsProductsBoolExp]
+  _not : CreateProductEventsProductsBoolExp
+  _or : [CreateProductEventsProductsBoolExp]
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  event : CreateProductEventsBoolExp
+  event_id : CreateProductUuidComparisonExp
+  id : CreateProductUuidComparisonExp
+  product : CreateProductProductsBoolExp
+  product_id : CreateProductUuidComparisonExp
+  user : CreateProductUsersBoolExp
+}
+
+input CreateProductJsonbComparisonExp {
+  _contained_in : jsonb
+  _contains : jsonb
+  _eq : jsonb
+  _gt : jsonb
+  _gte : jsonb
+  _has_key : String
+  _has_keys_all : [String!]
+  _has_keys_any : [String!]
+  _in : [jsonb!]
+  _is_null : Boolean
+  _lt : jsonb
+  _lte : jsonb
+  _neq : jsonb
+  _nin : [jsonb!]
+}
+
+input CreateProductCommentsBoolExp {
+  _and : [CreateProductCommentsBoolExp]
+  _not : CreateProductCommentsBoolExp
+  _or : [CreateProductCommentsBoolExp]
+  body : CreateProductStringComparisonExp
+  created : CreateProductTimestamptzComparisonExp
+  created_by : CreateProductUuidComparisonExp
+  event : CreateProductEventsBoolExp
+  event_id : CreateProductUuidComparisonExp
+  id : CreateProductUuidComparisonExp
+  user : CreateProductUsersBoolExp
+}
+
+input CreateProductPointComparisonExp {
+  _eq : point
+  _gt : point
+  _gte : point
+  _in : [point!]
+  _is_null : Boolean
+  _lt : point
+  _lte : point
+  _neq : point
+  _nin : [point!]
+}
+
+input CreateProductUsersObjRelInsertInput {
+  data : CreateProductUsersInsertInput!
+  on_conflict : CreateProductUsersOnConflict
+}
+
+input CreateProductUsersInsertInput {
+  access : CreateProductUsersAccessArrRelInsertInput
+  accounts : CreateProductAccountsUsersArrRelInsertInput
+  affiliate_account : CreateProductAccountsObjRelInsertInput
+  affiliate_account_id : uuid
+  affiliate_user : CreateProductUsersObjRelInsertInput
+  affiliate_user_id : uuid
+  city : String
+  code : String
+  country : String
+  created : timestamptz
+  email : String
+  events : CreateProductEventsArrRelInsertInput
+  first_name : String
+  id : uuid
+  last_name : String
+  name : String
+  state : String
+  stripe_customer_id : String
+  sub : String
+  subscriptions : CreateProductFollowersArrRelInsertInput
+  transactions : CreateProductTransactionsArrRelInsertInput
+}
+
+input CreateProductUsersAccessArrRelInsertInput {
+  data : [CreateProductUsersAccessInsertInput!]!
+  on_conflict : CreateProductUsersAccessOnConflict
+}
+
+input CreateProductUsersAccessInsertInput {
+  account_id : uuid
+  created : timestamptz
+  email : String
+  event : CreateProductEventsObjRelInsertInput
+  event_id : uuid
+  expiry : timestamptz
+  id : uuid
+  product_id : uuid
+  stripe_customer_id : String
+  stripe_subscription_id : String
+  subscription : Boolean
+  updated : timestamptz
+  user_id : uuid
+}
+
+input CreateProductUsersAccessOnConflict {
+  constraint : CreateProductUsersAccessConstraint!
+  update_columns : [CreateProductUsersAccessUpdateColumn!]!
+  where : CreateProductUsersAccessBoolExp
+}
+
+input CreateProductAccountsUsersArrRelInsertInput {
+  data : [CreateProductAccountsUsersInsertInput!]!
+  on_conflict : CreateProductAccountsUsersOnConflict
+}
+
+input CreateProductAccountsUsersInsertInput {
+  account : CreateProductAccountsObjRelInsertInput
+  account_id : uuid
+  created : timestamptz
+  created_by : uuid
+  email : String
+  emailUser : CreateProductUsersObjRelInsertInput
+  id : uuid
+  user : CreateProductUsersObjRelInsertInput
+  user_id : uuid
+}
+
+input CreateProductAccountsUsersOnConflict {
+  constraint : CreateProductAccountsUsersConstraint!
+  update_columns : [CreateProductAccountsUsersUpdateColumn!]!
+  where : CreateProductAccountsUsersBoolExp
+}
+
+input CreateProductFollowersArrRelInsertInput {
+  data : [CreateProductFollowersInsertInput!]!
+  on_conflict : CreateProductFollowersOnConflict
+}
+
+input CreateProductFollowersInsertInput {
+  account : CreateProductAccountsObjRelInsertInput
+  account_id : uuid
+  created : timestamptz
+  id : uuid
+  user : CreateProductUsersObjRelInsertInput
+  user_id : uuid
+}
+
+input CreateProductFollowersOnConflict {
+  constraint : CreateProductFollowersConstraint!
+  update_columns : [CreateProductFollowersUpdateColumn!]!
+  where : CreateProductFollowersBoolExp
+}
+
+input CreateProductTransactionsArrRelInsertInput {
+  data : [CreateProductTransactionsInsertInput!]!
+  on_conflict : CreateProductTransactionsOnConflict
+}
+
+input CreateProductTransactionsInsertInput {
+  affiliate_id : uuid
+  created : timestamptz
+  email : String
+  event : CreateProductEventsObjRelInsertInput
+  event_id : uuid
+  id : uuid
+  price : money
+  ref : String
+  user : CreateProductUsersObjRelInsertInput
+  user_id : uuid
+}
+
+input CreateProductTransactionsOnConflict {
+  constraint : CreateProductTransactionsConstraint!
+  update_columns : [CreateProductTransactionsUpdateColumn!]!
+  where : CreateProductTransactionsBoolExp
+}
+
+input CreateProductUsersOnConflict {
+  constraint : CreateProductUsersConstraint!
+  update_columns : [CreateProductUsersUpdateColumn!]!
+  where : CreateProductUsersBoolExp
+}
+
+input CreateProductCommentsOnConflict {
+  constraint : CreateProductCommentsConstraint!
+  update_columns : [CreateProductCommentsUpdateColumn!]!
+  where : CreateProductCommentsBoolExp
+}
+
+input CreateProductFavoritesArrRelInsertInput {
+  data : [CreateProductFavoritesInsertInput!]!
+  on_conflict : CreateProductFavoritesOnConflict
+}
+
+input CreateProductFavoritesInsertInput {
+  account : CreateProductAccountsObjRelInsertInput
+  account_id : uuid
+  created : timestamptz
+  created_by : uuid
+  event : CreateProductEventsObjRelInsertInput
+  event_id : uuid
+  id : uuid
+}
+
+input CreateProductFavoritesOnConflict {
+  constraint : CreateProductFavoritesConstraint!
+  update_columns : [CreateProductFavoritesUpdateColumn!]!
+  where : CreateProductFavoritesBoolExp
+}
+
+input CreateProductEventsProductsArrRelInsertInput {
+  data : [CreateProductEventsProductsInsertInput!]!
+  on_conflict : CreateProductEventsProductsOnConflict
+}
+
+input CreateProductEventsProductsInsertInput {
+  created : timestamptz
+  created_by : uuid
+  event : CreateProductEventsObjRelInsertInput
+  event_id : uuid
+  id : uuid
+  product : CreateProductProductsObjRelInsertInput
+  product_id : uuid
+  user : CreateProductUsersObjRelInsertInput
+}
+
+input CreateProductProductsObjRelInsertInput {
+  data : CreateProductProductsInsertInput!
+  on_conflict : CreateProductProductsOnConflict
+}
+
+input CreateProductProductsOnConflict {
+  constraint : CreateProductProductsConstraint!
+  update_columns : [CreateProductProductsUpdateColumn!]!
+  where : CreateProductProductsBoolExp
+}
+
+input CreateProductEventsProductsOnConflict {
+  constraint : CreateProductEventsProductsConstraint!
+  update_columns : [CreateProductEventsProductsUpdateColumn!]!
+  where : CreateProductEventsProductsBoolExp
+}
+
+input CreateProductLinksArrRelInsertInput {
+  data : [CreateProductLinksInsertInput!]!
+  on_conflict : CreateProductLinksOnConflict
+}
+
+input CreateProductLinksInsertInput {
+  account : CreateProductAccountsObjRelInsertInput
+  account_id : uuid
+  created : timestamptz
+  created_by : uuid
+  enabled : Boolean
+  id : uuid
+  link : String
+  name : String
+  user : CreateProductUsersObjRelInsertInput
+}
+
+input CreateProductLinksOnConflict {
+  constraint : CreateProductLinksConstraint!
+  update_columns : [CreateProductLinksUpdateColumn!]!
+  where : CreateProductLinksBoolExp
+}
+
+input CreateProductProductsArrRelInsertInput {
+  data : [CreateProductProductsInsertInput!]!
+  on_conflict : CreateProductProductsOnConflict
+}
+
+input CreateProductAccountsOnConflict {
+  constraint : CreateProductAccountsConstraint!
+  update_columns : [CreateProductAccountsUpdateColumn!]!
+  where : CreateProductAccountsBoolExp
+}
+
+input UpdateProductProductsSetInput {
+  access_length : Int
+  account_access : Boolean
+  account_id : uuid
+  created : timestamptz
+  created_by : uuid
+  description : String
+  flexible_price : Boolean
+  id : uuid
+  name : String
+  price : money
+  recurring : Boolean
+  stripe_product_id : String
+}
+
 type MyMutationOutput {
   id : uuid!
 }
@@ -859,5 +1860,13 @@ type getStripeCustomerPortalUrlOutput {
 
 type createStreamOutput {
   stream_key : String!
+}
+
+type CreateProductOutput {
+  id : uuid!
+}
+
+type UpdateProductOutput {
+  id : uuid!
 }
 

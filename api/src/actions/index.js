@@ -1,5 +1,7 @@
 const hello = require('./hello');
 const createStream = require('./createStream');
+const createProduct = require('./createProduct');
+const updateProduct = require('./updateProduct');
 const CreateAccount = require('./CreateAccount');
 const UpdateAccount = require('./UpdateAccount');
 const getUmamiToken = require('./getUmamiToken');
@@ -15,5 +17,7 @@ module.exports = {
   getUmamiToken,
   getEventUrl,
   getStripeUrl,
-  getStripeCustomerPortalUrl
+  getStripeCustomerPortalUrl,
+  createProduct,
+  updateProduct
 };

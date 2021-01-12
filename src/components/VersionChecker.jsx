@@ -31,7 +31,7 @@ export default function VersionChecker() {
         if (version !== latest) {
           setVersion(latest);
           notification.open({
-            message: `A new version is available!`,
+            message: `An improved version of Vizee is available. Please refresh now to upgrade.`,
             duration: 0,
             icon: `🎉`,
             btn: (
@@ -40,7 +40,7 @@ export default function VersionChecker() {
                 size="small"
                 onClick={() => window.location.reload()}
               >
-                Reload
+                Upgrade
               </Button>
             )
           });
