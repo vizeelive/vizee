@@ -45,11 +45,7 @@ export default function ProfileMenu(props) {
           onClick={() => setIsOpen(!isOpen)}
           aria-haspopup="true"
         >
-          <img
-            className="h-8 w-8 rounded-full"
-            src={photo}
-            alt={user.email}
-          />
+          <img className="h-8 w-8 rounded-full" src={photo} alt={user.email} />
         </button>
       </div>
 
@@ -76,13 +72,15 @@ export default function ProfileMenu(props) {
               My Account
             </Link>
           )}
-          <Link
-            to={`/account`}
-            className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
-            role="menuitem"
-          >
-            Create new account
-          </Link>
+          {account && isNetwork && (
+            <Link
+              to={`/account`}
+              className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
+              role="menuitem"
+            >
+              Create new account
+            </Link>
+          )}
           {account && (
             <a
               data-test-id="menu-subscriptions"

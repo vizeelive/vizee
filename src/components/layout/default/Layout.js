@@ -4,13 +4,22 @@ import Menu from './Menu';
 import Footer from '../Footer';
 
 function Layout(props) {
-  const { user, account, hasTickets, onLogin, onLogout, children } = props;
+  const {
+    user,
+    creator,
+    account,
+    hasTickets,
+    onLogin,
+    onLogout,
+    children
+  } = props;
 
   return (
     <div className="h-screen flex flex-col bg-black pt-16">
       <header className="fixed top-0 inset-x-0 z-40">
         <Menu
           user={user}
+          creator={creator}
           account={account}
           hasTickets={hasTickets}
           onLogin={onLogin}

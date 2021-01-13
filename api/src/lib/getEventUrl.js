@@ -1,5 +1,5 @@
 const dayjs = require('dayjs');
-const logger = require('../logger')(module);
+const logger = require('../logger');
 const isBetween = require('dayjs/plugin/isBetween');
 const { getEvent, getUserAccess } = require('../queries');
 const { createToken, createPlaybackId } = require('../lib/mux');

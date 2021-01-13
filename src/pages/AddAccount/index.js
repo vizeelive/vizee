@@ -28,6 +28,7 @@ const GET_ACCOUNT = gql`
       photo
       twitter
       username
+      whitelabel
     }
   }
 `;
@@ -44,6 +45,7 @@ const GET_ACCOUNT_ADMIN = gql`
       photo
       twitter
       username
+      whitelabel
       fee_percent
     }
   }
@@ -127,6 +129,7 @@ export default function AddAccount(props) {
               name: values.name,
               username: values.username,
               description: values.description,
+              whitelabel: values.whitelabel,
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
@@ -143,6 +146,7 @@ export default function AddAccount(props) {
               name: values.name,
               username: values.username,
               description: values.description,
+              whitelabel: values.whitelabel,
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,

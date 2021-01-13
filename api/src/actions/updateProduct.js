@@ -1,4 +1,4 @@
-const logger = require('../logger')(module);
+const logger = require('../logger');
 const { getUser } = require('../lib');
 const { getAccountAndProduct } = require('../queries');
 const { updateProduct } = require('../mutations');

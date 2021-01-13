@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const { getUser } = require('../lib');
-const logger = require('../logger')(module);
+const logger = require('../logger');
 const execute = require('../execute');
 
 const { getAnonStripeCustomer, getUnlinkedUsers } = require('../queries');

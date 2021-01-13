@@ -1,4 +1,4 @@
-const logger = require('../logger')(module);
+const logger = require('../logger');
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
 

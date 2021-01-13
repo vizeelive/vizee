@@ -19,19 +19,22 @@ import Spinner from 'components/ui/Spinner';
 import DefaultLayout from 'components/layout/default/Layout';
 
 const GET_ACCOUNTS_UNAUTH = gql`
-  query Accounts {
-    accounts {
+  query Accounts($username: String!) {
+    creator: accounts(limit: 1, where: { username: { _ilike: $username } }) {
       id
-      name
-      username
+      logo
     }
   }
 `;
 
 const GET_ACCOUNTS_AUTH = gql`
-  query MyAccounts($user_id: uuid!) {
+  query MyAccounts($user_id: uuid, $username: String) {
     hello {
       message
+    }
+    creator: accounts(limit: 1, where: { username: { _ilike: $username } }) {
+      id
+      logo
     }
     getStripeCustomerPortalUrl {
       url
@@ -92,7 +95,7 @@ export default function User() {
   const { loading, error, data } = useQuery(
     user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
     {
-      variables: { user_id: user?.id }
+      variables: { user_id: user?.id, username: process.env.REACT_APP_ACCOUNT }
     }
   );
 
@@ -158,6 +161,7 @@ export default function User() {
         <Route path="/">
           <DefaultLayout
             user={user}
+            creator={data?.creator?.[0]}
             account={account}
             hasTickets={hasTickets}
             onLogin={handleLogin}

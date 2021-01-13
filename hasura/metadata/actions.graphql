@@ -749,6 +749,7 @@ input CreateAccountInput {
   created : timestamptz
   created_by : String
   description : String
+  whitelabel : Boolean
   events : MyMutationEventsArrRelInsertInput
   facebook : String
   favorites : MyMutationFavoritesArrRelInsertInput
@@ -766,6 +767,7 @@ input UpdateAccountInput {
   created : timestamptz
   created_by : String
   description : String
+  whitelabel : Boolean
   events : UpdateAccountEventsArrRelInsertInput
   facebook : String
   favorites : UpdateAccountFavoritesArrRelInsertInput

@@ -7,7 +7,7 @@ import logo from '../../../svg/vizee-logo.svg';
 import logoText from '../../../svg/vizee-logo-text.svg';
 
 export default function Menu(props) {
-  const { user, account, hasTickets, onLogin, onLogout } = props;
+  const { user, creator, account, hasTickets, onLogin, onLogout } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const className = {
@@ -99,7 +99,7 @@ export default function Menu(props) {
                 ) : (
                   <img
                     className="h-12 w-auto"
-                    src={process.env.REACT_APP_LOGO}
+                    src={creator.logo || process.env.REACT_APP_LOGO}
                     alt="logo"
                   />
                 )}

@@ -1,4 +1,4 @@
-const logger = require('../../logger')(module);
+const logger = require('../../logger');
 const { parse } = require('zipson');
 const dayjs = require('dayjs');
 

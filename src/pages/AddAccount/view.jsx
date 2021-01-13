@@ -7,7 +7,7 @@ import Spinner from 'components/ui/Spinner';
 
 import { Centered, FormContainer } from 'components/styled/common';
 
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Switch } from 'antd';
 
 export default function AddAccountView(props) {
   const {
@@ -214,7 +214,7 @@ export default function AddAccountView(props) {
           </Form.Item>
         )}
 
-        {(replaceLogo || (!logoUrl && !account?.logo)) && (
+        {user?.isAdmin && (replaceLogo || (!logoUrl && !account?.logo)) && (
           <Form.Item label="Logo">
             <FileUpload
               id="logo"
@@ -222,6 +222,17 @@ export default function AddAccountView(props) {
               error={handleFileUploadError}
               options={options}
             />
+          </Form.Item>
+        )}
+
+        {user?.isAdmin && (
+          <Form.Item
+            name="whitelabel"
+            label="Enable White Label"
+            valuePropName="checked"
+            initialValue={false}
+          >
+            <Switch />
           </Form.Item>
         )}
 

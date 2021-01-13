@@ -172,6 +172,7 @@
       - facebook
       - id
       - instagram
+      - logo
       - name
       - photo
       - stripe_data
@@ -204,6 +205,7 @@
       - umami_id
       - umami_website
       - username
+      - whitelabel
       filter: {}
 - table:
     schema: public

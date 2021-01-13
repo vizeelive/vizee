@@ -15,22 +15,19 @@ const logger = winston.createLogger({
   ]
 });
 
-// https://stackoverflow.com/questions/13410754/i-want-to-display-the-file-name-in-the-log-statement
-// Return the last folder name in the path and the calling
-// module's filename.
-const getLabel = function (callingModule) {
-  const parts = callingModule.filename.split(path.sep);
-  return path.join(parts[parts.length - 2], parts.pop());
-};
+// // https://stackoverflow.com/questions/13410754/i-want-to-display-the-file-name-in-the-log-statement
+// // Return the last folder name in the path and the calling
+// // module's filename.
+// const getLabel = function (callingModule) {
+//   const parts = callingModule.filename.split(path.sep);
+//   return path.join(parts[parts.length - 2], parts.pop());
+// };
 
-// if (process.env.NODE_ENV !== 'production') {
-module.exports = function (callingModule) {
-  logger.add(
-    new winston.transports.Console({
-      label: getLabel(callingModule),
-      format: winston.format.simple()
-    })
-  );
-  return logger;
-};
-// }
+logger.add(
+  new winston.transports.Console({
+    // label: getLabel(callingModule),
+    format: winston.format.simple()
+  })
+);
+
+module.exports = logger;
