@@ -755,6 +755,7 @@ input CreateAccountInput {
   id : uuid
   instagram : String
   name : String
+  logo : String
   photo : String
   twitter : String
   username : String

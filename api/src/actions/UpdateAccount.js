@@ -22,6 +22,7 @@ const schema = Joi.object({
   facebook: Joi.string().allow('', null),
   instagram: Joi.string().allow('', null),
   user_id: Joi.string(),
+  logo: Joi.string().uri(),
   photo: Joi.string().uri()
 });
 

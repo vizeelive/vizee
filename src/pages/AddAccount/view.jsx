@@ -16,11 +16,15 @@ export default function AddAccountView(props) {
     account,
     user,
     params,
+    logoUrl,
+    replaceLogo,
+    handleReplaceLogo,
     photoUrl,
     replacePhoto,
     handleReplacePhoto,
     handleFileUploadError,
     handleFileUpload,
+    handleLogoUpload,
     onFinishFailed,
     onFinish,
     isSubmitDisabled,
@@ -190,6 +194,31 @@ export default function AddAccountView(props) {
             <FileUpload
               id="photo"
               success={handleFileUpload}
+              error={handleFileUploadError}
+              options={options}
+            />
+          </Form.Item>
+        )}
+
+        {!replaceLogo && !logoUrl && account?.logo && (
+          <Form.Item label="Logo">
+            <img src={account.logo} alt="Logo" width="300" />
+            <Button onClick={() => handleReplaceLogo()}>Replace Logo</Button>
+          </Form.Item>
+        )}
+
+        {!replaceLogo && logoUrl && (
+          <Form.Item label="Logo">
+            <img src={logoUrl} alt="Logo" width="300" />
+            <Button onClick={() => handleReplaceLogo()}>Replace Logo</Button>
+          </Form.Item>
+        )}
+
+        {(replaceLogo || (!logoUrl && !account?.logo)) && (
+          <Form.Item label="Logo">
+            <FileUpload
+              id="logo"
+              success={handleLogoUpload}
               error={handleFileUploadError}
               options={options}
             />

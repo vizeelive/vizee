@@ -24,6 +24,7 @@ const GET_ACCOUNT = gql`
       facebook
       instagram
       name
+      logo
       photo
       twitter
       username
@@ -39,6 +40,7 @@ const GET_ACCOUNT_ADMIN = gql`
       facebook
       instagram
       name
+      logo
       photo
       twitter
       username
@@ -61,6 +63,8 @@ export default function AddAccount(props) {
   const { user } = useAuth();
   const history = useHistory();
   const [validationErrors, setValidationErrors] = useState({});
+  const [replaceLogo, setReplaceLogo] = useState(false);
+  const [logoUrl, setLogoUrl] = useState(null);
   const [replacePhoto, setReplacePhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [loadAccount, { loading, error, data }] = useLazyQuery(
@@ -93,6 +97,7 @@ export default function AddAccount(props) {
 
   const onFinish = async (values) => {
     let photo = photoUrl || account?.photo;
+    let logo = logoUrl || account?.logo;
 
     if (values.instagram) {
       values.instagram = new SocialLinks().sanitize(
@@ -125,6 +130,7 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
+              ...(logo ? { logo } : null),
               ...(photo ? { photo } : null),
               ...(user?.isAdmin ? { fee_percent: values.fee_percent } : null)
             }
@@ -140,6 +146,7 @@ export default function AddAccount(props) {
               instagram: values.instagram,
               twitter: values.twitter,
               facebook: values.facebook,
+              logo,
               photo,
               user_id: user.id
             }
@@ -186,6 +193,11 @@ export default function AddAccount(props) {
     setReplacePhoto(false);
   };
 
+  const handleLogoUpload = (step) => {
+    setLogoUrl(step.uploads[0].ssl_url);
+    setReplaceLogo(false);
+  };
+
   const handleFileUploadError = (err) => {
     message.error('An error occurred');
     throw err;
@@ -196,6 +208,11 @@ export default function AddAccount(props) {
     setReplacePhoto(true);
   };
 
+  const handleReplaceLogo = () => {
+    setLogoUrl(null);
+    setReplaceLogo(true);
+  };
+
   return (
     <AddAccountView
       loading={loading}
@@ -203,11 +220,15 @@ export default function AddAccount(props) {
       account={account}
       user={user}
       params={params}
+      logoUrl={logoUrl}
+      replaceLogo={replaceLogo}
+      handleReplaceLogo={handleReplaceLogo}
       photoUrl={photoUrl}
       replacePhoto={replacePhoto}
       handleReplacePhoto={handleReplacePhoto}
       handleFileUploadError={handleFileUploadError}
       handleFileUpload={handleFileUpload}
+      handleLogoUpload={handleLogoUpload}
       onFinishFailed={onFinishFailed}
       onFinish={onFinish}
       isSubmitDisabled={isSubmitDisabled}
