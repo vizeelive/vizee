@@ -115,7 +115,7 @@ function EventCard(props) {
         hoverable
         cover={renderCover()}
       >
-        <EventName level={3}>{event.name}</EventName>
+        <EventName level={5}>{event.name}</EventName>
         <AccountName level={4}>
           <Link to={`/${event.account.username}`}>{event?.account?.name}</Link>
         </AccountName>

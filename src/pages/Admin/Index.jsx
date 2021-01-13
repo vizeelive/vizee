@@ -12,7 +12,7 @@ import Accounts from 'pages/Admin/Accounts';
 import Calendar from 'pages/Calendar';
 import Events from 'pages/Events';
 
-import Header from 'components/Header';
+// import Header from 'components/Header';
 import AdminMenu from 'components/AdminMenu';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
