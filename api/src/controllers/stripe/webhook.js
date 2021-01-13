@@ -87,7 +87,9 @@ module.exports = async function ({ event }) {
       if (product.recurring) {
         subscription = await stripe.createSubscription({
           customer: session.customer,
-          trial_period_days: product.access_length,
+          billing_cycle_anchor: dayjs(currentExpiry)
+            .add(product.access_length, 'day')
+            .unix(),
           items: [
             {
               price_data: {
