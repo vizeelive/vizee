@@ -19,7 +19,7 @@ import Spinner from 'components/ui/Spinner';
 import DefaultLayout from 'components/layout/default/Layout';
 
 const GET_ACCOUNTS_UNAUTH = gql`
-  query Accounts($username: String!) {
+  query Accounts($username: String) {
     creator: accounts(limit: 1, where: { username: { _ilike: $username } }) {
       id
       logo
@@ -93,8 +93,8 @@ export default function User() {
   const { user, logout, loginWithRedirect } = useAuth();
 
   let username;
-  if (window.location.hostname.includes('.vizee.com')) {
-    username = window.location.hostname.split('.vizee.com').shift();
+  if (window.location.hostname.includes('.vizee.pro')) {
+    username = window.location.hostname.split('.vizee.pro').shift();
   }
 
   const { loading, error, data } = useQuery(

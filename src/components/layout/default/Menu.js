@@ -83,7 +83,7 @@ export default function Menu(props) {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                { !creator ? (
+                {!creator.logo ? (
                   <React.Fragment>
                     <img
                       className="hidden sm:block lg:hidden h-7 w-auto"
@@ -97,11 +97,7 @@ export default function Menu(props) {
                     />
                   </React.Fragment>
                 ) : (
-                  <img
-                    className="h-12 w-auto"
-                    src={creator.logo}
-                    alt="logo"
-                  />
+                  <img className="h-12 w-auto" src={creator.logo} alt="logo" />
                 )}
               </Link>
             </div>
@@ -180,7 +176,12 @@ export default function Menu(props) {
             </button> */}
 
             {user ? (
-              <ProfileMenu user={user} creator={creator} account={account} onLogout={onLogout} />
+              <ProfileMenu
+                user={user}
+                creator={creator}
+                account={account}
+                onLogout={onLogout}
+              />
             ) : (
               <Button
                 type="primary"
