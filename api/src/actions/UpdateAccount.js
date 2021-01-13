@@ -2,7 +2,7 @@ const Joi = require('joi');
 const logger = require('../logger');
 const execute = require('../execute');
 const hasValidationErrors = require('../validate');
-const { createSite } = require('../lib/netlify');
+const { addDomain, removeDomain } = require('../lib/netlify');
 
 const UPDATE_ACCOUNT = `
 mutation UpdateAccount($account_id: uuid!, $_set: accounts_set_input!) {
@@ -39,12 +39,25 @@ module.exports = async function UpdateAccount(req, res) {
 
   // TODO is user allowed to update this record?
 
-  if (object.whitelabel) {
-    logger.info('Creating white label site on Netlify', object.username);
-    let res = await createSite({ username: object.username });
-    logger.info('Netlify Response', res);
-  } else {
-    // if exists, then remove
+  try {
+    var domainResult;
+    if (object.whitelabel) {
+      logger.info('updateAccount - adding custom domain', {
+        username: object.username
+      });
+      domainResult = await addDomain({ username: object.username });
+    } else {
+      logger.info('updateAccount - removing custom domain', {
+        username: object.username
+      });
+      domainResult = await removeDomain({ username: object.username });
+    }
+  } catch (e) {
+    logger.debug('failed to add custom domain', {
+      username: object.username,
+      domainResult
+    });
+    return res.status(400).send({ message: `failed to add custom domain` });
   }
 
   const { data, errors } = await execute(

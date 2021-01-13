@@ -2,7 +2,7 @@ const winston = require('winston');
 const path = require('path');
 
 const logger = winston.createLogger({
-  level: 'info',
+  level: 'debug',
   format: winston.format.json(),
   defaultMeta: { service: 'vizee-api' },
   transports: [
@@ -26,7 +26,12 @@ const logger = winston.createLogger({
 logger.add(
   new winston.transports.Console({
     // label: getLabel(callingModule),
-    format: winston.format.simple()
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.prettyPrint(),
+      winston.format.splat(),
+      winston.format.simple()
+    )
   })
 );
 
