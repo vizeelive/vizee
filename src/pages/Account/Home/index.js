@@ -223,6 +223,7 @@ export default function Home(props) {
 
   return (
     <HomeView
+      creator={props.creator}
       account={account}
       user={user}
       isMyAccount={isMyAccount}

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 export default function ProfileMenu(props) {
-  const { user, account, onLogout } = props;
+  const { user, creator, account, onLogout } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -29,7 +29,7 @@ export default function ProfileMenu(props) {
   }, [location]);
 
   const username = Cookies.get('username') || account?.username;
-  const isNetwork = process.env.REACT_APP_ACCOUNT === 'vizee';
+  const isNetwork = !!creator;
 
   let photo =
     user.picture ||

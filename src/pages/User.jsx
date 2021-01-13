@@ -92,10 +92,15 @@ export default function User() {
   const history = useHistory();
   const { user, logout, loginWithRedirect } = useAuth();
 
+  let username;
+  if (window.location.hostname.includes('.vizee.com')) {
+    username = window.location.hostname.split('.vizee.com').shift();
+  }
+
   const { loading, error, data } = useQuery(
     user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
     {
-      variables: { user_id: user?.id, username: process.env.REACT_APP_ACCOUNT }
+      variables: { user_id: user?.id, username }
     }
   );
 
@@ -183,13 +188,16 @@ export default function User() {
                 exact
                 component={Event}
               />
-              {process.env.REACT_APP_ACCOUNT === 'vizee' ? (
+              {!username ? (
                 <Route path="/">
                   <Home onSignup={handleSignup} />
                 </Route>
               ) : (
                 <Route path="/">
-                  <AccountHome username={process.env.REACT_APP_ACCOUNT} />
+                  <AccountHome
+                    creator={data?.creator?.[0]}
+                    username={username}
+                  />
                 </Route>
               )}
             </Switch>

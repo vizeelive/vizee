@@ -91,6 +91,7 @@ const AccountDescription = styled.p`
 
 export default function HomeView(props) {
   const {
+    creator,
     account,
     user,
     isMyAccount,
@@ -131,7 +132,7 @@ export default function HomeView(props) {
         <div className="py-8 px-4 sm:px-6 lg:px-8">
           <Header>
             <div>
-              {process.env.REACT_APP_ACCOUNT === 'vizee' && (
+              {!creator && (
                 <Title data-test-id="account-name">{account.name}</Title>
               )}
               {followers.length >= 10 && (
@@ -221,7 +222,6 @@ export default function HomeView(props) {
           )}
 
           <EventsContainer>
-            {account.events.length ? <Title level={3}>Events</Title> : null}
             <Events events={account.events} refetch={refetch} />
           </EventsContainer>
           <br />
