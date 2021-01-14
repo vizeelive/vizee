@@ -29,7 +29,7 @@ export default function ProfileMenu(props) {
   }, [location]);
 
   const username = Cookies.get('username') || account?.username;
-  const isNetwork = !!creator;
+  const isNetwork = !creator;
 
   let photo =
     user.picture ||

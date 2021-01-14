@@ -227,7 +227,7 @@ export default function AddAccountView(props) {
           </Form.Item>
         )}
 
-        {user?.isAdmin && (
+        {account?.id && user?.isAdmin && (
           <Form.Item
             name="whitelabel"
             label="Enable White Label"
