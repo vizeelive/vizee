@@ -66,16 +66,18 @@ export default function useAuth() {
       'x-hasura-allowed-roles'
     ].includes('admin');
 
-    posthog.init('mg9G9n0xj7ktBE9NfalasObycP6BJfzFWjWrEGO4CIs', {
-      api_host: 'https://vizee-posthog.herokuapp.com'
-    });
-    posthog.identify(user.id);
-    posthog.people.set({ email: user.email });
+    if (!window.Cypress) {
+      posthog.init('mg9G9n0xj7ktBE9NfalasObycP6BJfzFWjWrEGO4CIs', {
+        api_host: 'https://vizee-posthog.herokuapp.com'
+      });
+      posthog.identify(user.id);
+      posthog.people.set({ email: user.email });
 
-    window.mixpanel.identify(user.id);
-    window.mixpanel.people.set({
-      $email: user.email
-    });
+      window.mixpanel.identify(user.id);
+      window.mixpanel.people.set({
+        $email: user.email
+      });
+    }
   }
 
   useEffect(() => {

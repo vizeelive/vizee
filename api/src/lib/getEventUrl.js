@@ -20,7 +20,8 @@ module.exports = async function (params) {
     expiry
   });
 
-  if (!data.event.mux_asset_id) {
+  if (data.event.type !== 'live' && !data.event.mux_asset_id) {
+    logger.info('Event has no mux_asset_id, skipping');
     return { url: null };
   }
 
@@ -31,11 +32,12 @@ module.exports = async function (params) {
     !data.eventAccess.length &&
     !data.accountAccess.length
   ) {
+    logger.info('Event has no mux_asset_id, skipping');
     return { url: null };
   }
 
   if (!dayjs().isBetween(data.event.start, data.event.end)) {
-    logger.info('Current date is not within event window');
+    logger.info('Event is not free and no access can be found, skipping');
     return { url: null };
   }
 

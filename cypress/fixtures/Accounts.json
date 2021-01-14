@@ -1,4 +1,11 @@
 {
+  "creator": [
+    {
+      "id": "a1b2c3",
+      "logo": "http://example.com/image.png",
+      "__typename": "accounts"
+    }
+  ],
   "accounts": [
     {
       "id": "76680b81-9ec4-41fd-8714-34960d98ecd4",
