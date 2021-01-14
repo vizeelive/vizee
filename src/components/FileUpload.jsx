@@ -4,20 +4,24 @@ import PropTypes from 'prop-types';
 const Uppy = require('@uppy/core');
 const Dashboard = require('@uppy/dashboard');
 const Transloadit = require('@uppy/transloadit');
+const ImageEditor = require('@uppy/image-editor');
 
 require('@uppy/core/dist/style.css');
 require('@uppy/dashboard/dist/style.css');
+import '@uppy/image-editor/dist/style.css';
 
 function FileUpload(props) {
   let options = {
     allowedFileTypes: [],
+    aspectRatio: props.aspectRatio || null,
+    autoOpenFileEditor: props.autoOpenFileEditor || false,
     ...props.options
   };
 
   useEffect(() => {
     // https://uppy.io/docs/uppy/
     let uppy = Uppy({
-      autoProceed: true,
+      autoProceed: false,
       restrictions: {
         allowedFileTypes: options.allowedFileTypes,
         maxNumberOfFiles: 1
@@ -29,7 +33,20 @@ function FileUpload(props) {
         proudlyDisplayPoweredByUppy: false,
         inline: true,
         height: 300,
-        target: `#${props.id}`
+        target: `#${props.id}`,
+        autoOpenFileEditor: options.autoOpenFileEditor
+      })
+      .use(ImageEditor, {
+        target: Dashboard,
+        quality: 0.8,
+        cropperOptions: {
+          aspectRatio: options.aspectRatio,
+          viewMode: 1,
+          background: false,
+          cropWidescreen: true,
+          autoCropArea: 1,
+          responsive: true
+        }
       })
       .use(Transloadit, {
         waitForEncoding: true,

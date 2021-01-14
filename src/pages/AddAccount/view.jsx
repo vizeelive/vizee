@@ -195,6 +195,8 @@ export default function AddAccountView(props) {
               id="photo"
               success={handleFileUpload}
               error={handleFileUploadError}
+              aspectRatio={4}
+              autoOpenFileEditor={true}
               options={options}
             />
           </Form.Item>

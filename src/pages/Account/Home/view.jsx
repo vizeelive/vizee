@@ -118,14 +118,14 @@ export default function HomeView(props) {
           <img
             style={{
               objectFit: 'cover',
-              objectPosition: 'top'
-              // maxHeight: '20vh'
+              objectPosition: 'top',
+              maxHeight: '20vh'
             }}
             src={account.cover()}
-            // src={`https://vizee.imgix.net/${accountPhoto}?fit=fill&fill=blur&w=${
+            // src={`https://vizee.imgix.net/${account.cover()}?fit=fill&fill=blur&w=${
             //   window.innerWidth
             // }&h=${window.innerHeight * 0.4}`}
-            alt={account.name}
+            // alt={account.name}
             width="100%"
           />
         )}
