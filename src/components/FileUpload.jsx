@@ -43,9 +43,13 @@ function FileUpload(props) {
           aspectRatio: options.aspectRatio,
           viewMode: 1,
           background: false,
-          cropWidescreen: true,
           autoCropArea: 1,
-          responsive: true
+          responsive: true,
+        },
+        actions: {
+          cropSquare: false,
+          cropWidescreen: false,
+          cropWidescreenVertical: false
         }
       })
       .use(Transloadit, {
