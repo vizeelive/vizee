@@ -83,7 +83,7 @@ export default function Menu(props) {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                {!creator.logo ? (
+                {!creator?.logo ? (
                   <React.Fragment>
                     <img
                       className="hidden sm:block lg:hidden h-7 w-auto"

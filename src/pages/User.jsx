@@ -118,6 +118,11 @@ export default function User() {
     user.portalUrl = data?.getStripeCustomerPortalUrl?.url;
   }
 
+  let creator;
+  if (username) {
+    creator = data?.creator?.[0];
+  }
+
   let account = data?.accounts_users?.[0]?.account;
 
   // if admin, set to the first account we find
@@ -166,7 +171,7 @@ export default function User() {
         <Route path="/">
           <DefaultLayout
             user={user}
-            creator={data?.creator?.[0]}
+            creator={creator}
             account={account}
             hasTickets={hasTickets}
             onLogin={handleLogin}
