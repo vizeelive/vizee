@@ -45,11 +45,13 @@ module.exports = async function UpdateAccount(req, res) {
       logger.info('updateAccount - adding custom domain', {
         username: object.username
       });
+      object.domain = `${object.username}.vizee.pro`;
       domainResult = await addDomain({ username: object.username });
     } else {
       logger.info('updateAccount - removing custom domain', {
         username: object.username
       });
+      object.domain = null;
       domainResult = await removeDomain({ username: object.username });
     }
   } catch (e) {
