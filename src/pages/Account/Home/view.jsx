@@ -116,11 +116,11 @@ export default function HomeView(props) {
       <article className="min-h-page">
         {account.cover() && (
           <img
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'top',
-              maxHeight: '20vh'
-            }}
+            // style={{
+            //   objectFit: 'cover',
+            //   objectPosition: 'top',
+            //   maxHeight: '45vh'
+            // }}
             src={account.cover()}
             // src={`https://vizee.imgix.net/${account.cover()}?fit=fill&fill=blur&w=${
             //   window.innerWidth
@@ -229,14 +229,13 @@ export default function HomeView(props) {
           {account.links.length ? (
             <div data-test-id="links">
               <Title level={3}>Links</Title>
-              {account.links.map((link) => (
-                <MicrolinkCard>
-                  <Microlink url={link.link} />
-                </MicrolinkCard>
-                // <LinkCard>
-                //   <a href={link.link}>{link.name}</a>
-                // </LinkCard>
-              ))}
+              <div class="flex flex-row space-x-4">
+                {account.links.map((link) => (
+                  <MicrolinkCard>
+                    <Microlink url={link.link} />
+                  </MicrolinkCard>
+                ))}
+              </div>
             </div>
           ) : null}
         </div>
