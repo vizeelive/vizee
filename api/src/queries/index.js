@@ -83,6 +83,7 @@ async function getCheckoutDataAccount(ref) {
               name
               username
               photo
+              domain
               stripe_id
               fee_percent
             }
