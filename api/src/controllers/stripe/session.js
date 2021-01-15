@@ -27,6 +27,9 @@ module.exports = async function (req, res) {
   const account_percent = currency(1 - account.fee_percent / 100);
 
   let price = ref.product_id ? product.price : event.price;
+  if (!price.includes('.')) {
+    price = `${price}.00`;
+  }
 
   let unit_amount = price.replace('$', '').replace('.', '');
   let amount = Math.round(unit_amount * account_percent);
@@ -36,7 +39,6 @@ module.exports = async function (req, res) {
   let origin = account.domain ? `https://${account.domain}` : config.ui;
 
   if (ref.isTip) {
-    price = ref.amount;
     unit_amount = price.replace('$', '').replace('.', '');
     amount = unit_amount;
   }
