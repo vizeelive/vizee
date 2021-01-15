@@ -35,9 +35,16 @@ module.exports = async function (req, res) {
 
   let origin = account.domain ? `https://${account.domain}` : config.ui;
 
+  if (ref.isTip) {
+    price = ref.amount;
+    unit_amount = price.replace('$', '').replace('.', '');
+    amount = unit_amount;
+  }
+
   try {
     let session = await pay({
       ref: req.query.ref,
+      isTip: ref.isTip,
       origin,
       account,
       event,

@@ -24,6 +24,10 @@ module.exports = async function ({ event }) {
       let ref = parse(session.client_reference_id);
       logger.debug('ref', { ref });
 
+      if (ref.isTip) {
+        return;
+      }
+
       if (ref.product_id) {
         logger.info('Fetching user and product');
         var { user, product, user_access } = await getUserAndProduct({

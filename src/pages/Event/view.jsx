@@ -33,9 +33,12 @@ export default function EventPage(props) {
     status
   } = props;
 
+  const searchParams = new URLSearchParams(window.location.search);
+
   const { loginWithRedirect } = useAuth();
   const history = useHistory();
-  const [showModal] = useState(status === 'success' ? true : false);
+  const [showModal] = useState(!searchParams.get('tip') && status === 'success' ? true : false);
+  const [showTipModal] = useState(searchParams.get('tip') && status === 'success' ? true : false);
   const [showChat] = useState(false);
 
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
@@ -213,6 +216,10 @@ export default function EventPage(props) {
             </span>
           )}
 
+        <span className="mr-3 lg:mr-0 lg:ml-3">
+          <BuyButton isTip={true} user={user} event={event} />
+        </span>
+
         {/* {user && (
           <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
             <RedeemCode event_id={event.id} user_id={user.id} />
@@ -305,7 +312,6 @@ export default function EventPage(props) {
         />
         <meta name="twitter:description" content={event.description} />
       </Helmet>
-      {status === 'success' && (
         <Modal
           title="Congrats, you're in!"
           visible={showModal}
@@ -333,6 +339,20 @@ export default function EventPage(props) {
                 Sign In
               </Button>
             ]}
+          />
+        </Modal>
+      {searchParams.get('tip') && (
+        <Modal
+          title="Thanks for the tip!"
+          visible={showTipModal}
+          footer={null}
+          onCancel={() =>
+            history.push(`/${event.account.username}/${event.id}`)
+          }
+        >
+          <Result
+            status="success"
+            title="Your generosity allows creators to keep doing their thing!"
           />
         </Modal>
       )}

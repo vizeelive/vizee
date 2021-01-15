@@ -57,6 +57,7 @@ const stripe = require('./stripe');
 async function pay(params) {
   const {
     ref,
+    isTip,
     origin,
     account,
     event,
@@ -67,6 +68,14 @@ async function pay(params) {
   } = params;
 
   let customer = await stripe.findCustomer(email);
+
+  let success_url = event
+    ? `${origin}/${account.username}/${event.id}/success`
+    : `${origin}/${account.username}/success`;
+
+  if (isTip) {
+    success_url += '?tip=1';
+  }
 
   return stripe.createSession({
     mode: 'payment',
@@ -93,9 +102,7 @@ async function pay(params) {
         }
       }
     ],
-    success_url: event
-      ? `${origin}/${account.username}/${event.id}/success`
-      : `${origin}/${account.username}/success`,
+    success_url,
     cancel_url: event
       ? `${origin}/${account.username}/${event.id}/cancel`
       : `${origin}/${account.username}/cancel`

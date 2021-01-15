@@ -6,6 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
 import Cookies from 'js-cookie';
 
+import CurrencyInput from 'components/CurrencyInput';
 import { Button, Modal, message, Form, Input } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
 
@@ -18,10 +19,12 @@ const PurchaseOption = styled.div`
 `;
 
 export default function BuyButton(props) {
+  const isTip = props?.isTip || false;
   const { account, event, user } = props;
   const [form] = Form.useForm();
   const [product, setProduct] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [tipModalVisible, setTipModalVisible] = useState(false);
   const [emailModalVisible, setEmailModalVisible] = useState(false);
 
   const buy = async (params = {}) => {
@@ -29,6 +32,8 @@ export default function BuyButton(props) {
 
     let ref = encodeURIComponent(
       stringify({
+        isTip,
+        amount: values?.amount,
         user_id: user?.id,
         event_id: event?.id,
         product_id: product?.id,
@@ -72,7 +77,7 @@ export default function BuyButton(props) {
       .concat(event.account.products);
   }
 
-  let hasMultiple = products?.length || false;
+  let hasMultiple = (!isTip && products?.length) || false;
   let onlySubscriptions = products.every((product) => product.recurring);
 
   let label;
@@ -80,6 +85,10 @@ export default function BuyButton(props) {
     label = onlySubscriptions ? 'Subscribe' : 'Get Access';
   } else {
     label = `Buy Ticket ${!hasMultiple ? `(${event.price})` : ''}`;
+  }
+
+  if (isTip) {
+    label = 'Send Tip';
   }
 
   const preBuy = (params) => {
@@ -93,6 +102,8 @@ export default function BuyButton(props) {
     window.mixpanel.track('Buy Button Clicked');
     if (hasMultiple) {
       setModalVisible(true);
+    } else if (isTip) {
+      setTipModalVisible(true);
     } else {
       buy();
     }
@@ -122,6 +133,35 @@ export default function BuyButton(props) {
         </svg>
         {label}
       </button>
+      {/* <!-- Tip Modal --> */}
+      <Modal
+        title="Send Tip"
+        visible={tipModalVisible}
+        footer={null}
+        onCancel={() => setTipModalVisible(false)}
+      >
+        <Form
+          name="basic"
+          onFinish={(values) => buy({ product, values })}
+          layout="vertical"
+          form={form}
+        >
+          <Form.Item
+            label="Amount"
+            name="amount"
+            rules={[{ required: true, message: 'Required' }]}
+          >
+            <CurrencyInput
+              className="ant-input"
+              style={{ maxWidth: '10rem' }}
+            />
+          </Form.Item>
+          <Button htmlType="submit" type="primary" size="large">
+            Send Tip
+          </Button>
+        </Form>
+      </Modal>
+      {/* <!-- Email Modal --> */}
       <Modal
         title="Buy"
         visible={emailModalVisible}
@@ -146,6 +186,7 @@ export default function BuyButton(props) {
           </Button>
         </Form>
       </Modal>
+      {/* <!-- Buy Modal --> */}
       <Modal
         title="Buy"
         visible={modalVisible}
@@ -198,6 +239,7 @@ export default function BuyButton(props) {
 }
 
 BuyButton.propTypes = {
+  isTip: PropTypes.bool,
   user: PropTypes.object,
   event: PropTypes.object
 };
