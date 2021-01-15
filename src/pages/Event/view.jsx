@@ -37,7 +37,9 @@ export default function EventPage(props) {
 
   const { loginWithRedirect } = useAuth();
   const history = useHistory();
-  const [showModal] = useState(!searchParams.get('tip') && status === 'success' ? true : false);
+  const [showModal] = useState(
+    !searchParams.get('tip') && status === 'success' ? true : false
+  );
   const [showTipModal] = useState(searchParams.get('tip') && status === 'success' ? true : false);
   const [showChat] = useState(false);
 
@@ -312,6 +314,8 @@ export default function EventPage(props) {
         />
         <meta name="twitter:description" content={event.description} />
       </Helmet>
+      {}
+      {!searchParams.get('tip') && status === 'success' && (
         <Modal
           title="Congrats, you're in!"
           visible={showModal}
@@ -341,6 +345,8 @@ export default function EventPage(props) {
             ]}
           />
         </Modal>
+      )}
+
       {searchParams.get('tip') && (
         <Modal
           title="Thanks for the tip!"
