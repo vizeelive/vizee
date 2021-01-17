@@ -175,7 +175,7 @@ export default function BuyButton(props) {
               style={{ maxWidth: '10rem' }}
             />
           </Form.Item>
-          <Button htmlType="submit" type="primary" size="large">
+          <Button data-test-id="button-tip" htmlType="submit" type="primary" size="large">
             Send Tip
           </Button>
         </Form>
