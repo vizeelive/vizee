@@ -161,7 +161,7 @@ export default function HomeView(props) {
               )}
 
               {account.stripe_id && account.products?.length ? (
-                <BuyButton account={account} />
+                <BuyButton user={user} account={account} />
               ) : null}
 
               <ShareButton url={shareUrl} user={user} />
