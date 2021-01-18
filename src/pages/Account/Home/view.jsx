@@ -132,12 +132,11 @@ export default function HomeView(props) {
         <div className="py-8 px-4 sm:px-6 lg:px-8">
           <Header>
             <div>
-              {!creator && (
-                <Title data-test-id="account-name">{account.name}</Title>
-              )}
+              <Title data-test-id="account-name">{account.name}</Title>
               {followers.length >= 10 && (
-                <p>{`${followers} follower${followers.length !== 1 ? 's' : ''
-                  }`}</p>
+                <p>{`${followers} follower${
+                  followers.length !== 1 ? 's' : ''
+                }`}</p>
               )}
             </div>
             <ActionsContainer>
