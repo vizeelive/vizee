@@ -218,9 +218,11 @@ export default function EventPage(props) {
             </span>
           )}
 
-        <span className="mr-3 lg:mr-0 lg:ml-3">
-          <BuyButton isTip={true} user={user} event={event} />
-        </span>
+        {event.account.stripe_data && (
+          <span className="mr-3 lg:mr-0 lg:ml-3">
+            <BuyButton isTip={true} user={user} event={event} />
+          </span>
+        )}
 
         {/* {user && (
           <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
