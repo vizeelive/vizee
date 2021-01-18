@@ -136,9 +136,8 @@ export default function HomeView(props) {
                 <Title data-test-id="account-name">{account.name}</Title>
               )}
               {followers.length >= 10 && (
-                <p>{`${followers} follower${
-                  followers.length !== 1 ? 's' : ''
-                }`}</p>
+                <p>{`${followers} follower${followers.length !== 1 ? 's' : ''
+                  }`}</p>
               )}
             </div>
             <ActionsContainer>

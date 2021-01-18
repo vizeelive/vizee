@@ -207,7 +207,7 @@ export default function EventPage() {
   event.video = data?.getEventUrl?.url;
   const userId = user?.id || null;
   const isMyAccount = !!data?.myaccounts?.filter(
-    (acc) => acc.account.username === event.account.username
+    (acc) => acc.account.username.toLowerCase() === event.account.username.toLowerCase()
   ).length;
 
   const account_id = event?.account?.id;

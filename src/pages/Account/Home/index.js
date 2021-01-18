@@ -187,7 +187,7 @@ export default function Home(props) {
   const account = Mapper(data?.accounts?.[0]);
   const followers = data?.followers_aggregate?.aggregate?.count;
   const isMyAccount = !!data?.myaccounts?.filter(
-    (acc) => acc.account.username === username
+    (acc) => acc.account.username.toLowerCase() === username.toLowerCase()
   ).length;
 
   useEffect(() => {

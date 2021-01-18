@@ -14,7 +14,7 @@ import { Centered } from 'components/styled/common';
 
 const GET_ACCOUNTS = gql`
   query GetAccounts($username: String) {
-    account: accounts(where: { username: { _eq: $username } }) {
+    account: accounts(where: { username: { _ilike: $username } }) {
       id
       name
       products(where: { account_access: { _eq: false } }) {
@@ -47,7 +47,7 @@ const CREATE_EVENT = gql`
 
 const GET_EVENT = gql`
   query GetEvent($id: uuid!, $username: String) {
-    account: accounts(where: { username: { _eq: $username } }) {
+    account: accounts(where: { username: { _ilike: $username } }) {
       id
       name
       products(where: { account_access: { _eq: false } }) {
