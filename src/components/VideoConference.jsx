@@ -35,6 +35,17 @@ const VideoConference = (props) => {
         userInfo: {
           email: props?.user?.email,
           displayName: props?.user?.name
+        },
+        interfaceConfigOverwrite: {
+          TOOLBAR_BUTTONS: [
+            'microphone',
+            'camera',
+            'fullscreen',
+            'chat',
+            'tileview',
+            'raisehand',
+            'mute-everyone'
+          ]
         }
       });
 
