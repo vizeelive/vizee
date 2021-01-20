@@ -18,16 +18,12 @@ let config = {
 
 let res;
 
-if (
-  window.location.href.includes('staging') ||
-  window.location.href.includes('dev.vizee.live') ||
-  window.location.href.includes('netlify')
-) {
-  res = config.staging;
-} else if (window.location.href.includes('localhost')) {
+if (window.location.href.includes('localhost')) {
   res = config.dev;
-} else {
+} else if (window.location.href.includes('www')) {
   res = config.production;
+} else {
+  res = config.staging;
 }
 
 export default res;

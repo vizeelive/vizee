@@ -27,6 +27,8 @@ export const GET_ACCOUNT_ANON = gql`
       username
       description
       stripe_id
+      shopify_domain
+      shopify_storefront_token
       followers {
         id
       }
@@ -105,6 +107,8 @@ const GET_ACCOUNT_USER = gql`
       facebook
       twitter
       stripe_id
+      shopify_domain
+      shopify_storefront_token
       followers {
         id
       }

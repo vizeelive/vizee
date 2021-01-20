@@ -175,6 +175,8 @@
       - logo
       - name
       - photo
+      - shopify_domain
+      - shopify_storefront_token
       - stripe_data
       - stripe_id
       - tpl_backgroundcolor
@@ -196,6 +198,8 @@
       - logo
       - name
       - photo
+      - shopify_domain
+      - shopify_storefront_token
       - stripe_data
       - stripe_id
       - tpl_backgroundcolor

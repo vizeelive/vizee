@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/ui/Button';
-import { Typography } from 'antd';
+import { Card, Typography } from 'antd';
 import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
@@ -20,7 +20,10 @@ import {
   VideoCameraOutlined
 } from '@ant-design/icons';
 
+import Client from 'shopify-buy';
+
 const { Title } = Typography;
+const { Meta } = Card;
 
 const MicrolinkCard = styled.div`
   max-width: 300px;
@@ -101,6 +104,36 @@ export default function HomeView(props) {
     location,
     refetch
   } = props;
+
+  const [client, setClient] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const client = Client.buildClient({
+      domain: account.shopify_domain,
+      storefrontAccessToken: account.shopify_storefront_token
+    });
+    client.product.fetchAll().then((products) => {
+      setClient(client);
+      setProducts(products);
+    });
+  }, []);
+
+  const handleBuy = (product) => {
+    client.checkout.create().then((checkout) => {
+      const lineItemsToAdd = [
+        {
+          variantId: product.variants[0].id,
+          quantity: 1
+        }
+      ];
+      client.checkout
+        .addLineItems(checkout.id, lineItemsToAdd)
+        .then((checkout) => {
+          window.open(checkout.webUrl);
+        });
+    });
+  };
 
   return (
     <React.Fragment>
@@ -236,6 +269,33 @@ export default function HomeView(props) {
               </div>
             </div>
           ) : null}
+
+          {user?.isAdmin && account.shopify_domain && (
+            <React.Fragment>
+              <Title data-test-id="account-products" level={3}>
+                Products
+              </Title>
+
+              {products.map((product) => {
+                return (
+                  <Card
+                    hoverable
+                    style={{ width: 240 }}
+                    cover={<img alt="example" src={product.images[0].src} />}
+                  >
+                    <Meta
+                      title={product.title}
+                      description={product.description}
+                    />
+                    <br />
+                    <Button type="primary" onClick={() => handleBuy(product)}>
+                      Buy (${product.variants[0].price})
+                    </Button>
+                  </Card>
+                );
+              })}
+            </React.Fragment>
+          )}
         </div>
       </article>
     </React.Fragment>

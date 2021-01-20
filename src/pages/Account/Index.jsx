@@ -27,6 +27,7 @@ import AffiliateReport from 'pages/Account/AffiliateReport';
 import Home from 'pages/Account/Home';
 import Links from 'pages/Account/Links';
 import Products from 'pages/Account/Products';
+import Store from 'pages/Account/Store';
 import Settings from 'pages/Account/Settings';
 import Traffic from 'pages/Account/Traffic';
 import Users from 'pages/Account/Users';
@@ -191,6 +192,12 @@ export default function Account() {
             exact
             component={Products}
           />
+          {user?.isAdmin && (
+            <Route
+              path="/:username/manage/store/:id/:status?"
+              component={Store}
+            />
+          )}
           <Route
             path="/:username/manage/events/add"
             exact

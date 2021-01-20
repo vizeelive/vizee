@@ -2,6 +2,26 @@ const logger = require('../logger');
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
 
+async function updateShopify(params) {
+  const { account_id, data } = params;
+  try {
+    let res = await client.mutate({
+      variables: { account_id, data },
+      mutation: gql`
+        mutation updateShopify($account_id: uuid!, $data: accounts_set_input) {
+          update_accounts_by_pk(pk_columns: { id: $account_id }, _set: $data) {
+            id
+          }
+        }
+      `
+    });
+    return res.data.update_accounts_by_pk;
+  } catch (e) {
+    logger.error('Failed: updateShopify', params, e);
+    throw e;
+  }
+}
+
 async function createProduct(params) {
   const { object } = params;
   try {
@@ -286,5 +306,6 @@ module.exports = {
   linkAccountUser,
   updateMuxLivestream,
   createProduct,
-  updateProduct
+  updateProduct,
+  updateShopify
 };
