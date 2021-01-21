@@ -95,7 +95,7 @@ const AccountDescription = styled.p`
 
 export default function HomeView(props) {
   const {
-    creator,
+    hasAccess,
     account,
     user,
     isMyAccount,
@@ -110,6 +110,7 @@ export default function HomeView(props) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    if (!account.shopify_domain) return;
     const client = Client.buildClient({
       domain: account.shopify_domain,
       storefrontAccessToken: account.shopify_storefront_token
@@ -192,7 +193,7 @@ export default function HomeView(props) {
                 />
               )}
 
-              {account.stripe_id && account.products?.length ? (
+              {!hasAccess && account.stripe_data && account.products?.length ? (
                 <BuyButton user={user} account={account} />
               ) : null}
 
@@ -306,7 +307,7 @@ export default function HomeView(props) {
         isVisible={window.location.search.includes('event.purchase')}
       />
       <SuccessModal
-        title="Congrats, you're in!"
+        title="Congrats, you're subscribed!"
         description="You successfully subscribed to this channel!"
         status="success"
         isVisible={window.location.search.includes('account.subscribe')}

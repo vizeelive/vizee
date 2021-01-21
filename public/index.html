@@ -129,6 +129,7 @@
     <script>
       // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/relku1cr'
       (function () {
+        if (window.Cypress) return;
         var w = window;
         var ic = w.Intercom;
         if (typeof ic === 'function') {

@@ -112,6 +112,7 @@ export default function BuyButton(props) {
   return (
     <React.Fragment>
       <button
+        data-test-id="button-buy"
         type="button"
         className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
         onClick={handleClickBuy}
@@ -175,7 +176,12 @@ export default function BuyButton(props) {
               style={{ maxWidth: '10rem' }}
             />
           </Form.Item>
-          <Button data-test-id="button-tip" htmlType="submit" type="primary" size="large">
+          <Button
+            data-test-id="button-tip"
+            htmlType="submit"
+            type="primary"
+            size="large"
+          >
             Send Tip
           </Button>
         </Form>

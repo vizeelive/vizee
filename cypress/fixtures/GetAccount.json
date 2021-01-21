@@ -621,6 +621,9 @@
       "instagram": null,
       "facebook": null,
       "twitter": null,
+      "stripe_data": {},
+      "access": [],
+      "products": [{}],
       "followers": [
         {
           "__typename": "followers",
