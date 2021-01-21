@@ -24,7 +24,10 @@ if (window.Cypress) {
   };
 }
 
-if (process.env.NODE_ENV !== 'development') {
+if (
+  !navigator.platform.includes('Linux') &&
+  process.env.NODE_ENV !== 'development'
+) {
   Sentry.init({
     dsn:
       'https://16f3e02884104cff9010e2a196d9183e@o473703.ingest.sentry.io/5508932',
