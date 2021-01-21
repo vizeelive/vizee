@@ -20,6 +20,8 @@ let res;
 
 if (window.location.href.includes('localhost')) {
   res = config.staging;
+} else if (window.location.href.includes('staging')) {
+  res = config.staging;
 } else if (window.location.href.includes('netlify')) {
   res = config.staging;
 } else if (window.location.href.includes('dev.vizee.live')) {
