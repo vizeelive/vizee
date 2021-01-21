@@ -262,7 +262,7 @@ export default function HomeView(props) {
           {account.links.length ? (
             <div data-test-id="links">
               <Title level={3}>Links</Title>
-              <div class="flex flex-row space-x-4">
+              <div className="flex flex-row space-x-4">
                 {account.links.map((link) => (
                   <MicrolinkCard>
                     <Microlink url={link.link} />

@@ -57,6 +57,7 @@ export const GET_ACCOUNT_ANON = gql`
         published
         status
         account {
+          id
           name
           username
           photo
@@ -140,6 +141,7 @@ const GET_ACCOUNT_USER = gql`
         published
         status
         account {
+          id
           name
           username
           photo
@@ -192,7 +194,7 @@ export default function Home(props) {
   );
 
   const account = Mapper(data?.accounts?.[0]);
-  const hasAccess = !!account?.access.length;
+  const hasAccess = !!account?.access?.length;
   const followers = data?.followers_aggregate?.aggregate?.count;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username.toLowerCase() === username.toLowerCase()

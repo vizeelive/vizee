@@ -652,6 +652,7 @@
           "status": "idle",
           "account": {
             "__typename": "accounts",
+            "id": "a1b2c3",
             "name": "jeff@viz.ee",
             "username": "36bjkzqu7e",
             "photo": null,

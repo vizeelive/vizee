@@ -63,6 +63,7 @@ const GET_ACCOUNTS_AUTH = gql`
       event {
         id
         account {
+          id
           name
           photo
           username
