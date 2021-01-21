@@ -267,13 +267,14 @@ async function createAccess({ object }) {
 }
 
 async function createTransaction(params) {
-  const { customer, ref, user, session, affiliate_id } = params;
+  const { customer, ref, user, product, session, affiliate_id } = params;
 
   try {
     return client.mutate({
       variables: {
         object: {
           email: customer.email,
+          account_id: product?.account_id,
           event_id: ref.event_id,
           ...(user && user.id ? { user_id: user.id } : null),
           price: session.amount_total / 100,

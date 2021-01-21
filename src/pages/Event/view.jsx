@@ -18,6 +18,7 @@ import ShareButton from 'components/Event/ShareButton';
 import FollowButton from 'components/Event/FollowButton';
 import EventContent from 'components/Event/EventContent';
 import AvatarHandle from 'components/AvatarHandle';
+import SuccessModal from 'components/SuccessModal';
 // import ChatToggle from 'components/Event/ChatToggle';
 
 export default function EventPage(props) {
@@ -316,54 +317,21 @@ export default function EventPage(props) {
         />
         <meta name="twitter:description" content={event.description} />
       </Helmet>
-      {}
-      {!searchParams.get('tip') && status === 'success' && (
-        <Modal
-          title="Congrats, you're in!"
-          visible={showModal}
-          footer={null}
-          onCancel={() =>
-            history.push(`/${event.account.username}/${event.id}`)
-          }
-        >
-          <Result
-            status="success"
-            title="You successfully purchased a ticket to this event!"
-            extra={[
-              <Button
-                type="primary"
-                key="signIn"
-                onClick={() =>
-                  loginWithRedirect({
-                    screen_hint: 'signup',
-                    appState: {
-                      returnTo: window.location.href.replace('/success', '')
-                    }
-                  })
-                }
-              >
-                Sign In
-              </Button>
-            ]}
-          />
-        </Modal>
-      )}
 
-      {searchParams.get('tip') && (
-        <Modal
-          title="Thanks for the tip!"
-          visible={showTipModal}
-          footer={null}
-          onCancel={() =>
-            history.push(`/${event.account.username}/${event.id}`)
-          }
-        >
-          <Result
-            status="success"
-            title="Your generosity allows creators to keep doing their thing!"
-          />
-        </Modal>
-      )}
+      <SuccessModal
+        title="Congrats, you're in!"
+        description="You successfully purchased a ticket to this event!"
+        status="success"
+        isVisible={window.location.search.includes('event.purchase')}
+      />
+
+      <SuccessModal
+        title="Thanks for the tip!"
+        description="Your generosity allows creators to keep doing their thing!"
+        status="success"
+        isVisible={window.location.search.includes('tip')}
+      />
+
       <article className="max-w-screen-lg 2xl:max-w-screen-xl mx-auto sm:px-6 lg:px-8 page-min-height">
         <div
           className={cn('grid video-chat-grid gap-y-6 sm:py-6 lg:py-8', {

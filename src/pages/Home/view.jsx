@@ -15,6 +15,11 @@ import { SearchOutlined } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
 
+const MainContent = styled.main`
+  padding: 0 20px 20px;
+  min-height: calc(100vh - 64px);
+`;
+
 export default function HomeView(props) {
   const {
     user,
@@ -36,11 +41,6 @@ export default function HomeView(props) {
   }
 
   if (error) return 'Error.';
-
-  const MainContent = styled.main`
-    padding: 0 20px 20px;
-    min-height: calc(100vh - 64px);
-  `;
 
   return (
     <React.Fragment>

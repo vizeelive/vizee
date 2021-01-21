@@ -23,6 +23,7 @@ async function getCheckoutDataProduct(ref) {
             photo
             start
             account {
+              id
               name
               photo
               username
@@ -73,6 +74,7 @@ async function getCheckoutDataAccount(ref) {
             id
             name
             price
+            account_access
             recurring
             account_id
             access_length
@@ -80,6 +82,7 @@ async function getCheckoutDataAccount(ref) {
               id
             }
             account {
+              id
               name
               username
               photo
@@ -121,6 +124,7 @@ async function getCheckoutDataEvent(ref) {
             photo
             start
             account {
+              id
               name
               photo
               username
@@ -153,6 +157,7 @@ async function getEvent(id) {
             mux_livestream
             account_id
             account {
+              id
               users(where: { user_id: { _is_null: false } }) {
                 user {
                   id
@@ -209,6 +214,7 @@ async function getAccountAndProduct(params) {
             id
             stripe_product_id
             account {
+              id
               name
               users {
                 user {
@@ -237,8 +243,10 @@ async function getStripeUrlData(username) {
       query: gql`
         query getStripeUrlData($username: String!) {
           accounts(where: { username: { _eq: $username } }) {
+            id
             stripe_id
             users(where: { user_id: { _is_null: false } }) {
+              id
               user {
                 id
               }
@@ -377,11 +385,13 @@ async function getUserAndProduct({ email, product_id }) {
             access_length
             stripe_product_id
             account {
+              id
               stripe_id
             }
             events {
               id
               event {
+                id
                 account {
                   id
                 }

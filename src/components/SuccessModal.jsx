@@ -1,0 +1,51 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import useAuth from 'hooks/useAuth';
+import { useHistory } from 'react-router-dom';
+import { Button, Modal, Result } from 'antd';
+
+export default function SuccessModal(props) {
+  const history = useHistory();
+  const { loginWithRedirect } = useAuth();
+
+  const onCancel =
+    props.onCancel || '/' + window.location.href.match(/([A-Z])\w+/)?.[0];
+
+  return (
+    <Modal
+      title={props.title}
+      visible={props.isVisible}
+      footer={null}
+      onCancel={() => history.push(onCancel)}
+    >
+      <Result
+        status={props.status}
+        title={props.description}
+        extra={[
+          <Button
+            type="primary"
+            key="signIn"
+            onClick={() =>
+              loginWithRedirect({
+                screen_hint: 'signup',
+                appState: {
+                  returnTo: onCancel
+                }
+              })
+            }
+          >
+            Sign In
+          </Button>
+        ]}
+      />
+    </Modal>
+  );
+}
+
+SuccessModal.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  status: PropTypes.string,
+  onCancel: PropTypes.string
+};

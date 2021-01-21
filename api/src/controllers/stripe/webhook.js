@@ -159,11 +159,12 @@ module.exports = async function ({ event }) {
         customer,
         ref,
         user,
+        product,
         session,
         affiliate_id: ref?.affiliate
       });
     } catch (e) {
-      logger.error('checkout.session.completed', e.message);
+      logger.error(`checkout.session.completed: ${e.message}`);
       throw e.message;
     }
   }

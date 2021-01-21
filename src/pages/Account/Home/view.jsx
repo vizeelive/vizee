@@ -8,6 +8,7 @@ import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
 
+import SuccessModal from 'components/SuccessModal';
 import BuyButton from 'components/Event/BuyButton';
 import ShareButton from 'components/Event/ShareButton';
 import FollowButton from 'components/Event/FollowButton';
@@ -298,6 +299,18 @@ export default function HomeView(props) {
           )}
         </div>
       </article>
+      <SuccessModal
+        title="Congrats, you're in!"
+        description="You successfully purchased a ticket to this event!"
+        status="success"
+        isVisible={window.location.search.includes('event.purchase')}
+      />
+      <SuccessModal
+        title="Congrats, you're in!"
+        description="You successfully subscribed to this channel!"
+        status="success"
+        isVisible={window.location.search.includes('account.subscribe')}
+      />
     </React.Fragment>
   );
 }

@@ -188,11 +188,7 @@ export default function User() {
                 exact
                 component={AccountHome}
               />
-              <Route
-                path="/:username/:id/:status(success)?/:userCode?"
-                exact
-                component={Event}
-              />
+              <Route path="/:username/:id/:userCode?" exact component={Event} />
               {!username ? (
                 <Route path="/">
                   <Home onSignup={handleSignup} />

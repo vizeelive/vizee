@@ -1,11 +1,11 @@
 const config = require('../../config');
+const logger = require('../../logger');
 const { parse } = require('zipson');
 const currency = require('currency.js');
 const { pay } = require('../../lib/checkout');
 const { generateImageLink } = require('../../lib');
 const {
   getCheckoutDataAccount,
-  getCheckoutDataProduct,
   getCheckoutDataEvent
 } = require('../../queries');
 
@@ -22,6 +22,30 @@ module.exports = async function (req, res) {
   } catch (e) {
     res.status(500).send(e.message);
   }
+
+
+  logger.info('Determining action', { event, account, product });
+
+  let action;
+  if (ref.product_id) {
+    if (product.account_access) {
+      if (product.recurring) {
+        action = 'account.subscribe';
+      } else {
+        action = 'account.purchase';
+      }
+    } else {
+      action = 'event.purchase';
+    }
+  } else {
+    action = 'event.purchase';
+  }
+
+  if (ref.isTip) {
+    action = 'tip';
+  }
+
+  logger.info(`Action ${action}`);
 
   // TODO check for existing access and return successfully
   const account_percent = currency(1 - account.fee_percent / 100);
@@ -45,6 +69,7 @@ module.exports = async function (req, res) {
 
   try {
     let session = await pay({
+      action,
       ref: req.query.ref,
       isTip: ref.isTip,
       origin,
