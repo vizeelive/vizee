@@ -22,6 +22,17 @@ describe('AccountPage', () => {
       cy.findByText("Congrats, you're in!").should('exist');
       cy.get('[data-test-id=links').should('exist');
     });
+    it('should show buy/subscribe button when stripe is setup', () => {
+      cy.graphql('Accounts', { fixture: 'Accounts' });
+      cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
+      cy.graphql('GetAccount', { fixture: 'GetAccount' });
+      cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
+      cy.graphql('GetAccountByUsername', {
+        fixture: 'GetAccountByUsername'
+      });
+      cy.visit('/36bjkzqu7e');
+      cy.get('[data-test-id=button-buy').should('exist');
+    });
   });
   describe('User', () => {
     beforeEach(() => {

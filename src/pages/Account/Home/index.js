@@ -26,7 +26,7 @@ export const GET_ACCOUNT_ANON = gql`
       photo
       username
       description
-      stripe_id
+      stripe_data
       shopify_domain
       shopify_storefront_token
       followers {
