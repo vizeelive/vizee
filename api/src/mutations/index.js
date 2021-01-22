@@ -2,6 +2,26 @@ const logger = require('../logger');
 const { client } = require('../setup');
 const { gql } = require('@apollo/client');
 
+async function insertShopifyHook(params) {
+  const { topic, data } = params;
+  try {
+    let res = await client.mutate({
+      variables: { topic, data },
+      mutation: gql`
+        mutation insertShopifyHook($topic: String!, $data: jsonb!) {
+          insert_shopify_hooks_one(object: { data: $data, topic: $topic }) {
+            id
+          }
+        }
+      `
+    });
+    return res.data.insert_shopify_hooks_one;
+  } catch (e) {
+    logger.error('Failed: insertShopifyHook', params, e);
+    throw e;
+  }
+}
+
 async function updateShopify(params) {
   const { account_id, data } = params;
   try {
@@ -308,5 +328,6 @@ module.exports = {
   updateMuxLivestream,
   createProduct,
   updateProduct,
-  updateShopify
+  updateShopify,
+  insertShopifyHook
 };

@@ -1,9 +1,10 @@
 const app = require('../app');
+const logger = require('../logger');
 const config = require('../config');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const ShopifyToken = require('shopify-token');
-const { updateShopify } = require('../mutations');
+const { insertShopifyHook, updateShopify } = require('../mutations');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
@@ -78,3 +79,64 @@ app.get('/shopify/callback', async (req, res) => {
 
   res.redirect(config.ui + state.url);
 });
+
+app.post(
+  '/shopify/customers/redact',
+  bodyParser.raw({ type: 'application/json' }),
+  async (req, res) => {
+    try {
+      await insertShopifyHook({
+        topic: 'customers/redact',
+        data: JSON.parse(req.body.toString())
+      });
+      return res.status(201).send();
+    } catch (e) {
+      logger.error(
+        `Failed to insert shopify webhook (customers/redact) data: ${e.message}`,
+        e
+      );
+      res.status(500).send();
+    }
+  }
+);
+
+app.post(
+  '/shopify/shop/redact',
+  bodyParser.raw({ type: 'application/json' }),
+  async (req, res) => {
+    try {
+      await insertShopifyHook({
+        topic: 'shop/redact',
+        data: JSON.parse(req.body.toString())
+      });
+      return res.status(201).send();
+    } catch (e) {
+      logger.error(
+        `Failed to insert shopify webhook (shop/redact) data: ${e.message}`,
+        e
+      );
+      res.status(500).send();
+    }
+  }
+);
+
+app.post(
+  '/shopify/customers/data_request',
+  bodyParser.raw({ type: 'application/json' }),
+  async (req, res) => {
+    try {
+      await insertShopifyHook({
+        topic: 'customers/data_request',
+        data: JSON.parse(req.body.toString())
+      });
+      return res.status(201).send();
+    } catch (e) {
+      logger.error(
+        `Failed to insert shopify webhook (customers/data_request) data: ${e.message}`,
+        e
+      );
+      res.status(500).send();
+    }
+  }
+);
+
