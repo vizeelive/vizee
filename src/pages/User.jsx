@@ -184,7 +184,12 @@ export default function User() {
               <Route path="/calendar" exact>
                 <Calendar favorite="true" />
               </Route>
-              <PrivateRoute path="/account" exact component={CreateAccount} />
+              <PrivateRoute
+                path="/account"
+                user={user}
+                exact
+                component={CreateAccount}
+              />
               <Route
                 path="/:username/:userCode(\w{0,12})?"
                 exact
