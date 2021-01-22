@@ -68,7 +68,7 @@ module.exports = async function (req, res) {
   }
 
   try {
-    let session = await pay({
+    var data = {
       action,
       ref: req.query.ref,
       isTip: ref.isTip,
@@ -79,11 +79,13 @@ module.exports = async function (req, res) {
       unit_amount,
       image,
       email: ref.email
-    });
-
+    };
+    let session = await pay(data);
     res.send(session);
   } catch (e) {
-    console.error(e);
-    res.status(500).send(e.message);
+    console.error(`Failed to create stripe checkout session: ${e.message}`, {
+      data
+    });
+    res.status(500).send('Checkout failed');
   }
 };;
