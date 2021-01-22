@@ -12,6 +12,7 @@ import Account from './Account/Index';
 import Event from './Event';
 import useAuth from 'hooks/useAuth';
 
+import PrivateRoute from 'components/PrivateRoute';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
@@ -183,7 +184,7 @@ export default function User() {
               <Route path="/calendar" exact>
                 <Calendar favorite="true" />
               </Route>
-              <Route path="/account" exact component={CreateAccount} />
+              <PrivateRoute path="/account" exact component={CreateAccount} />
               <Route
                 path="/:username/:userCode(\w{0,12})?"
                 exact
