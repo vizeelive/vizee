@@ -1,155 +1,137 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
-
-import { Card } from 'antd';
-import { StarOutlined, StarFilled } from '@ant-design/icons';
-
-import {
-  Container,
-  EventName,
-  AccountName,
-  DateText,
-  TagsContainer,
-  Favorite,
-  CardMenu,
-  ManageLink,
-  EditLink,
-  LiveTag,
-  AvailableTag
-} from './EventCard.css';
 
 function EventCard(props) {
   const { event, user, onFavoriteClick } = props;
 
-  const history = useHistory();
+  useEffect(() => {
+    const card = document.getElementById(`card-${event.id}`);
+    const eventLink = document.getElementById(`event-link-${event.id}`);
 
-  const manageRef = useRef(null);
-  const editRef = useRef(null);
-  const favRef = useRef(null);
+    const handleClick = () => {
+      const isTextSelected = window.getSelection().toString();
+      if (!isTextSelected) {
+        eventLink.click();
+      }
+    };
 
-  const handleCardClick = (e) => {
-    if (
-      !editRef.current?.contains(e.target) &&
-      !favRef.current?.contains(e.target)
-    ) {
-      history.push(`/${event.account.username}/${event.id}`);
-    }
-  };
+    card.addEventListener('click', handleClick);
 
-  const handleEditClick = () => {
-    history.push(`/${event.account.username}/manage/events/edit/${event.id}`);
-  };
-
-  const handleManageClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    history.push(`/${event.account.username}/manage/events/${event.id}`);
-  };
-
-  const renderCover = () => {
-    return (
-      <img
-        alt={event?.thumb || event?.account?.name || event?.name}
-        src={event.cover()}
-      />
+    const clickableElements = Array.from(
+      card.querySelectorAll('.event-clickable')
     );
-  };
-
-  const renderDates = () => {
-    const startDate = moment(event.start).format('MMMM Do h:mm a');
-
-    return (
-      <React.Fragment>
-        <DateText>{startDate}</DateText>
-      </React.Fragment>
+    clickableElements.forEach((el) =>
+      el.addEventListener('click', (e) => e.stopPropagation())
     );
-  };
+
+    return () => card.removeEventListener('click', handleClick);
+  }, []);
 
   const renderTags = () => {
-    const start = moment(event.start);
-    const end = moment(event.end);
+    const isStreamStarting = event.isStreamStarting();
+    const isAvailableNow =
+      !event.isBroadcast() && event.isAvailable() && !event.isLive();
+    const isLiveNow = event.isLive();
 
-    // const isPurchased = event?.transactions?.length;
-    // const isFree = event.price === '$0.00';
-    // const isBroadcast = event.type === 'live';
-    // const isVideo = event.type === 'video';
+    if (!isStreamStarting && !isAvailableNow && !isLiveNow) {
+      return null;
+    }
+
+    let tagText;
+
+    if (isStreamStarting) {
+      tagText = 'Stream Starting';
+    }
+    if (isAvailableNow) {
+      tagText = 'Available Now';
+    }
+    if (isLiveNow) {
+      tagText = 'Live Now';
+    }
 
     return (
-      <TagsContainer>
-        {/* {isPurchased ? <Tag color="green">Purchased</Tag> : null} */}
-        {event.isStreamStarting() && (
-          <AvailableTag color="#ee326e">STREAM STARTING</AvailableTag>
-        )}
-        {!event.isBroadcast() && event.isAvailable() && !event.isLive() && (
-          <AvailableTag color="#ee326e">AVAILABLE NOW</AvailableTag>
-        )}
-        {event.isLive() && <LiveTag color="#ee326e">LIVE NOW</LiveTag>}
-        {/* {isFree && <Tag color="blue">Free!</Tag>} */}
-        {/* {isBroadcast && <Tag color="cyan">Broadcast</Tag>} */}
-        {/* {isVideo && <Tag color="gold">Video</Tag>} */}
-      </TagsContainer>
+      <p className="absolute top-0 left-0 px-4 py-4 transform origin-top-left xs:scale-110 sm:scale-100">
+        <span className="py-1 px-3 bg-primary rounded-sm shadow text-white font-extrabold uppercase">
+          {tagText}
+        </span>
+      </p>
     );
   };
 
-  const renderFavorite = () => {
-    if (!user) {
+  const renderUnPublished = () => {
+    if (!event.belongsTo(user) || event.published) {
       return null;
     }
-    const isFavorite = event?.favorites?.length;
-    const Icon = isFavorite ? StarFilled : StarOutlined;
-
     return (
-      <Favorite ref={favRef} isActive={isFavorite}>
-        <Icon data-testid="favorite" onClick={onFavoriteClick} />
-      </Favorite>
+      <p className="absolute top-0 left-0 px-4 py-4 transform origin-top-left xs:scale-110 sm:scale-100">
+        <span className="py-1 px-3 bg-gray-600 rounded-sm shadow text-white font-extrabold uppercase">
+          Unpublished
+        </span>
+      </p>
     );
   };
 
   return (
-    <Container loggedIn={!!user}>
-      <Card
-        data-test-id="event-card"
-        onClick={handleCardClick}
-        hoverable
-        cover={renderCover()}
-      >
-        <EventName level={5}>{event.name}</EventName>
-        <AccountName level={4}>
-          <Link to={`/${event.account.username}`}>{event?.account?.name}</Link>
-        </AccountName>
-        {renderDates()}
-        <div>
-          <small>{event.location}</small>
-        </div>
-        {renderTags()}
-        {event.belongsTo(user) && !event?.published ? 'Unpublished' : null}
-        <CardMenu>
-          {event.belongsTo(user) && (
-            <EditLink
-              type="primary"
-              ghost
-              ref={editRef}
-              onClick={handleEditClick}
-            >
-              Edit
-            </EditLink>
-          )}
-          {event.belongsTo(user) && (
-            <ManageLink
-              type="primary"
-              ghost
-              ref={manageRef}
-              onClick={(e) => handleManageClick(e)}
-            >
-              Manage
-            </ManageLink>
-          )}
-        </CardMenu>
-        {renderFavorite()}
-      </Card>
-    </Container>
+    <article
+      id={`card-${event.id}`}
+      className="event-card relative cursor-pointer bg-gray-950 overflow-hidden shadow rounded-3xl"
+      data-test-id="event-card"
+    >
+      <div className="aspect-w-16 aspect-h-9">
+        <img
+          className="object-cover text-white"
+          alt={event?.thumb || event?.account?.name || event?.name}
+          src={event.cover()}
+        />
+      </div>
+      <div className="event-card-info px-6 mt-6 md:mt-4">
+        <h2 className="font-sans">
+          <Link
+            to={`/${event.account.username}/${event.id}`}
+            className="event-name event-clickable line-clamp-2 text-gray-100 transition-colors font-bold text-xl xs:text-2xl sm:text-xl"
+            id={`event-link-${event.id}`}
+            title={event.name}
+          >
+            {event.name}
+          </Link>
+        </h2>
+        <p className="mb-4 font-sans">
+          <Link
+            to={`/${event.account.username}`}
+            className="event-clickable text-gray-400 hover:text-gray-300 transition-colors font-semibold text-base xs:text-lg sm:text-base"
+            title={event.account?.name || ''}
+          >
+            {event.account?.name}
+          </Link>
+        </p>
+      </div>
+      <div className="p-5">
+        <time
+          className="block text-gray-500 text-base xs:text-lg sm:text-base lg:text-lg xl:text-base font-sans"
+          dateTime={moment(event.start).format()}
+        >
+          <svg
+            className="inline-block align-text-top w-5 h-5 mr-2 text-gray-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+          {moment(event.start).format('MMMM Do, h:mm a')}
+        </time>
+      </div>
+      {renderTags()}
+      {renderUnPublished()}
+    </article>
   );
 }
 

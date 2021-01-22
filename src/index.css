@@ -15,6 +15,9 @@ body {
 @tailwind utilities;
 /* Stop purging. */
 
+@import './styles/hero.css';
+@import './styles/events.css';
+
 .menu-item {
   @apply text-base font-medium text-gray-400 hover:text-white hover:bg-white-5;
 }

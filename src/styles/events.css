@@ -1,0 +1,47 @@
+.events-container {
+  /* prevents "jump" when # of events changes */
+  min-height: calc(100vh - 86px);
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 1.5rem;
+  row-gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .event-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .event-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+@media (hover: hover) {
+  .event-card {
+    @apply transform transition-transform !important;
+  }
+
+  .event-card:hover {
+    @apply -translate-y-2 !important;
+  }
+
+  .event-card:hover .event-name {
+    @apply text-primary !important;
+  }
+}
+
+.event-card-info h2 a {
+  line-height: 1.25 !important;
+}
+
+@media (min-width: 640px) {
+  .event-card-info {
+    min-height: 5.75rem;
+  }
+}

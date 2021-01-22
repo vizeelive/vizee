@@ -90,17 +90,6 @@ describe('EventCard', () => {
       expect(screen.queryByText('Unpublished')).not.toBeInTheDocument();
     });
   });
-  describe('as an admin', () => {
-    it('should render an edit button', () => {
-      user.isAdmin = true;
-      render(
-        <Router>
-          <EventCard user={user} event={event} />
-        </Router>
-      );
-      expect(screen.getByText('Edit')).toBeInTheDocument();
-    });
-  });
   describe('as a user', () => {
     it('should render a card', () => {
       render(
@@ -113,10 +102,8 @@ describe('EventCard', () => {
       expect(screen.getByText('Trey Anastasio Band')).toBeInTheDocument();
       expect(screen.getByAltText('Trey Anastasio Band')).toBeInTheDocument();
 
-      expect(screen.getByTestId('favorite')).toBeInTheDocument();
-
       // tags
-      expect(screen.getByText('STREAM STARTING')).toBeInTheDocument();
+      expect(screen.getByText('Stream Starting')).toBeInTheDocument();
       // expect(screen.getByText('Broadcast')).toBeInTheDocument();
       // expect(screen.getByText('Purchased')).toBeInTheDocument();
       // expect(screen.getByText('Free!')).toBeInTheDocument();

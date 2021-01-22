@@ -164,15 +164,14 @@ export default function Home(props) {
     { variables: { id: user?.id, now } }
   );
 
-  const [searchEvents, { data: searchData }] = useLazyQuery(
-    user ? SEARCH_EVENTS_AUTH : SEARCH_EVENTS_UNAUTH
-  );
+  const [
+    searchEvents,
+    { loading: searchLoading, data: searchData }
+  ] = useLazyQuery(user ? SEARCH_EVENTS_AUTH : SEARCH_EVENTS_UNAUTH);
 
-  let categories, events;
-  if (data) {
-    categories = data?.categories;
-    events = Mapper(searchData?.events || data.events);
-  }
+  const categories = data?.categories;
+  const allEvents = Mapper(data?.events || []);
+  const searchedEvents = Mapper(searchData?.events || []);
 
   const search = async (val) => {
     searchEvents({ variables: { q: `%${val}%` } });
@@ -183,10 +182,11 @@ export default function Home(props) {
     error,
     loading,
     categories,
-    events,
+    allEvents,
     search,
     isMobile,
-    searchData,
+    searchLoading,
+    searchedEvents,
     refetch,
     onSignup: props.onSignup
   };

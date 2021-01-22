@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { gql, useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import useAuth from '../hooks/useAuth';
@@ -12,11 +11,6 @@ const CREATE_FAVORITE = gql`
       event_id
     }
   }
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 `;
 
 export default function Events(props) {
@@ -46,7 +40,7 @@ export default function Events(props) {
   }
 
   return (
-    <Grid data-test-id="events">
+    <div className="event-grid mt-2" data-test-id="events">
       {events.map((event) => (
         <EventCard
           key={event.id}
@@ -57,7 +51,7 @@ export default function Events(props) {
           }
         />
       ))}
-    </Grid>
+    </div>
   );
 }
 
