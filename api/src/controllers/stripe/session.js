@@ -63,6 +63,11 @@ module.exports = async function (req, res) {
   let origin = account.domain ? `https://${account.domain}` : config.ui;
 
   if (ref.isTip) {
+    if (!ref.amount.includes('.')) {
+      price = `${ref.amount}.00`;
+    } else {
+      price = ref.amount;
+    }
     unit_amount = price.replace('$', '').replace('.', '');
     amount = unit_amount;
   }
