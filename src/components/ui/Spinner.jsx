@@ -57,7 +57,7 @@ Spinner.propTypes = {
 
 Spinner.defaultProps = {
   size: 5,
-  color: 'gray-500'
+  color: 'gray-600'
 };
 
 export default Spinner;

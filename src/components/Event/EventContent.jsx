@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import useDimensions from 'react-use-dimensions';
 import VideoPlayer from '../VideoPlayer';
 import VideoConference from '../VideoConference';
 
@@ -10,10 +11,14 @@ function EventContent(props) {
     liveData,
     playerKey,
     videoJsOptions,
-    coverPhoto
+    onHeightChange
   } = props;
 
-  const canWatch = event.canWatch(user, liveData);
+  const [ref, { height }] = useDimensions();
+
+  useEffect(() => {
+    onHeightChange(height);
+  }, [height]);
 
   const renderEventVideo = () => {
     if (event.isBroadcast()) {
@@ -42,40 +47,9 @@ function EventContent(props) {
     );
   };
 
-  const renderPreview = () => {
-    if (event.preview) {
-      return (
-        <video
-          data-test-id="event-preview-video"
-          playsInline
-          src={event.preview}
-          width="100%"
-          muted
-          controls
-        />
-      );
-    }
-
-    return (
-      <img
-        data-test-id="event-preview-image"
-        width="100%"
-        alt={event.name || event?.account?.name}
-        src={
-          !coverPhoto
-            ? `https://dummyimage.com/1216x684/000/fff.png&text=${event.name}`
-            : `https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=1216&h=684`
-        }
-      />
-    );
-  };
-
   // @TODO dont sign video links that aren't available yet
-  if (!event.isAvailable()) {
-    return renderPreview();
-  } else {
-    return canWatch ? renderEventVideo() : renderPreview();
-  }
+
+  return <div ref={ref}>{renderEventVideo()}</div>;
 }
 
 EventContent.propTypes = {

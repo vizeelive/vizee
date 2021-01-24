@@ -35,6 +35,20 @@ describe('EventPage', () => {
       cy.get('[data-test-id=event-start').should('not.be.empty');
       cy.get('[data-test-id=account-name').should('not.be.empty');
       cy.get('[data-test-id=comments').should('not.be.empty');
+      cy.get('[data-test-id=comments-editor').should('not.exist');
+    });
+    it('should be able to see comments during livestream', () => {
+      cy.fixture('UserEventsReport').then((fixture) => {
+        fixture.events_report[0].type = 'live';
+        fixture.events_report[0].access = [{ id: 'a1b2c3' }];
+        fixture.events_report[0].start = new Date();
+        fixture.events_report[0].end = new Date(
+          new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+        );
+        cy.graphql('UserEventsReport', fixture);
+      });
+      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
+      cy.findByText('Stream Starting...').should('exist');
       cy.get('[data-test-id=comments-editor').should('exist');
     });
     it('should be able to see STREAM STARTING tag when live event inside time window', () => {

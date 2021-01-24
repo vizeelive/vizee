@@ -1,9 +1,17 @@
 import React from 'react';
+import cn from 'classnames';
 
 export default function ChatToggle({ showChat, onToggle }) {
   return (
     <>
-      <div className="lg:hidden absolute left-2/4 transform -translate-x-1/2">
+      <div
+        className={cn(
+          'lg:hidden absolute left-2/4 transform -translate-x-1/2',
+          {
+            'translate-y-6': showChat
+          }
+        )}
+      >
         <button
           type="button"
           className="inline-flex items-center px-4 py-2 border border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-primary"
@@ -28,7 +36,7 @@ export default function ChatToggle({ showChat, onToggle }) {
           {`${showChat ? 'Hide' : 'Show'} Chat`}
         </button>
       </div>
-      <div className="hidden lg:block absolute top-0 left-1 w-auto">
+      <div className="hidden lg:block absolute top-0 left-1 w-auto z-1">
         <button
           type="button"
           className="bg-black p-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-primary"

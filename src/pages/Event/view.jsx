@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { Link, useHistory } from 'react-router-dom';
@@ -6,20 +6,22 @@ import moment from 'moment';
 import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
 import cn from 'classnames';
+import { isMobile } from 'react-device-detect';
 
-import { Button, Modal, Result } from 'antd';
-
+import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
-import Comments from 'components/Event/CommentsContainer';
+// import Comments from 'components/Event/CommentsContainer';
+import CommentsChat from 'components/Event/CommentsChat';
 import StartStreamButton from 'components/Event/StartStreamButton';
 // import RedeemCode from 'components/Event/RedeemCode';
 import BuyButton from 'components/Event/BuyButton';
 import ShareButton from 'components/Event/ShareButton';
 import FollowButton from 'components/Event/FollowButton';
 import EventContent from 'components/Event/EventContent';
+import EventPreview from 'components/Event/EventPreview';
 import AvatarHandle from 'components/AvatarHandle';
 import SuccessModal from 'components/SuccessModal';
-// import ChatToggle from 'components/Event/ChatToggle';
+import ChatToggle from 'components/Event/ChatToggle';
 
 export default function EventPage(props) {
   const {
@@ -36,6 +38,8 @@ export default function EventPage(props) {
 
   const searchParams = new URLSearchParams(window.location.search);
 
+  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+
   const { loginWithRedirect } = useAuth();
   const history = useHistory();
   const [showModal] = useState(
@@ -44,9 +48,80 @@ export default function EventPage(props) {
   const [showTipModal] = useState(
     searchParams.get('tip') && status === 'success' ? true : false
   );
-  const [showChat] = useState(false);
 
-  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+  const [showChat, setShowChat] = useState(false);
+  const [videoHeight, setVideoHeight] = useState(0);
+  const [showMobileEvent, setShowMobileEvent] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(
+    window.matchMedia('(orientation: landscape)').matches
+  );
+  const [offsetY, setOffsetY] = useState(0);
+  const [initialHeight, setInitialHeight] = useState(window.innerHeight);
+
+  const canWatch = event.canWatch(user, liveData);
+  const chatEnabled =
+    user && canWatch && (event.isBroadcast() || event.isConference());
+
+  useEffect(() => {
+    user && setShowChat(true);
+  }, [user]);
+
+  const isMobileEvent =
+    isMobile && window.matchMedia('(max-width: 991px)').matches;
+
+  useEffect(() => {
+    const handleResize = (event) => {
+      // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+      const viewport = event.target;
+      const vh = viewport.height * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+      if (isMobileEvent) {
+        const landscape = window.matchMedia('(orientation: landscape)').matches;
+
+        if (landscape !== isLandscape) {
+          // device rotated
+          setInitialHeight(window.innerHeight);
+          setOffsetY(0);
+        } else {
+          // soft keyboard is resizing viewport
+          const offset = initialHeight - viewport.height;
+          const vidHeight = (viewport.width * 9) / 16; // 16:9 video height
+          const closeBtnHeight = 132;
+          const fixedVideoFits = viewport.height > vidHeight + closeBtnHeight;
+
+          /**
+           * If there's enough vertical space for the video + chat input +
+           * close button, keep the video in view. Otherwise, let the video
+           * slide up out of view.
+           */
+          const setOffset = fixedVideoFits ? offset : 0;
+          setOffsetY(setOffset);
+        }
+
+        setIsLandscape(landscape);
+      }
+    };
+
+    window.visualViewport.addEventListener('resize', handleResize);
+
+    return () => {
+      window.visualViewport.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleShowMobileEvent = () => {
+    document.documentElement.style.setProperty('overflow', 'hidden');
+    document.body.classList.add('show-mobile-event');
+    setShowMobileEvent(true);
+    window.scroll(0, 0);
+  };
+
+  const handleHideMobileEvent = () => {
+    document.documentElement.style.removeProperty('overflow', 'hidden');
+    document.body.classList.remove('show-mobile-event');
+    setShowMobileEvent(false);
+  };
 
   const renderBadges = () => {
     return (
@@ -363,46 +438,162 @@ export default function EventPage(props) {
         isVisible={window.location.search.includes('tip')}
       />
 
-      <article className="max-w-screen-lg 2xl:max-w-screen-xl mx-auto sm:px-6 lg:px-8 page-min-height">
+      <article
+        className={cn('mx-auto lg:px-8 page-min-height', {
+          'max-w-screen-xl 2xl:max-w-screen-2xl': chatEnabled,
+          'max-w-screen-lg 2xl:max-w-screen-xl': !chatEnabled
+        })}
+      >
         <div
-          className={cn('grid video-chat-grid gap-y-6 sm:py-6 lg:py-8', {
+          className={cn('grid video-chat-grid gap-y-6 lg:py-8', {
             'show-chat': showChat
           })}
         >
-          <section>
-            <EventContent
-              event={event}
-              user={user}
-              liveData={liveData}
-              playerKey={playerKey}
-              videoJsOptions={videoJsOptions}
-              coverPhoto={coverPhoto}
-            />
+          <section className="relative">
+            {!canWatch ||
+            !event.isAvailable() ||
+            (isMobileEvent && chatEnabled) ? (
+              <EventPreview event={event} coverPhoto={coverPhoto} />
+            ) : (
+              <EventContent
+                event={event}
+                user={user}
+                liveData={liveData}
+                playerKey={playerKey}
+                videoJsOptions={videoJsOptions}
+                coverPhoto={coverPhoto}
+                onHeightChange={(h) => setVideoHeight(h)}
+              />
+            )}
+            {isMobileEvent && canWatch && chatEnabled && (
+              <div
+                className={cn(
+                  'absolute inset-0 flex items-center justify-center',
+                  {
+                    'bg-black-50': !showMobileEvent,
+                    'bg-black': showMobileEvent
+                  }
+                )}
+              >
+                {!showMobileEvent && (
+                  <button
+                    type="button"
+                    className="inline-flex items-center px-6 py-3 text-2xl font-extrabold rounded-md text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black-5 focus:ring-primary"
+                    onClick={handleShowMobileEvent}
+                  >
+                    <svg
+                      className="-ml-1 -mt-1 mr-4 h-8 w-8 overflow-visible"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                    Play Event
+                  </button>
+                )}
+
+                <div
+                  id="mobileEvent"
+                  className={cn({
+                    hidden: !showMobileEvent,
+                    block: showMobileEvent
+                  })}
+                >
+                  <div
+                    className={cn('fixed left-0 z-50', {
+                      'w-full': !isLandscape,
+                      'w-6/12': isLandscape
+                    })}
+                    style={{
+                      top: `${offsetY}px`,
+                      boxShadow: '0 25px 50px -12px black'
+                    }}
+                  >
+                    <EventContent
+                      event={event}
+                      user={user}
+                      liveData={liveData}
+                      playerKey={playerKey}
+                      videoJsOptions={videoJsOptions}
+                      coverPhoto={coverPhoto}
+                      onHeightChange={(h) => setVideoHeight(h)}
+                    />
+                  </div>
+                  {chatEnabled && (
+                    <div
+                      className={cn('fixed bottom-0 z-40', {
+                        'w-full left-0': !isLandscape,
+                        'w-6/12 left-1/2': isLandscape
+                      })}
+                      style={{
+                        top: isLandscape
+                          ? `${offsetY}px`
+                          : `calc(${offsetY}px + 56.25vw)` // offset + 16:9 video height
+                      }}
+                    >
+                      <CommentsChat event={event} user={user} />
+                    </div>
+                  )}
+                  <div className="fixed bottom-20 right-4 z-50">
+                    <TwButton type="primary" onClick={handleHideMobileEvent}>
+                      <svg
+                        className="-ml-1 mr-2 h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                      Close
+                    </TwButton>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
-          {/* @todo: Integrate chat */}
-          {/* <aside
-            className={cn('relative event-chat', {
-              'lg:w-96': showChat,
-              'h-8 lg:w-8': !showChat
+          <aside
+            id="chatContainer"
+            className={cn('hidden lg:block relative event-chat', {
+              'lg:hidden': !chatEnabled || isMobileEvent,
+              'w-96': showChat,
+              'w-8': !showChat
             })}
           >
             <div
-              className={cn({
+              className={cn('pl-12', {
                 hidden: !showChat,
                 block: showChat
               })}
+              style={{
+                height: `${videoHeight}px`
+              }}
             >
-              <h1 className="text-5xl sm:text-6xl text-gray-900 text-center font-bold font-sans py-24">
-                Chat
-              </h1>
+              {chatEnabled && !isMobileEvent && (
+                <CommentsChat event={event} user={user} />
+              )}
             </div>
-            <ChatToggle
-              showChat={showChat}
-              onToggle={() => setShowChat(!showChat)}
-            />
-          </aside> */}
+            {chatEnabled && (
+              <ChatToggle
+                showChat={showChat}
+                onToggle={() => setShowChat(!showChat)}
+              />
+            )}
+          </aside>
         </div>
-        <div className="my-6">{renderInfo()}</div>
+        <div className="my-8 lg:mt-0 sm:px-6 lg:px-0">{renderInfo()}</div>
 
         {!event.hasStarted() && (
           <div className="my-6 px-6 sm:px-0">
@@ -413,7 +604,7 @@ export default function EventPage(props) {
           </div>
         )}
 
-        <div className="my-8 px-6 sm:px-0">
+        <div className="my-8 px-6 lg:px-0">
           {/* <div className="my-6">
             {event.isPurchased() ? <Tag color="green">Purchased</Tag> : null}
             {event.isFree() && <Tag color="blue">Free!</Tag>}
@@ -429,9 +620,9 @@ export default function EventPage(props) {
               <p>{event.description || <em>No description provided</em>}</p>
             </Linkify>
           </div>
-          <div className="max-w-prose my-8">
+          {/* <div className="max-w-prose my-8">
             <Comments event={event} user={user} />
-          </div>
+          </div> */}
         </div>
       </article>
     </React.Fragment>
