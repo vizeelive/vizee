@@ -88,7 +88,7 @@ export default function BuyButton(props) {
   }
 
   if (isTip) {
-    label = 'Send Tip';
+    label = 'Support';
   }
 
   const preBuy = (params) => {
