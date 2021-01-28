@@ -23,16 +23,17 @@ const logger = winston.createLogger({
 //   return path.join(parts[parts.length - 2], parts.pop());
 // };
 
-logger.add(
-  new winston.transports.Console({
-    // label: getLabel(callingModule),
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.prettyPrint(),
-      winston.format.splat(),
-      winston.format.simple()
-    )
-  })
-);
+process.env.NODE_ENV !== 'test' &&
+  logger.add(
+    new winston.transports.Console({
+      // label: getLabel(callingModule),
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.prettyPrint(),
+        winston.format.splat(),
+        winston.format.simple()
+      )
+    })
+  );
 
 module.exports = logger;
