@@ -12,7 +12,7 @@ module.exports = async function getStripeUrl(req, res) {
   const { username } = req.body.input;
 
   try {
-    let data = await getStripeUrlData(username);
+    var data = await getStripeUrlData(username);
 
     if (
       !user.isAdmin &&
