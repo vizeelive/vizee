@@ -72,7 +72,7 @@ export default function Users() {
     try {
       await addUser({
         variables: {
-          object: { email: values.email, account_id: account.id }
+          object: { email: values.email.toLowerCase(), account_id: account.id }
         }
       });
       window.mixpanel.track('User Added');
