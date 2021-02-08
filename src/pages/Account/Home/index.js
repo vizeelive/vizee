@@ -33,6 +33,7 @@ export const GET_ACCOUNT_ANON = gql`
         id
       }
       links {
+        id
         name
         link
       }
@@ -108,6 +109,7 @@ const GET_ACCOUNT_USER = gql`
       facebook
       twitter
       stripe_id
+      stripe_data
       shopify_domain
       shopify_storefront_token
       followers {
@@ -248,6 +250,6 @@ export default function Home(props) {
   );
 }
 
-Home.PropTypes = {
+Home.propTypes = {
   username: PropTypes.string.isRequired
 };

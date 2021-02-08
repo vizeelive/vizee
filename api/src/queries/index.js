@@ -1,6 +1,6 @@
 const logger = require('../logger');
 const { client } = require('../setup');
-const { gql } = require('@apollo/client');
+const { gql } = require('@apollo/client/core');
 
 /**
  * Fetch event and account to be used by Stripe Session
@@ -142,6 +142,38 @@ async function getCheckoutDataEvent(ref) {
     };
   } catch (e) {
     logger.error('Failed: getCheckoutDataEvent', ref, e);
+    throw e;
+  }
+}
+
+/**
+ * Fetch event and account to be used by Stripe Session
+ *
+ * @param {object} ref
+ */
+async function getCheckoutDataAccountOnly(ref) {
+  try {
+    let res = await client.query({
+      variables: {
+        id: ref.account_id
+      },
+      query: gql`
+        query getCheckoutDataAccountOnly($id: uuid!) {
+          accounts_by_pk(id: $id) {
+            id
+            name
+            username
+            photo
+            stripe_id
+          }
+        }
+      `
+    });
+    return {
+      account: res.data.accounts_by_pk
+    };
+  } catch (e) {
+    logger.error('Failed: getCheckoutDataAccountOnly', ref, e);
     throw e;
   }
 }
@@ -532,5 +564,6 @@ module.exports = {
   getStripeUrlData,
   getCheckoutDataAccount,
   getAccountAndProduct,
-  getAccount
+  getAccount,
+  getCheckoutDataAccountOnly
 };

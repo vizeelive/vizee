@@ -2,7 +2,11 @@ const config = require('./config');
 const fetch = require('node-fetch');
 const { setContext } = require('@apollo/link-context');
 
-var { ApolloClient, createHttpLink, InMemoryCache } = require('@apollo/client');
+var {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache
+} = require('@apollo/client/core');
 
 const httpLink = createHttpLink({
   uri: config.api,

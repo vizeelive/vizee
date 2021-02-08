@@ -83,6 +83,7 @@
   },
   "scripts": {
     "cypress": "cypress open",
+    "dev": "HOST=dev.vizee.live HTTPS=true craco start",
     "start": "craco start",
     "start:mock": "REACT_APP_MOCK=true craco start",
     "build": "craco build",

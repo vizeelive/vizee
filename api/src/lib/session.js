@@ -4,7 +4,11 @@ const { parse } = require('zipson');
 const currency = require('currency.js');
 const { pay } = require('./checkout');
 const { generateImageLink } = require('./index');
-const { getCheckoutDataAccount, getCheckoutDataEvent } = require('../queries');
+const {
+  getCheckoutDataAccount,
+  getCheckoutDataEvent,
+  getCheckoutDataAccountOnly
+} = require('../queries');
 
 async function session(params) {
   let { ref: refQuery } = params;
@@ -16,8 +20,10 @@ async function session(params) {
     var account, event, product;
     if (ref.product_id) {
       var { event, account, product } = await getCheckoutDataAccount(ref);
-    } else {
+    } else if (ref?.event_id) {
       var { event, account } = await getCheckoutDataEvent(ref);
+    } else {
+      var { account } = await getCheckoutDataAccountOnly(ref);
     }
   } catch (e) {
     logger.error(`Failed to fetch data for checkout: ${e.message}`, { ref });
@@ -42,15 +48,15 @@ async function session(params) {
   }
 
   if (ref.isTip) {
-    action = 'tip';
+    action = ref.event_id ? 'event.tip' : 'account.tip';
   }
 
   logger.info(`Action ${action}`);
 
   // TODO check for existing access and return successfully
-  const account_percent = currency(1 - account.fee_percent / 100);
+  const account_percent = currency(1 - account?.fee_percent / 100);
 
-  let price = product?.price || event.price || '0';
+  let price = product?.price || event?.price || '0';
   if (!price.includes('.')) {
     price = `${price}.00`;
   }
@@ -60,7 +66,7 @@ async function session(params) {
 
   let image = generateImageLink({ event, account });
 
-  let origin = account.domain ? `https://${account.domain}` : config.ui;
+  let origin = account?.domain ? `https://${account?.domain}` : config.ui;
 
   if (ref.isTip) {
     if (!ref.amount.includes('.')) {
@@ -91,7 +97,7 @@ async function session(params) {
     logger.error(`Failed to create stripe checkout session: ${e.message}`, {
       data
     });
-    throw new Error('Checkout failed');
+    throw e;
   }
 }
 

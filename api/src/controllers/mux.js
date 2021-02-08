@@ -1,6 +1,6 @@
 const app = require('../app');
 const { client } = require('../setup');
-const { gql } = require('@apollo/client');
+const { gql } = require('@apollo/client/core');
 const bodyParser = require('body-parser');
 // const formidable = require('formidable')
 

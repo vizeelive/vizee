@@ -197,6 +197,10 @@ export default function HomeView(props) {
                 <BuyButton user={user} account={account} />
               ) : null}
 
+              {account.stripe_data && (
+                <BuyButton isTip={true} user={user} account={account} />
+              )}
+
               <ShareButton url={shareUrl} user={user} />
 
               {(user?.isAdmin || isMyAccount) &&
@@ -264,7 +268,7 @@ export default function HomeView(props) {
               <Title level={3}>Links</Title>
               <div className="flex flex-row space-x-4">
                 {account.links.map((link) => (
-                  <MicrolinkCard>
+                  <MicrolinkCard key={link.id}>
                     <Microlink url={link.link} />
                   </MicrolinkCard>
                 ))}
@@ -311,6 +315,12 @@ export default function HomeView(props) {
         description="You successfully subscribed to this channel!"
         status="success"
         isVisible={window.location.search.includes('account.subscribe')}
+      />
+      <SuccessModal
+        title="Thanks for the support!"
+        description="Your generosity allows creators to keep doing their thing!"
+        status="success"
+        isVisible={window.location.search.includes('tip')}
       />
     </React.Fragment>
   );

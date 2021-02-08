@@ -298,7 +298,12 @@ export default function EventPage(props) {
 
         {event.account.stripe_data && (
           <span className="mr-3 lg:mr-0 lg:ml-3">
-            <BuyButton isTip={true} user={user} event={event} />
+            <BuyButton
+              isTip={true}
+              account={event.account}
+              user={user}
+              event={event}
+            />
           </span>
         )}
 
@@ -432,7 +437,7 @@ export default function EventPage(props) {
       />
 
       <SuccessModal
-        title="Thanks for the tip!"
+        title="Thanks for the support!"
         description="Your generosity allows creators to keep doing their thing!"
         status="success"
         isVisible={window.location.search.includes('tip')}

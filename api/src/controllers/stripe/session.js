@@ -8,7 +8,7 @@ module.exports = async function (req, res) {
     res.send(sessionResult);
   } catch (e) {
     res.status(500).send(e.message);
-    logger.error(e.message, { ref });
+    logger.error(`Failed to create Stripe session: ${e.message}`, { ref });
     throw e;
   }
 };;

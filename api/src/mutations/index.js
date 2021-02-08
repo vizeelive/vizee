@@ -1,6 +1,6 @@
 const logger = require('../logger');
 const { client } = require('../setup');
-const { gql } = require('@apollo/client');
+const { gql } = require('@apollo/client/core');
 
 async function insertShopifyHook(params) {
   const { topic, data } = params;

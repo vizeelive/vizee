@@ -8,8 +8,7 @@ export default function SuccessModal(props) {
   const history = useHistory();
   const { loginWithRedirect } = useAuth();
 
-  const onCancel =
-    props.onCancel || '/' + window.location.href.match(/([A-Z])\w+/)?.[0];
+  const onCancel = props.onCancel || window.location.pathname;
 
   return (
     <Modal

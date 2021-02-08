@@ -1,4 +1,5 @@
 import config from 'config';
+import logger from 'logger';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { stringify } from 'zipson';
@@ -30,17 +31,22 @@ export default function BuyButton(props) {
   const buy = async (params = {}) => {
     const { product, values } = params;
 
-    let ref = encodeURIComponent(
-      stringify({
-        isTip,
-        amount: values?.amount,
-        user_id: user?.id,
-        event_id: event?.id,
-        product_id: product?.id,
-        email: user?.email || values?.email,
-        affiliate: Cookies.get('affiliate_user_id')
-      })
-    );
+    let amount = values?.amount;
+    let user_id = user?.id;
+    let event_id = event?.id;
+    let account_id = account?.id;
+    let product_id = product?.id;
+    let email = user?.email || values?.email;
+    let affiliate = Cookies.get('affiliate_user_id');
+
+    let data;
+    if (isTip) {
+      data = { isTip, amount, user_id, email, event_id, account_id };
+    } else {
+      data = { isTip, amount, user_id, event_id, product_id, email, affiliate };
+    }
+
+    let ref = encodeURIComponent(stringify(data));
 
     const stripe = await stripePromise;
 
@@ -237,7 +243,7 @@ export default function BuyButton(props) {
           </PurchaseOption>
         )}
         {products.map((product) => (
-          <PurchaseOption>
+          <PurchaseOption key={product.id}>
             {true && (
               <Button
                 onClick={() => (user ? buy({ product }) : preBuy({ product }))}

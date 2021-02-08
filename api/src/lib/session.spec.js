@@ -20,7 +20,7 @@ describe('session', () => {
     delete arg.image;
     // console.log(pay.mock.calls[0][0]);
     expect(arg).toEqual({
-      action: 'tip',
+      action: 'event.tip',
       ref:
         '{¨isTip¨»¨amount¨¨$1¨¨event_id¨¨3396ff8e-8fe8-46fd-a890-e56a5ed10c35¨¨affiliate¨¨411c830e-5960-4cbe-8856-09e0d1a32367¨}',
       isTip: true,

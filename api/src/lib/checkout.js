@@ -72,8 +72,8 @@ async function pay(params) {
 
   let success_url;
   switch (action) {
-    case 'tip':
-      success_url = `${origin}/${account.username}/${event.id}?action=tip`;
+    case 'account.tip':
+      success_url = `${origin}/${account.username}?action=tip`;
       break;
     case 'account.subscribe':
       success_url = `${origin}/${account.username}?action=account.subscribe`;
@@ -81,11 +81,14 @@ async function pay(params) {
     case 'account.purchase':
       success_url = `${origin}/${account.username}?action=account.purchase`;
       break;
-    case 'event.purchase':
-      success_url = `${origin}/${account.username}/${event.id}?action=event.purchase`;
+    case 'event.tip':
+      success_url = `${origin}/${account.username}/${event.id}?action=tip`;
       break;
     case 'event.subscribe':
       success_url = `${origin}/${account.username}/${event.id}?action=event.subscribe`;
+      break;
+    case 'event.purchase':
+      success_url = `${origin}/${account.username}/${event.id}?action=event.purchase`;
       break;
   }
 
