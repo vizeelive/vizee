@@ -1,4 +1,5 @@
 import React from 'react';
+import logger from 'logger';
 import config from '../../config';
 import { useParams } from 'react-router-dom';
 import { Button, message } from 'antd';
@@ -42,14 +43,34 @@ export default function StripeAccount(props) {
   if (error) return 'Error.';
 
   const account = data?.accounts_by_pk;
-  const accountIsReady = account?.stripe_data?.details_submitted;
+  const accountNotStarted = !account?.stripe_id;
+  const accountNeedsFinish =
+    account?.stripe_id && !account?.stripe_data?.details_submitted;
+  const accountIsReady =
+    account?.stripe_id && account?.stripe_data?.details_submitted;
 
   const handleStripeConnect = async () => {
+    logger.info('Running handleStripeConnect');
     try {
       let res = await fetch(
         `${config.api}/stripe/account/create?id=${id}&username=${username}`
       ).then((res) => res.json());
       window.mixpanel.track('Stripe Connect Started');
+      window.location.replace(res.url);
+    } catch (e) {
+      message.error('An error occurred');
+      console.log(e);
+      throw e;
+    }
+  };
+
+  const handleStripeFinish = async () => {
+    logger.info('Running handleStripeFinish');
+    try {
+      let res = await fetch(
+        `${config.api}/stripe/account/create?account_id=${account.stripe_id}&username=${username}`
+      ).then((res) => res.json());
+      window.mixpanel.track('Stripe Connect Continued');
       window.location.replace(res.url);
     } catch (e) {
       message.error('An error occurred');
@@ -68,8 +89,13 @@ export default function StripeAccount(props) {
 
   return (
     <React.Fragment>
-      {!accountIsReady && (
+      {accountNotStarted && (
         <Button onClick={handleStripeConnect} type="primary">
+          Connect to Stripe
+        </Button>
+      )}
+      {accountNeedsFinish && (
+        <Button onClick={handleStripeFinish} type="primary">
           Connect to Stripe
         </Button>
       )}

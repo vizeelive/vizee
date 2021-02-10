@@ -1,4 +1,5 @@
 const app = require('../app');
+const logger = require('../logger');
 const config = require('../config');
 const { client } = require('../setup');
 const bodyParser = require('body-parser');
@@ -19,41 +20,47 @@ const connectEndpointSecret = process.env.STRIPE_CONNECT_WEBHOOK_SECRET;
 app.get('/stripe/account/create', async function (req, res) {
   let id = req.query.id;
   let username = req.query.username;
+  let account_id = req.query.account_id;
 
-  const account = await stripe.accounts.create({
-    type: 'express',
-    settings: {
-      payouts: {
-        schedule: {
-          interval: 'manual'
-        }
-      }
-    }
-  });
-
-  try {
-    await client.mutate({
-      variables: {
-        id,
-        stripe_id: account.id
-      },
-      mutation: gql`
-        mutation UpdateStripeId($id: uuid!, $stripe_id: String!) {
-          update_accounts_by_pk(
-            pk_columns: { id: $id }
-            _set: { stripe_id: $stripe_id }
-          ) {
-            id
+  if (account_id === undefined) {
+    logger.info('Creating new stripe account');
+    var account = await stripe.accounts.create({
+      type: 'express',
+      settings: {
+        payouts: {
+          schedule: {
+            interval: 'manual'
           }
         }
-      `
+      }
     });
-  } catch (e) {
-    console.error(e);
+
+    try {
+      await client.mutate({
+        variables: {
+          id,
+          stripe_id: account.id
+        },
+        mutation: gql`
+          mutation UpdateStripeId($id: uuid!, $stripe_id: String!) {
+            update_accounts_by_pk(
+              pk_columns: { id: $id }
+              _set: { stripe_id: $stripe_id }
+            ) {
+              id
+            }
+          }
+        `
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    logger.info('Using existing stripe account');
   }
 
   const accountLinks = await stripe.accountLinks.create({
-    account: account.id,
+    account: account_id || account.id,
     refresh_url: `${config.ui}/${username}/manage/dashboard`,
     return_url: `${config.ui}/${username}/manage/dashboard`,
     // refresh_url: `${config.ui}/${username}/manage/settings/${id}/payment/refresh`,
