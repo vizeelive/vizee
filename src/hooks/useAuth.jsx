@@ -93,6 +93,7 @@ export default function useAuth() {
     var wsLink = new WebSocketLink({
       uri: config.graphql.replace('https', 'wss'),
       options: {
+        lazy: true,
         reconnect: true,
         connectionParams: {
           headers: {
