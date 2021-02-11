@@ -32,7 +32,6 @@ export default function BuyButton(props) {
     const { product, values } = params;
 
     let amount = values?.amount;
-    let user_id = user?.id;
     let event_id = event?.id;
     let account_id = account?.id;
     let product_id = product?.id;
@@ -41,10 +40,12 @@ export default function BuyButton(props) {
 
     let data;
     if (isTip) {
-      data = { isTip, amount, user_id, email, event_id, account_id };
+      data = { isTip, amount, email, event_id, account_id };
     } else {
-      data = { isTip, amount, user_id, event_id, product_id, email, affiliate };
+      data = { isTip, amount, email, event_id, product_id, email, affiliate };
     }
+
+    logger.info('ref', data);
 
     let ref = encodeURIComponent(stringify(data));
 
@@ -194,7 +195,7 @@ export default function BuyButton(props) {
       </Modal>
       {/* <!-- Email Modal --> */}
       <Modal
-        title="Buy"
+        title={label}
         visible={emailModalVisible}
         footer={null}
         onCancel={() => setEmailModalVisible(false)}
@@ -219,7 +220,7 @@ export default function BuyButton(props) {
       </Modal>
       {/* <!-- Buy Modal --> */}
       <Modal
-        title="Buy"
+        title={label}
         visible={modalVisible}
         footer={null}
         onCancel={() => setModalVisible(false)}

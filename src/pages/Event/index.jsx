@@ -140,6 +140,7 @@ const GET_EVENT_AUTH = gql`
           recurring
           access_length
           flexible_price
+          account_access
         }
       }
       products {
@@ -150,6 +151,7 @@ const GET_EVENT_AUTH = gql`
           price
           flexible_price
           description
+          account_access
         }
       }
       access {
