@@ -119,6 +119,7 @@ const GET_ACCOUNT_USER = gql`
         id
       }
       links {
+        id
         name
         link
       }

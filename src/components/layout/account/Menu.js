@@ -284,7 +284,6 @@ export default function Menu(props) {
               href={`https://app.productstash.io/vizee`}
               target="_blank"
               className={className.inactive}
-              activeClassName={className.active}
             >
               {/* Heroicon name: cog */}
               <svg

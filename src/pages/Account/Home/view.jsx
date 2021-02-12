@@ -250,12 +250,14 @@ export default function HomeView(props) {
           </Header>
 
           {account.description && (
-            <AccountDescription>
+            <React.Fragment>
               <Title data-test-id="account-bio" level={3}>
                 Bio
               </Title>
-              <Linkify>{account.description}</Linkify>
-            </AccountDescription>
+              <AccountDescription>
+                <Linkify>{account.description}</Linkify>
+              </AccountDescription>
+            </React.Fragment>
           )}
 
           <EventsContainer>

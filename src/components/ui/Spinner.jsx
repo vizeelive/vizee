@@ -34,8 +34,8 @@ const Svg = styled.svg.attrs({
 
   circle {
     stroke: ${({ color }) => `var(--vz-${color})`};
-    stroke-width: 4;
-    stroke-linecap: round;
+    strokewidth: 4;
+    strokelinecap: round;
     animation: ${dash} 1300ms ease-in-out infinite;
     will-change: stroke-dasharray, stroke-dashoffset;
   }
