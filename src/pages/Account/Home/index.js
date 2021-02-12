@@ -251,5 +251,5 @@ export default function Home(props) {
 }
 
 Home.propTypes = {
-  username: PropTypes.string.isRequired
+  username: PropTypes.string
 };

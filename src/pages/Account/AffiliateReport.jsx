@@ -172,7 +172,7 @@ export default function AffiliateReport() {
         <div className="shadow sm:hidden">
           <ul className="mt-2 divide-y divide-gray-800 overflow-hidden shadow sm:hidden">
             {data.affiliate_report.map((line) => (
-              <li>
+              <li key={line.id}>
                 <a
                   href="#"
                   className="block px-4 py-4 bg-gray-900 hover:bg-gray-950"

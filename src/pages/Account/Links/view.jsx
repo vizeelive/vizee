@@ -75,7 +75,7 @@ export default function LinksView(props) {
           </Button>
         </Header>
         {links.map((link) => (
-          <LinkCard>
+          <LinkCard key={link.id}>
             <CardSwitch
               loading={isSwitchLoading[link.id]}
               checked={link.enabled}
