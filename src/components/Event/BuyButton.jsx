@@ -162,7 +162,7 @@ export default function BuyButton(props) {
       </button>
       {/* <!-- Tip Modal --> */}
       <Modal
-        title="Send Tip"
+        title="Support"
         visible={tipModalVisible}
         footer={null}
         onCancel={() => setTipModalVisible(false)}
@@ -189,7 +189,7 @@ export default function BuyButton(props) {
             type="primary"
             size="large"
           >
-            Send Tip
+            Support
           </Button>
         </Form>
       </Modal>
