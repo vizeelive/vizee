@@ -36,7 +36,9 @@ app.post(
         variables: {
           mux_id,
           status,
-          data: data.data
+          ...(data.type.includes('video.live_stream')
+            ? { data: data.data }
+            : null)
         },
         mutation: gql`
           mutation UpdateMuxLivestream(
