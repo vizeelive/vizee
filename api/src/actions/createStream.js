@@ -23,7 +23,7 @@ module.exports = async function (req, res) {
       throw new Error('Unauthorized: no access');
     }
 
-    if (event.mux_livestream) {
+    if (event.status !== 'completed' && event.mux_livestream) {
       logger.info('Sending existing stream key');
       return res.send({ stream_key: event.mux_livestream.stream_key });
     }
