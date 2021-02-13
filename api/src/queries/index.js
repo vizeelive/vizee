@@ -186,6 +186,7 @@ async function getEvent(id) {
         query getEvent($id: uuid!) {
           events_by_pk(id: $id) {
             id
+            status
             mux_livestream
             account_id
             account {
