@@ -36,6 +36,13 @@ export default function StartStreamButton(props) {
         footer={null}
         onCancel={() => setModalVisible(false)}
       >
+        <p>
+          In order to livestream, you'll need to{' '}
+          <a href="https://obsproject.com/download" target="_blank">
+            download OBS Studio
+          </a>
+          .
+        </p>
         <Alert
           type="info"
           message={
@@ -50,6 +57,14 @@ export default function StartStreamButton(props) {
           }
           style={{ marginBottom: '1.5rem' }}
         />
+        <iframe
+          width="470"
+          height="315"
+          src="https://www.youtube.com/embed/DTk99mHDX_I"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
       </Modal>
       <button
         type="button"
