@@ -103,10 +103,10 @@ export default function EventPage(props) {
       }
     };
 
-    window.visualViewport.addEventListener('resize', handleResize);
+    window.VisualViewport.onresize = handleResize;
 
     return () => {
-      window.visualViewport.removeEventListener('resize', handleResize);
+      window.VisualViewport.onresize = null;
     };
   }, []);
 
