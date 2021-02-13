@@ -37,7 +37,9 @@ const VideoConference = (props) => {
           displayName: props?.user?.name
         },
         interfaceConfigOverwrite: {
+          SHOW_CHROME_EXTENSION_BANNER: false,
           TOOLBAR_BUTTONS: [
+            'desktop',
             'microphone',
             'camera',
             'fullscreen',
