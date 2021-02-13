@@ -61,9 +61,9 @@ export default function StartStreamButton(props) {
           width="470"
           height="315"
           src="https://www.youtube.com/embed/DTk99mHDX_I"
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       </Modal>
       <button
