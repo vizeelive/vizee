@@ -58,6 +58,7 @@ module.exports = async function (req, res) {
     switch (type) {
       case 'ivs_fast':
         var result = await createChannel({ event });
+        var ivs_channel_arn = result.streamKey.channelArn;
         var data = { channel: result.channel, streamKey: result.streamKey };
         var key = {
           url: `rtmps://${result.channel.ingestEndpoint}`,
@@ -65,6 +66,7 @@ module.exports = async function (req, res) {
         };
         break;
       case 'mux':
+        var ivs_channel_arn = null;
         var data = await createStream();
         var key = {
           url: 'rtmps://stream.vizee.live:5222/app',
@@ -79,6 +81,7 @@ module.exports = async function (req, res) {
       id: event_id,
       stream_type: type,
       mux_id: data.id,
+      ivs_channel_arn,
       data
     });
 
