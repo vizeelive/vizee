@@ -69,7 +69,7 @@ module.exports = async function (req, res) {
         var ivs_channel_arn = null;
         var data = await createStream();
         var key = {
-          url: 'rtmps://stream.vizee.live:5222/app',
+          url: 'rtmp://stream.vizee.live:5222/app',
           key: data.stream_key
         };
         break;
