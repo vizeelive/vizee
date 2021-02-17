@@ -169,6 +169,7 @@
       - created
       - created_by
       - description
+      - domain
       - facebook
       - id
       - instagram
@@ -192,6 +193,7 @@
       - created
       - created_by
       - description
+      - domain
       - facebook
       - id
       - instagram
@@ -697,6 +699,7 @@
       - revenue
       - start
       - status
+      - stream_type
       - transactions
       - type
       - views
@@ -722,6 +725,7 @@
       - revenue
       - start
       - status
+      - stream_type
       - transactions
       - type
       - views

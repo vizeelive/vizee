@@ -187,6 +187,7 @@ async function getEvent(id) {
           events_by_pk(id: $id) {
             id
             status
+            stream_type
             mux_livestream
             account_id
             account {
@@ -313,6 +314,7 @@ async function getUserAccess(params) {
             type
             start
             end
+            stream_type
             mux_livestream
             mux_asset_id
           }

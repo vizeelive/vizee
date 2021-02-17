@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+require('./controllers/ivs');
 require('./controllers/stripe');
 require('./controllers/mux');
 const actions = require('./actions');

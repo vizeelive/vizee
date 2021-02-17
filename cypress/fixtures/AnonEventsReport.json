@@ -13,6 +13,7 @@
       "views": 251,
       "description": "description",
       "location": "Stuart, FL, USA",
+      "stream_type": "mux",
       "mux_livestream": {
         "id": "iL9u8gXTZ8JFswct1OkK02x21PlZveqE9trNFRD58pwI",
         "status": "ready",

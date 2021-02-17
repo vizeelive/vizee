@@ -3,6 +3,7 @@
     "__typename": "events",
     "price": "$0.00",
     "type": "live",
+    "stream_type": "mux",
     "mux_livestream": {
       "id": "4h2Sq02c4tRjAyv5o5h00dOBcnLEgiIvDg6isgepiZEfo",
       "status": "ready",

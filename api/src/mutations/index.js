@@ -89,23 +89,25 @@ async function updateProduct(params) {
 }
 
 async function updateMuxLivestream(params) {
-  let { id, mux_id, data } = params;
+  let { id, stream_type, mux_id, data } = params;
   try {
     await client.mutate({
       variables: {
         id,
+        stream_type,
         mux_id,
         data
       },
       mutation: gql`
         mutation updateMuxLivestream(
           $id: uuid!
+          $stream_type: String
           $mux_id: String
           $data: jsonb!
         ) {
           update_events_by_pk(
             pk_columns: { id: $id }
-            _set: { mux_id: $mux_id, mux_livestream: $data }
+            _set: { stream_type: $stream_type, mux_id: $mux_id, mux_livestream: $data }
           ) {
             id
           }

@@ -1,30 +1,35 @@
-import config from '../../config';
+import config from 'config';
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Alert, Modal, message } from 'antd';
+import { Alert, Modal, Button, message, Row, Col, Card } from 'antd';
 import logger from 'logger';
 
 const CREATE_STREAM = gql`
-  mutation createStream($event_id: uuid!) {
-    createStream(event_id: $event_id) {
+  mutation createStream($type: String!, $event_id: uuid!) {
+    createStream(type: $type, event_id: $event_id) {
       stream_key
     }
   }
 `;
 
 export default function StartStreamButton(props) {
-  const [streamKey, setStreamKey] = useState();
+  const [streamKey, setStreamKey] = useState({ url: null, key: null });
   const [modalVisible, setModalVisible] = useState(false);
+  const [streamModalVisible, setStreamModalVisible] = useState(false);
   const [createStream] = useMutation(CREATE_STREAM);
 
-  const handleStartLivestream = async () => {
+  const handleStartLivestream = async (type) => {
     try {
-      let res = await createStream({ variables: { event_id: props.event_id } });
+      let res = await createStream({
+        variables: { type, event_id: props.event_id }
+      });
       setStreamKey(res.data.createStream.stream_key);
-      setModalVisible(true);
+      setModalVisible(false);
+      setStreamModalVisible(true);
     } catch (e) {
       logger.error(e.message);
       message.error(e.message);
+      throw e;
     }
   };
 
@@ -32,9 +37,10 @@ export default function StartStreamButton(props) {
     <React.Fragment>
       <Modal
         title="Let's start streaming!"
-        visible={modalVisible}
+        visible={streamModalVisible}
         footer={null}
-        onCancel={() => setModalVisible(false)}
+        onCancel={() => setStreamModalVisible(false)}
+        width={660}
       >
         <p>
           In order to livestream, you'll need to{' '}
@@ -48,17 +54,17 @@ export default function StartStreamButton(props) {
           message={
             <React.Fragment>
               <pre style={{ margin: 0, fontSize: '14px' }}>
-                Server URL: rtmp://stream.vizee.live:5222/app
+                Server URL: {streamKey.url}
               </pre>
               <pre style={{ margin: 0, fontSize: '14px' }}>
-                Stream Key: {streamKey}
+                Stream Key: {streamKey.key}
               </pre>
             </React.Fragment>
           }
           style={{ marginBottom: '1.5rem' }}
         />
         <iframe
-          width="470"
+          width="610"
           height="315"
           src="https://www.youtube.com/embed/DTk99mHDX_I"
           frameBorder="0"
@@ -66,10 +72,45 @@ export default function StartStreamButton(props) {
           allowFullScreen
         ></iframe>
       </Modal>
+
+      <Modal
+        title="Choose your stream type"
+        visible={modalVisible}
+        footer={null}
+        onCancel={() => setModalVisible(false)}
+      >
+        <Row gutter={16}>
+          <Col span={12}>
+            <Card title="Fast" bordered={true}>
+              <p>Super low latency (3s)</p>
+              <p>Not recorded.</p>
+              <Button
+                type="primary"
+                onClick={() => handleStartLivestream('ivs_fast')}
+              >
+                Choose
+              </Button>
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card title="Normal" bordered={true}>
+              <p>Normal latency (20s)</p>
+              <p>Recorded.</p>
+              <Button
+                type="primary"
+                onClick={() => handleStartLivestream('mux')}
+              >
+                Choose
+              </Button>
+            </Card>
+          </Col>
+        </Row>
+      </Modal>
+
       <button
         type="button"
         className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
-        onClick={handleStartLivestream}
+        onClick={() => setModalVisible(true)}
       >
         {/* Heroicon name: play */}
         <svg

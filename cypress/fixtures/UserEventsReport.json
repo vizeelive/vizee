@@ -64,6 +64,7 @@
       "views": 23,
       "location": "Los Angeles, CA, USA",
       "account_only": false,
+      "stream_type": "mux",
       "account": {
         "id": "53b9804b-06b3-4bad-a9ee-2a3529458a70",
         "name": "Ryan Moriarty",

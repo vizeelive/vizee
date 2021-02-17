@@ -2,6 +2,7 @@
   "__typename": "events",
   "id": "95451df9-d6a1-408b-a252-b95603aaa0fe",
   "account_id": "ca28f3f8-90ff-494c-8e2f-e286698535fc",
+  "stream_type": "mux",
   "account": {
     "__typename": "accounts",
     "users": [

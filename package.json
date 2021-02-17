@@ -30,6 +30,7 @@
     "@uppy/react": "^1.10.10",
     "@uppy/transloadit": "^1.6.13",
     "@uppy/tus": "^1.7.9",
+    "amazon-ivs-player": "^1.2.0",
     "animate.css": "^4.1.1",
     "antd": "^4.8.5",
     "apollo-link-logger": "^2.0.0",

@@ -32,6 +32,7 @@ const GET_EVENT_UNAUTH = gql`
       views
       location
       mux_id
+      stream_type
       status
       account_only
       account {
@@ -118,6 +119,7 @@ const GET_EVENT_AUTH = gql`
       location
       account_only
       status
+      stream_type
       account {
         id
         name

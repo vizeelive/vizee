@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useDimensions from 'react-use-dimensions';
 import VideoPlayer from '../VideoPlayer';
+import VideoPlayerIVS from '../VideoPlayerIVS';
 import VideoConference from '../VideoConference';
 
 function EventContent(props) {
@@ -21,10 +22,18 @@ function EventContent(props) {
   }, [height]);
 
   const renderEventVideo = () => {
-    if (event.isBroadcast()) {
+    if (event.isBroadcast() && event.stream_type.includes('mux')) {
       return (
         <div data-test-id="event-video-live">
           <VideoPlayer key={playerKey} {...videoJsOptions} />
+        </div>
+      );
+    }
+
+    if (event.isBroadcast() && event.stream_type.includes('ivs')) {
+      return (
+        <div data-test-id="event-video-live">
+          <VideoPlayerIVS key={playerKey} {...videoJsOptions} />
         </div>
       );
     }
