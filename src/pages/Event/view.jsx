@@ -416,7 +416,7 @@ export default function EventPage(props) {
           property="og:title"
           content={`${event.name} - ${event.account.name}`}
         />
-        <meta property="og:description" content={event.description} />
+        <meta property="og:description" content={event.description || ''} />
         <meta
           name="twitter:image"
           content={event?.photo || event?.account?.photo}
@@ -426,7 +426,7 @@ export default function EventPage(props) {
           name="twitter:title"
           content={`${event.name} - ${event.account.name}`}
         />
-        <meta name="twitter:description" content={event.description} />
+        <meta name="twitter:description" content={event.description || ''} />
       </Helmet>
 
       <SuccessModal
