@@ -63,7 +63,7 @@ module.exports = async function (params) {
     data.event.stream_type === 'ivs_fast'
   ) {
     return {
-      url: data.event.mux_livestream.channel.playbackUrl
+      url: data?.event?.mux_livestream.channel?.playbackUrl
     };
   } else {
     playbackId = await createPlaybackId(data.event.mux_asset_id, {
