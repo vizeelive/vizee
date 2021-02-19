@@ -108,7 +108,7 @@ module.exports = async function ({ event }) {
           // expand: ['latest_invoice.payment_intent'],
           default_payment_method: paymentIntent.payment_method,
           transfer_data: {
-            amount_percent: 100 - product.account.fee_percent,
+            amount_percent: 100 - product.account.fee_percent - 3,
             destination: product.account.stripe_id
           }
         });
