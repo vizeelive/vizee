@@ -103,10 +103,17 @@ export default function EventPage(props) {
       }
     };
 
-    window.VisualViewport.onresize = handleResize;
+    if (window.VisualViewport) {
+      window.VisualViewport.onresize = handleResize;
+    } else {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
 
     return () => {
-      window.VisualViewport.onresize = null;
+      if (window.VisualViewport) {
+        window.VisualViewport.onresize = null;
+      }
     };
   }, []);
 
