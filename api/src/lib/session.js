@@ -62,7 +62,8 @@ async function session(params) {
   }
 
   let unit_amount = price.replace('$', '').replace('.', '');
-  let amount = Math.round(unit_amount * account_percent);
+  let stripe_fee = unit_amount * 0.029 + 30;
+  let amount = Math.round(unit_amount * account_percent - stripe_fee);
 
   let image = generateImageLink({ event, account });
 
@@ -75,7 +76,8 @@ async function session(params) {
       price = ref.amount;
     }
     unit_amount = price.replace('$', '').replace('.', '');
-    amount = unit_amount;
+    stripe_fee = unit_amount * 0.029 + 30;
+    amount = Math.round(unit_amount * account_percent - stripe_fee);
   }
 
   try {

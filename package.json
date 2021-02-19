@@ -39,7 +39,7 @@
     "classnames": "^2.2.6",
     "craco-less": "^1.17.0",
     "currency.js": "^2.0.3",
-    "cypress": "6.2.1",
+    "cypress": "6.5.0",
     "graphql": "^15.3.0",
     "hasura-cli": "^1.3.3",
     "js-cookie": "^2.2.1",
@@ -83,7 +83,7 @@
     "zipson": "^0.2.12"
   },
   "scripts": {
-    "cypress": "cypress open",
+    "cypress": "cypress open --config baseUrl=https://localhost:3000",
     "dev": "HOST=dev.vizee.live HTTPS=true craco start",
     "start": "craco start",
     "start:mock": "REACT_APP_MOCK=true craco start",

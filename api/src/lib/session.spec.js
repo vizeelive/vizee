@@ -55,7 +55,7 @@ describe('session', () => {
           stripe_id: 'acct_1I7io52ZzvGYyXC5'
         }
       },
-      amount: '100',
+      amount: 47,
       unit_amount: '100',
       email: undefined
     });

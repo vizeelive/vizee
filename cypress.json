@@ -2,5 +2,7 @@
   "baseUrl": "http://localhost:3000",
   "videos": false,
   "viewportWidth": 1200,
-  "defaultCommandTimeout": 20000
+  "defaultCommandTimeout": 20000,
+  "pageLoadTimeout": 120000,
+  "responseTimeout": 60000
 }

@@ -53,7 +53,7 @@ describe('HomePage', () => {
       cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
       cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
       cy.graphql('GetHomeData', { fixture: 'GetHomeData' });
-      cy.visit('http://localhost:3000');
+      cy.visit('/');
       // menu items
       cy.get('[data-test-id=menu-login').should('not.exist');
       cy.get('[data-test-id=menu-profile').should('exist');

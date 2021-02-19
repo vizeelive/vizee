@@ -14,6 +14,7 @@
     "access_length": 30,
     "account": {
       "__typename": "accounts",
+      "fee_percent": "20",
       "stripe_id": "acct_1HyOm22UrvU1cNxc"
     },
     "events": []

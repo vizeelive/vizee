@@ -164,6 +164,7 @@ async function getCheckoutDataAccountOnly(ref) {
             name
             username
             photo
+            fee_percent
             stripe_id
           }
         }
@@ -421,6 +422,7 @@ async function getUserAndProduct({ email, product_id }) {
             stripe_product_id
             account {
               id
+              fee_percent
               stripe_id
             }
             events {

@@ -15,6 +15,7 @@ jobs:
         with:
           start: yarn start
           wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
         env:
           cypress_auth_audience: ${{secrets.CYPRESS_AUTH_AUDIENCE}}
           cypress_auth_url: ${{secrets.CYPRESS_AUTH_URL}}
