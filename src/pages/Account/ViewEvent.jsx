@@ -78,6 +78,7 @@ const WATCH_EVENT_REPORT = gql`
       transaction {
         id
         price
+        email
         user {
           first_name
           last_name
