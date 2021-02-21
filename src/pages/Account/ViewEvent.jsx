@@ -79,6 +79,7 @@ const WATCH_EVENT_REPORT = gql`
         id
         price
         email
+        created
         user {
           first_name
           last_name
@@ -157,6 +158,10 @@ export default function ViewEvent() {
 
   const columns = [
     {
+      title: 'Date',
+      dataIndex: 'created'
+    },
+    {
       title: 'First Name',
       dataIndex: 'first_name'
     },
@@ -190,7 +195,8 @@ export default function ViewEvent() {
       first_name: t?.user?.first_name,
       last_name: t?.user?.last_name,
       city: t?.user?.city,
-      country: t?.user?.country
+      country: t?.user?.country,
+      created: moment(t?.created).format('llll')
     };
   });
 
