@@ -47,7 +47,7 @@ module.exports = async function (req, res) {
       logger.info('Sending existing ivs stream key');
       return res.send({
         stream_key: {
-          url: event.mux_livestream.channel.ingestEndpoint,
+          url: `rtmps://${event.mux_livestream.channel.ingestEndpoint}`,
           key: event.mux_livestream.streamKey.value
         }
       });
