@@ -43,7 +43,13 @@ export default function Events(props) {
   var currentEvents = [];
 
   events.sort((a, b) => {
-    return a.created < b.created;
+    if (new Date(a.start) > new Date(b.start)) {
+      return -1;
+    }
+    if (new Date(a.start) < new Date(b.start)) {
+      return 1;
+    }
+    return 0;
   });
 
   events.forEach((event) => {
