@@ -14,7 +14,6 @@ import Spinner from 'components/ui/Spinner';
 export const GET_ACCOUNT_ANON = gql`
   query GetAccount(
     $username: String!
-    $now: timestamptz!
     $affiliate_code: String
   ) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
@@ -46,7 +45,7 @@ export const GET_ACCOUNT_ANON = gql`
         flexible_price
         description
       }
-      events(where: { end: { _gte: $now } }) {
+      events {
         id
         location
         name
@@ -80,7 +79,6 @@ const GET_ACCOUNT_USER = gql`
   query GetAccount(
     $username: String!
     $user_id: uuid!
-    $now: timestamptz!
     $affiliate_code: String
   ) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
@@ -132,7 +130,7 @@ const GET_ACCOUNT_USER = gql`
         flexible_price
         description
       }
-      events(where: { end: { _gte: $now } }) {
+      events {
         id
         location
         name
@@ -191,8 +189,8 @@ export default function Home(props) {
     user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
     {
       variables: user
-        ? { username, user_id: user.id, now, affiliate_code: userCode }
-        : { username, now }
+        ? { username, user_id: user.id, affiliate_code: userCode }
+        : { username }
     }
   );
 
