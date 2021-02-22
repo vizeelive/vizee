@@ -315,6 +315,7 @@ async function getUserAccess(params) {
             type
             start
             end
+            published
             stream_type
             mux_livestream
             mux_asset_id

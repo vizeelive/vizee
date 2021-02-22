@@ -174,13 +174,12 @@ describe('getEventUrl', () => {
     let res = await getEventUrl({ event_id, user });
     expect(res).toHaveProperty('url', null);
   });
-  it('returns null when current date is not in event available window', async () => {
+  it('returns null when event is not published', async () => {
     queries.getEvent.mockReturnValue('queries/getEvent');
 
     let getUserAccessFixture = fixture('queries/getUserAccess');
     getUserAccessFixture.event.type = 'video';
-    getUserAccessFixture.event.start = '2016-06-14T22:11:12.889+00:00';
-    getUserAccessFixture.event.end = '2016-06-14T23:11:12.889+00:00';
+    getUserAccessFixture.event.published = false;
     queries.getUserAccess.mockReturnValue(getUserAccessFixture);
 
     mux.createPlaybackId.mockReturnValue({ id: 'a1b2c3' });
@@ -193,14 +192,13 @@ describe('getEventUrl', () => {
     let res = await getEventUrl({ event_id, user });
     expect(res).toHaveProperty('url', null);
   });
-  it('returns url when current date is in event available window', async () => {
+  it('returns url when event is published', async () => {
     queries.getEvent.mockReturnValue('queries/getEvent');
 
     let getUserAccessFixture = fixture('queries/getUserAccess');
     getUserAccessFixture.event.type = 'video';
+    getUserAccessFixture.event.published = true;
     getUserAccessFixture.event.mux_asset_id = 'a1b2c3';
-    getUserAccessFixture.event.start = '2013-06-14T22:11:12.889+00:00';
-    getUserAccessFixture.event.end = '2020-06-14T23:11:12.889+00:00';
     queries.getUserAccess.mockReturnValue(getUserAccessFixture);
 
     mux.createPlaybackId.mockReturnValue({ id: 'a1b2c3' });

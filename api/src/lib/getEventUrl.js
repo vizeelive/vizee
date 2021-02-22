@@ -1,10 +1,7 @@
 const dayjs = require('dayjs');
 const logger = require('../logger');
-const isBetween = require('dayjs/plugin/isBetween');
 const { getEvent, getUserAccess } = require('../queries');
 const { createToken, createPlaybackId } = require('../lib/mux');
-
-dayjs.extend(isBetween);
 
 module.exports = async function (params) {
   const { user, event_id } = params;
@@ -36,8 +33,8 @@ module.exports = async function (params) {
     return { url: null };
   }
 
-  if (!dayjs().isBetween(data.event.start, data.event.end)) {
-    logger.info('Event is not free and no access can be found, skipping');
+  if (!data.event.published) {
+    logger.info('Event is not published, denying');
     return { url: null };
   }
 
