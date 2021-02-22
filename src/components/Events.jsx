@@ -53,41 +53,50 @@ export default function Events(props) {
   });
 
   events.forEach((event) => {
-    if (event.hasEnded()) {
-      pastEvents.push(event);
-    } else {
+    if (!event.hasStarted() || event.isAvailable()) {
       currentEvents.push(event);
+    } else {
+      pastEvents.push(event);
     }
   });
 
   return (
     <React.Fragment>
-      <h1 class="text-2xl mt-3">Upcoming Events</h1>
-      <div className="event-grid mt-2" data-test-id="events">
-        {currentEvents.map((event) => (
-          <EventCard
-            key={event.id}
-            event={event}
-            user={user}
-            onFavoriteClick={(e) =>
-              event?.favorites?.length ? () => {} : handleFavorite(e, event)
-            }
-          />
-        ))}
-      </div>
-      <h1 class="text-2xl mt-8">Event Catalog</h1>
-      <div className="event-grid mt-2" data-test-id="events">
-        {pastEvents.map((event) => (
-          <EventCard
-            key={event.id}
-            event={event}
-            user={user}
-            onFavoriteClick={(e) =>
-              event?.favorites?.length ? () => {} : handleFavorite(e, event)
-            }
-          />
-        ))}
-      </div>
+      {currentEvents.length ? (
+        <React.Fragment>
+          <h1 class="text-2xl mt-3">Upcoming Events</h1>
+          <div className="event-grid mt-2" data-test-id="events">
+            {currentEvents.map((event) => (
+              <EventCard
+                key={event.id}
+                event={event}
+                user={user}
+                onFavoriteClick={(e) =>
+                  event?.favorites?.length ? () => {} : handleFavorite(e, event)
+                }
+              />
+            ))}
+          </div>
+        </React.Fragment>
+      ) : null}
+
+      {pastEvents.length ? (
+        <React.Fragment>
+          <h1 class="text-2xl mt-8">Event Catalog</h1>
+          <div className="event-grid mt-2" data-test-id="events">
+            {pastEvents.map((event) => (
+              <EventCard
+                key={event.id}
+                event={event}
+                user={user}
+                onFavoriteClick={(e) =>
+                  event?.favorites?.length ? () => {} : handleFavorite(e, event)
+                }
+              />
+            ))}
+          </div>
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 }
