@@ -39,19 +39,50 @@ export default function Events(props) {
     events = props.events;
   }
 
+  var pastEvents = [];
+  var currentEvents = [];
+
+  events.sort((a, b) => {
+    return a.created < b.created;
+  });
+
+  events.forEach((event) => {
+    if (event.hasEnded()) {
+      pastEvents.push(event);
+    } else {
+      currentEvents.push(event);
+    }
+  });
+
   return (
-    <div className="event-grid mt-2" data-test-id="events">
-      {events.map((event) => (
-        <EventCard
-          key={event.id}
-          event={event}
-          user={user}
-          onFavoriteClick={(e) =>
-            event?.favorites?.length ? () => {} : handleFavorite(e, event)
-          }
-        />
-      ))}
-    </div>
+    <React.Fragment>
+      <h1 class="text-2xl mt-3">Upcoming Events</h1>
+      <div className="event-grid mt-2" data-test-id="events">
+        {currentEvents.map((event) => (
+          <EventCard
+            key={event.id}
+            event={event}
+            user={user}
+            onFavoriteClick={(e) =>
+              event?.favorites?.length ? () => {} : handleFavorite(e, event)
+            }
+          />
+        ))}
+      </div>
+      <h1 class="text-2xl mt-8">Event Catalog</h1>
+      <div className="event-grid mt-2" data-test-id="events">
+        {pastEvents.map((event) => (
+          <EventCard
+            key={event.id}
+            event={event}
+            user={user}
+            onFavoriteClick={(e) =>
+              event?.favorites?.length ? () => {} : handleFavorite(e, event)
+            }
+          />
+        ))}
+      </div>
+    </React.Fragment>
   );
 }
 
