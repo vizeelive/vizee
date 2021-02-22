@@ -121,7 +121,9 @@ module.exports = async function ({ event }) {
           ? { subscription: true }
           : { subscription: false }),
 
-        ...(user && user.id ? { user_id: user.id } : { email: customer.email }),
+        ...(user && user.id
+          ? { user_id: user.id }
+          : { email: customer.email.toLowerCase() }),
 
         ...(product.account_access ? { account_id: product.account_id } : null),
 
