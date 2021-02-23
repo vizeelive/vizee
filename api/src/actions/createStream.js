@@ -33,7 +33,7 @@ module.exports = async function (req, res) {
       logger.info('Sending existing mux stream key');
       return res.send({
         stream_key: {
-          url: 'rtmps://stream.vizee.live:5222/app',
+          url: 'rtmp://stream.vizee.live:5222/app',
           key: event.mux_livestream.stream_key
         }
       });
