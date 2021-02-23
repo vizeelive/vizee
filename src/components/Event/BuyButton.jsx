@@ -38,16 +38,18 @@ export default function BuyButton(props) {
     let email = user?.email || values?.email;
     let affiliate = Cookies.get('affiliate_user_id');
 
-    let data;
-    if (isTip) {
-      data = { isTip, amount, email, event_id, account_id };
-    } else {
-      data = { isTip, amount, email, event_id, product_id, email, affiliate };
-    }
-
-    logger.info('ref', data);
+    let data = {
+      ...(!event_id && !product_id ? { account_id } : null),
+      ...(email ? { email } : null),
+      ...(affiliate ? { affiliate } : null),
+      ...(product_id ? { product_id } : null),
+      ...(event_id ? { event_id } : null),
+      ...(isTip ? { isTip: true } : null),
+      ...(amount ? { amount } : null)
+    };
 
     let ref = encodeURIComponent(stringify(data));
+    logger.info('client_reference_id', data, ref.length);
 
     const stripe = await stripePromise;
 

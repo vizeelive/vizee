@@ -4,7 +4,7 @@ const dayjs = require('dayjs');
 
 const stripe = require('../../lib/stripe');
 
-const { getUser, getUserAndProduct } = require('../../queries');
+const { getEvent, getUser, getUserAndProduct } = require('../../queries');
 
 const {
   createAccess,
@@ -24,8 +24,9 @@ module.exports = async function ({ event }) {
       let ref = parse(session.client_reference_id);
       logger.debug('ref', { ref });
 
-      if (ref.isTip) {
-        return;
+      var event;
+      if (ref?.event_id) {
+        event = await getEvent(ref.event_id);
       }
 
       if (ref.product_id) {
@@ -45,6 +46,22 @@ module.exports = async function ({ event }) {
         var { user, user_access } = await getUser({
           email: customer.email
         });
+      }
+
+      let account_id =
+        product?.account_id || ref?.account_id || event?.account_id;
+
+      if (ref.isTip) {
+        await createTransaction({
+          customer,
+          ref,
+          account_id,
+          user,
+          session,
+          is_tip: true,
+          affiliate_id: ref?.affiliate
+        });
+        return;
       }
 
       // TODO if anon person bought product, and the access already exists, cancel the transaction
@@ -161,9 +178,10 @@ module.exports = async function ({ event }) {
       await createTransaction({
         customer,
         ref,
+        account_id,
         user,
-        product,
         session,
+        is_tip: false,
         affiliate_id: ref?.affiliate
       });
     } catch (e) {
