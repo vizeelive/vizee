@@ -46,6 +46,9 @@ export default class Event {
       !this.isComplete()
     );
   }
+  isRecorded() {
+    return this.stream_type === 'mux';
+  }
   isPurchased() {
     return !!this?.access?.length || !!this?.account?.access?.length;
   }

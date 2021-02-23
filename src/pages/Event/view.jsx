@@ -133,17 +133,19 @@ export default function EventPage(props) {
   const renderBadges = () => {
     return (
       <div className="mt-2 flex items-center lg:mr-6 event-badges">
-        {event.isStreamComplete() && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
-            Stream Ended
-          </span>
-        )}
+        {event.isAvailable() &&
+          event.isStreamComplete() &&
+          !event.isRecorded() && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
+              Stream Ended
+            </span>
+          )}
         {event.isStreamStarting() && (
           <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
             Stream Starting...
           </span>
         )}
-        {!event.isBroadcast() && event.isAvailable() && !event.isLive() && (
+        {event.isRecorded() && event.hasStarted() && !event.isLive() && (
           <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-primary text-white uppercase">
             Available Now
           </span>
