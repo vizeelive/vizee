@@ -11,6 +11,7 @@ const ACCOUNT_REPORT = gql`
       id
       username
       name
+      tips
       revenue
       favoritecount
       eventcount
