@@ -97,14 +97,14 @@ export default function Menu(props) {
             Events
           </NavLink> */}
 
-          <NavLink
+          {/* <NavLink
             to={`/${username}/manage/links/${account.id}`}
             exact
             className={className.inactive}
             activeClassName={className.active}
-          >
+          > */}
             {/* Heroicon name: link */}
-            <svg
+            {/* <svg
               className="mr-3 h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -120,7 +120,7 @@ export default function Menu(props) {
               />
             </svg>
             Links
-          </NavLink>
+          </NavLink> */}
 
           <NavLink
             to={`/${username}/manage/products/${account.id}`}

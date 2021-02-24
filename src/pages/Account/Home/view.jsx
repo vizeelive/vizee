@@ -265,7 +265,7 @@ export default function HomeView(props) {
           </EventsContainer>
           <br />
 
-          {account.links.length ? (
+          {/* {account.links.length ? (
             <div data-test-id="links">
               <Title level={3}>Links</Title>
               <div className="flex flex-row space-x-4">
@@ -276,7 +276,7 @@ export default function HomeView(props) {
                 ))}
               </div>
             </div>
-          ) : null}
+          ) : null} */}
 
           {user?.isAdmin && account.shopify_domain && (
             <React.Fragment>
