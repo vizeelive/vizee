@@ -2,6 +2,7 @@ import config from 'config';
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Alert, Modal, Button, message, Row, Col, Card } from 'antd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import logger from 'logger';
 
 const CREATE_STREAM = gql`
@@ -33,6 +34,10 @@ export default function StartStreamButton(props) {
     }
   };
 
+  const handleCopy = () => {
+    message.success('Copied!');
+  };
+
   return (
     <React.Fragment>
       <Modal
@@ -54,10 +59,20 @@ export default function StartStreamButton(props) {
           message={
             <React.Fragment>
               <pre style={{ margin: 0, fontSize: '14px' }}>
-                Server URL: {streamKey.url}
+                Server URL:{' '}
+                <CopyToClipboard text={streamKey.url} onCopy={handleCopy}>
+                  <span className="p-1 hover:bg-pink-600 cursor-pointer">
+                    {streamKey.url}
+                  </span>
+                </CopyToClipboard>
               </pre>
               <pre style={{ margin: 0, fontSize: '14px' }}>
-                Stream Key: {streamKey.key}
+                Stream Key:{' '}
+                <CopyToClipboard text={streamKey.key} onCopy={handleCopy}>
+                  <span className="p-1 hover:bg-pink-600 cursor-pointer">
+                    {streamKey.key}
+                  </span>
+                </CopyToClipboard>
               </pre>
             </React.Fragment>
           }
