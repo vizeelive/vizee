@@ -137,6 +137,21 @@ export default function HomeView(props) {
     });
   };
 
+  // let supportersMap = [];
+  // for (let i=0; i++; i < account.supporters_report) {
+  //   let rep = account.supporters_report[i];
+  //   supportersMap.push({
+  //     first_name: rep.first_name,
+  //     last_name:
+  //   });
+
+  // }
+
+  let supporters = account.supporters_report
+    .map((user) => `${user.first_name} ${user.last_name}`)
+    .join(', ');
+  let supportersCount = account.supporters_report.length;
+
   return (
     <React.Fragment>
       <Helmet>
@@ -168,6 +183,11 @@ export default function HomeView(props) {
           <Header>
             <div>
               <Title data-test-id="account-name">{account.name}</Title>
+              <div className="text-gray-500">
+                Supported by {supportersCount} wonderful{' '}
+                {supportersCount == 1 ? 'person, ' : 'people including'}{' '}
+                {supporters}.
+              </div>
               {followers.length >= 10 && (
                 <p>{`${followers} follower${
                   followers.length !== 1 ? 's' : ''
@@ -260,9 +280,40 @@ export default function HomeView(props) {
             </React.Fragment>
           )}
 
-          <EventsContainer>
-            <Events events={account.events} refetch={refetch} />
-          </EventsContainer>
+          <div className="flex flex-col md:flex-row">
+            <div className="flex-grow mb-5">
+              <EventsContainer>
+                <Events events={account.events} refetch={refetch} />
+              </EventsContainer>
+            </div>
+            <div className="rounded-lg md:m-10 md:w-80 bg-gray-900 p-5">
+              <h1 className="text-2xl mb-10">Supporters</h1>
+              {account.supporters_report.map((user, index) => (
+                <Card className="mt-3">
+                  <img
+                    src={
+                      index <= 2
+                        ? `/icons/medal-${index + 1}.png`
+                        : `/icons/medal-4.png`
+                    }
+                    width="40"
+                    className="float-left"
+                  />
+                  <div className="text-xl">
+                    {user.first_name} {user.last_name} {user.total}
+                  </div>
+                </Card>
+              ))}
+              <div className="text-center content-center">
+                <div className="mt-10 mb-5">
+                  Would you like to support this channel?
+                </div>
+                {account.stripe_data && (
+                  <BuyButton isTip={true} user={user} account={account} />
+                )}
+              </div>
+            </div>
+          </div>
           <br />
 
           {/* {account.links.length ? (

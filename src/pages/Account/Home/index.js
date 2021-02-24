@@ -12,10 +12,7 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 export const GET_ACCOUNT_ANON = gql`
-  query GetAccount(
-    $username: String!
-    $affiliate_code: String
-  ) {
+  query GetAccount($username: String!, $affiliate_code: String) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
     }
@@ -35,6 +32,11 @@ export const GET_ACCOUNT_ANON = gql`
         id
         name
         link
+      }
+      supporters_report(order_by: { total: desc }) {
+        first_name
+        last_name
+        total
       }
       products(where: { account_access: { _eq: true } }) {
         id
@@ -120,6 +122,11 @@ const GET_ACCOUNT_USER = gql`
         id
         name
         link
+      }
+      supporters_report(order_by: { total: desc }) {
+        first_name
+        last_name
+        total
       }
       products(where: { account_access: { _eq: true } }) {
         id
