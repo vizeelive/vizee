@@ -300,7 +300,10 @@ export default function HomeView(props) {
                     className="float-left"
                   />
                   <div className="text-xl">
-                    {user.first_name} {user.last_name} {user.total}
+                    {user.first_name && user.last_name
+                      ? `${user.first_name} ${user.last_name}`
+                      : 'Anonymous'}{' '}
+                    {user.total}
                   </div>
                 </Card>
               ))}
