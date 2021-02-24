@@ -50,6 +50,7 @@ export const GET_ACCOUNT_ANON = gql`
       events {
         id
         location
+        location_pos
         name
         photo
         thumb
@@ -140,6 +141,7 @@ const GET_ACCOUNT_USER = gql`
       events {
         id
         location
+        location_pos
         name
         photo
         thumb

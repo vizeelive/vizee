@@ -3,10 +3,12 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/ui/Button';
-import { Card, Typography } from 'antd';
+import Map from 'components/Map';
+import { Card, Typography, Tabs } from 'antd';
 import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
+import VideoConference from 'components/VideoConference';
 
 import SuccessModal from 'components/SuccessModal';
 import BuyButton from 'components/Event/BuyButton';
@@ -25,6 +27,7 @@ import Client from 'shopify-buy';
 
 const { Title } = Typography;
 const { Meta } = Card;
+const { TabPane } = Tabs;
 
 const MicrolinkCard = styled.div`
   max-width: 300px;
@@ -269,6 +272,15 @@ export default function HomeView(props) {
             </ActionsContainer>
           </Header>
 
+          {/* <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe> */}
+
           {account.description && (
             <React.Fragment>
               <Title data-test-id="account-bio" level={3}>
@@ -282,14 +294,63 @@ export default function HomeView(props) {
 
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5">
-              <EventsContainer>
-                <Events events={account.events} refetch={refetch} />
-              </EventsContainer>
+              <Tabs defaultActiveKey="1">
+                <TabPane tab="Events" key="1">
+                  <EventsContainer>
+                    <Events events={account.events} refetch={refetch} />
+                  </EventsContainer>
+                </TabPane>
+                <TabPane tab="Video Chat" key="2">
+                  <VideoConference
+                    roomName={`${account.id}-23kjh23kjh232kj3h`}
+                    user={user}
+                  />
+                </TabPane>
+                <TabPane tab="Map" key="7">
+                  <Map events={account.events} />
+                </TabPane>
+                {user?.isAdmin && (
+                  <TabPane tab="Chat" key="3">
+                    <iframe
+                      style={{
+                        height: 'calc(100vh - 184px)',
+                        minHeight: '640px'
+                      }}
+                      title="analytics"
+                      src={`https://vizee-element.netlify.app`}
+                      frameBorder="0"
+                      width="100%"
+                      height="100%"
+                      referrerPolicy="origin"
+                    />
+                  </TabPane>
+                )}
+                {/* <TabPane tab="Street Team" key="4">
+                  Street Team
+                </TabPane>
+                <TabPane tab="Supporters" key="5">
+                  hi
+                </TabPane>
+                <TabPane tab="Links" key="6">
+                  {account.links.length ? (
+                    <div data-test-id="links">
+                      <Title level={3}>Links</Title>
+                      <div className="flex flex-row space-x-4">
+                        {account.links.map((link) => (
+                          <MicrolinkCard key={link.id}>
+                            <Microlink url={link.link} />
+                          </MicrolinkCard>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </TabPane> */}
+              </Tabs>
             </div>
             <div className="rounded-lg md:m-10 md:w-80 bg-gray-900 p-5">
               <h1 className="text-2xl mb-10">Supporters</h1>
               {account.supporters_report.map((user, index) => (
-                <Card className="mt-3">
+                <Card className="mt-3" key={user.user_id}>
                   <img
                     src={
                       index <= 2

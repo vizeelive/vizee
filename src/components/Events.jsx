@@ -64,7 +64,7 @@ export default function Events(props) {
     <React.Fragment>
       {currentEvents.length ? (
         <React.Fragment>
-          <h1 class="text-2xl mt-3">Upcoming Events</h1>
+          <h1 className="text-2xl mt-3">Upcoming Events</h1>
           <div className="event-grid mt-2" data-test-id="events">
             {currentEvents.map((event) => (
               <EventCard
