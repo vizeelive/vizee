@@ -28,6 +28,7 @@ const GET_EVENT_UNAUTH = gql`
       photo
       preview
       favorites
+      transactions
       description
       views
       location
