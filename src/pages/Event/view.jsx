@@ -7,6 +7,7 @@ import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
 import cn from 'classnames';
 import { isMobile } from 'react-device-detect';
+import { notification } from 'antd';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
@@ -68,6 +69,13 @@ export default function EventPage(props) {
 
   const isMobileEvent =
     isMobile && window.matchMedia('(max-width: 991px)').matches;
+
+  useEffect(() => {
+    notification.open({
+      message: `🎉 ${event.transactions} people have purchased access to this event`,
+      placement: 'bottomRight'
+    });
+  }, []);
 
   useEffect(() => {
     const handleResize = (event) => {
@@ -173,8 +181,8 @@ export default function EventPage(props) {
         >
           {event.name}
         </h2>
-        <div className="mt-1 flex flex-col lg:flex-row lg:flex-wrap lg:mt-0">
           {renderBadges()}
+        <div className="mt-1 flex flex-col lg:flex-row lg:flex-wrap lg:mt-0">
           <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
             {/* Heroicon name: calendar */}
             <svg
@@ -281,20 +289,19 @@ export default function EventPage(props) {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
                 />
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
                 />
               </svg>
-              <strong>{event.transactions}</strong>&nbsp; people are supporting
-              this event.
+              <strong>{event.transactions}</strong>&nbsp; supporters
             </div>
           </div>
         </div>
