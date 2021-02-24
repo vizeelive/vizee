@@ -297,9 +297,9 @@ export default function HomeView(props) {
                         : `/icons/medal-4.png`
                     }
                     width="40"
-                    className="float-left"
+                    className="float-left mr-2"
                   />
-                  <div className="text-xl">
+                  <div className="text-l">
                     {user.first_name && user.last_name
                       ? `${user.first_name} ${user.last_name}`
                       : 'Anonymous'}{' '}
