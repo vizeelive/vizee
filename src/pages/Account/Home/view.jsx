@@ -155,6 +155,8 @@ export default function HomeView(props) {
     .join(', ');
   let supportersCount = account.supporters_report.length;
 
+  let room = account.username.toLowerCase();
+
   return (
     <React.Fragment>
       <Helmet>
@@ -317,7 +319,7 @@ export default function HomeView(props) {
                         minHeight: '640px'
                       }}
                       title="analytics"
-                      src={`https://vizee-element.netlify.app`}
+                      src={`https://vizee-element.netlify.app/#/room/#${room}:matrix.vizee.live`}
                       frameBorder="0"
                       width="100%"
                       height="100%"
