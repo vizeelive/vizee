@@ -140,20 +140,15 @@ export default function HomeView(props) {
     });
   };
 
-  // let supportersMap = [];
-  // for (let i=0; i++; i < account.supporters_report) {
-  //   let rep = account.supporters_report[i];
-  //   supportersMap.push({
-  //     first_name: rep.first_name,
-  //     last_name:
-  //   });
-
-  // }
-
   let supporters = account.supporters_report
+    .filter((user) => user.first_name && user.last_name)
+    .slice(0, 3);
+
+  let supportersText = supporters
     .map((user) => `${user.first_name} ${user.last_name}`)
     .join(', ');
-  let supportersCount = account.supporters_report.length;
+
+  let supportersCount = supporters.length;
 
   let room = account.username.toLowerCase();
 
@@ -191,7 +186,7 @@ export default function HomeView(props) {
               <div className="text-gray-500">
                 Supported by {supportersCount} wonderful{' '}
                 {supportersCount == 1 ? 'person, ' : 'people including'}{' '}
-                {supporters}.
+                {supportersText}.
               </div>
               {followers.length >= 10 && (
                 <p>{`${followers} follower${
