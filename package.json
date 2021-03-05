@@ -83,6 +83,9 @@
     "zipson": "^0.2.12"
   },
   "scripts": {
+    "api": "cd api; npm start",
+    "graphql:reset": "docker-compose down; docker volume rm vizee_db_data",
+    "graphql": "cd hasura; hasura console --endpoint http://localhost:8080 --admin-secret=secret",
     "cypress": "cypress open --config baseUrl=https://localhost:3000",
     "dev": "HOST=dev.vizee.live HTTPS=true craco start",
     "start": "craco start",

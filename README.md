@@ -13,6 +13,29 @@ This monorepo contains a few things:
 * `/hasura` (Hasura metadata)
 * `/src/` (React UI)
 
+## UI Development
+
+* `yarn`
+* `yarn start`
+
+If you want to test Stripe flows, you'll need to turn on the development API.
+
+* `npm run api`
+
+## GraphQL/Hasura Development
+
+### Setting Up Hasura
+
+* `./graphql-install.sh`
+
+### Loading Hasura Console
+
+* `npm run graphql`
+
+## API/Hasura Actions Development
+
+* `npm run api`
+
 ## GraphQL Documentation
 
 You can find the schema at:
@@ -27,23 +50,3 @@ GraphQL Playground is excellent.
 So is Apollo Studio.
 
 ![](https://dam-media.s3.amazonaws.com/apollo-studio.png)
-
-## UI Development
-
-* `cd ui`
-* `yarn`
-* `yarn start`
-
-If you want to test Stripe flows, you'll need to turn on the development API.
-
-* `cd api; npm i; npm start`
-
-## API Development
-
-* `cd api`
-* `npm i`
-* `npm start`
-
-## GraphQL Development
-
-TBD
