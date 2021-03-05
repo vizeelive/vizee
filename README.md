@@ -26,6 +26,14 @@ If you want to test Stripe flows, you'll need to turn on the development API.
 
 ### Setting Up Hasura
 
+#### Requirements
+
+* [Docker](https://docs.docker.com/get-docker/)
+* docker-compose
+* [hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/install-hasura-cli.html)
+
+#### Installation
+
 * `./graphql-install.sh`
 
 ### Loading Hasura Console
