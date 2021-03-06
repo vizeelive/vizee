@@ -1,6 +1,6 @@
 let config = {
   dev: {
-    graphql: 'https://staging-graphql.vizee.live/v1/graphql',
+    graphql: 'http://localhost:8080/v1/graphql',
     api: 'http://localhost:3001',
     ui: 'http://localhost:3000'
   },

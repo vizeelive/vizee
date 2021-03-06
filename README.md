@@ -22,6 +22,10 @@ If you want to test Stripe flows, you'll need to turn on the development API.
 
 * `npm run api`
 
+If you want to do full stack development:
+
+* `npm run dev`
+
 ## GraphQL/Hasura Development
 
 ### Setting Up Hasura
