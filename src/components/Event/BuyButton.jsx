@@ -92,6 +92,8 @@ export default function BuyButton(props) {
   let label;
   if (account) {
     label = onlySubscriptions ? 'Subscribe' : 'Get Access';
+  } else if (event.account_only) {
+    label = 'Subscribe';``
   } else {
     label = `Buy Ticket ${!hasMultiple ? `(${event.price})` : ''}`;
   }
