@@ -260,13 +260,15 @@ export default function BuyButton(props) {
               </Button>
             )}
             <h1>{product.name}</h1>
-            <div>{product.price}</div>
+            <div>
+              {product.price} {product.recurring ? '/ month' : null}
+            </div>
             <br />
             <div>{product.description}</div>
             <br />
             {product.account_access && (
               <div>
-                <StarOutlined /> Full Account Access
+                <StarOutlined /> Full Channel Access
               </div>
             )}
           </PurchaseOption>

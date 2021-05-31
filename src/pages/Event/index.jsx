@@ -47,6 +47,7 @@ const GET_EVENT_UNAUTH = gql`
           id
           name
           price
+          recurring
           account_access
           flexible_price
           description
