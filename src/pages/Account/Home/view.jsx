@@ -148,7 +148,7 @@ export default function HomeView(props) {
     .map((user) => `${user.first_name} ${user.last_name}`)
     .join(', ');
 
-  let supportersCount = supporters.length;
+  let supportersCount = account.supporters_report.length;
 
   let room = account.username.toLowerCase();
 
