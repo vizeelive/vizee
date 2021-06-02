@@ -5,7 +5,7 @@ let config = {
     ui: 'http://localhost:3000'
   },
   staging: {
-    graphql: 'https://staging-graphql.vizee.live/v1/graphql',
+    graphql: 'https://hasura-staging.vizee.live/v1/graphql',
     api: 'https://staging-api.vizee.live',
     ui: 'https://staging.vizee.live'
   },
@@ -30,4 +30,5 @@ if (window.location.href.includes('localhost')) {
   res = config.production;
 }
 
+console.log(res);
 export default res;
