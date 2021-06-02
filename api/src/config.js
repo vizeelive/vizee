@@ -13,7 +13,7 @@ let config = {
     ui: 'https://staging.vizee.live'
   },
   production: {
-    api: 'https://graphql.vizee.live/v1/graphql',
+    api: 'https://hasura.vizee.live/v1/graphql',
     ui: 'https://www.vizee.live'
   }
 };
