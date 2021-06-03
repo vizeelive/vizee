@@ -71,10 +71,12 @@ export default function EventPage(props) {
     isMobile && window.matchMedia('(max-width: 991px)').matches;
 
   useEffect(() => {
-    notification.open({
-      message: `🎉 ${event.transactions} people have purchased access to this event`,
-      placement: 'bottomRight'
-    });
+    if (event.transactions) {
+      notification.open({
+        message: `🎉 ${event.transactions} people have purchased access to this event`,
+        placement: 'bottomRight'
+      });
+    }
   }, []);
 
   useEffect(() => {
