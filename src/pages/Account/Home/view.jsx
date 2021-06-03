@@ -308,20 +308,22 @@ export default function HomeView(props) {
                 <TabPane tab="Map" key="7">
                   <Map events={account.events} />
                 </TabPane>
-                <TabPane tab="Chat" key="3">
-                  <iframe
-                    style={{
-                      height: 'calc(100vh - 184px)',
-                      minHeight: '640px'
-                    }}
-                    title="analytics"
-                    src={chatUrl}
-                    frameBorder="0"
-                    width="100%"
-                    height="100%"
-                    referrerPolicy="origin"
-                  />
-                </TabPane>
+                {user?.isAdmin && (
+                  <TabPane tab="Chat" key="3">
+                    <iframe
+                      style={{
+                        height: 'calc(100vh - 184px)',
+                        minHeight: '640px'
+                      }}
+                      title="analytics"
+                      src={`https://vizee-element.netlify.app/#/room/#${room}:matrix.vizee.live`}
+                      frameBorder="0"
+                      width="100%"
+                      height="100%"
+                      referrerPolicy="origin"
+                    />
+                  </TabPane>
+                )}
                 {/* <TabPane tab="Street Team" key="4">
                   Street Team
                 </TabPane>
