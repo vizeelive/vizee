@@ -50,6 +50,7 @@ const VideoConference = (props) => {
           ]
         }
       });
+      jitsi.executeCommand('subject', ' ');
 
       // setJitsi(_jitsi);
     };
