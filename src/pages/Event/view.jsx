@@ -11,7 +11,7 @@ import { notification } from 'antd';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
-// import Comments from 'components/Event/CommentsContainer';
+import Comments from 'components/Event/CommentsContainer';
 import CommentsChat from 'components/Event/CommentsChat';
 import StartStreamButton from 'components/Event/StartStreamButton';
 // import RedeemCode from 'components/Event/RedeemCode';
@@ -649,9 +649,11 @@ export default function EventPage(props) {
               <p>{event.description || <em>No description provided</em>}</p>
             </Linkify>
           </div>
-          {/* <div className="max-w-prose my-8">
-            <Comments event={event} user={user} />
-          </div> */}
+          {!event.isBroadcast() ? (
+            <div className="max-w-prose my-8">
+              <Comments event={event} user={user} />
+            </div>
+          ) : null}
         </div>
       </article>
     </React.Fragment>
