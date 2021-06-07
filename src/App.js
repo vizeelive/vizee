@@ -1,6 +1,7 @@
 import './App.less';
 
 import { ApolloProvider } from '@apollo/client';
+import Tracker from '@asayerio/tracker';
 import LogRocket from 'logrocket';
 import * as Sentry from '@sentry/react';
 import React, { useMemo } from 'react';
@@ -59,6 +60,10 @@ function App() {
   }
 
   if (process.env.NODE_ENV !== 'development' && user) {
+    const tracker = new Tracker({
+      projectID: 6780942061387473
+    });
+    tracker.start();
     window.Intercom('boot', {
       app_id: 'relku1cr',
       email: user.email,

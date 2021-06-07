@@ -108,13 +108,6 @@
     "@apollo/client" "^3.0.0-beta.23"
     tslib "^1.9.3"
 
-"@asayerio/tracker@^5.6.8":
-  version "5.6.8"
-  resolved "https://registry.yarnpkg.com/@asayerio/tracker/-/tracker-5.6.8.tgz#51296291f7a80fd0b18e8623fec437ab1d18377b"
-  integrity sha512-NnQebk1vfMoTYdJn0LFa0jipmNq15p2lwhexl85sDxXzKEY7du7NsYp2CeCk6Y6JU5jDLycGUaySYWn8eBwrXQ==
-  dependencies:
-    error-stack-parser "^2.0.6"
-
 "@auth0/auth0-react@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@auth0/auth0-react/-/auth0-react-1.1.0.tgz"

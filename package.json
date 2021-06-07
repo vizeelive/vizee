@@ -5,6 +5,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.6",
     "@apollo/link-context": "^2.0.0-beta.3",
+    "@asayerio/tracker": "^5.6.8",
     "@auth0/auth0-react": "^1.1.0",
     "@craco/craco": "^5.7.0",
     "@headlessui/react": "^0.2.0",
@@ -85,7 +86,7 @@
   "scripts": {
     "api": "cd api; npm start",
     "graphql:reset": "docker-compose down; docker volume rm vizee_db_data",
-    "graphql": "docker-compose up -d; cd hasura; hasura console --endpoint http://localhost:8080 --admin-secret=secret",
+    "graphql": "docker-compose up -d; (cd api && npm start &); cd hasura; hasura console --endpoint http://localhost:8080 --admin-secret=secret",
     "cypress": "cypress open --config baseUrl=https://localhost:3000",
     "dev": "HOST=dev.vizee.live HTTPS=true craco start",
     "start": "craco start",
