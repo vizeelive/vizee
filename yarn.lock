@@ -108,6 +108,16 @@
     "@apollo/client" "^3.0.0-beta.23"
     tslib "^1.9.3"
 
+"@asayerio/tracker-fetch@^5.7.1":
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/@asayerio/tracker-fetch/-/tracker-fetch-5.7.1.tgz#0fdbe8ee45fb3af2628206704fd681344aeeb724"
+  integrity sha512-nE20syH/28Uj55yKCiO53nLCd9Ifl1Ko/oBocoGeG7KcEEP8S46EhSnn62b25//6zSbfG6qbGjf3pDBzmLQpvQ==
+
+"@asayerio/tracker-graphql@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@asayerio/tracker-graphql/-/tracker-graphql-5.7.0.tgz#606b2495ddb73650cf457bf555702a6f5c1a538d"
+  integrity sha512-FbqxSrJRELrm1DJbkL/KL8yxoqIobu0jzQ3X6eQtcCEZ2ldoaYse/aokytm62J8jai0nCScjy9D3Te2OsbLy4w==
+
 "@asayerio/tracker@^5.6.8":
   version "5.6.8"
   resolved "https://registry.yarnpkg.com/@asayerio/tracker/-/tracker-5.6.8.tgz#51296291f7a80fd0b18e8623fec437ab1d18377b"

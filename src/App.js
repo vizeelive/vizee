@@ -2,6 +2,8 @@ import './App.less';
 
 import { ApolloProvider } from '@apollo/client';
 import Tracker from '@asayerio/tracker';
+import trackerFetch from '@asayerio/tracker-fetch';
+import trackerGraphQL from '@asayerio/tracker-graphql';
 import LogRocket from 'logrocket';
 import * as Sentry from '@sentry/react';
 import React, { useMemo } from 'react';
@@ -64,6 +66,9 @@ function App() {
       projectID: 6780942061387473
     });
     tracker.start();
+    tracker.use(trackerFetch());
+    tracker.use(trackerGraphQL());
+
     window.Intercom('boot', {
       app_id: 'relku1cr',
       email: user.email,
