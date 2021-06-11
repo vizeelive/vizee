@@ -1,0 +1,53 @@
+# The manifest for the "hasura" service.
+# Read the full specification for the "Load Balanced Web Service" type at:
+#  https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/
+
+# Your service name will be used in naming your resources like log groups, ECS services, etc.
+name: hasura
+type: Load Balanced Web Service
+
+# Distribute traffic to your service.
+http:
+  # Requests to this path will be forwarded to your service.
+  # To match all requests you can use the "/" path.
+  path: '/'
+  # You can specify a custom health check path. The default is "/".
+  healthcheck: '/console/login'
+
+# Configuration for your containers and service.
+image:
+  location: 079071782381.dkr.ecr.us-east-1.amazonaws.com/hasura:latest
+  # Port exposed through your container to route traffic to it.
+  port: 8080
+
+cpu: 256       # Number of CPU units for the task.
+memory: 512    # Amount of memory in MiB used by the task.
+count: 1       # Number of tasks that should be running in your service.
+exec: true     # Enable running commands in your container.
+
+# Optional fields for more advanced use-cases.
+#
+variables:                    # Pass environment variables as key value pairs.
+  HASURA_GRAPHQL_CORS_DOMAIN: "*"
+  HASURA_GRAPHQL_ENABLE_CONSOLE: true
+  HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+
+#secrets:                      # Pass secrets from AWS Systems Manager (SSM) Parameter Store.
+#  GITHUB_TOKEN: GITHUB_TOKEN  # The key is the name of the environment variable, the value is the name of the SSM parameter.
+
+# You can override any of the values defined above by environment.
+environments:
+ test:
+  variables:
+    ACTION_BASE_URL: https://staging-api.vizee.live
+  secrets:
+    HASURA_GRAPHQL_ADMIN_SECRET: /copilot/vizee/test/secrets/HASURA_GRAPHQL_ADMIN_SECRET
+    HASURA_GRAPHQL_DATABASE_URL: /copilot/vizee/test/secrets/HASURA_GRAPHQL_DATABASE_URL
+    HASURA_GRAPHQL_JWT_SECRET: /copilot/vizee/test/secrets/HASURA_GRAPHQL_JWT_SECRET
+ production:
+  variables:
+    ACTION_BASE_URL: https://api.vizee.live
+  secrets:
+    HASURA_GRAPHQL_ADMIN_SECRET: /copilot/vizee/production/secrets/HASURA_GRAPHQL_ADMIN_SECRET
+    HASURA_GRAPHQL_DATABASE_URL: /copilot/vizee/production/secrets/HASURA_GRAPHQL_DATABASE_URL
+    HASURA_GRAPHQL_JWT_SECRET: /copilot/vizee/production/secrets/HASURA_GRAPHQL_JWT_SECRET
