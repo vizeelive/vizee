@@ -11,7 +11,7 @@ const mattermost = require('../lib/mattermost');
  */
 function generateUsername(inputName) {
   let number = Math.floor(Math.random() * 90000) + 10000;
-  let name = inputName.toLowerCase();
+  let name = inputName.toLowerCase().replace(/\W/g, '');
   return `${name}-${number}`;
 }
 
