@@ -60,6 +60,7 @@ export default function useAuth() {
   }
 
   if (user) {
+    user.token = claims?.__raw;
     user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
     user.code = user['https://hasura.io/jwt/claims']['x-hasura-user-code'];
     user.isAdmin = user['https://hasura.io/jwt/claims'][
@@ -91,7 +92,7 @@ export default function useAuth() {
   useEffect(() => {
     let token = id_token || claims?.__raw;
     var wsLink = new WebSocketLink({
-      uri: config.graphql.replace('https', 'wss'),
+      uri: config.graphql.replace('https', 'wss').replace('http', 'ws'),
       options: {
         lazy: true,
         reconnect: true,

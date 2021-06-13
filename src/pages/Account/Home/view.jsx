@@ -152,6 +152,10 @@ export default function HomeView(props) {
 
   let room = account.username.toLowerCase();
 
+  const openChat = () => {
+    window.open('https://chat.vizee.live/vizee');
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -197,6 +201,7 @@ export default function HomeView(props) {
               )}
             </div>
             <ActionsContainer>
+
               {(user?.isAdmin || isMyAccount) && (
                 <Link
                   to={`/${username}/manage/events/add`}
@@ -215,6 +220,7 @@ export default function HomeView(props) {
                 />
               )}
 
+
               {!hasAccess && account.stripe_data && account.products?.length ? (
                 <BuyButton user={user} account={account} />
               ) : null}
@@ -231,6 +237,8 @@ export default function HomeView(props) {
                     <Button>Manage</Button>
                   </Link>
                 )}
+
+              <Button onClick={openChat}>Chat</Button>
 
               <SocialList>
                 {account.facebook && (
@@ -268,6 +276,7 @@ export default function HomeView(props) {
                   </Social>
                 )}
               </SocialList>
+
             </ActionsContainer>
           </Header>
 

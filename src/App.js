@@ -1,12 +1,13 @@
 import './App.less';
 
+import config from 'config';
 import { ApolloProvider } from '@apollo/client';
 import Tracker from '@asayerio/tracker';
 import trackerFetch from '@asayerio/tracker-fetch';
 import trackerGraphQL from '@asayerio/tracker-graphql';
 import LogRocket from 'logrocket';
 import * as Sentry from '@sentry/react';
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import VersionChecker from 'components/VersionChecker';
@@ -28,6 +29,18 @@ process.env.NODE_ENV !== 'development' &&
 
 function App() {
   const { isLoading, user, setGeo, client, error } = useAuth();
+
+  useEffect(() => {
+    if (user?.token) {
+      fetch(`${config.api}/cookie`, {
+        headers: {
+          'X-Name': user.nickname,
+          Authorization: user.token
+        },
+        credentials: 'include'
+      });
+    }
+  }, [user?.token]);
 
   useMemo(() => {
     async function fetchData() {
