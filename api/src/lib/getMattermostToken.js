@@ -21,7 +21,9 @@ function generateUsername(inputName) {
  * @param {object} param0 object
  * @returns string
  */
-async function getMattermostToken({ name, email }) {
+async function getMattermostToken(params) {
+  let { name, email } = params;
+  logger.debug('getMattermostToken', { params });
   let username = generateUsername(name);
 
   try {
