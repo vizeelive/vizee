@@ -153,7 +153,7 @@ export default function HomeView(props) {
   let room = account.username.toLowerCase();
 
   const openChat = () => {
-    window.open('https://chat.vizee.live/vizee');
+    window.open(`https://chat.vizee.live/vizee/${account.username}`);
   };
 
   return (
