@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 const Joi = require("joi");
 const execute = require("../execute");
 const hasValidationErrors = require("../validate");
+const mattermost = require('../lib/mattermost');
 
 const CREATE_ACCOUNT = `
   mutation CreateAccount($objects: [accounts_insert_input!]!) {
@@ -117,7 +118,21 @@ module.exports = async function CreateAccount(req, res) {
     throw e;
   }
 
+  try {
+    var channel = await mattermost.createChannel({
+      name: object.username.toLowerCase()
+    });
+    console.log({ channel });
+  } catch (e) {
+    console.log('Failed to create Mattermost channel', {
+      name: object.username,
+      msg: e.message
+    });
+    throw e;
+  }
+
   object.created_by = object.user_id;
+  object.mattermost_channel_id = channel.id;
   object.umami_id = account.user_id;
   object.umami_username = username;
   object.umami_website = website.website_uuid;

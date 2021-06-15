@@ -2,7 +2,9 @@ const Joi = require('joi');
 const logger = require('../logger');
 const execute = require('../execute');
 const hasValidationErrors = require('../validate');
+const { getAccount } = require('../queries');
 const { addDomain, removeDomain } = require('../lib/netlify');
+const mattermost = require('../lib/mattermost');
 
 const UPDATE_ACCOUNT = `
 mutation UpdateAccount($account_id: uuid!, $_set: accounts_set_input!) {
@@ -60,6 +62,25 @@ module.exports = async function UpdateAccount(req, res) {
       domainResult
     });
     return res.status(400).send({ message: `failed to add custom domain` });
+  }
+
+  try {
+    var account = await getAccount({ account_id: id });
+    if (account.account.mattermost_channel_id) {
+      var channel = await mattermost.updateChannel({
+        id: account.account.mattermost_channel_id,
+        name: object.username.toLowerCase(),
+        display_name: object.name
+      });
+    } else {
+      var channel = await mattermost.createChannel({
+        name: object.username.toLowerCase(),
+        display_name: object.name
+      });
+    }
+  } catch (e) {
+    logger.error(`Failed to update Mattermost channel: ${e.message}`);
+    throw e;
   }
 
   const { data, errors } = await execute(

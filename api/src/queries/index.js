@@ -220,6 +220,7 @@ async function getAccount(params) {
           accounts_by_pk(id: $account_id) {
             id
             name
+            mattermost_channel_id
             users {
               user {
                 id

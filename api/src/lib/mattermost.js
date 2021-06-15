@@ -35,4 +35,39 @@ async function login({ email }) {
   });
 }
 
-module.exports = { createUser, login };
+async function createChannel({ name, display_name }) {
+  return await fetch(`${process.env.MATTERMOST_URL}/api/v4/channels`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.MATTERMOST_TOKEN}`
+    },
+    body: JSON.stringify({
+      team_id: 'naw3jjp6jifofjrm59mis7waby',
+      name,
+      display_name: display_name || name,
+      type: 'O'
+    })
+  }).then((res) => res.json());
+}
+
+async function updateChannel(params) {
+  let { id, name, display_name } = params;
+  return await fetch(`${process.env.MATTERMOST_URL}/api/v4/channels/${id}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.MATTERMOST_TOKEN}`
+    },
+    body: JSON.stringify({
+      id,
+      name,
+      display_name,
+      type: 'O'
+    })
+  }).then((res) => res.json());
+}
+
+module.exports = { createUser, login, createChannel, updateChannel };
