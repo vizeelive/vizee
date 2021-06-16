@@ -238,7 +238,9 @@ export default function HomeView(props) {
                   </Link>
                 )}
 
-              <Button onClick={openChat}>Chat</Button>
+              { user && (
+                <Button onClick={openChat}>Chat</Button>
+              ) }
 
               <SocialList>
                 {account.facebook && (
