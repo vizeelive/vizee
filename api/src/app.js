@@ -28,14 +28,16 @@ app.get('/cookie', async (req, res) => {
   res.cookie('MMUSERID', token.MMUSERID, {
     domain: 'vizee.live',
     expires: 0,
-    secure: true
+    secure: true,
+    sameSite: 'None'
   });
 
   res.cookie('MMAUTHTOKEN', token.MMAUTHTOKEN, {
     domain: 'vizee.live',
     expires: 0,
     secure: true,
-    httpOnly: true
+    httpOnly: true,
+    sameSite: 'None'
   });
 
   res.send('ohai cookie');
