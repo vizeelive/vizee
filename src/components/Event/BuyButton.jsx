@@ -261,7 +261,8 @@ export default function BuyButton(props) {
             )}
             <h1>{product.name}</h1>
             <div>
-              {product.price} {product.recurring ? '/ month' : null}
+              {product.price}{' '}
+              {product.recurring ? `every ${product.access_length} days` : null}
             </div>
             <br />
             <div>{product.description}</div>

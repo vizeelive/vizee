@@ -43,6 +43,7 @@ export const GET_ACCOUNT_ANON = gql`
         name
         price
         recurring
+        access_length
         account_access
         flexible_price
         description
@@ -134,6 +135,7 @@ const GET_ACCOUNT_USER = gql`
         name
         price
         recurring
+        access_length
         account_access
         flexible_price
         description
