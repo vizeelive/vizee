@@ -281,6 +281,15 @@ export default function Products() {
             </Form.Item>
 
             <Form.Item
+              name="download_access"
+              label="Download Access"
+              valuePropName="checked"
+              initialValue={false}
+            >
+              <Switch />
+            </Form.Item>
+
+            <Form.Item
               label="Access Length (days)"
               name="access_length"
               rules={[{ required: true, message: 'Required' }]}
