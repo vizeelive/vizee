@@ -1813,6 +1813,7 @@ input CreateProductAccountsOnConflict {
 input UpdateProductProductsSetInput {
   access_length : Int
   account_access : Boolean
+  download_access : Boolean
   account_id : uuid
   created : timestamptz
   created_by : uuid
