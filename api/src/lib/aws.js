@@ -1,6 +1,8 @@
+require('dotenv').config();
 const AWS = require('aws-sdk');
 const logger = require('../logger');
 
+var s3 = new AWS.S3({ apiVersion: '2006-03-01', region: 'us-east-1' });
 var ivs = new AWS.IVS({ apiVersion: '2020-07-14', region: 'us-east-1' });
 
 function createChannel(params) {
@@ -20,4 +22,13 @@ function createChannel(params) {
   }
 }
 
-module.exports = { createChannel };
+async function presignUrl(params) {
+  const { bucket, key } = params;
+  const s3params = {
+    Bucket: bucket,
+    Key: key
+  };
+  return await s3.getSignedUrlPromise('getObject', s3params);
+}
+
+module.exports = { createChannel, presignUrl };

@@ -2,6 +2,15 @@ const dayjs = require('dayjs');
 const logger = require('../logger');
 const { getEvent, getUserAccess } = require('../queries');
 const { createToken, createPlaybackId } = require('../lib/mux');
+const { presignUrl, listBuckets } = require('../lib/aws');
+
+function parseUrl(url) {
+  let pieces = url.replace('https://', '').split('/');
+  let bucket = pieces[0].split('.')[0];
+  pieces.shift();
+  let key = pieces.join('/');
+  return { bucket, key };
+}
 
 module.exports = async function (params) {
   const { user, event_id } = params;
@@ -70,7 +79,20 @@ module.exports = async function (params) {
 
   const token = createToken(playbackId.id);
 
+  let master;
+  if (
+    data.eventAccess?.product?.download_access ||
+    data.accountAccess?.filter((a) => a.product?.download_access).length
+  ) {
+    logger.debug('has download access');
+    master = await presignUrl(parseUrl(event.video));
+    logger.debug({ master });
+  } else {
+    logger.debug('no download access');
+  }
+
   return {
-    url: `https://stream.mux.com/${playbackId.id}.m3u8?token=${token}`
+    url: `https://stream.mux.com/${playbackId.id}.m3u8?token=${token}`,
+    master: master
   };
-};
+};;;

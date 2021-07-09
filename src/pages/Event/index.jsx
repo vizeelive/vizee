@@ -50,6 +50,7 @@ const GET_EVENT_UNAUTH = gql`
           recurring
           access_length
           account_access
+          download_access
           flexible_price
           description
         }
@@ -62,6 +63,7 @@ const GET_EVENT_UNAUTH = gql`
           price
           access_length
           account_access
+          download_access
           flexible_price
           description
         }
@@ -106,6 +108,7 @@ const GET_EVENT_AUTH = gql`
     }
     getEventUrl(id: $id) {
       url
+      master
     }
     events_report(where: { id: { _eq: $id } }) {
       id
@@ -133,6 +136,9 @@ const GET_EVENT_AUTH = gql`
         umami_website
         access {
           id
+          product {
+            download_access
+          }
         }
         users {
           user {
@@ -147,6 +153,7 @@ const GET_EVENT_AUTH = gql`
           access_length
           flexible_price
           account_access
+          download_access
         }
       }
       products {
@@ -158,10 +165,14 @@ const GET_EVENT_AUTH = gql`
           flexible_price
           description
           account_access
+          download_access
         }
       }
       access {
         id
+        product {
+          download_access
+        }
       }
     }
   }
@@ -213,6 +224,7 @@ export default function EventPage() {
   const account = Mapper(data?.accounts?.[0]);
   const event = Mapper({ ...data?.events_report?.[0] });
   event.video = data?.getEventUrl?.url;
+  event.master = data?.getEventUrl?.master;
   const userId = user?.id || null;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username.toLowerCase() === event.account.username.toLowerCase()

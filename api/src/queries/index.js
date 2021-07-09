@@ -188,6 +188,7 @@ async function getEvent(id) {
           events_by_pk(id: $id) {
             id
             status
+            video
             stream_type
             mux_livestream
             account_id
@@ -329,6 +330,9 @@ async function getUserAccess(params) {
             }
           ) {
             id
+            product {
+              download_access
+            }
           }
           accountAccess: users_access(
             where: {
@@ -338,6 +342,9 @@ async function getUserAccess(params) {
             }
           ) {
             id
+            product {
+              download_access
+            }
           }
         }
       `

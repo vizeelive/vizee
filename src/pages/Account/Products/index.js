@@ -55,6 +55,7 @@ const GET_PRODUCTS = gql`
       price
       flexible_price
       account_access
+      download_access
       recurring
       access_length
     }

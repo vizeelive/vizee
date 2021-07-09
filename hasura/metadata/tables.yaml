@@ -1005,32 +1005,34 @@
   - role: public
     permission:
       columns:
-      - id
-      - name
-      - description
-      - price
-      - flexible_price
+      - access_length
       - account_access
-      - recurring
+      - account_id
       - created
       - created_by
-      - account_id
-      - access_length
+      - description
+      - download_access
+      - flexible_price
+      - id
+      - name
+      - price
+      - recurring
       filter: {}
   - role: user
     permission:
       columns:
-      - account_access
-      - flexible_price
-      - recurring
       - access_length
-      - price
-      - description
-      - name
-      - created
+      - account_access
       - account_id
+      - created
       - created_by
+      - description
+      - download_access
+      - flexible_price
       - id
+      - name
+      - price
+      - recurring
       filter: {}
   update_permissions:
   - role: user
@@ -1203,9 +1205,26 @@
   - name: event
     using:
       foreign_key_constraint_on: event_id
+  - name: product
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: products
+        column_mapping:
+          product_id: id
 - table:
     schema: public
     name: users_access_valid
+  object_relationships:
+  - name: product
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: products
+        column_mapping:
+          product_id: id
   select_permissions:
   - role: user
     permission:

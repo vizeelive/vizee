@@ -140,6 +140,15 @@ export default function EventPage(props) {
     setShowMobileEvent(false);
   };
 
+  const handleDownload = async (url) => {
+    let blob = await fetch(url).then((r) => r.blob());
+    var videoURL = window.URL.createObjectURL(blob);
+    let tempLink = document.createElement('a');
+    tempLink.href = videoURL;
+    tempLink.setAttribute('download', `${event.account.name} - ${event.name}`);
+    tempLink.click();
+  };
+
   const renderBadges = () => {
     return (
       <div className="mt-2 flex items-center lg:mr-6 event-badges">
@@ -183,7 +192,7 @@ export default function EventPage(props) {
         >
           {event.name}
         </h2>
-          {renderBadges()}
+        {renderBadges()}
         <div className="mt-1 flex flex-col lg:flex-row lg:flex-wrap lg:mt-0">
           <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
             {/* Heroicon name: calendar */}
@@ -319,6 +328,18 @@ export default function EventPage(props) {
               <BuyButton user={user} event={event} />
             </span>
           )}
+
+        {event.hasDownloadAccess() ? (
+          <span className="mr-3 lg:mr-0 lg:ml-3">
+            <a
+              type="button"
+              className="inline-flex items-center px-4 py-2 border border-gray-700 rounded-md shadow-sm text-sm lg:text-base font-medium text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+              onClick={() => handleDownload(event.master)}
+            >
+              Download
+            </a>
+          </span>
+        ) : null}
 
         {event.account.stripe_data && (
           <span className="mr-3 lg:mr-0 lg:ml-3">

@@ -55,6 +55,12 @@ export default class Event {
   isConference() {
     return this?.type === 'conference';
   }
+  hasDownloadAccess() {
+    return (
+      this.access?.filter((a) => product?.download_access).length ||
+      this.account?.access?.filter((a) => a?.product?.download_access).length
+    );
+  }
   hasStarted() {
     return moment().isAfter(this.start);
   }
