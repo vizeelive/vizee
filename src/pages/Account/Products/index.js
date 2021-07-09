@@ -215,6 +215,9 @@ export default function Products() {
             {product.account_access && (
               <p>Account Access: {product.account_access ? 'Yes' : 'No'}</p>
             )}
+            {product.download_access && (
+              <p>Download Access: {product.download_access ? 'Yes' : 'No'}</p>
+            )}
             <Button onClick={() => handleClickEdit(product)}>Edit</Button>
             <Popconfirm
               title="Are you sure?"
