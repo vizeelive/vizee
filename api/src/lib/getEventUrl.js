@@ -89,6 +89,7 @@ module.exports = async function (params) {
     logger.debug({ master });
   } else {
     logger.debug('no download access');
+    logger.debug({ data });
   }
 
   return {

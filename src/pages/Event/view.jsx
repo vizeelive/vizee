@@ -329,7 +329,7 @@ export default function EventPage(props) {
             </span>
           )}
 
-        {event.hasDownloadAccess() ? (
+        {event.master ? (
           <span className="mr-3 lg:mr-0 lg:ml-3">
             <a
               type="button"
