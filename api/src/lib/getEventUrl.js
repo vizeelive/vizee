@@ -88,8 +88,7 @@ module.exports = async function (params) {
     master = await presignUrl(parseUrl(event.video));
     logger.debug({ master });
   } else {
-    logger.debug('no download access');
-    logger.debug({ data });
+    logger.debug('no download access', data);
   }
 
   return {
