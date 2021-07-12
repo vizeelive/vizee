@@ -26,7 +26,9 @@ async function presignUrl(params) {
   const { bucket, key } = params;
   const s3params = {
     Bucket: bucket,
-    Key: key
+    Key: key,
+    ResponseContentDisposition: 'inline',
+    ResponseContentType: 'video/mov'
   };
   return await s3.getSignedUrlPromise('getObject', s3params);
 }

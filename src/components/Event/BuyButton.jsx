@@ -272,6 +272,11 @@ export default function BuyButton(props) {
                 <StarOutlined /> Full Channel Access
               </div>
             )}
+            {product.download_access && (
+              <div>
+                <StarOutlined /> Download Access
+              </div>
+            )}
           </PurchaseOption>
         ))}
       </Modal>
