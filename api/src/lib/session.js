@@ -61,7 +61,7 @@ async function session(params) {
     price = `${price}.00`;
   }
 
-  let unit_amount = price.replace(/[^\d.]/g, '');
+  let unit_amount = price.replace(/[^\d]/g, '');
   let stripe_fee = unit_amount * 0.029 + 30;
   let amount = Math.round(unit_amount * account_percent - stripe_fee);
 
