@@ -31,7 +31,7 @@ export default function BuyButton(props) {
   const buy = async (params = {}) => {
     const { product, values } = params;
 
-    let amount = values?.amount.replace(/[^\d.]/g, '');
+    let amount = values?.amount?.replace(/[^\d.]/g, '');
     let event_id = event?.id;
     let account_id = account?.id;
     let product_id = product?.id;
