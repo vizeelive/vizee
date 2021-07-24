@@ -5,6 +5,7 @@ const Uppy = require('@uppy/core');
 const Dashboard = require('@uppy/dashboard');
 const Transloadit = require('@uppy/transloadit');
 const ImageEditor = require('@uppy/image-editor');
+const GoogleDrive = require('@uppy/google-drive');
 
 require('@uppy/core/dist/style.css');
 require('@uppy/dashboard/dist/style.css');
@@ -36,6 +37,11 @@ function FileUpload(props) {
         target: `#${props.id}`,
         autoOpenFileEditor: options.autoOpenFileEditor
       })
+      .use(GoogleDrive, {
+        target: Dashboard,
+        companionUrl: Transloadit.COMPANION,
+        companionAllowedHosts: Transloadit.COMPANION_PATTERN
+      })
       .use(ImageEditor, {
         target: Dashboard,
         quality: 0.8,
@@ -44,7 +50,7 @@ function FileUpload(props) {
           viewMode: 1,
           background: false,
           autoCropArea: 1,
-          responsive: true,
+          responsive: true
         },
         actions: {
           cropSquare: false,

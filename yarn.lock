@@ -5616,6 +5616,16 @@
   resolved "https://registry.yarnpkg.com/@ungap/global-this/-/global-this-0.4.3.tgz#44cb668b03e7c4bc88cb6e6f9329d381131878ee"
   integrity sha512-MuHEpDBurNVeD6mV9xBcAN2wfTwuaFQhHuhWkJuXmyVJ5P5sBCw+nnFpdfb0tAvgWkfefWCsAoAsh7MTUr3LPg==
 
+"@uppy/companion-client@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.10.2.tgz#a640b3ef90b91751c49bf4b6a7a63c2ebac294f6"
+  integrity sha512-5RmsNF9UBvUqmqQz48SoiLvkpGmvQTgwNM4bJX8xwVozv/6goRpFrsMJGLwqFcHS/9xj6STKOqrM582g8exVwQ==
+  dependencies:
+    "@uppy/utils" "^3.6.2"
+    namespace-emitter "^2.0.1"
+    qs-stringify "^1.1.0"
+    url-parse "^1.4.7"
+
 "@uppy/companion-client@^1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.7.0.tgz#aa001ba95277dd4af62852ce7efbdc85b3965d4c"
@@ -5674,6 +5684,16 @@
     "@uppy/utils" "^3.3.0"
     preact "8.2.9"
 
+"@uppy/google-drive@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@uppy/google-drive/-/google-drive-1.7.2.tgz#59869c965de9c197aa052cfda3f885df1f9f96c4"
+  integrity sha512-29w2e36gX4394ly5t+JMhg4WVr2vpo7a46PLHKZlNwbiPKrEqBUyLy/seCxHUH+6qNtrHFIWQoLTwrlMCEOi3w==
+  dependencies:
+    "@uppy/companion-client" "^1.10.2"
+    "@uppy/provider-views" "^1.12.3"
+    "@uppy/utils" "^3.6.2"
+    preact "8.2.9"
+
 "@uppy/image-editor@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@uppy/image-editor/-/image-editor-0.2.0.tgz#a9c851b932e95a3741912a194d77c1beffb27d24"
@@ -5696,6 +5716,15 @@
   integrity sha512-HJb5rZulMRv0FCFCcXD2XDEPePc4KTCh+HaGLE5myZHlSmXUGnaPMpasCUl9q7/pn4oGXpkYGWJtKWS3YKhtxg==
   dependencies:
     "@uppy/utils" "^3.3.0"
+    preact "8.2.9"
+
+"@uppy/provider-views@^1.12.3":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@uppy/provider-views/-/provider-views-1.12.3.tgz#aecfed615bc174abc548539a3c17b39e455aed0e"
+  integrity sha512-r2kra3IftmGLeKMEgZbmQM1qXixulWUUzydgpHcZqJOpeNIjJcpspJruYRctrVqaLz/8asw87V4KxDk0U4xGzw==
+  dependencies:
+    "@uppy/utils" "^3.6.2"
+    classnames "^2.2.6"
     preact "8.2.9"
 
 "@uppy/provider-views@^1.9.2":
@@ -5770,6 +5799,14 @@
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-3.3.0.tgz#c9501a4f1cd98bf91fb8f5a5651b47df40ac785f"
   integrity sha512-oPNZjjRDDBLC7763idAlzIZiaQoFq2ms/G0TOFq5YeiBv/usbvb/mcEugrwsvLAvLYum2wJzYvWzAx4tlFF/ag==
+  dependencies:
+    abortcontroller-polyfill "^1.4.0"
+    lodash.throttle "^4.1.1"
+
+"@uppy/utils@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-3.6.2.tgz#78b02455b9c469d927d22736be5b68cda2600826"
+  integrity sha512-wGTZma7eywIojfuE1vXlT0fxPSpmCRMkfgFWYc+6TL2FfGqWInmePoB+yal6/M2AnjeKHz6XYMhIpZkjOxFvcw==
   dependencies:
     abortcontroller-polyfill "^1.4.0"
     lodash.throttle "^4.1.1"
@@ -16714,6 +16751,11 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
+qs-stringify@^1.1.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/qs-stringify/-/qs-stringify-1.2.1.tgz#9b39ef6b816bd83309628fc9dad435fc0eccc28b"
+  integrity sha512-2N5xGLGZUxpgAYq1fD1LmBSCbxQVsXYt5JU0nU3FuPWO8PlCnKNFQwXkZgyB6mrTdg7IbexX4wxIR403dJw9pw==
+
 qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz"
@@ -20361,6 +20403,14 @@ url-parse@^1.4.3:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
   integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  dependencies:
+    querystringify "^2.1.1"
+    requires-port "^1.0.0"
+
+url-parse@^1.4.7:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
+  integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
