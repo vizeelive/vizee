@@ -13,6 +13,19 @@ This monorepo contains a few things:
 * `/hasura` (Hasura metadata)
 * `/src/` (React UI)
 
+## Infrastructure
+
+* Netlify (UI)
+* Render.com (API)
+* AWS ECS via Copilot (Hasura GraphQL)
+* Google Domains (DNS)
+* GitHub (code)
+* TransloadIt (file uploads)
+* LogRocket (session recording)
+* Auth0 (authentication)
+* Mux (video transcoding)
+
+
 ## UI Development
 
 * `yarn`
@@ -22,9 +35,9 @@ If you want to test Stripe flows, you'll need to turn on the development API.
 
 * `npm run api`
 
-If you want to do full stack development:
+If you want to do full stack development: (not currently working. Must work against staging)
 
-* `npm run dev`
+* `cd hasura && hasura console --endpoint https://hasura-staging.vizee.live --admin-secret=secret`
 
 ## GraphQL/Hasura Development
 
@@ -47,6 +60,11 @@ If you want to do full stack development:
 ## API/Hasura Actions Development
 
 * `npm run api`
+
+## Pipeline
+
+* Open a PR, view branch deployment on Netlify via link in PR
+* Once merged to `dev` is depoys to `staging.pixwel.com`
 
 ## GraphQL Documentation
 
