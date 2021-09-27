@@ -29,7 +29,7 @@ exec: true     # Enable running commands in your container.
 #
 variables:                    # Pass environment variables as key value pairs.
   HASURA_GRAPHQL_CORS_DOMAIN: "*"
-  HASURA_GRAPHQL_ENABLE_CONSOLE: true
+  HASURA_GRAPHQL_ENABLE_CONSOLE: false
   HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
 
 #secrets:                      # Pass secrets from AWS Systems Manager (SSM) Parameter Store.
