@@ -6,7 +6,7 @@ let config = {
   },
   staging: {
     graphql: 'https://hasura-staging.vizee.live/v1/graphql',
-    api: 'https://staging-api.vizee.live',
+    api: 'https://api-staging.vizee.live',
     ui: 'https://staging.vizee.live'
   },
   production: {

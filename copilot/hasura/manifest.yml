@@ -39,7 +39,7 @@ variables:                    # Pass environment variables as key value pairs.
 environments:
  test:
   variables:
-    ACTION_BASE_URL: https://staging-api.vizee.live
+    ACTION_BASE_URL: https://api-staging.vizee.live
   secrets:
     HASURA_GRAPHQL_ADMIN_SECRET: /copilot/vizee/test/secrets/HASURA_GRAPHQL_ADMIN_SECRET
     HASURA_GRAPHQL_DATABASE_URL: /copilot/vizee/test/secrets/HASURA_GRAPHQL_DATABASE_URL
