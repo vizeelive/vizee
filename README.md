@@ -70,8 +70,8 @@ If you want to do full stack development: (not currently working. Must work agai
 
 You can find the schema at:
 
-* `https://graphql.vizee.live/v1/graphql`
-* `https://staging-graphql.vizee.live/v1/graphql`
+* `https://hasura.vizee.live/v1/graphql`
+* `https://hasura-staging.vizee.live/v1/graphql`
 
 GraphQL Playground is excellent.
 
