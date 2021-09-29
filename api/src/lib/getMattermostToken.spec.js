@@ -4,7 +4,7 @@ const getMattermostToken = require('./getMattermostToken');
 const mattermost = require('../lib/mattermost');
 // jest.mock('../lib/mattermost');
 
-describe('generateUsername', () => {
+describe.skip('generateUsername', () => {
   beforeEach(() => {
     // mattermost.createUser.mockReturnValue({});
     // mattermost.login.mockReturnValue('a1b2c3');

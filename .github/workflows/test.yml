@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   cypress-run:
     name: Cypress Tests
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -16,7 +16,9 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
+          record: true
         env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           cypress_auth_audience: ${{secrets.CYPRESS_AUTH_AUDIENCE}}
           cypress_auth_url: ${{secrets.CYPRESS_AUTH_URL}}
           cypress_auth_client_id: ${{secrets.CYPRESS_AUTH_CLIENT_ID}}

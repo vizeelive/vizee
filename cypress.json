@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:3000",
+  "projectId": "apqhhq",
   "videos": false,
   "viewportWidth": 1200,
   "defaultCommandTimeout": 20000,

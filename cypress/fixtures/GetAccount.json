@@ -624,6 +624,7 @@
       "stripe_data": {},
       "access": [],
       "products": [{}],
+      "supporters_report": [],
       "followers": [
         {
           "__typename": "followers",

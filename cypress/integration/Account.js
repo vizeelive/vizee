@@ -10,17 +10,17 @@ describe('AccountPage', () => {
       cy.get('[data-test-id=account-bio').should('exist');
       cy.get('[data-test-id=share-button').should('exist');
       cy.get('[data-test-id=events').should('exist');
-      cy.get('[data-test-id=links').should('exist');
+      // cy.get('[data-test-id=links').should('exist');
     });
     it('should show success modal after subcribe', () => {
       cy.visit('/creator?action=account.subscribe');
       cy.findByText("Congrats, you're subscribed!").should('exist');
-      cy.get('[data-test-id=links').should('exist');
+      // cy.get('[data-test-id=links').should('exist');
     });
     it('should show success modal after purchase', () => {
       cy.visit('/creator?action=event.purchase');
       cy.findByText("Congrats, you're in!").should('exist');
-      cy.get('[data-test-id=links').should('exist');
+      // cy.get('[data-test-id=links').should('exist');
     });
     it('should show buy/subscribe button when stripe is setup', () => {
       cy.graphql('Accounts', { fixture: 'Accounts' });
@@ -53,7 +53,7 @@ describe('AccountPage', () => {
       cy.get('[data-test-id=account-bio').should('exist');
       cy.get('[data-test-id=share-button').should('exist');
       cy.get('[data-test-id=events').should('exist');
-      cy.get('[data-test-id=links').should('exist');
+      // cy.get('[data-test-id=links').should('exist');
     });
     it('should show subscribe button when not already subscribed', () => {
       cy.graphql('Accounts', { fixture: 'Accounts' });
