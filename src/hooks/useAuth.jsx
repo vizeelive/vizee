@@ -92,7 +92,7 @@ export default function useAuth() {
   useEffect(() => {
     let token = id_token || claims?.__raw;
     var wsLink = new WebSocketLink({
-      uri: config.graphql.replace('https', 'wss').replace('http', 'ws'),
+      uri: config.ws,
       options: {
         lazy: true,
         reconnect: true,

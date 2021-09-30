@@ -1,18 +1,20 @@
 let config = {
   dev: {
+    ws: 'ws://localhost:8080/v1/graphql',
     graphql: 'http://localhost:8080/v1/graphql',
     api: 'http://localhost:3001',
     ui: 'http://localhost:3000'
   },
   staging: {
+    ws: 'wss://hasura-staging.vizee.live/v1/graphql',
     graphql: 'https://hasura-staging.vizee.live/v1/graphql',
     api: 'https://api-staging.vizee.live',
     ui: 'https://staging.vizee.live'
   },
   production: {
+    ws: 'wss://hasura.vizee.live/v1/graphql',
     graphql: 'https://hasura.vizee.live/v1/graphql',
-    api: 'https://api.vizee.live',
-    ui: 'https://www.vizee.live'
+    api: 'https://api.vizee.live'
   }
 };
 
@@ -28,6 +30,15 @@ if (window.location.href.includes('localhost')) {
   res = config.dev;
 } else {
   res = config.production;
+}
+
+if (window.Cypress) {
+  res = {
+    ws: 'wss://hasura-staging.vizee.live/v1/graphql',
+    graphql: 'http://localhost/graphql',
+    api: 'http://localhost',
+    ui: 'http://localhost:3000'
+  };
 }
 
 console.log(res);

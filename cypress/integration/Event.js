@@ -1,7 +1,29 @@
 describe('EventPage', () => {
 
+  beforeEach(() => {
+    cy.intercept('https://ipinfo.io/*', {
+      ip: '45.17.98.35',
+      hostname: '45-17-98-35.lightspeed.moblal.sbcglobal.net',
+      city: 'Mobile',
+      region: 'Alabama',
+      country: 'US',
+      loc: '30.6944,-88.0430',
+      org: 'AS7018 AT&T Services, Inc.',
+      postal: '36601',
+      timezone: 'America/Chicago'
+    });
+
+    cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
+    cy.graphql('Accounts', { fixture: 'Accounts' });
+    cy.graphql('FinishSignup', { fixture: 'FinishSignup' });
+    cy.graphql('GetComments', { fixture: 'GetComments' });
+    cy.graphql('TrackView', { fixture: 'TrackView' });
+    // cy.intercept('https://m.stripe.com/*', {});
+  });
+
   describe('Anonymous', () => {
     it('should pass happy path', () => {
+      cy.graphql('Accounts', { fixture: 'Accounts' });
       cy.graphql('AnonEventsReport', { fixture: 'AnonEventsReport' });
       cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByRole('button', { name: /Buy Ticket/i }).should('exist');
@@ -21,6 +43,7 @@ describe('EventPage', () => {
     beforeEach(() => {
       cy.setCookie('test_role', 'user');
       cy.graphql('MyAccounts', { fixture: 'MyAccounts' });
+      cy.graphql('TrackView', { fixture: 'TrackView' });
     });
     it('should pass happy path', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
