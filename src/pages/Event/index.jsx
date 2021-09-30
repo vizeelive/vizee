@@ -154,6 +154,7 @@ const GET_EVENT_AUTH = gql`
           flexible_price
           account_access
           download_access
+          description
         }
       }
       products {
@@ -166,6 +167,7 @@ const GET_EVENT_AUTH = gql`
           description
           account_access
           download_access
+          description
         }
       }
       access {
