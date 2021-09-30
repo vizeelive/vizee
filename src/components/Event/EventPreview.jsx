@@ -11,7 +11,7 @@ function EventPreview(props) {
         playsInline
         src={event.preview}
         width="100%"
-        muted
+        autoPlay
         controls
       />
     );
