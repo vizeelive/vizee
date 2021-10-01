@@ -46,7 +46,7 @@ environments:
     HASURA_GRAPHQL_JWT_SECRET: /copilot/vizee/test/secrets/HASURA_GRAPHQL_JWT_SECRET
  production:
   variables:
-    ACTION_BASE_URL: https://api.vizee.live
+    ACTION_BASE_URL: https://api2.vizee.live
   secrets:
     HASURA_GRAPHQL_ADMIN_SECRET: /copilot/vizee/production/secrets/HASURA_GRAPHQL_ADMIN_SECRET
     HASURA_GRAPHQL_DATABASE_URL: /copilot/vizee/production/secrets/HASURA_GRAPHQL_DATABASE_URL
