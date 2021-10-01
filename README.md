@@ -18,13 +18,15 @@ This monorepo contains a few things:
 * Netlify (UI)
 * Render.com (API)
 * AWS ECS via Copilot (Hasura GraphQL)
+* AWS RDS (Postgres)
 * Google Domains (DNS)
 * GitHub (code)
 * TransloadIt (file uploads)
 * LogRocket (session recording)
 * Auth0 (authentication)
 * Mux (video transcoding)
-
+* Sentry (bug tracking)
+* Cypress (testing)
 
 ## UI Development
 
@@ -35,13 +37,17 @@ If you want to test Stripe flows, you'll need to turn on the development API.
 
 * `npm run api`
 
-If you want to do full stack development: (not currently working. Must work against staging)
-
-* `cd hasura && hasura console --endpoint https://hasura-staging.vizee.live --admin-secret=secret`
-
 ## GraphQL/Hasura Development
 
-### Setting Up Hasura
+### Running Hasura Console
+
+Running Hasura locally is not currently working due to issues with Auth0. However, you can run the Hasura CLI locally and make schema changes which will create files that can be committed in order to migrate production.
+
+* Obtain `hasura.env` and place in `/hasura`
+* `npm run hasura`
+
+
+### Setting Up Hasura (incomplete)
 
 #### Requirements
 
@@ -70,8 +76,8 @@ If you want to do full stack development: (not currently working. Must work agai
 
 You can find the schema at:
 
-* `https://hasura.vizee.live/v1/graphql`
-* `https://hasura-staging.vizee.live/v1/graphql`
+* `https://graphql.vizee.live/v1/graphql`
+* `https://staging-graphql.vizee.live/v1/graphql`
 
 GraphQL Playground is excellent.
 
