@@ -1,5 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+hasura.env
 package-lock.json
 *.log
 *.dump
