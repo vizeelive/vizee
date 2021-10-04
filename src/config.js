@@ -21,7 +21,7 @@ let config = {
 let res;
 
 if (window.location.href.includes('localhost')) {
-  res = config.dev;
+  res = config.staging;
 } else if (window.location.href.includes('staging')) {
   res = config.staging;
 } else if (window.location.href.includes('netlify')) {
