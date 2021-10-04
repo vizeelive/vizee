@@ -3,6 +3,12 @@
   min-height: calc(100vh - 86px);
 }
 
+.events__category-modal .ant-modal-title {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
 .event-grid {
   display: grid;
   grid-template-columns: 1fr;

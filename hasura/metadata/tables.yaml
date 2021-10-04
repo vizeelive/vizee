@@ -380,6 +380,9 @@
       check: null
 - table:
     schema: public
+    name: event_tags
+- table:
+    schema: public
     name: events
   object_relationships:
   - name: account
@@ -468,6 +471,7 @@
       - published
       - start
       - status
+      - tags
       - thumb
       - type
       - video
@@ -498,6 +502,7 @@
       - published
       - start
       - status
+      - tags
       - thumb
       - type
       - video
@@ -529,6 +534,7 @@
       - price
       - published
       - start
+      - tags
       - thumb
       - type
       - video
@@ -718,6 +724,7 @@
       - start
       - status
       - stream_type
+      - tags
       - transactions
       - type
       - views
@@ -744,6 +751,7 @@
       - start
       - status
       - stream_type
+      - tags
       - transactions
       - type
       - views

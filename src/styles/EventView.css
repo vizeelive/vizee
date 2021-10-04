@@ -1,0 +1,14 @@
+.event-tabs .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
+    flex: initial;
+}
+
+.event-tabs__category-tab {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+
+.event-tabs__category-tab svg {
+    margin-top: 2px;
+    margin-right: 7px;
+}

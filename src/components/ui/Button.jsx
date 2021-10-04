@@ -15,11 +15,12 @@ function Button(props) {
     type,
     onClick,
     children,
+    disableFocus,
     ...other
   } = props;
 
   const display = block ? 'flex' : 'inline-flex';
-  const focusClasses = `focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-${offset} focus:ring-pink-600`;
+  const focusClasses = !disableFocus ? `focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-${offset} focus:ring-pink-600` : '';
 
   const className = `${display} items-center border shadow-sm font-sans font-medium ${focusClasses}`;
 

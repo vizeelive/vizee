@@ -1,0 +1,33 @@
+.add-tags__input {
+    width: auto;
+    min-width: 78px;
+    margin-right: 8px;
+    vertical-align: top;
+    text-transform: uppercase;
+}
+
+.add-tags__tag {
+    user-select: none;
+    margin-bottom: 10px;
+    color: var(--vz-primary);
+}
+
+.add-tags__tag, .add-tags__plus {
+    padding: 5px 10px;
+}
+
+.add-tags__input {
+    padding: 3px 10px;
+}
+
+.add-tags__plus {
+    border-style: dashed;
+}
+
+.add-tags__plus > span, .add-tags__tag [aria-label=close]{
+    vertical-align: 0em;
+}
+
+.ant-input-sm {
+    padding: 0px 7px;
+}

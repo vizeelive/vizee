@@ -127,6 +127,7 @@ const GET_EVENT_AUTH = gql`
       account_only
       status
       stream_type
+      tags
       account {
         id
         name

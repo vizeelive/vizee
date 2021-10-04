@@ -1,7 +1,7 @@
 let config = {
   dev: {
+    //api: 'https://hasura-staging.vizee.live/v1/graphql',
     api: 'https://hasura-staging.vizee.live/v1/graphql',
-    // api: 'http://localhost:8080/v1/graphql',
     ui: 'https://dev.vizee.live:3000'
   },
   test: {

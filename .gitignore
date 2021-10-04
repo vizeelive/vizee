@@ -38,3 +38,5 @@ yarn-error.log*
 
 # VS Code workspace
 *.code-workspace
+
+.idea

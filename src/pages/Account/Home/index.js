@@ -60,6 +60,7 @@ export const GET_ACCOUNT_ANON = gql`
         type
         published
         status
+        tags
         account {
           id
           name
@@ -152,6 +153,7 @@ const GET_ACCOUNT_USER = gql`
         type
         published
         status
+        tags
         account {
           id
           name

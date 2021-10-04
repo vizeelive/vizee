@@ -5,22 +5,24 @@ import { Link } from 'react-router-dom';
 import Button from 'components/ui/Button';
 import Map from 'components/Map';
 import { Card, Typography, Tabs } from 'antd';
-import Microlink from '@microlink/react';
 import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
 
 import SuccessModal from 'components/SuccessModal';
+import Playlist from 'components/Playlist/Playlist';
 import BuyButton from 'components/Event/BuyButton';
 import ShareButton from 'components/Event/ShareButton';
 import FollowButton from 'components/Event/FollowButton';
 import Linkify from 'react-linkify';
+import 'styles/EventView.css';
 
 import {
   InstagramOutlined,
   TwitterOutlined,
   FacebookOutlined,
-  VideoCameraOutlined
+  VideoCameraOutlined,
+  TagOutlined
 } from '@ant-design/icons';
 
 import Client from 'shopify-buy';
@@ -111,6 +113,7 @@ export default function HomeView(props) {
 
   const [client, setClient] = useState(null);
   const [products, setProducts] = useState([]);
+  const [showTags, setShowTags] = useState(false);
 
   useEffect(() => {
     if (!account.shopify_domain) return;
@@ -151,6 +154,12 @@ export default function HomeView(props) {
   let supportersCount = account.supporters_report.length;
 
   let room = account.username.toLowerCase();
+
+  let eventTags = new Set();
+  account.events.forEach((event) => {
+    event.tags && event.tags.forEach((tag) => eventTags.add(tag));
+  });
+  const sortedAndUniqueTags = [...eventTags].sort();
 
   const openChat = () => {
     window.open(
@@ -238,9 +247,7 @@ export default function HomeView(props) {
                   </Link>
                 )}
 
-              { user && (
-                <Button onClick={openChat}>Chat</Button>
-              ) }
+              {user && <Button onClick={openChat}>Chat</Button>}
 
               <SocialList>
                 {account.facebook && (
@@ -302,11 +309,32 @@ export default function HomeView(props) {
           )}
 
           <div className="flex flex-col md:flex-row">
-            <div className="flex-grow mb-5">
-              <Tabs defaultActiveKey="1">
+            <div className="flex-grow mb-5 event-tabs">
+              <Tabs
+                defaultActiveKey="1"
+                tabBarExtraContent={
+                  sortedAndUniqueTags.length && {
+                    right: (
+                      <a
+                        className="event-tabs__category-tab"
+                        onClick={() => setShowTags(!showTags)}
+                      >
+                        <TagOutlined />
+                        Categories
+                      </a>
+                    )
+                  }
+                }
+              >
                 <TabPane tab="Events" key="1">
                   <EventsContainer>
-                    <Events events={account.events} refetch={refetch} />
+                    <Events
+                      events={account.events}
+                      refetch={refetch}
+                      availableTags={sortedAndUniqueTags}
+                      showTags={showTags}
+                      setShowTags={setShowTags}
+                    />
                   </EventsContainer>
                 </TabPane>
                 <TabPane tab="Video Chat" key="2">
@@ -318,6 +346,9 @@ export default function HomeView(props) {
                 <TabPane tab="Map" key="7">
                   <Map events={account.events} />
                 </TabPane>
+                {/* <TabPane tab="Playlists" key="8">*/}
+                {/*  <Playlist events={account.events} />*/}
+                {/*</TabPane>*/}
                 {/* <TabPane tab="Street Team" key="4">
                   Street Team
                 </TabPane>

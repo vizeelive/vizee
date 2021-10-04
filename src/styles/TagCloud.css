@@ -1,0 +1,24 @@
+.tag-cloud  {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+}
+
+.tag-cloud__item {
+  cursor: pointer;
+  margin-bottom: .5em;
+}
+
+.ant-tag {
+  text-transform: uppercase;
+}
+
+.tag-cloud .ant-tag {
+  border-color: var(--vz-pink-50);
+  padding: .5rem;
+  border-radius: 1rem;
+}
+

@@ -54,7 +54,6 @@ module.exports = async function CreateAccount(req, res) {
         })
       }
     ).then((res) => {
-      console.log(res.body);
       return res.json();
     });
   } catch (e) {

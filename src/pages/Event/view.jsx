@@ -7,7 +7,7 @@ import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
 import cn from 'classnames';
 import { isMobile } from 'react-device-detect';
-import { notification } from 'antd';
+import { Modal, notification } from 'antd';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
@@ -23,6 +23,8 @@ import EventPreview from 'components/Event/EventPreview';
 import AvatarHandle from 'components/AvatarHandle';
 import SuccessModal from 'components/SuccessModal';
 import ChatToggle from 'components/Event/ChatToggle';
+import TagCloud from '../../components/TagCloud';
+import { TagOutlined } from '@ant-design/icons';
 
 export default function EventPage(props) {
   const {
@@ -49,6 +51,8 @@ export default function EventPage(props) {
   const [showTipModal] = useState(
     searchParams.get('tip') && status === 'success' ? true : false
   );
+
+  const [showTags, setShowTags] = useState(false);
 
   const [showChat, setShowChat] = useState(false);
   const [videoHeight, setVideoHeight] = useState(0);
@@ -179,6 +183,25 @@ export default function EventPage(props) {
             Preview
           </span>
         )}
+        {event.tags?.length > 0 && <div className="flex items-center text-sm text-gray-300 lg:mr-6">
+            <Modal
+              className="events__category-modal"
+              title="Event Categories"
+              visible={showTags}
+              footer={null}
+              centered
+              onCancel={() => setShowTags((showTagsCurrent) => !showTagsCurrent)}
+            >
+              <TagCloud
+                availableTags={event.tags}
+                onTagSelected={(tag) => history.push(`/${event.account.username}?c=${tag.replaceAll(" ", "-")}`)}
+              />
+            </Modal>
+            <a className="event-tabs__category-tab" onClick={() => setShowTags(!showTags)}>
+              <TagOutlined />
+              Categories
+            </a>
+        </div>}
       </div>
     );
   };
@@ -192,6 +215,7 @@ export default function EventPage(props) {
         >
           {event.name}
         </h2>
+
         {renderBadges()}
         <div className="mt-1 flex flex-col lg:flex-row lg:flex-wrap lg:mt-0">
           <div className="mt-2 flex items-center text-sm text-gray-300 lg:mr-6">
@@ -313,6 +337,7 @@ export default function EventPage(props) {
                 />
               </svg>
               <strong>{event.transactions}</strong>&nbsp; supporters
+
             </div>
           </div>
         </div>
