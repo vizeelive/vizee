@@ -380,9 +380,6 @@
       check: null
 - table:
     schema: public
-    name: event_tags
-- table:
-    schema: public
     name: events
   object_relationships:
   - name: account
