@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import useAffiliate from 'hooks/useAffiliate';
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 import useAuth from 'hooks/useAuth';
@@ -11,12 +11,26 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 const GET_EVENT_UNAUTH = gql`
-  query AnonEventsReport($id: uuid!, $affiliate_code: String) {
+  query AnonEventsReport(
+    $id: uuid!
+    $affiliate_code: String
+    $playlist_id: uuid
+  ) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
     }
     getEventUrl(id: $id) {
       url
+    }
+    playlist: playlists(where: { id: { _eq: $playlist_id } }) {
+      id
+      name
+      events {
+        event {
+          id
+          name
+        }
+      }
     }
     events_report(where: { id: { _eq: $id } }) {
       id
@@ -78,6 +92,7 @@ const GET_EVENT_AUTH = gql`
     $user_id: uuid!
     $username: String!
     $affiliate_code: String
+    $playlist_id: uuid
   ) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
@@ -109,6 +124,16 @@ const GET_EVENT_AUTH = gql`
     getEventUrl(id: $id) {
       url
       master
+    }
+    playlist: playlists(where: { id: { _eq: $playlist_id } }) {
+      id
+      name
+      events {
+        event {
+          id
+          name
+        }
+      }
     }
     events_report(where: { id: { _eq: $id } }) {
       id
@@ -201,8 +226,10 @@ const TRACK_VIEW = gql`
   }
 `;
 
-export default function EventPage() {
+export default function EventPage({ location }) {
+  const history = useHistory();
   const { id, username, status, userCode } = useParams();
+  const queryParams = new URLSearchParams(location.search);
   const { user } = useAuth();
   const {
     setAffiliateLoginUser,
@@ -211,7 +238,15 @@ export default function EventPage() {
   } = useAffiliate();
   const [trackView] = useMutation(TRACK_VIEW);
 
-  const variables = user ? { id, user_id: user?.id, username, affiliate_code: userCode } : { id };
+  const variables = user
+    ? {
+        id,
+        user_id: user?.id,
+        username,
+        affiliate_code: userCode,
+        playlist_id: queryParams.get('playlist')
+      }
+    : { id };
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
@@ -224,13 +259,16 @@ export default function EventPage() {
     variables: { id }
   });
 
+  const playlist = queryParams.get('playlist') ? data?.playlist?.[0] : null;
   const account = Mapper(data?.accounts?.[0]);
   const event = Mapper({ ...data?.events_report?.[0] });
   event.video = data?.getEventUrl?.url;
   event.master = data?.getEventUrl?.master;
   const userId = user?.id || null;
   const isMyAccount = !!data?.myaccounts?.filter(
-    (acc) => acc.account.username.toLowerCase() === event.account.username.toLowerCase()
+    (acc) =>
+      acc.account.username.toLowerCase() ===
+      event.account.username.toLowerCase()
   ).length;
 
   const account_id = event?.account?.id;
@@ -349,9 +387,21 @@ export default function EventPage() {
     ? event.image().replace('https://vizee-media.s3.amazonaws.com/', '')
     : event.image();
 
+  const onEnded = () => {
+    let index = playlist.events.findIndex((e) => e.event.id == event.id);
+    let nextIndex = index + 1;
+    if (nextIndex in playlist.events) {
+      let next = playlist.events[nextIndex];
+      history.push(`/${username}/${next.event.id}?playlist=${playlist.id}`);
+    }
+  };
+
   return (
     <EventView
+      onEnded={onEnded}
       coverPhoto={coverPhoto}
+      playlist={playlist}
+      username={username}
       account={account}
       event={event}
       isMyAccount={isMyAccount}

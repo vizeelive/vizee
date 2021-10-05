@@ -5,6 +5,9 @@ export default class Account {
   canSell() {
     return !!this.stripe_id;
   }
+  belongsTo(user) {
+    return user?.isAdmin || !!this.users?.find((u) => u?.user?.id === user?.id);
+  }
   cover() {
     let name = this.name.split('@').shift();
     return (

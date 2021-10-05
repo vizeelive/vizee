@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
+import { Button, Form, Menu, Dropdown, Tabs } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
+import CreatePlaylist from 'components/Playlist/CreatePlaylist';
 function EventCard(props) {
   const { event, user, onFavoriteClick } = props;
+
+  const history = useHistory();
+  const [createPlaylistVisible, setCreatePlaylistVisible] = useState(false);
 
   useEffect(() => {
     const card = document.getElementById(`card-${event.id}`);
@@ -73,71 +79,128 @@ function EventCard(props) {
     );
   };
 
-  return (
-    <article
-      id={`card-${event.id}`}
-      className="event-card relative cursor-pointer bg-gray-950 overflow-hidden shadow rounded-3xl"
-      data-test-id="event-card"
-    >
-      <div className="aspect-w-16 aspect-h-9">
-        <img
-          className="object-cover text-white"
-          alt={event?.thumb || event?.account?.name || event?.name}
-          src={event.cover()}
-        />
-      </div>
-      <div className="event-card-info px-6 mt-6 md:mt-4">
-        <h2 className="font-sans">
-          <Link
-            to={`/${event.account.username}/${event.id}`}
-            className="event-name event-clickable line-clamp-2 text-gray-100 transition-colors font-bold text-xl xs:text-2xl sm:text-xl"
-            id={`event-link-${event.id}`}
-            title={event.name}
+  const renderActions = (event) => {
+    return (
+      <React.Fragment>
+        {event.belongsTo(user) && (
+          <Dropdown
+            overlay={menu(event)}
+            className="event-clickable float-right mr-4 mb-4"
           >
-            {event.name}
-          </Link>
-        </h2>
-        <p className="mb-4 font-sans">
-          <Link
-            to={`/${event.account.username}`}
-            className="event-clickable text-gray-400 hover:text-gray-300 transition-colors font-semibold text-base xs:text-lg sm:text-base"
-            title={event.account?.name || ''}
-          >
-            {event.account?.name}
-          </Link>
-        </p>
-      </div>
-      <div className="p-5">
-        <time
-          className="block text-gray-500 text-base xs:text-lg sm:text-base lg:text-lg xl:text-base font-sans"
-          dateTime={moment(event.start).format()}
+            <Button>
+              Actions <DownOutlined />
+            </Button>
+          </Dropdown>
+        )}
+      </React.Fragment>
+    );
+  };
+
+  const menu = (event) => (
+    <Menu>
+      <Menu.Item key="0">
+        <a
+          rel="noopener noreferrer"
+          onClick={() => setCreatePlaylistVisible(true)}
         >
-          <svg
-            className="inline-block align-text-top w-5 h-5 mr-2 text-gray-600"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          Add to playlist
+        </a>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <a
+          rel="noopener noreferrer"
+          onClick={() =>
+            history.push(
+              `/${event.account.username}/manage/events/edit/${event.id}`
+            )
+          }
+        >
+          Edit event
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+
+  return (
+    <React.Fragment>
+      {createPlaylistVisible && (
+        <CreatePlaylist
+          user={user}
+          event={event}
+          visible={createPlaylistVisible}
+          onClose={() => {
+            props.refetch();
+            setCreatePlaylistVisible(false);
+          }}
+        />
+      )}
+      <article
+        id={`card-${event.id}`}
+        className="event-card relative cursor-pointer bg-gray-950 overflow-hidden shadow rounded-3xl hover:border-red-500"
+        data-test-id="event-card"
+      >
+        <div className="aspect-w-16 aspect-h-9">
+          <img
+            className="object-cover text-white"
+            alt={event?.thumb || event?.account?.name || event?.name}
+            src={event.cover()}
+          />
+        </div>
+        <div className="event-card-info px-6 mt-6 md:mt-4">
+          <h2 className="font-sans">
+            <Link
+              to={`/${event.account.username}/${event.id}`}
+              className="event-name event-clickable line-clamp-2 text-gray-100 transition-colors font-bold text-xl xs:text-2xl sm:text-xl"
+              id={`event-link-${event.id}`}
+              title={event.name}
+            >
+              {event.name}
+            </Link>
+          </h2>
+          <p className="mb-4 font-sans">
+            <Link
+              to={`/${event.account.username}`}
+              className="event-clickable text-gray-400 hover:text-gray-300 transition-colors font-semibold text-base xs:text-lg sm:text-base"
+              title={event.account?.name || ''}
+            >
+              {event.account?.name}
+            </Link>
+          </p>
+        </div>
+        <div className="p-5">
+          <time
+            className="block text-gray-500 text-base xs:text-lg sm:text-base lg:text-lg xl:text-base font-sans"
+            dateTime={moment(event.start).format()}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-          {moment(event.start).format('MMMM Do, h:mm a')}
-        </time>
-      </div>
-      {renderTags()}
-      {renderUnPublished()}
-    </article>
+            <svg
+              className="inline-block align-text-top w-5 h-5 mr-2 text-gray-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            {moment(event.start).format('MMMM Do, h:mm a')}
+          </time>
+        </div>
+        {renderTags()}
+        {renderUnPublished()}
+        {renderActions(event)}
+      </article>
+    </React.Fragment>
   );
 }
 
 EventCard.propTypes = {
   event: PropTypes.object.isRequired,
   user: PropTypes.object,
+  refetch: PropTypes.func,
   onFavoriteClick: PropTypes.func
 };
 

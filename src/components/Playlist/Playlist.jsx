@@ -1,32 +1,30 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
-import { OrderedListOutlined } from "@ant-design/icons";
-import PlaylistListing from './PlaylistListing';
-import CreatePlaylist from './CreatePlaylist';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Card, List } from 'antd';
+import { useHistory } from 'react-router-dom';
 
-
-const Playlist = ({ events }) => {
-  const [isCreatePlaylistView, setCreatePlaylistView] = useState();
-  let playListView;
-  if (isCreatePlaylistView) {
-    playListView = <CreatePlaylist events={events} />
-  } else {
-    playListView = <PlaylistListing  />
-  }
-
+const Playlist = ({ username, playlist }) => {
+  const history = useHistory();
+  const play = (event) => {
+    history.push(`/${username}/${event.id}?playlist=${playlist.id}`);
+  };
   return (
-    <>
-      <Button
-        icon={<OrderedListOutlined />}
-        type="primary"
-        onClick={() => setCreatePlaylistView(true)}
-      >
-        Create Playlist
-      </Button>
-      {playListView}
-    </>
-    
-  )
-}
+    <Card title={playlist.name} style={{ width: 300 }}>
+      <List>
+        {playlist.events.map((event, index) => (
+          <List.Item key={index}>
+            {index + 1}.&nbsp;
+            <a onClick={() => play(event.event)}>{event.event.name}</a>
+          </List.Item>
+        ))}
+      </List>
+    </Card>
+  );
+};
 
-export default Playlist
+Playlist.propTypes = {
+  playlist: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired
+};
+
+export default Playlist;

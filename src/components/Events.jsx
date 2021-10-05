@@ -55,7 +55,7 @@ export default function Events({
   const handleTagChange = (newTag, allTags) => {
     history.replace(`?c=${allTags.join(",").replaceAll(" ", "-")}`);
   }
-  
+
   const handleFavorite = async (e, event) => {
     // e.preventDefault();
     await createFavorite({
@@ -78,10 +78,10 @@ export default function Events({
     events = eventsFromQuery;
   }
 
-  if(tagFilters.length) {
+  if (tagFilters.length) {
     events = events.filter((event) => {
       return isEventAFilteredTagged(tagFilters, event);
-    })
+    });
   }
 
   let pastEvents = [];
@@ -112,9 +112,9 @@ export default function Events({
         title={
           <>
             <header>Keyword Categories</header>
-            {tagFilters.length > 0 && <a onClick={() => handleTagChange('', [])}>
-              clear all
-            </a>}
+            {tagFilters.length > 0 && (
+              <a onClick={() => handleTagChange('', [])}>clear all</a>
+            )}
           </>
         }
         visible={showTags}
@@ -122,7 +122,11 @@ export default function Events({
         centered
         onCancel={() => setShowTags((showTagsCurrent) => !showTagsCurrent)}
       >
-          <TagCloud selectedTags={tagFilters} availableTags={availableTags} onTagSelected={handleTagChange} />
+        <TagCloud
+          selectedTags={tagFilters}
+          availableTags={availableTags}
+          onTagSelected={handleTagChange}
+        />
       </Modal>
 
       {currentEvents.length ? (
@@ -131,6 +135,7 @@ export default function Events({
           <div className="event-grid mt-2" data-test-id="events">
             {currentEvents.map((event) => (
               <EventCard
+                refetch={refetch}
                 key={event.id}
                 event={event}
                 user={user}
@@ -149,6 +154,7 @@ export default function Events({
           <div className="event-grid mt-2" data-test-id="events">
             {pastEvents.map((event) => (
               <EventCard
+                refetch={refetch}
                 key={event.id}
                 event={event}
                 user={user}

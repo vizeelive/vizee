@@ -25,6 +25,21 @@ export const GET_ACCOUNT_ANON = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      playlists {
+        id
+        name
+        account {
+          id
+          username
+        }
+        events {
+          id
+          event {
+            id
+            name
+          }
+        }
+      }
       followers {
         id
       }
@@ -115,6 +130,21 @@ const GET_ACCOUNT_USER = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      playlists {
+        id
+        name
+        account {
+          id
+          username
+        }
+        events {
+          id
+          event {
+            id
+            name
+          }
+        }
+      }
       followers {
         id
       }

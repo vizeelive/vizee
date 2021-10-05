@@ -10,7 +10,7 @@ import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
 
 import SuccessModal from 'components/SuccessModal';
-import Playlist from 'components/Playlist/Playlist';
+import PlaylistListing from 'components/Playlist/PlaylistListing';
 import BuyButton from 'components/Event/BuyButton';
 import ShareButton from 'components/Event/ShareButton';
 import FollowButton from 'components/Event/FollowButton';
@@ -337,6 +337,13 @@ export default function HomeView(props) {
                     />
                   </EventsContainer>
                 </TabPane>
+                <TabPane tab="Playlists" key="8">
+                  <PlaylistListing
+                    refetch={refetch}
+                    account={account}
+                    playlists={account.playlists}
+                  />
+                </TabPane>
                 <TabPane tab="Video Chat" key="2">
                   <VideoConference
                     roomName={`${account.id}-23kjh23kjh232kj3h`}
@@ -346,9 +353,6 @@ export default function HomeView(props) {
                 <TabPane tab="Map" key="7">
                   <Map events={account.events} />
                 </TabPane>
-                {/* <TabPane tab="Playlists" key="8">*/}
-                {/*  <Playlist events={account.events} />*/}
-                {/*</TabPane>*/}
                 {/* <TabPane tab="Street Team" key="4">
                   Street Team
                 </TabPane>
@@ -374,7 +378,7 @@ export default function HomeView(props) {
             <div className="rounded-lg md:m-10 md:w-80 bg-gray-900 p-5">
               <h1 className="text-2xl mb-10">Supporters</h1>
               {account.supporters_report.map((user, index) => (
-                <Card className="mt-3" key={user.user_id}>
+                <Card className="mt-3" key={index}>
                   <img
                     src={
                       index <= 2
@@ -425,6 +429,7 @@ export default function HomeView(props) {
               {products.map((product) => {
                 return (
                   <Card
+                    key={product.id}
                     hoverable
                     style={{ width: 240 }}
                     cover={<img alt="example" src={product.images[0].src} />}

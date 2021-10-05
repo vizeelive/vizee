@@ -33,9 +33,9 @@
     @apply transform transition-transform !important;
   }
 
-  .event-card:hover {
+  /* .event-card:hover {
     @apply -translate-y-2 !important;
-  }
+  } */
 
   .event-card:hover .event-name {
     @apply text-primary !important;

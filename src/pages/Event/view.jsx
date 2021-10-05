@@ -23,6 +23,7 @@ import EventPreview from 'components/Event/EventPreview';
 import AvatarHandle from 'components/AvatarHandle';
 import SuccessModal from 'components/SuccessModal';
 import ChatToggle from 'components/Event/ChatToggle';
+import Playlist from 'components/Playlist/Playlist';
 import TagCloud from '../../components/TagCloud';
 import { TagOutlined } from '@ant-design/icons';
 
@@ -30,13 +31,16 @@ export default function EventPage(props) {
   const {
     coverPhoto,
     event,
+    username,
+    playlist,
     account,
     isMyAccount,
     user,
     playerKey,
     videoJsOptions,
     liveData,
-    status
+    status,
+    onEnded
   } = props;
 
   const searchParams = new URLSearchParams(window.location.search);
@@ -183,25 +187,36 @@ export default function EventPage(props) {
             Preview
           </span>
         )}
-        {event.tags?.length > 0 && <div className="flex items-center text-sm text-gray-300 lg:mr-6">
+        {event.tags?.length > 0 && (
+          <div className="flex items-center text-sm text-gray-300 lg:mr-6">
             <Modal
               className="events__category-modal"
               title="Event Categories"
               visible={showTags}
               footer={null}
               centered
-              onCancel={() => setShowTags((showTagsCurrent) => !showTagsCurrent)}
+              onCancel={() =>
+                setShowTags((showTagsCurrent) => !showTagsCurrent)
+              }
             >
               <TagCloud
                 availableTags={event.tags}
-                onTagSelected={(tag) => history.push(`/${event.account.username}?c=${tag.replaceAll(" ", "-")}`)}
+                onTagSelected={(tag) =>
+                  history.push(
+                    `/${event.account.username}?c=${tag.replaceAll(' ', '-')}`
+                  )
+                }
               />
             </Modal>
-            <a className="event-tabs__category-tab" onClick={() => setShowTags(!showTags)}>
+            <a
+              className="event-tabs__category-tab"
+              onClick={() => setShowTags(!showTags)}
+            >
               <TagOutlined />
               Categories
             </a>
-        </div>}
+          </div>
+        )}
       </div>
     );
   };
@@ -337,7 +352,6 @@ export default function EventPage(props) {
                 />
               </svg>
               <strong>{event.transactions}</strong>&nbsp; supporters
-
             </div>
           </div>
         </div>
@@ -532,6 +546,7 @@ export default function EventPage(props) {
               <EventPreview event={event} coverPhoto={coverPhoto} />
             ) : (
               <EventContent
+                onEnded={onEnded}
                 event={event}
                 user={user}
                 liveData={liveData}
@@ -593,6 +608,7 @@ export default function EventPage(props) {
                     }}
                   >
                     <EventContent
+                      onEnded={onEnded}
                       event={event}
                       user={user}
                       liveData={liveData}
@@ -702,13 +718,16 @@ export default function EventPage(props) {
             </div>
           ) : null}
         </div>
+        {playlist && <Playlist username={username} playlist={playlist} />}
       </article>
     </React.Fragment>
   );
 }
 
 EventPage.propTypes = {
+  onEnded: PropTypes.func,
   event: PropTypes.object.isRequired,
+  username: PropTypes.string,
   account: PropTypes.object,
   user: PropTypes.object,
   playerKey: PropTypes.number,

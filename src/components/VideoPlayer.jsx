@@ -31,9 +31,15 @@ export default class VideoPlayer extends React.Component {
       },
       this.props
     );
+    let props = this.props;
     this.player = videojs(this.videoNode, options, function onPlayerReady() {
       this.hlsQualitySelector({
         displayCurrentQuality: true
+      });
+      this.on('ended', () => {
+        if (props.onEnded) {
+          props.onEnded();
+        }
       });
       // console.log('onPlayerReady', this);
     });

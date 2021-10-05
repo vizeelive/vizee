@@ -12,7 +12,8 @@ function EventContent(props) {
     liveData,
     playerKey,
     videoJsOptions,
-    onHeightChange
+    onHeightChange,
+    onEnded
   } = props;
 
   const [ref, { height }] = useDimensions();
@@ -25,7 +26,7 @@ function EventContent(props) {
     if (event.isBroadcast() && event.stream_type.includes('mux')) {
       return (
         <div data-test-id="event-video-live">
-          <VideoPlayer key={playerKey} {...videoJsOptions} />
+          <VideoPlayer key={playerKey} {...videoJsOptions} onEnded={onEnded} />
         </div>
       );
     }
@@ -51,7 +52,7 @@ function EventContent(props) {
 
     return (
       <div data-test-id="event-video-vod">
-        <VideoPlayer key={playerKey} {...videoJsOptions} />
+        <VideoPlayer key={playerKey} {...videoJsOptions} onEnded={onEnded} />
       </div>
     );
   };
@@ -62,6 +63,7 @@ function EventContent(props) {
 }
 
 EventContent.propTypes = {
+  onEnded: PropTypes.func,
   event: PropTypes.object.isRequired,
   user: PropTypes.object,
   liveData: PropTypes.object,
