@@ -9,7 +9,7 @@ const Playlist = ({ username, playlist }) => {
     history.push(`/${username}/${event.id}?playlist=${playlist.id}`);
   };
   return (
-    <Card title={playlist.name} style={{ width: 300 }}>
+    <Card title={playlist.name}>
       <List>
         {playlist.events.map((event, index) => (
           <List.Item key={index}>

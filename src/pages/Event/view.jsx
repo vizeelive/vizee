@@ -7,7 +7,7 @@ import Linkify from 'react-linkify';
 import useAuth from 'hooks/useAuth';
 import cn from 'classnames';
 import { isMobile } from 'react-device-detect';
-import { Modal, notification } from 'antd';
+import { Divider, Modal, notification } from 'antd';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
@@ -685,40 +685,47 @@ export default function EventPage(props) {
             )}
           </aside>
         </div>
-        <div className="my-8 lg:mt-0 sm:px-6 lg:px-0">{renderInfo()}</div>
 
-        {!event.hasStarted() && (
-          <div className="my-6 px-6 sm:px-0">
-            <p className="text-base font-semibold text-gray-300 m-0">
-              Event starts in&hellip;
-            </p>
-            <Countdown date={event.start} />
-          </div>
-        )}
+        <div className="flex flex-wrap">
+          <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-3/4 mb-4">
+            <div className="my-8 lg:mt-0 sm:px-6 lg:px-0">{renderInfo()}</div>
+            <Divider />
+            {!event.hasStarted() && (
+              <div className="my-6 px-6 sm:px-0">
+                <p className="text-base font-semibold text-gray-300 m-0">
+                  Event starts in&hellip;
+                </p>
+                <Countdown date={event.start} />
+              </div>
+            )}
 
-        <div className="my-8 px-6 lg:px-0">
-          {/* <div className="my-6">
+            <div className="my-8 px-6 lg:px-0">
+              {/* <div className="my-6">
             {event.isPurchased() ? <Tag color="green">Purchased</Tag> : null}
             {event.isFree() && <Tag color="blue">Free!</Tag>}
             {event.isBroadcast() && <Tag color="cyan">Broadcast</Tag>}
             {event.isVideo() && <Tag color="gold">Video</Tag>}
           </div> */}
-          <AvatarHandle account={event.account} />
-          <div
-            className="prose text-gray-500 pl-14 ml-1"
-            data-test-id="event-description"
-          >
-            <Linkify>
-              <p>{event.description || <em>No description provided</em>}</p>
-            </Linkify>
-          </div>
-          {!event.isBroadcast() ? (
-            <div className="max-w-prose my-8">
-              <Comments event={event} user={user} />
+              <AvatarHandle account={event.account} />
+              <div
+                className="prose text-gray-500 pl-14 ml-1"
+                data-test-id="event-description"
+              >
+                <Linkify>
+                  <p>{event.description || <em>No description provided</em>}</p>
+                </Linkify>
+              </div>
+              {!event.isBroadcast() ? (
+                <div className="max-w-prose my-8">
+                  <Comments event={event} user={user} />
+                </div>
+              ) : null}
             </div>
-          ) : null}
+          </div>
+          <div className="w-full xs:p-2 sm:w-1/4 sm:p-2 md:w-full md:pl-2 lg:w-1/2 xl:w-1/4 xl:p-0 xl:pl-2">
+            {playlist && <Playlist username={username} playlist={playlist} />}
+          </div>
         </div>
-        {playlist && <Playlist username={username} playlist={playlist} />}
       </article>
     </React.Fragment>
   );
