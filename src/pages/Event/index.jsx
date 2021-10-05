@@ -246,7 +246,7 @@ export default function EventPage({ location }) {
         affiliate_code: userCode,
         playlist_id: queryParams.get('playlist')
       }
-    : { id };
+    : { id, playlist_id: queryParams.get('playlist') };
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
