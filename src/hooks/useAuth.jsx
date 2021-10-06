@@ -122,7 +122,7 @@ export default function useAuth() {
       if (claims || id_token) {
         context.headers['Authorization'] =
           `Bearer ` + (claims?.__raw || id_token);
-        if (user.isAdmin) {
+        if (user?.isAdmin) {
           context.headers['X-Hasura-Role'] = `admin`;
         }
       }
