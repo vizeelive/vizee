@@ -687,7 +687,7 @@ export default function EventPage(props) {
         </div>
 
         <div className="flex flex-wrap">
-          <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-3/4 mb-4">
+          <div className="flex-grow w-full sm:w-3/4 lg:w-1/2 xl:w-3/4 mb-4">
             <div className="my-8 lg:mt-0 sm:px-6 lg:px-0">{renderInfo()}</div>
             <Divider />
             {!event.hasStarted() && (
@@ -722,9 +722,11 @@ export default function EventPage(props) {
               ) : null}
             </div>
           </div>
-          <div className="w-full xs:p-2 sm:w-1/4 sm:p-2 md:w-full md:pl-2 lg:w-1/2 xl:w-1/4 xl:p-0 xl:pl-2">
-            {playlist && <Playlist username={username} playlist={playlist} />}
-          </div>
+          {playlist && (
+            <div className="w-full xs:p-2 sm:w-1/4 sm:p-2 md:w-full md:pl-2 lg:w-1/2 xl:w-1/4 xl:p-0 xl:pl-2">
+              <Playlist username={username} playlist={playlist} />
+            </div>
+          )}
         </div>
       </article>
     </React.Fragment>
