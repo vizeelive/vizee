@@ -319,7 +319,6 @@ export default function HomeView(props) {
                         className="event-tabs__category-tab"
                         onClick={() => setShowTags(!showTags)}
                       >
-                        <TagOutlined />
                         Categories
                       </a>
                     )
@@ -375,7 +374,7 @@ export default function HomeView(props) {
                 </TabPane> */}
               </Tabs>
             </div>
-            <div className="rounded-lg md:m-10 md:w-80 bg-gray-900 p-5">
+            <div className="rounded-lg md:ml-5 md:w-80 bg-gray-900 p-5">
               <h1 className="text-2xl mb-10">Supporters</h1>
               {account.supporters_report.map((user, index) => (
                 <Card className="mt-3" key={index}>
