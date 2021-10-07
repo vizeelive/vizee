@@ -85,9 +85,10 @@ export default function ShareButton(props) {
         type={type}
         size="large"
         icon={<ShareAltOutlined />}
-        onClick={() =>
-          window.mixpanel.track('Share') && setShareModalVisible(true)
-        }
+        onClick={() => {
+          setShareModalVisible(true);
+          window.mixpanel.track('Share');
+        }}
       >
         Share
       </Button>

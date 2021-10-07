@@ -81,9 +81,10 @@ export default function ShareButton(props) {
       </Modal>
       <Button
         classes={props?.className}
-        onClick={() =>
-          window.mixpanel.track('Share') && setShareModalVisible(true)
-        }
+        onClick={() => {
+          setShareModalVisible(true);
+          window.mixpanel.track('Share');
+        }}
         data-test-id="share-button"
       >
         Share
