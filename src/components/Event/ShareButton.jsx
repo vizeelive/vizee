@@ -4,6 +4,7 @@ import { Modal, message } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import styled from 'styled-components';
 import cn from 'classnames';
+import Button from 'components/ui/Button';
 
 import {
   FacebookShareButton,
@@ -78,45 +79,21 @@ export default function ShareButton(props) {
           </CopyButton>
         </CopyToClipboard>
       </Modal>
-      <button
-        type="button"
-        className={cn(
-          'inline-flex items-center px-4 py-2 border rounded-md shadow-sm text-sm lg:text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600',
-          {
-            'border-transparent text-white bg-primary hover:bg-pink-700':
-              props.primary,
-            'border-gray-700 text-gray-300 bg-black hover:bg-white-5': !props.primary
-          }
-        )}
+      <Button
+        classes={props?.className}
         onClick={() =>
           window.mixpanel.track('Share') && setShareModalVisible(true)
         }
         data-test-id="share-button"
       >
-        {/* Heroicon name: share */}
-        <svg
-          className="-ml-1 mr-2 h-5 w-5 text-gray-300"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-          />
-        </svg>
         Share
-      </button>
+      </Button>
     </React.Fragment>
   );
 }
 
 ShareButton.propTypes = {
+  className: PropTypes.string,
   url: PropTypes.string,
-  primary: PropTypes.bool,
   user: PropTypes.object
 };

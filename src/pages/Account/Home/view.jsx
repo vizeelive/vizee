@@ -8,12 +8,15 @@ import { Card, Typography, Tabs } from 'antd';
 import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
+import VideoPlayer from 'components/VideoPlayer';
+import AccountHeader from './Header';
+import Pricing from './Pricing';
 
 import SuccessModal from 'components/SuccessModal';
 import PlaylistListing from 'components/Playlist/PlaylistListing';
 import BuyButton from 'components/Event/BuyButton';
-import ShareButton from 'components/Event/ShareButton';
 import FollowButton from 'components/Event/FollowButton';
+import Confetti from 'react-confetti';
 import Linkify from 'react-linkify';
 import 'styles/EventView.css';
 
@@ -78,19 +81,6 @@ const ActionsContainer = styled.div`
   }
 `;
 
-const SocialList = styled.ul`
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: 0 0.75rem;
-`;
-
-const Social = styled.li`
-  &:not(:last-child) {
-    margin-right: 1rem;
-  }
-`;
-
 const EventsContainer = styled.div``;
 
 const AccountDescription = styled.p`
@@ -143,16 +133,6 @@ export default function HomeView(props) {
     });
   };
 
-  let supporters = account.supporters_report
-    .filter((user) => user.first_name && user.last_name)
-    .slice(0, 3);
-
-  let supportersText = supporters
-    .map((user) => `${user.first_name} ${user.last_name}`)
-    .join(', ');
-
-  let supportersCount = account.supporters_report.length;
-
   let room = account.username.toLowerCase();
 
   let eventTags = new Set();
@@ -161,10 +141,17 @@ export default function HomeView(props) {
   });
   const sortedAndUniqueTags = [...eventTags].sort();
 
-  const openChat = () => {
-    window.open(
-      `https://chat.vizee.live/vizee/channels/${account.username.toLowerCase()}`
-    );
+  let videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    aspectRatio: '16:9',
+    sources: [
+      {
+        src:
+          'https://stream.mux.com/Az1PCBhSSYtfHUY004wpAVL2sjY8OwYw00Xg01A8nbeKXM.m3u8?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImVGR000Rk9UY1BNYXl1VmVmM1ZoRUlUeHhpc25JajJ3c0prZkk0YmUwMU8wMCJ9.eyJ0aW1lIjoxLCJleHAiOjE2MzQxMjM0MzUsImF1ZCI6InYiLCJzdWIiOiJBejFQQ0JoU1NZdGZIVVkwMDR3cEFWTDJzalk4T3dZdzAwWGcwMUE4bmJlS1hNIn0.NSWAoUVrdy0Fz4OpiRdF9J4KCHyA9iCLdglOu10QKNB8YfS1GapD01JvmlCkf4jFoigtZWZKLEPpRlxDD2LyUHSRFoJlSQvs_3amiYxjOq88Cay9dtx9MRMSwFtMtpuLO9GFxF2xnqC8uFupPK0y8jZ30QtgjKGBefJsI1RBJxif2PYPH8AXNf8BFdhyXa_F26VUGWgCKPs9YAYWYj2h_H8v3S-QqEByGRHkdyRUUaijyDdIEwaqZNRRIjf_qo_zkxuIp-sUlx9ZDEzuRVZY1Qe3ZcltX8naQSR_uTNVX_Z4YbOdlTIPnOAePdOXNcs9q195WH2MoNmeSTJsexxy0A',
+        type: 'application/x-mpegurl'
+      }
+    ]
   };
 
   return (
@@ -179,7 +166,7 @@ export default function HomeView(props) {
         <meta name="twitter:description" content={account.description} />
       </Helmet>
       <article className="min-h-page">
-        {account.cover() && (
+        {/* {account.cover() && (
           <img
             // style={{
             //   objectFit: 'cover',
@@ -193,18 +180,25 @@ export default function HomeView(props) {
             // alt={account.name}
             width="100%"
           />
-        )}
-        <div className="py-8 px-4 sm:px-6 lg:px-8">
+        )} */}
+
+        <AccountHeader
+          isMyAccount={isMyAccount}
+          user={user}
+          account={account}
+          shareUrl={shareUrl}
+        />
+
+        {/* <div className="m-5 border-pink-600">
+          <VideoPlayer key={`preview`} {...videoJsOptions} onEnded={() => {}} />
+        </div> */}
+
+        <Pricing hasAccess={hasAccess} user={user} account={account} />
+
+        <div className="px-4 sm:px-6 lg:px-8">
           <Header>
             <div>
-              <Title data-test-id="account-name">{account.name}</Title>
-              {supportersCount ? (
-                <div className="text-gray-500">
-                  Supported by {supportersCount} wonderful{' '}
-                  {supportersCount == 1 ? 'person, ' : 'people including'}{' '}
-                  {supportersText}.
-                </div>
-              ) : null}
+              {/* <Title data-test-id="account-name">{account.name}</Title> */}
               {followers.length >= 10 && (
                 <p>{`${followers} follower${
                   followers.length !== 1 ? 's' : ''
@@ -212,17 +206,6 @@ export default function HomeView(props) {
               )}
             </div>
             <ActionsContainer>
-              {(user?.isAdmin || isMyAccount) && (
-                <Link
-                  to={`/${username}/manage/events/add`}
-                  data-test-id="link-create-event"
-                >
-                  <Button icon={<VideoCameraOutlined />} type="primary">
-                    Create Event
-                  </Button>
-                </Link>
-              )}
-
               {user && !user.isAdmin && (
                 <FollowButton
                   account_id={account.id}
@@ -230,74 +213,19 @@ export default function HomeView(props) {
                 />
               )}
 
-              {!hasAccess && account.stripe_data && account.products?.length ? (
+              {/* {!hasAccess && account.stripe_data && account.products?.length ? (
                 <BuyButton user={user} account={account} />
-              ) : null}
+              ) : null} */}
 
-              {account.stripe_data && (
+              {/* {account.stripe_data && (
                 <BuyButton isTip={true} user={user} account={account} />
               )}
 
-              <ShareButton url={shareUrl} user={user} />
-
-              {(user?.isAdmin || isMyAccount) &&
-                !location.pathname.includes('manage') && (
-                  <Link to={`/${account.username}/manage`}>
-                    <Button>Manage</Button>
-                  </Link>
-                )}
-
-              {user && <Button onClick={openChat}>Chat</Button>}
-
-              <SocialList>
-                {account.facebook && (
-                  <Social>
-                    <a
-                      href={account.facebook}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <FacebookOutlined /> {account.facebook.split('/').pop()}
-                    </a>
-                  </Social>
-                )}
-                {account.twitter && (
-                  <Social>
-                    <a
-                      href={account.twitter}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <TwitterOutlined /> {account.twitter.split('/').pop()}
-                    </a>
-                  </Social>
-                )}
-                {account.instagram && (
-                  <Social>
-                    <a
-                      href={account.instagram}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <InstagramOutlined />
-                      {account.instagram.split('/').pop()}
-                    </a>
-                  </Social>
-                )}
-              </SocialList>
+              <ShareButton url={shareUrl} user={user} /> */}
             </ActionsContainer>
           </Header>
 
-          {/* <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe> */}
-
-          {account.description && (
+          {/* {account.description && (
             <React.Fragment>
               <Title data-test-id="account-bio" level={3}>
                 Bio
@@ -306,7 +234,7 @@ export default function HomeView(props) {
                 <Linkify>{account.description}</Linkify>
               </AccountDescription>
             </React.Fragment>
-          )}
+          )} */}
 
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5 event-tabs">
@@ -374,8 +302,13 @@ export default function HomeView(props) {
                 </TabPane> */}
               </Tabs>
             </div>
-            <div className="rounded-lg md:ml-5 md:w-80 bg-gray-900 p-5">
-              <h1 className="text-2xl mb-10">Supporters</h1>
+            <div className="md:mt-11 rounded-lg md:ml-5 md:w-80 bg-gray-900 p-5">
+              <div className="text-center content-center">
+                <div className="mb-5">Can we please get your support? ❤️</div>
+                {account.stripe_data && (
+                  <BuyButton isTip={true} user={user} account={account} />
+                )}
+              </div>
               {account.supporters_report.map((user, index) => (
                 <Card className="mt-3" key={index}>
                   <img
@@ -394,14 +327,6 @@ export default function HomeView(props) {
                   </div>
                 </Card>
               ))}
-              <div className="text-center content-center">
-                <div className="mt-10 mb-5">
-                  Would you like to support this channel?
-                </div>
-                {account.stripe_data && (
-                  <BuyButton isTip={true} user={user} account={account} />
-                )}
-              </div>
             </div>
           </div>
           <br />
@@ -460,6 +385,7 @@ export default function HomeView(props) {
         status="success"
         isVisible={window.location.search.includes('account.subscribe')}
       />
+      {window.location.search.includes('account.subscribe') && <Confetti />}
       <SuccessModal
         title="Thanks for the support!"
         description="Your generosity allows creators to keep doing their thing!"

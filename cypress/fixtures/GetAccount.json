@@ -625,6 +625,14 @@
       "access": [],
       "products": [{}],
       "supporters_report": [],
+      "report": {
+        "__typename": "account_report",
+        "viewcount": 2282,
+        "followercount": 0,
+        "favoritecount": 0,
+        "eventcount": 14,
+        "subscriptionscount": 1
+      },
       "followers": [
         {
           "__typename": "followers",

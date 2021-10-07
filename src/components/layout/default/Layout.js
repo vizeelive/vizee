@@ -15,7 +15,7 @@ function Layout(props) {
   } = props;
 
   return (
-    <div className="h-screen flex flex-col bg-black pt-16">
+    <div className="h-screen flex flex-col bg-black pt-16 3xl:container 3xl:mx-auto">
       <header className="fixed top-0 inset-x-0 z-40">
         <Menu
           user={user}

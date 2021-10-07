@@ -20,9 +20,11 @@ function Button(props) {
   } = props;
 
   const display = block ? 'flex' : 'inline-flex';
-  const focusClasses = !disableFocus ? `focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-${offset} focus:ring-pink-600` : '';
+  const focusClasses = !disableFocus
+    ? `focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-${offset} focus:ring-pink-600`
+    : '';
 
-  const className = `${display} items-center border shadow-sm font-sans font-medium ${focusClasses}`;
+  const className = `${display} items-center border shadow-sm font-sans font-medium ${focusClasses} ${props?.classes}`;
 
   const typeClasses = {
     default: `border-gray-700 text-gray-300 bg-${offset} hover:bg-white-5`,

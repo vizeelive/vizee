@@ -1,6 +1,6 @@
 import config from 'config';
 import logger from 'logger';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { stringify } from 'zipson';
 import { loadStripe } from '@stripe/stripe-js';
@@ -8,8 +8,9 @@ import styled from 'styled-components';
 import Cookies from 'js-cookie';
 
 import CurrencyInput from 'components/CurrencyInput';
-import { Button, Modal, message, Form, Input } from 'antd';
+import { Modal, message, Form, Input } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
+import Button from 'components/ui/Button';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -23,7 +24,8 @@ export default function BuyButton(props) {
   const isTip = props?.isTip || false;
   const { account, event, user } = props;
   const [form] = Form.useForm();
-  const [product, setProduct] = useState(false);
+  const [fastCheckout, setFastCheckout] = useState(props?.product);
+  const [product, setProduct] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [tipModalVisible, setTipModalVisible] = useState(false);
   const [emailModalVisible, setEmailModalVisible] = useState(false);
@@ -93,7 +95,8 @@ export default function BuyButton(props) {
   if (account) {
     label = onlySubscriptions ? 'Subscribe' : 'Get Access';
   } else if (event.account_only) {
-    label = 'Subscribe';``
+    label = 'Subscribe';
+    ``;
   } else {
     label = `Buy Ticket ${!hasMultiple ? `(${event.price})` : ''}`;
   }
@@ -120,13 +123,20 @@ export default function BuyButton(props) {
     }
   };
 
+  let buyFunction;
+  if (fastCheckout) {
+    buyFunction = user ? buy : preBuy;
+  } else {
+    buyFunction = handleClickBuy;
+  }
+
   return (
     <React.Fragment>
-      <button
+      <Button
         data-test-id="button-buy"
         type="button"
-        className="xs:flex-grow inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
-        onClick={handleClickBuy}
+        className="xs:w-full md:w-auto inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+        onClick={() => buyFunction({ product: fastCheckout })}
       >
         {/* Heroicon name: tag */}
         {!isTip && (
@@ -163,7 +173,7 @@ export default function BuyButton(props) {
           </svg>
         )}
         {label}
-      </button>
+      </Button>
       {/* <!-- Tip Modal --> */}
       <Modal
         title="Support"

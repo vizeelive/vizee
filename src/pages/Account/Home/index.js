@@ -25,6 +25,13 @@ export const GET_ACCOUNT_ANON = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      report {
+        viewcount
+        followercount
+        favoritecount
+        eventcount
+        subscriptionscount
+      }
       playlists {
         id
         name
@@ -60,6 +67,7 @@ export const GET_ACCOUNT_ANON = gql`
         recurring
         access_length
         account_access
+        download_access
         flexible_price
         description
       }
@@ -76,6 +84,7 @@ export const GET_ACCOUNT_ANON = gql`
         published
         status
         tags
+        preview
         account {
           id
           name
@@ -130,6 +139,13 @@ const GET_ACCOUNT_USER = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      report {
+        viewcount
+        followercount
+        favoritecount
+        eventcount
+        subscriptionscount
+      }
       playlists {
         id
         name
@@ -168,6 +184,7 @@ const GET_ACCOUNT_USER = gql`
         recurring
         access_length
         account_access
+        download_access
         flexible_price
         description
       }
@@ -184,6 +201,7 @@ const GET_ACCOUNT_USER = gql`
         published
         status
         tags
+        preview
         account {
           id
           name
