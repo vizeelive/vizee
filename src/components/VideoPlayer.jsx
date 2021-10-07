@@ -63,7 +63,7 @@ export default class VideoPlayer extends React.Component {
             playsInline
             autoPlay
             ref={(node) => (this.videoNode = node)}
-            className="video-js"
+            className="video-js vjs-big-play-centered"
           />
         </div>
       </div>
