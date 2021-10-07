@@ -136,7 +136,9 @@ export default function BuyButton(props) {
         data-test-id="button-buy"
         type="button"
         className="xs:w-full md:w-auto inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
-        onClick={() => buyFunction({ product: fastCheckout })}
+        onClick={() =>
+          product ? buyFunction() : buyFunction({ product: fastCheckout })
+        }
       >
         {/* Heroicon name: tag */}
         {!isTip && (
