@@ -156,6 +156,12 @@ function EventCard(props) {
     </Menu>
   );
 
+  let eventLink = `/${event.account.username}/${event.id}`;
+  if (event.playlist_items.length) {
+    let playlist_id = event.playlist_items[0].playlist.id;
+    eventLink = `/${event.account.username}/${event.id}?playlist=${playlist_id}`;
+  }
+
   return (
     <React.Fragment>
       {createPlaylistVisible && (
@@ -184,7 +190,7 @@ function EventCard(props) {
         <div className="event-card-info px-6 mt-6 md:mt-4">
           <h2 className="font-sans">
             <Link
-              to={`/${event.account.username}/${event.id}`}
+              to={eventLink}
               className="event-name event-clickable line-clamp-2 text-gray-100 transition-colors font-bold text-xl xs:text-2xl sm:text-xl"
               id={`event-link-${event.id}`}
               title={event.name}

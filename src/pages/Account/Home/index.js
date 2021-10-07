@@ -86,6 +86,11 @@ export const GET_ACCOUNT_ANON = gql`
         status
         tags
         preview
+        playlist_items {
+          playlist {
+            id
+          }
+        }
         account {
           id
           name
@@ -204,6 +209,11 @@ const GET_ACCOUNT_USER = gql`
         status
         tags
         preview
+        playlist_items {
+          playlist {
+            id
+          }
+        }
         account {
           id
           name
