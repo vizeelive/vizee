@@ -15,8 +15,8 @@ function Pricing({ hasAccess, user, account }) {
                 <h2 className="text-lg leading-6 font-medium text-pink-900">
                   {product.name}
                 </h2>
-                <p className="h-5 mt-4 text-sm text-gray-500">
-                  {/* {product.description} */}
+                <p className="h-20 mt-4 text-sm text-gray-500">
+                  {product.description}
                 </p>
                 <p className="mt-8">
                   <span className="text-3xl font-extrabold text-pink-900">
