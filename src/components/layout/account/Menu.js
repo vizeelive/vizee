@@ -48,14 +48,14 @@ export default function Menu(props) {
             Profile
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to={`/${username}/manage/dashboard`}
             exact
             className={className.inactive}
             activeClassName={className.active}
-          >
-            {/* Heroicon name: home */}
-            <svg
+          > */}
+          {/* Heroicon name: home */}
+          {/* <svg
               className="mr-3 h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -71,7 +71,7 @@ export default function Menu(props) {
               />
             </svg>
             Dashboard
-          </NavLink>
+          </NavLink> */}
 
           {/* <NavLink
             to={`/${username}/manage/events`}
@@ -103,8 +103,8 @@ export default function Menu(props) {
             className={className.inactive}
             activeClassName={className.active}
           > */}
-            {/* Heroicon name: link */}
-            {/* <svg
+          {/* Heroicon name: link */}
+          {/* <svg
               className="mr-3 h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
