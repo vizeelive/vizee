@@ -20,6 +20,7 @@ export const GET_ACCOUNT_ANON = gql`
       id
       name
       photo
+      preview
       username
       description
       stripe_data
@@ -130,6 +131,7 @@ const GET_ACCOUNT_USER = gql`
       id
       name
       photo
+      preview
       username
       description
       instagram

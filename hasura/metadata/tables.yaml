@@ -220,6 +220,7 @@
       - logo
       - name
       - photo
+      - preview
       - shopify_domain
       - shopify_storefront_token
       - stripe_data
@@ -244,6 +245,7 @@
       - logo
       - name
       - photo
+      - preview
       - shopify_domain
       - shopify_storefront_token
       - stripe_data

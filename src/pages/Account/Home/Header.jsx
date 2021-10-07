@@ -4,6 +4,7 @@ import Button from 'components/ui/Button';
 import { Link } from 'react-router-dom';
 import ShareButton from 'components/Event/ShareButton';
 import BuyButton from 'components/Event/BuyButton';
+import VideoPlayer from 'components/VideoPlayer';
 
 import {
   InstagramOutlined,
@@ -42,13 +43,35 @@ function Header({ shareUrl, user, account, isMyAccount }) {
     .map((user) => `${user.first_name} ${user.last_name}`)
     .join(', ');
 
+  let videoJsOptions = {
+    autoplay: true,
+    loop: true,
+    controls: true,
+    aspectRatio: '16:9',
+    sources: [
+      {
+        src: account.preview,
+        type: 'video/mp4'
+      }
+    ]
+  };
+
   return (
     <div className="relative bg-black">
       <div className="h-56 sm:h-72 lg:left-0 lg:h-full">
         <img className="w-full h-full object-cover" src={account.cover()} />
       </div>
-      <div className="px-4 py-4 sm:px-6">
-        <div className="">
+      <div className="flex flex-wrap space-x-5 px-4 py-4 sm:px-6">
+        {account.preview && (
+          <div className="xs:w-screen xs:mb-5 md:flex-1">
+            <VideoPlayer
+              key={`preview`}
+              {...videoJsOptions}
+              onEnded={() => {}}
+            />
+          </div>
+        )}
+        <div className="flex-1">
           <h2
             data-test-id="account-name"
             className="text-3xl font-extrabold text-white sm:text-4xl"

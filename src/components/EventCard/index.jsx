@@ -2,15 +2,28 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
-import { Button, Form, Menu, Dropdown, Tabs } from 'antd';
+import { Button, Form, Menu, Dropdown, Tabs, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-
 import CreatePlaylist from 'components/Playlist/CreatePlaylist';
+import { gql, useQuery, useMutation } from '@apollo/client';
+
+const UPDATE_ACCOUNT = gql`
+  mutation updateAccountPreview($account_id: uuid!, $url: String!) {
+    update_accounts_by_pk(
+      pk_columns: { id: $account_id }
+      _set: { preview: $url }
+    ) {
+      id
+    }
+  }
+`;
 function EventCard(props) {
   const { event, user, onFavoriteClick } = props;
 
   const history = useHistory();
   const [createPlaylistVisible, setCreatePlaylistVisible] = useState(false);
+
+  const [updateAccount] = useMutation(UPDATE_ACCOUNT);
 
   useEffect(() => {
     const card = document.getElementById(`card-${event.id}`);
@@ -34,6 +47,21 @@ function EventCard(props) {
 
     return () => card.removeEventListener('click', handleClick);
   }, []);
+
+  const setFeaturedVideo = async (event) => {
+    try {
+      await updateAccount({
+        variables: {
+          account_id: event.account.id,
+          url: event.preview
+        }
+      });
+      message.success('Set featured preview');
+      props.refetch();
+    } catch (e) {
+      message.error('Failed to set featured preview');
+    }
+  };
 
   const renderTags = () => {
     const isStreamStarting = event.isStreamStarting();
@@ -118,6 +146,13 @@ function EventCard(props) {
           Edit event
         </a>
       </Menu.Item>
+      {event.preview && (
+        <Menu.Item key="1">
+          <a rel="noopener noreferrer" onClick={() => setFeaturedVideo(event)}>
+            Set as featured preview
+          </a>
+        </Menu.Item>
+      )}
     </Menu>
   );
 
