@@ -66,10 +66,14 @@ async function getCheckoutDataAccount(ref) {
   try {
     let res = await client.query({
       variables: {
+        event_id: ref.event_id,
         product_id: ref.product_id
       },
       query: gql`
-        query getCheckoutDataAccount($product_id: uuid!) {
+        query getCheckoutDataAccount($product_id: uuid!, $event_id: uuid!) {
+          event(id: $event_id) {
+            id
+          }
           products_by_pk(id: $product_id) {
             id
             name
@@ -96,7 +100,8 @@ async function getCheckoutDataAccount(ref) {
     });
     return {
       account: res.data.products_by_pk.account,
-      product: res.data.products_by_pk
+      product: res.data.products_by_pk,
+      event: res.data.event
     };
   } catch (e) {
     logger.error('Failed: getCheckoutDataAccount', ref, e);
