@@ -71,7 +71,7 @@ async function getCheckoutDataAccount(ref) {
       },
       query: gql`
         query getCheckoutDataAccount($product_id: uuid!, $event_id: uuid!) {
-          events(id: $event_id) {
+          events_by_pk(id: $event_id) {
             id
             name
           }
