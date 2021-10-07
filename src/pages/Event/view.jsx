@@ -68,8 +68,7 @@ export default function EventPage(props) {
   const [initialHeight, setInitialHeight] = useState(window.innerHeight);
 
   const canWatch = event.canWatch(user, liveData);
-  const chatEnabled =
-    user && canWatch && (event.isBroadcast() || event.isConference());
+  const chatEnabled = user && canWatch && event.isBroadcast();
 
   useEffect(() => {
     user && setShowChat(true);
