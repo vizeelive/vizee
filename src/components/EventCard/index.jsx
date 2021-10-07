@@ -175,15 +175,11 @@ function EventCard(props) {
         data-test-id="event-card"
       >
         <div className="aspect-w-16 aspect-h-9">
-          {event.preview ? (
-            <video src={event.preview} poster={event.cover()} controls loop />
-          ) : (
-            <img
-              className="object-cover text-white"
-              alt={event?.thumb || event?.account?.name || event?.name}
-              src={event.cover()}
-            />
-          )}
+          <img
+            className="object-cover text-white"
+            alt={event?.thumb || event?.account?.name || event?.name}
+            src={event.cover()}
+          />
         </div>
         <div className="event-card-info px-6 mt-6 md:mt-4">
           <h2 className="font-sans">
