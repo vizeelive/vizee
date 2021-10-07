@@ -40,7 +40,9 @@ const Tickets = (props) => {
     variables: { user_id: user.id }
   });
 
-  let events = Mapper(data?.transactions.map((t) => t.event));
+  let events = Mapper(
+    data?.transactions.filter((t) => t.event).map((t) => t.event)
+  );
 
   return (
     <TicketsView
