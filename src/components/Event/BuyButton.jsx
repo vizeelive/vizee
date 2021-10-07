@@ -114,20 +114,25 @@ export default function BuyButton(props) {
 
   const handleClickBuy = async () => {
     window.mixpanel.track('Buy Button Clicked');
-    if (hasMultiple) {
-      setModalVisible(true);
-    } else if (isTip) {
+    if (isTip) {
       setTipModalVisible(true);
     } else {
-      buy();
+      setModalVisible(true);
     }
+    // if (hasMultiple) {
+    //   setModalVisible(true);
+    // } else if (isTip) {
+    //   setTipModalVisible(true);
+    // } else {
+    //   buy();
+    // }
   };
 
   let buyFunction;
   if (fastCheckout) {
     buyFunction = user ? buy : preBuy;
   } else {
-    buyFunction = user ? handleClickBuy : preBuy;
+    buyFunction = handleClickBuy;
   }
 
   return (
