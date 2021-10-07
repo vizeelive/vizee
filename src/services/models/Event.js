@@ -11,7 +11,7 @@ export default class Event {
     return this?.type === 'video';
   }
   isFree() {
-    return this?.price === '$0.00';
+    return !this?.products && this?.price === '$0.00';
   }
   isAvailable() {
     return moment().isBetween(this.start, this.end);
