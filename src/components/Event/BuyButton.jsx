@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Cookies from 'js-cookie';
 
 import CurrencyInput from 'components/CurrencyInput';
-import { Modal, message, Form, Input } from 'antd';
+import { Button as AntButton, Modal, message, Form, Input } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
 import Button from 'components/ui/Button';
 
@@ -127,7 +127,7 @@ export default function BuyButton(props) {
   if (fastCheckout) {
     buyFunction = user ? buy : preBuy;
   } else {
-    buyFunction = handleClickBuy;
+    buyFunction = user ? handleClickBuy : preBuy;
   }
 
   return (
@@ -227,9 +227,9 @@ export default function BuyButton(props) {
           >
             <Input />
           </Form.Item>
-          <Button htmlType="submit" type="primary" size="large">
+          <AntButton htmlType="submit" type="primary" size="large">
             Buy
-          </Button>
+          </AntButton>
         </Form>
       </Modal>
       {/* <!-- Buy Modal --> */}
