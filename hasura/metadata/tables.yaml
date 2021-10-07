@@ -467,6 +467,7 @@
       - price
       - published
       - start
+      - tags
       - thumb
       - type
       - video
