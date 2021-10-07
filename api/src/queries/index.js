@@ -102,7 +102,7 @@ async function getCheckoutDataAccount(ref) {
     return {
       account: res.data.products_by_pk.account,
       product: res.data.products_by_pk,
-      event: res.data.event
+      event: res.data.events_by_pk
     };
   } catch (e) {
     logger.error('Failed: getCheckoutDataAccount', ref, e);
