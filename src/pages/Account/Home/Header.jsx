@@ -44,15 +44,11 @@ function Header({ shareUrl, user, account, isMyAccount }) {
 
   return (
     <div className="relative bg-black">
-      <div className="h-56 bg-indigo-600 sm:h-72 lg:absolute lg:left-0 lg:h-full lg:w-1/2">
-        <img
-          className="w-full h-full object-cover"
-          src={account.cover()}
-          alt={account.name}
-        />
+      <div className="h-56 sm:h-72 lg:left-0 lg:h-full">
+        <img className="w-full h-full object-cover" src={account.cover()} />
       </div>
-      <div className="relative max-w-7xl mx-auto px-4 py-8  sm:px-6 lg:py-8">
-        <div className="mx-auto lg:max-w-none lg:mr-0 lg:ml-auto lg:w-1/2 lg:pl-10">
+      <div className="px-4 py-4 sm:px-6">
+        <div className="">
           <h2
             data-test-id="account-name"
             className="text-3xl font-extrabold text-white sm:text-4xl"

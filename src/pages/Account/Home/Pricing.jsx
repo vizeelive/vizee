@@ -5,7 +5,7 @@ function Pricing({ hasAccess, user, account }) {
   return (
     <div className="bg-black">
       <div className="pb-5 px-6">
-        <div className="md:grid-cols-2 lg:grid-cols-4 space-y-4 lg:mt-8 sm:space-y-0 sm:grid sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
+        <div className="md:grid-cols-2 lg:grid-cols-4 space-y-4 sm:space-y-0 sm:grid sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
           {account.products.map((product, index) => (
             <div
               key={index}
