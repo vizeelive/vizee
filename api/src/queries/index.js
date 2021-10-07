@@ -73,6 +73,7 @@ async function getCheckoutDataAccount(ref) {
         query getCheckoutDataAccount($product_id: uuid!, $event_id: uuid!) {
           event(id: $event_id) {
             id
+            name
           }
           products_by_pk(id: $product_id) {
             id
