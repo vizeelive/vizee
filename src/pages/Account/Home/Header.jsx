@@ -64,6 +64,9 @@ function Header({ shareUrl, user, account, isMyAccount }) {
       <div className="flex flex-wrap space-x-5 px-4 py-4 sm:px-6">
         {account.preview && (
           <div className="xs:w-screen xs:mb-5 md:flex-1">
+            <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
+              Preview
+            </span>
             <VideoPlayer
               key={`preview`}
               {...videoJsOptions}
