@@ -100,6 +100,18 @@
         column_mapping:
           id: account_id
   select_permissions:
+  - role: public
+    permission:
+      columns:
+      - eventcount
+      - favoritecount
+      - followercount
+      - id
+      - name
+      - subscriptionscount
+      - username
+      - viewcount
+      filter: {}
   - role: user
     permission:
       columns:
@@ -108,9 +120,7 @@
       - followercount
       - id
       - name
-      - revenue
       - subscriptionscount
-      - tips
       - username
       - viewcount
       filter: {}
@@ -120,6 +130,15 @@
 - table:
     schema: public
     name: accounts
+  object_relationships:
+  - name: report
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: account_report
+        column_mapping:
+          id: id
   array_relationships:
   - name: access
     using:
@@ -1095,12 +1114,7 @@
       - account_id
       - created_by
       - id
-      filter:
-        account:
-          users:
-            user:
-              id:
-                _eq: X-Hasura-User-Id
+      filter: {}
   update_permissions:
   - role: user
     permission:
