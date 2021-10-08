@@ -4,7 +4,7 @@ const { getEvent, getUserAccess } = require('../queries');
 const { createToken, createPlaybackId } = require('../lib/mux');
 const { presignUrl, listBuckets } = require('../lib/aws');
 
-function parseUrl(url = '') {
+function parseUrl(url) {
   let pieces = url.replace('https://', '').split('/');
   let bucket = pieces[0].split('.')[0];
   pieces.shift();
@@ -85,7 +85,9 @@ module.exports = async function (params) {
     data.accountAccess?.filter((a) => a.product?.download_access).length
   ) {
     logger.debug('has download access');
-    master = await presignUrl(parseUrl(event.video));
+    if (event.video) {
+      master = await presignUrl(parseUrl(event.video));
+    }
     logger.debug({ master });
   } else {
     logger.debug('no download access', data);
