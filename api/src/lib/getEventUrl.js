@@ -4,7 +4,7 @@ const { getEvent, getUserAccess } = require('../queries');
 const { createToken, createPlaybackId } = require('../lib/mux');
 const { presignUrl, listBuckets } = require('../lib/aws');
 
-function parseUrl(url) {
+function parseUrl(url = '') {
   let pieces = url.replace('https://', '').split('/');
   let bucket = pieces[0].split('.')[0];
   pieces.shift();
