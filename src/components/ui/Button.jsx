@@ -5,6 +5,7 @@ import Spinner from './Spinner';
 
 function Button(props) {
   const {
+    htmlType,
     block,
     disabled,
     ghost,
@@ -74,7 +75,7 @@ function Button(props) {
 
   return (
     <button
-      type="button"
+      type={htmlType}
       className={cn(className, {
         [typeClasses.default]: type === 'default' && !ghost,
         [typeClasses.primary]: type === 'primary' && !ghost,
@@ -109,6 +110,7 @@ Button.propTypes = {
   ghost: PropTypes.bool,
   icon: PropTypes.element,
   loading: PropTypes.bool,
+  htmlType: PropTypes.string,
   offset: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'default', 'large', 'responsive']),
   type: PropTypes.oneOf(['default', 'primary']),
@@ -124,6 +126,7 @@ Button.defaultProps = {
   offset: 'black',
   size: 'default',
   type: 'default',
+  htmlType: 'button',
   onClick: () => {}
 };
 

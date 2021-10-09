@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+// import { Button } from 'antd';
 import Button from 'components/ui/Button';
 import { Link } from 'react-router-dom';
 import ShareButton from 'components/Event/ShareButton';
@@ -11,8 +12,7 @@ import abbreviateNumber from 'lib/abbreviateNumber';
 import {
   InstagramOutlined,
   TwitterOutlined,
-  FacebookOutlined,
-  VideoCameraOutlined
+  FacebookOutlined
 } from '@ant-design/icons';
 
 const SocialList = styled.ul`
@@ -63,7 +63,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
       <div className="h-56 sm:h-72 lg:left-0 lg:h-full">
         <img className="w-full h-full object-cover" src={account.cover()} />
       </div>
-      <div className="flex flex-wrap space-x-5 px-4 py-4 sm:px-6">
+      <div className="flex flex-wrap xs:px-5 md:space-x-5 py-4">
         {account.preview && (
           <div className="xs:w-screen xs:mb-5 md:flex-1">
             <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
@@ -129,27 +129,27 @@ function Header({ shareUrl, user, account, isMyAccount }) {
           </p>
           <div className="mt-8 overflow-hidden">
             <dl className="-mx-8 -mt-8 flex flex-wrap">
-              <div className="flex flex-col px-8 pt-8">
-                <dt className="order-2 text-base font-medium text-gray-500">
+              <div className="flex flex-col flex-grow px-8 pt-8">
+                <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Events
                 </dt>
-                <dd className="order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
+                <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
                   {abbreviateNumber(account.report.eventcount)}
                 </dd>
               </div>
-              <div className="flex flex-col px-8 pt-8">
-                <dt className="order-2 text-base font-medium text-gray-500">
+              <div className="flex flex-col flex-grow px-8 pt-8">
+                <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Supporters
                 </dt>
-                <dd className="order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
+                <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
                   {abbreviateNumber(supportersCount)}
                 </dd>
               </div>
-              <div className="flex flex-col px-8 pt-8">
-                <dt className="order-2 text-base font-medium text-gray-500">
+              <div className="flex flex-col flex-grow px-8 pt-8">
+                <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Views
                 </dt>
-                <dd className="order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
+                <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
                   {abbreviateNumber(account.report.viewcount)}
                 </dd>
               </div>
@@ -163,32 +163,46 @@ function Header({ shareUrl, user, account, isMyAccount }) {
               ) : null} */}
             </dl>
 
-            <div className="p-2 space-x-3">
-              {(user?.isAdmin || isMyAccount) && (
-                <Link
-                  to={`/${account.username}/manage/events/add`}
-                  data-test-id="link-create-event"
-                >
-                  <Button icon={<VideoCameraOutlined />} type="primary">
-                    Create Event
-                  </Button>
-                </Link>
+            <div className="md:p-2 md:space-x-3 space-y-3">
+              {account.stripe_data && (
+                <BuyButton
+                  classes="w-full md:w-auto"
+                  isTip={true}
+                  user={user}
+                  account={account}
+                />
               )}
-              {/* {account.stripe_data && (
-                <BuyButton isTip={true} user={user} account={account} />
-              )} */}
+
+              {(user?.isAdmin || isMyAccount) && (
+                <div className="md:inline">
+                  <Link
+                    to={`/${account.username}/manage/events/add`}
+                    data-test-id="link-create-event"
+                  >
+                    <Button classes="w-full md:w-auto">Create Event</Button>
+                  </Link>
+                </div>
+              )}
+
               <ShareButton
                 className="xs:w-full md:w-auto"
                 url={shareUrl}
                 user={user}
               />
 
-              {user && <Button onClick={openChat}>Chat</Button>}
+              {user && (
+                <Button classes="w-full md:w-auto" onClick={openChat}>
+                  Chat
+                </Button>
+              )}
+
               {(user?.isAdmin || isMyAccount) &&
                 !location.pathname.includes('manage') && (
-                  <Link to={`/${account.username}/manage`}>
-                    <Button>Manage</Button>
-                  </Link>
+                  <div className="md:inline">
+                    <Link to={`/${account.username}/manage`}>
+                      <Button classes="w-full md:w-auto">Manage</Button>
+                    </Link>
+                  </div>
                 )}
             </div>
           </div>

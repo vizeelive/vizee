@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Cookies from 'js-cookie';
 
 import CurrencyInput from 'components/CurrencyInput';
-import { Button as AntButton, Modal, message, Form, Input } from 'antd';
+import { Modal, message, Form, Input } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
 import Button from 'components/ui/Button';
 
@@ -139,8 +139,10 @@ export default function BuyButton(props) {
     <React.Fragment>
       <Button
         data-test-id="button-buy"
-        type="button"
-        className="xs:w-full md:w-auto inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+        type="primary"
+        // className="xs:w-full md:w-auto inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+        classes="w-full sm:w-auto"
+        // classes={{ ...props.classes }}
         onClick={() =>
           product ? buyFunction() : buyFunction({ product: fastCheckout })
         }
@@ -163,7 +165,7 @@ export default function BuyButton(props) {
           </svg>
         )}
         {/* Heroicon name: currency-dollar */}
-        {isTip && (
+        {/* {isTip && (
           <svg
             className="-ml-1 mr-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +180,7 @@ export default function BuyButton(props) {
               d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-        )}
+        )} */}
         {label}
       </Button>
       {/* <!-- Tip Modal --> */}
@@ -234,9 +236,9 @@ export default function BuyButton(props) {
           >
             <Input />
           </Form.Item>
-          <AntButton htmlType="submit" type="primary" size="large">
+          <Button htmlType="submit" type="primary" size="large">
             Buy
-          </AntButton>
+          </Button>
         </Form>
       </Modal>
       {/* <!-- Buy Modal --> */}
@@ -302,6 +304,7 @@ export default function BuyButton(props) {
 }
 
 BuyButton.propTypes = {
+  classes: PropTypes.string,
   isTip: PropTypes.bool,
   user: PropTypes.object,
   event: PropTypes.object
