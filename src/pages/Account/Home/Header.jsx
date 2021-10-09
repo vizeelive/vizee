@@ -6,6 +6,8 @@ import ShareButton from 'components/Event/ShareButton';
 import BuyButton from 'components/Event/BuyButton';
 import VideoPlayer from 'components/VideoPlayer';
 
+import abbreviateNumber from 'lib/abbreviateNumber';
+
 import {
   InstagramOutlined,
   TwitterOutlined,
@@ -132,7 +134,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                   Events
                 </dt>
                 <dd className="order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
-                  {account.report.eventcount}
+                  {abbreviateNumber(account.report.eventcount)}
                 </dd>
               </div>
               <div className="flex flex-col px-8 pt-8">
@@ -140,7 +142,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                   Supporters
                 </dt>
                 <dd className="order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
-                  {supportersCount}
+                  {abbreviateNumber(supportersCount)}
                 </dd>
               </div>
               <div className="flex flex-col px-8 pt-8">
@@ -148,7 +150,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                   Views
                 </dt>
                 <dd className="order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
-                  {account.report.viewcount}
+                  {abbreviateNumber(account.report.viewcount)}
                 </dd>
               </div>
 
