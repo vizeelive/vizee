@@ -8,6 +8,7 @@ import BuyButton from 'components/Event/BuyButton';
 import VideoPlayer from 'components/VideoPlayer';
 
 import abbreviateNumber from 'lib/abbreviateNumber';
+import cdnImage from 'lib/cdn-image';
 
 import {
   InstagramOutlined,
@@ -58,10 +59,12 @@ function Header({ shareUrl, user, account, isMyAccount }) {
     ]
   };
 
+  let coverUrl = cdnImage(account.cover(), { w: window.innerWidth });
+
   return (
     <div className="relative bg-black">
       <div className="h-56 sm:h-72 lg:left-0 lg:h-full">
-        <img className="w-full h-full object-cover" src={account.cover()} />
+        <img className="w-full h-full object-cover" src={coverUrl} />
       </div>
       <div className="flex flex-wrap xs:px-5 md:space-x-5 py-4">
         {account.preview && (

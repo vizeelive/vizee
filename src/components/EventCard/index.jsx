@@ -6,6 +6,7 @@ import { Button, Form, Menu, Dropdown, Tabs, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import CreatePlaylist from 'components/Playlist/CreatePlaylist';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import cdnImage from 'lib/cdn-image';
 
 const UPDATE_ACCOUNT = gql`
   mutation updateAccountPreview($account_id: uuid!, $url: String!) {
@@ -184,7 +185,7 @@ function EventCard(props) {
           <img
             className="object-cover text-white"
             alt={event?.thumb || event?.account?.name || event?.name}
-            src={event.cover()}
+            src={cdnImage(event.cover(), { w: 650 })}
           />
         </div>
         <div className="event-card-info px-6 mt-6 md:mt-4">
