@@ -4,6 +4,7 @@ import { gql, useMutation } from '@apollo/client';
 import { Alert, Modal, Button, message, Row, Col, Card } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import logger from 'logger';
+import TwButton from 'components/ui/Button';
 
 const CREATE_STREAM = gql`
   mutation createStream($type: String!, $event_id: uuid!) {
@@ -121,35 +122,9 @@ export default function StartStreamButton(props) {
           </Col>
         </Row>
       </Modal>
-
-      <button
-        type="button"
-        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
-        onClick={() => setModalVisible(true)}
-      >
-        {/* Heroicon name: play */}
-        <svg
-          className="-ml-1 mr-2 h-5 w-5"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+      <TwButton onClick={() => setModalVisible(true)}>
         Start Live Stream
-      </button>
+      </TwButton>
     </React.Fragment>
   );
 }

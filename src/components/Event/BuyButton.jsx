@@ -139,7 +139,7 @@ export default function BuyButton(props) {
     <React.Fragment>
       <Button
         data-test-id="button-buy"
-        type="primary"
+        type={isTip ? 'default' : 'primary'}
         // className="xs:w-full md:w-auto inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
         classes="w-full sm:w-auto"
         // classes={{ ...props.classes }}
@@ -148,7 +148,7 @@ export default function BuyButton(props) {
         }
       >
         {/* Heroicon name: tag */}
-        {!isTip && (
+        {/* {!isTip && (
           <svg
             className="-ml-1 mr-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +163,7 @@ export default function BuyButton(props) {
               d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
             />
           </svg>
-        )}
+        )} */}
         {/* Heroicon name: currency-dollar */}
         {/* {isTip && (
           <svg
