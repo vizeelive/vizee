@@ -61,7 +61,10 @@ export const GET_ACCOUNT_ANON = gql`
         last_name
         total
       }
-      products(where: { account_access: { _eq: true } }) {
+      products(
+        where: { account_access: { _eq: true } }
+        order_by: { price: asc }
+      ) {
         id
         name
         price
@@ -184,7 +187,10 @@ const GET_ACCOUNT_USER = gql`
         last_name
         total
       }
-      products(where: { account_access: { _eq: true } }) {
+      products(
+        where: { account_access: { _eq: true } }
+        order_by: { price: asc }
+      ) {
         id
         name
         price
