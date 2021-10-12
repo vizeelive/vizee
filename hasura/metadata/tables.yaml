@@ -108,7 +108,9 @@
       - followercount
       - id
       - name
+      - revenue
       - subscriptionscount
+      - tips
       - username
       - viewcount
       filter: {}
@@ -120,7 +122,9 @@
       - followercount
       - id
       - name
+      - revenue
       - subscriptionscount
+      - tips
       - username
       - viewcount
       filter: {}
