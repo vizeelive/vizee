@@ -81,11 +81,20 @@ export default function BuyButton(props) {
   let products;
 
   if (account) {
-    products = account.products;
+    products = account.products.sort((a, b) => {
+      let aPrice = parseFloat(a.price.replace('$', ''));
+      let bPrice = parseFloat(b.price.replace('$', ''));
+      return aPrice - bPrice;
+    });
   } else {
     products = event.products
       .map((product) => product.product)
-      .concat(event.account.products);
+      .concat(event.account.products)
+      .sort((a, b) => {
+        let aPrice = parseFloat(a.price.replace('$', ''));
+        let bPrice = parseFloat(b.price.replace('$', ''));
+        return aPrice - bPrice;
+      });
   }
 
   let hasMultiple = (!isTip && products?.length) || false;

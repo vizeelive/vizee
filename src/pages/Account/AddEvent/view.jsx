@@ -53,7 +53,7 @@ export default function AddEventView(props) {
   const [accountOnly, setAccountOnly] = useState(event?.account_only);
 
   const [advancedPricing, setAdvancedPricing] = useState(
-    event?.products?.length
+    !!event?.products?.length
   );
 
   // to determine form layout

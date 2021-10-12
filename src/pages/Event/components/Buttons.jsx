@@ -9,9 +9,7 @@ import StartStreamButton from 'components/Event/StartStreamButton';
 function Buttons({ account, event, user, isMyAccount }) {
   return (
     <div className="mx-3 xs:mt-5 sm:mx-0 md:mx-7 lg:mx-0 sm:mt-0 md:space-x-3 space-y-3">
-      {!user?.isAdmin &&
-        !isMyAccount &&
-        event.account.stripe_data &&
+      {event.account.stripe_data &&
         !event.isFree() &&
         !event.isPurchased() &&
         !event.hasEnded() && (
