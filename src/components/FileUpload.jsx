@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Uppy = require('@uppy/core');
-const Dashboard = require('@uppy/dashboard');
-const Transloadit = require('@uppy/transloadit');
-const ImageEditor = require('@uppy/image-editor');
-const GoogleDrive = require('@uppy/google-drive');
+import Uppy from '@uppy/core';
+import Dashboard from '@uppy/dashboard';
+import Transloadit from '@uppy/transloadit';
+import ImageEditor from '@uppy/image-editor';
+import GoogleDrive from '@uppy/google-drive';
+import Dropbox from '@uppy/dropbox';
 
 require('@uppy/core/dist/style.css');
 require('@uppy/dashboard/dist/style.css');
@@ -21,7 +22,7 @@ function FileUpload(props) {
 
   useEffect(() => {
     // https://uppy.io/docs/uppy/
-    let uppy = Uppy({
+    let uppy = new Uppy({
       autoProceed: false,
       restrictions: {
         allowedFileTypes: options.allowedFileTypes,
@@ -38,6 +39,11 @@ function FileUpload(props) {
         autoOpenFileEditor: options.autoOpenFileEditor
       })
       .use(GoogleDrive, {
+        target: Dashboard,
+        companionUrl: Transloadit.COMPANION,
+        companionAllowedHosts: Transloadit.COMPANION_PATTERN
+      })
+      .use(Dropbox, {
         target: Dashboard,
         companionUrl: Transloadit.COMPANION,
         companionAllowedHosts: Transloadit.COMPANION_PATTERN
