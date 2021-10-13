@@ -85,18 +85,18 @@ describe('EventPage', () => {
       cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
       cy.findByText('Stream Starting...').should('exist');
     });
-    it('should be able to see AVAILABLE NOW tag when video event inside time window and is live or has recording', () => {
-      cy.fixture('UserEventsReport').then((fixture) => {
-        fixture.events_report[0].type = 'video';
-        fixture.events_report[0].start = new Date();
-        fixture.events_report[0].end = new Date(
-          new Date().getTime() + 5 * 24 * 60 * 60 * 1000
-        );
-        cy.graphql('UserEventsReport', fixture);
-      });
-      cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
-      cy.findByText('Available Now').should('exist');
-    });
+    // it('should be able to see AVAILABLE NOW tag when video event inside time window and is live or has recording', () => {
+    //   cy.fixture('UserEventsReport').then((fixture) => {
+    //     fixture.events_report[0].type = 'video';
+    //     fixture.events_report[0].start = new Date();
+    //     fixture.events_report[0].end = new Date(
+    //       new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+    //     );
+    //     cy.graphql('UserEventsReport', fixture);
+    //   });
+    //   cy.visit('creator/d4312db8-4f09-431b-b8c2-47feb4b607d7');
+    //   cy.findByText('Available Now').should('exist');
+    // });
     it('should be able to see STREAM ENDED tag when live event has ended and there is no recording', () => {
       cy.fixture('UserEventsReport').then((fixture) => {
         fixture.events_report[0].type = 'live';

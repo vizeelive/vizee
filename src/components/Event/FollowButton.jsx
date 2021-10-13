@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { gql, useMutation } from '@apollo/client';
+import Button from 'components/ui/Button';
 
 const FOLLOW = gql`
   mutation Follow($account_id: uuid!) {
@@ -45,24 +46,8 @@ export default function FollowButton(props) {
 
   return (
     <React.Fragment>
-      {!followerId && (
-        <button
-          type="button"
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm lg:text-base font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
-          onClick={handleFollow}
-        >
-          Follow
-        </button>
-      )}
-      {followerId && (
-        <button
-          type="button"
-          className="inline-flex items-center px-4 py-2 border border-gray-700 rounded-md shadow-sm text-sm lg:text-base font-medium text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
-          onClick={handleUnfollow}
-        >
-          Unfollow
-        </button>
-      )}
+      {!followerId && <Button onClick={handleFollow}>Follow</Button>}
+      {followerId && <Button onClick={handleUnfollow}>Unfollow</Button>}
     </React.Fragment>
   );
 }

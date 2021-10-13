@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import VideoPlayer from 'components/VideoPlayer';
 
 function EventPreview(props) {
   const { event, coverPhoto } = props;
 
+  let videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    aspectRatio: '16:9',
+    sources: [event.preview]
+  };
+
   if (event.preview) {
     return (
-      <video
+      <VideoPlayer
         data-test-id="event-preview-video"
-        playsInline
-        src={event.preview}
-        width="100%"
-        autoPlay
-        controls
+        {...videoJsOptions}
+        preview={true}
       />
     );
   }

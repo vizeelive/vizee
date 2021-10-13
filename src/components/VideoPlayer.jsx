@@ -2,6 +2,7 @@ import React from 'react';
 import videojs from 'video.js';
 import qualityLevels from 'videojs-contrib-quality-levels';
 import hlsQualitySelector from 'videojs-hls-quality-selector';
+import { LockOutlined } from '@ant-design/icons';
 import 'videojs-mux';
 import 'video.js/dist/video-js.min.css';
 
@@ -57,10 +58,21 @@ export default class VideoPlayer extends React.Component {
   // see https://github.com/videojs/video.js/pull/3856
   render() {
     let isDev = process.env.NODE_ENV === 'development' ? true : false;
+    let preview = (
+      <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
+        Preview
+      </span>
+    );
     return (
       <div>
+        {this.props?.preview && preview}
+        {/* <div className="absolute z-50 bottom-10 left-2">
+          <LockOutlined style={{ verticalAlign: 'text-bottom' }} /> Subscribe to
+          unlock
+        </div> */}
         <div data-vjs-player>
           <video
+            data-test-id={this.props?.['data-test-id']}
             muted={isDev}
             playsInline
             autoPlay
