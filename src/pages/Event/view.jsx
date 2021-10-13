@@ -202,7 +202,7 @@ export default function EventPage(props) {
     <div className="lg:flex lg:items-start lg:justify-between px-6 sm:px-0">
       <div className="flex-1 min-w-0">
         <h2
-          className="text-2xl font-sans font-bold leading-7 text-white m-0 sm:text-3xl sm:leading-10"
+          className="text-xl font-sans font-bold leading-7 text-white m-0 sm:leading-10"
           data-test-id="event-name"
         >
           {event.name}
