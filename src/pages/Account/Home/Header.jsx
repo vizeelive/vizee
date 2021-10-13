@@ -9,6 +9,7 @@ import VideoPlayer from 'components/VideoPlayer';
 
 import abbreviateNumber from 'lib/abbreviateNumber';
 import cdnImage from 'lib/cdn-image';
+import useWindowSize from 'hooks/useWindowSize';
 
 import {
   InstagramOutlined,
@@ -30,6 +31,7 @@ const Social = styled.li`
 `;
 
 function Header({ shareUrl, user, account, isMyAccount }) {
+  const size = useWindowSize();
   const openChat = () => {
     window.open(
       `https://chat.vizee.live/vizee/channels/${account.username.toLowerCase()}`
@@ -59,7 +61,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
     ]
   };
 
-  let coverUrl = cdnImage(account.cover(), { w: window.innerWidth });
+  let coverUrl = cdnImage(account.cover(), { w: size.innerWidth });
 
   return (
     <div className="relative bg-black">
