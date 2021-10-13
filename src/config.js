@@ -14,7 +14,8 @@ let config = {
   production: {
     ws: 'wss://hasura.vizee.live/v1/graphql',
     graphql: 'https://hasura.vizee.live/v1/graphql',
-    api: 'https://api2.vizee.live'
+    api: 'https://api2.vizee.live',
+    ui: 'https://www.vizee.live'
   }
 };
 
