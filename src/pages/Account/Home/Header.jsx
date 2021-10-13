@@ -63,8 +63,8 @@ function Header({ shareUrl, user, account, isMyAccount }) {
 
   return (
     <div className="relative bg-black">
-      <div className="h-56 sm:h-72 lg:left-0 lg:h-full">
-        <img className="w-full h-full object-cover" src={coverUrl} />
+      <div className="lg:left-0 lg:h-full">
+        <img className="w-full h-full" src={coverUrl} />
       </div>
       <div className="flex flex-wrap xs:px-5 md:space-x-5 py-4">
         {account.preview && (
