@@ -93,7 +93,7 @@ function PlaylistListing({ account, playlists, refetch }) {
                   playlist.name
                 )
               }
-              description={`${playlist.events.length} events`}
+              description={`${playlist.events.length} videos`}
             />
             <div></div>
           </List.Item>

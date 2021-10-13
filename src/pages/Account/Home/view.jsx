@@ -253,7 +253,7 @@ export default function HomeView(props) {
                   }
                 }
               >
-                <TabPane tab="Events" key="1">
+                <TabPane tab="Videos" key="1">
                   <EventsContainer>
                     <Events
                       events={account.events}

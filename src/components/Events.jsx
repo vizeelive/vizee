@@ -32,29 +32,27 @@ function isEventAFilteredTagged(tagFilters, event) {
 
 
 export default function Events({
-   availableTags,
-   showTags,
-   setShowTags = () => void 0,
-   category,
-   events: eventsFromQuery = [],
-   refetch
+  availableTags,
+  showTags,
+  setShowTags = () => void 0,
+  category,
+  events: eventsFromQuery = [],
+  refetch
 }) {
-
   const { user } = useAuth();
   const [createFavorite] = useMutation(CREATE_FAVORITE);
-  const filteredTagsFromQueryParams = useQueryParam("c");
+  const filteredTagsFromQueryParams = useQueryParam('c');
   const history = useHistory();
 
-  const tagFilters = filteredTagsFromQueryParams ?
-    filteredTagsFromQueryParams.split(",")
-      .map(tag =>
-        tag.replaceAll("-", " ")
-      ) :
-    []
+  const tagFilters = filteredTagsFromQueryParams
+    ? filteredTagsFromQueryParams
+        .split(',')
+        .map((tag) => tag.replaceAll('-', ' '))
+    : [];
 
   const handleTagChange = (newTag, allTags) => {
-    history.replace(`?c=${allTags.join(",").replaceAll(" ", "-")}`);
-  }
+    history.replace(`?c=${allTags.join(',').replaceAll(' ', '-')}`);
+  };
 
   const handleFavorite = async (e, event) => {
     // e.preventDefault();
@@ -84,8 +82,8 @@ export default function Events({
     });
   }
 
-  let pastEvents = [];
-  let currentEvents = [];
+  // let pastEvents = [];
+  // let currentEvents = [];
 
   events.sort((a, b) => {
     if (new Date(a.start) > new Date(b.start)) {
@@ -97,13 +95,13 @@ export default function Events({
     return 0;
   });
 
-  events.forEach((event) => {
-    if (!event.hasStarted() || event.isAvailable()) {
-      currentEvents.push(event);
-    } else {
-      pastEvents.push(event);
-    }
-  });
+  // events.forEach((event) => {
+  //   if (!event.hasStarted() || event.isAvailable()) {
+  //     currentEvents.push(event);
+  //   } else {
+  //     pastEvents.push(event);
+  //   }
+  // });
 
   return (
     <React.Fragment>
@@ -129,7 +127,7 @@ export default function Events({
         />
       </Modal>
 
-      {currentEvents.length ? (
+      {/* {currentEvents.length ? (
         <React.Fragment>
           <h1 className="text-2xl mt-6">Upcoming Events</h1>
           <div className="event-grid mt-2" data-test-id="events">
@@ -146,13 +144,13 @@ export default function Events({
             ))}
           </div>
         </React.Fragment>
-      ) : null}
+      ) : null} */}
 
-      {pastEvents.length ? (
+      {events.length ? (
         <React.Fragment>
-          <h1 className="text-2xl mt-8">Event Catalog</h1>
+          {/* <h1 className="text-2xl mt-8">Event Catalog</h1> */}
           <div className="event-grid mt-2" data-test-id="events">
-            {pastEvents.map((event) => (
+            {events.map((event) => (
               <EventCard
                 refetch={refetch}
                 key={event.id}

@@ -56,10 +56,12 @@ export default class VideoPlayer extends React.Component {
   // so videojs won't create additional wrapper in the DOM
   // see https://github.com/videojs/video.js/pull/3856
   render() {
+    let isDev = process.env.NODE_ENV === 'development' ? true : false;
     return (
       <div>
         <div data-vjs-player>
           <video
+            muted={isDev}
             playsInline
             autoPlay
             ref={(node) => (this.videoNode = node)}

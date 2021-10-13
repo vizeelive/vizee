@@ -180,7 +180,7 @@ export default function HomeView(props) {
               id="search"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Search Events"
+              placeholder="Search Videos"
               className="lg:max-w-2xl block w-full shadow-sm text-gray-100 bg-black focus:ring-pink-600 focus:border-pink-600 border-gray-700 rounded-md px-14 py-3"
               autoComplete="off"
             />

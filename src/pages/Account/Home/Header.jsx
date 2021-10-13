@@ -134,7 +134,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
             <dl className="-mx-8 -mt-8 flex flex-wrap">
               <div className="flex flex-col flex-grow px-8 pt-8">
                 <dt className="text-center order-2 text-base font-medium text-gray-500">
-                  Events
+                  Videos
                 </dt>
                 <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
                   {abbreviateNumber(account.report.eventcount)}
@@ -182,7 +182,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                     to={`/${account.username}/manage/events/add`}
                     data-test-id="link-create-event"
                   >
-                    <Button classes="w-full md:w-auto">Create Event</Button>
+                    <Button classes="w-full md:w-auto">Add Video</Button>
                   </Link>
                 </div>
               )}
