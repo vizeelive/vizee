@@ -263,6 +263,24 @@
       - username
       - whitelabel
       filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - description
+      - facebook
+      - instagram
+      - logo
+      - name
+      - photo
+      - preview
+      - twitter
+      filter:
+        users:
+          user:
+            id:
+              _eq: X-Hasura-User-Id
+      check: null
 - table:
     schema: public
     name: accounts_users
