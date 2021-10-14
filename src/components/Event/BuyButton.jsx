@@ -153,7 +153,9 @@ export default function BuyButton(props) {
         classes="w-full sm:w-auto"
         // classes={{ ...props.classes }}
         onClick={() =>
-          product ? buyFunction() : buyFunction({ product: fastCheckout })
+          product
+            ? buyFunction({ product })
+            : buyFunction({ product: fastCheckout })
         }
       >
         {/* Heroicon name: tag */}
