@@ -9,6 +9,7 @@ import LogRocket from 'logrocket';
 import * as Sentry from '@sentry/react';
 import React, { useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { QueryParamProvider } from 'use-query-params';
 
 import VersionChecker from 'components/VersionChecker';
 import PrivateRoute from 'components/PrivateRoute';
@@ -110,11 +111,13 @@ function App() {
       <ApolloProvider client={client}>
         {user && user.id && <FinishSignup />}
         <Router>
-          <Switch>
-            <Route path="/gif/:username/:id" component={EventGif} />
-            <PrivateRoute path="/admin" user={user} component={Admin} />
-            <Route path="/" component={User} />
-          </Switch>
+          <QueryParamProvider ReactRouterRoute={Route}>
+            <Switch>
+              <Route path="/gif/:username/:id" component={EventGif} />
+              <PrivateRoute path="/admin" user={user} component={Admin} />
+              <Route path="/" component={User} />
+            </Switch>
+          </QueryParamProvider>
         </Router>
       </ApolloProvider>
     </Theme>

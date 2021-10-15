@@ -148,7 +148,7 @@ function EventCard(props) {
         </a>
       </Menu.Item>
       {event.preview && (
-        <Menu.Item key="1">
+        <Menu.Item key="2">
           <a rel="noopener noreferrer" onClick={() => setFeaturedVideo(event)}>
             Set as featured preview
           </a>

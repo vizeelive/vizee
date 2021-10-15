@@ -5,7 +5,6 @@ import CurrencyInput from 'components/CurrencyInput';
 import useBreakpoint from 'hooks/useBreakpoint';
 import Spinner from 'components/ui/Spinner';
 import LocationSearchInput from 'components/LocationSearchInput';
-import AddTags from '../../../components/AddTags';
 
 import { Centered, FormContainer } from 'components/styled/common';
 
@@ -25,7 +24,6 @@ const { Title } = Typography;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
-
 export default function AddEventView(props) {
   const {
     loading,
@@ -43,6 +41,7 @@ export default function AddEventView(props) {
     coverType,
     handlePhotoUpload,
     handlePreviewUpload,
+    tags,
     categories,
     isSubmitDisabled,
     isCreatingEvent,
@@ -310,12 +309,15 @@ export default function AddEventView(props) {
             </Form.Item>
 
             <Form.Item
-              name="tag"
-              label="Keyword Categories"
-              rules={[{required: false}]}
-              >
-              <Input type="hidden" value={event?.tags?.join(" ")}/>
-              <AddTags existingTags={eventData.tags} onTagsUpdated={tags => setEvent({ ...event, tags })}/>
+              name="event_tags"
+              label="Tags"
+              rules={[{ required: false }]}
+            >
+              <Select mode="tags" style={{ width: '100%' }} placeholder="Tags">
+                {tags?.map((tag) => {
+                  return <Option key={tag.id}>{tag.name}</Option>;
+                })}
+              </Select>
             </Form.Item>
 
             <Form.Item label="Location" name="location">

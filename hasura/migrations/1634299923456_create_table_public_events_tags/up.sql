@@ -1,0 +1,2 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE TABLE "public"."events_tags"("id" uuid NOT NULL DEFAULT gen_random_uuid(), "event_id" uuid NOT NULL, "tag_id" uuid NOT NULL, "created_by" uuid NOT NULL, "created" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("event_id") REFERENCES "public"."events"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("created_by") REFERENCES "public"."users"("id") ON UPDATE restrict ON DELETE restrict, UNIQUE ("id"));

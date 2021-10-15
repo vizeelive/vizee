@@ -26,6 +26,13 @@ export const GET_ACCOUNT_ANON = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      tags {
+        id
+        name
+        events_tags {
+          id
+        }
+      }
       report {
         viewcount
         followercount
@@ -87,11 +94,16 @@ export const GET_ACCOUNT_ANON = gql`
         type
         published
         status
-        tags
         preview
         playlist_items {
           playlist {
             id
+          }
+        }
+        tags {
+          tag {
+            id
+            name
           }
         }
         account {
@@ -156,6 +168,13 @@ const GET_ACCOUNT_USER = gql`
         eventcount
         subscriptionscount
       }
+      tags {
+        id
+        name
+        events_tags {
+          id
+        }
+      }
       playlists {
         id
         name
@@ -213,8 +232,13 @@ const GET_ACCOUNT_USER = gql`
         type
         published
         status
-        tags
         preview
+        tags {
+          tag {
+            id
+            name
+          }
+        }
         playlist_items {
           playlist {
             id

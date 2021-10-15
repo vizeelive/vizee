@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { useQueryParam, StringParam } from 'use-query-params';
 
 import Button from 'components/ui/Button';
 import Map from 'components/Map';
-import { Card, Typography, Tabs } from 'antd';
+import { Card, Typography, Tabs, Tag } from 'antd';
 import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
@@ -33,6 +33,7 @@ import Client from 'shopify-buy';
 const { Title } = Typography;
 const { Meta } = Card;
 const { TabPane } = Tabs;
+const { CheckableTag } = Tag;
 
 const MicrolinkCard = styled.div`
   max-width: 300px;
@@ -83,27 +84,28 @@ const ActionsContainer = styled.div`
 
 const EventsContainer = styled.div``;
 
-const AccountDescription = styled.p`
-  margin-bottom: 20px;
-  max-width: 40rem;
-`;
-
 export default function HomeView(props) {
   const {
     hasAccess,
     account,
     user,
     isMyAccount,
-    username,
     followers,
     shareUrl,
-    location,
     refetch
   } = props;
 
+  const [queryTags, setQueryTags] = useQueryParam('tags', StringParam);
+  let queryTagIds;
+  if (queryTags) {
+    queryTagIds = queryTags
+      ?.split(',')
+      ?.map((t) => account?.tags.find((tag) => tag.name === t)?.id);
+  }
+
   const [client, setClient] = useState(null);
   const [products, setProducts] = useState([]);
-  const [showTags, setShowTags] = useState(false);
+  const [tags, setTags] = useState(queryTagIds || []);
 
   useEffect(() => {
     if (!account.shopify_domain) return;
@@ -133,26 +135,42 @@ export default function HomeView(props) {
     });
   };
 
-  let room = account.username.toLowerCase();
-
-  let eventTags = new Set();
-  account.events.forEach((event) => {
-    event.tags && event.tags.forEach((tag) => eventTags.add(tag));
-  });
-  const sortedAndUniqueTags = [...eventTags].sort();
-
-  let videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    aspectRatio: '16:9',
-    sources: [
-      {
-        src:
-          'https://stream.mux.com/Az1PCBhSSYtfHUY004wpAVL2sjY8OwYw00Xg01A8nbeKXM.m3u8?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImVGR000Rk9UY1BNYXl1VmVmM1ZoRUlUeHhpc25JajJ3c0prZkk0YmUwMU8wMCJ9.eyJ0aW1lIjoxLCJleHAiOjE2MzQxMjM0MzUsImF1ZCI6InYiLCJzdWIiOiJBejFQQ0JoU1NZdGZIVVkwMDR3cEFWTDJzalk4T3dZdzAwWGcwMUE4bmJlS1hNIn0.NSWAoUVrdy0Fz4OpiRdF9J4KCHyA9iCLdglOu10QKNB8YfS1GapD01JvmlCkf4jFoigtZWZKLEPpRlxDD2LyUHSRFoJlSQvs_3amiYxjOq88Cay9dtx9MRMSwFtMtpuLO9GFxF2xnqC8uFupPK0y8jZ30QtgjKGBefJsI1RBJxif2PYPH8AXNf8BFdhyXa_F26VUGWgCKPs9YAYWYj2h_H8v3S-QqEByGRHkdyRUUaijyDdIEwaqZNRRIjf_qo_zkxuIp-sUlx9ZDEzuRVZY1Qe3ZcltX8naQSR_uTNVX_Z4YbOdlTIPnOAePdOXNcs9q195WH2MoNmeSTJsexxy0A',
-        type: 'application/x-mpegurl'
-      }
-    ]
+  const handleTagClick = (tag, checked) => {
+    let queryTags;
+    if (checked && !tags.includes(tag.id)) {
+      queryTags = [...tags, tag.id];
+    } else {
+      queryTags = tags.filter((t) => t !== tag.id);
+    }
+    setTags(queryTags);
+    setQueryTags(
+      queryTags
+        .map((t) => account.tags.find((tag) => tag.id === t)?.name)
+        .join(',')
+    );
   };
+
+  // let videoJsOptions = {
+  //   autoplay: true,
+  //   controls: true,
+  //   aspectRatio: '16:9',
+  //   sources: [
+  //     {
+  //       src:
+  //         'https://stream.mux.com/Az1PCBhSSYtfHUY004wpAVL2sjY8OwYw00Xg01A8nbeKXM.m3u8?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImVGR000Rk9UY1BNYXl1VmVmM1ZoRUlUeHhpc25JajJ3c0prZkk0YmUwMU8wMCJ9.eyJ0aW1lIjoxLCJleHAiOjE2MzQxMjM0MzUsImF1ZCI6InYiLCJzdWIiOiJBejFQQ0JoU1NZdGZIVVkwMDR3cEFWTDJzalk4T3dZdzAwWGcwMUE4bmJlS1hNIn0.NSWAoUVrdy0Fz4OpiRdF9J4KCHyA9iCLdglOu10QKNB8YfS1GapD01JvmlCkf4jFoigtZWZKLEPpRlxDD2LyUHSRFoJlSQvs_3amiYxjOq88Cay9dtx9MRMSwFtMtpuLO9GFxF2xnqC8uFupPK0y8jZ30QtgjKGBefJsI1RBJxif2PYPH8AXNf8BFdhyXa_F26VUGWgCKPs9YAYWYj2h_H8v3S-QqEByGRHkdyRUUaijyDdIEwaqZNRRIjf_qo_zkxuIp-sUlx9ZDEzuRVZY1Qe3ZcltX8naQSR_uTNVX_Z4YbOdlTIPnOAePdOXNcs9q195WH2MoNmeSTJsexxy0A',
+  //       type: 'application/x-mpegurl'
+  //     }
+  //   ]
+  // };
+
+  let filteredEvents = account.events;
+  if (tags.length) {
+    filteredEvents = account.events.filter((event) => {
+      return event.tags.some((tag) => {
+        return tags.includes(tag.tag.id);
+      });
+    });
+  }
 
   return (
     <React.Fragment>
@@ -238,30 +256,22 @@ export default function HomeView(props) {
 
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5 event-tabs">
-              <Tabs
-                defaultActiveKey="1"
-                tabBarExtraContent={
-                  sortedAndUniqueTags.length && {
-                    right: (
-                      <a
-                        className="event-tabs__category-tab"
-                        onClick={() => setShowTags(!showTags)}
-                      >
-                        Categories
-                      </a>
-                    )
-                  }
-                }
-              >
+              <Tabs defaultActiveKey="1">
                 <TabPane tab="Videos" key="1">
+                  {account?.tags
+                    ?.filter((tag) => tag.events_tags.length)
+                    ?.map((tag) => (
+                      <CheckableTag
+                        key={tag.id}
+                        className="rounded-full border-2 border-gray-800 py-1 px-4 m-2"
+                        checked={tags.includes(tag.id)}
+                        onChange={(checked) => handleTagClick(tag, checked)}
+                      >
+                        {tag.name}
+                      </CheckableTag>
+                    ))}
                   <EventsContainer>
-                    <Events
-                      events={account.events}
-                      refetch={refetch}
-                      availableTags={sortedAndUniqueTags}
-                      showTags={showTags}
-                      setShowTags={setShowTags}
-                    />
+                    <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
                 <TabPane tab="Playlists" key="8">

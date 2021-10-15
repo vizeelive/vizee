@@ -203,6 +203,13 @@
           name: supporters_report
         column_mapping:
           id: account_id
+  - name: tags
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          schema: public
+          name: tags
   - name: users
     using:
       foreign_key_constraint_on:
@@ -470,6 +477,13 @@
         table:
           schema: public
           name: events_products
+  - name: tags
+    using:
+      foreign_key_constraint_on:
+        column: event_id
+        table:
+          schema: public
+          name: events_tags
   - name: transactions
     using:
       foreign_key_constraint_on:
@@ -498,7 +512,7 @@
       - price
       - published
       - start
-      - tags
+      - tags_old
       - thumb
       - type
       - video
@@ -526,7 +540,7 @@
       - published
       - start
       - status
-      - tags
+      - tags_old
       - thumb
       - type
       - video
@@ -557,7 +571,7 @@
       - published
       - start
       - status
-      - tags
+      - tags_old
       - thumb
       - type
       - video
@@ -589,7 +603,7 @@
       - price
       - published
       - start
-      - tags
+      - tags_old
       - thumb
       - type
       - video
@@ -897,6 +911,86 @@
       - type
       - views
       filter: {}
+- table:
+    schema: public
+    name: events_tags
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: tag
+    using:
+      foreign_key_constraint_on: tag_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
+      columns:
+      - created_by
+      - event_id
+      - id
+      - tag_id
+      backend_only: false
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - event_id
+      - tag_id
+      - created_by
+      - created
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - created
+      - created_by
+      - event_id
+      - id
+      - tag_id
+      filter:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - event_id
+      - tag_id
+      filter:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        event:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: favorite_events
@@ -1313,6 +1407,80 @@
       - last_name
       - total
       filter: {}
+- table:
+    schema: public
+    name: tags
+  object_relationships:
+  - name: account
+    using:
+      foreign_key_constraint_on: account_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  array_relationships:
+  - name: events_tags
+    using:
+      foreign_key_constraint_on:
+        column: tag_id
+        table:
+          schema: public
+          name: events_tags
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
+      columns:
+      - account_id
+      - created_by
+      - name
+      backend_only: false
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - account_id
+      - name
+      - created_by
+      - created
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - name
+      - created
+      - account_id
+      - created_by
+      - id
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - name
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: transactions

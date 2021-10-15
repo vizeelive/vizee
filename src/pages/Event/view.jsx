@@ -6,14 +6,12 @@ import moment from 'moment';
 import Linkify from 'react-linkify';
 import cn from 'classnames';
 import { isMobile } from 'react-device-detect';
-import { Divider, Modal, notification } from 'antd';
+import { Divider, notification } from 'antd';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
 import Comments from 'components/Event/CommentsContainer';
 import CommentsChat from 'components/Event/CommentsChat';
-
-// import RedeemCode from 'components/Event/RedeemCode';
 
 import EventContent from 'components/Event/EventContent';
 import EventPreview from 'components/Event/EventPreview';
@@ -21,8 +19,6 @@ import AvatarHandle from 'components/AvatarHandle';
 import SuccessModal from 'components/SuccessModal';
 import ChatToggle from 'components/Event/ChatToggle';
 import Playlist from 'components/Playlist/Playlist';
-import TagCloud from '../../components/TagCloud';
-import { TagOutlined } from '@ant-design/icons';
 
 import Buttons from './components/Buttons';
 
@@ -44,7 +40,6 @@ export default function EventPage(props) {
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 
   const history = useHistory();
-  const [showTags, setShowTags] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [videoHeight, setVideoHeight] = useState(0);
   const [showMobileEvent, setShowMobileEvent] = useState(false);
@@ -164,36 +159,6 @@ export default function EventPage(props) {
             Preview
           </span>
         )} */}
-        {event.tags?.length > 0 && (
-          <div className="flex items-center text-sm text-gray-300 lg:mr-6">
-            <Modal
-              className="events__category-modal"
-              title="Event Categories"
-              visible={showTags}
-              footer={null}
-              centered
-              onCancel={() =>
-                setShowTags((showTagsCurrent) => !showTagsCurrent)
-              }
-            >
-              <TagCloud
-                availableTags={event.tags}
-                onTagSelected={(tag) =>
-                  history.push(
-                    `/${event.account.username}?c=${tag.replaceAll(' ', '-')}`
-                  )
-                }
-              />
-            </Modal>
-            <a
-              className="event-tabs__category-tab"
-              onClick={() => setShowTags(!showTags)}
-            >
-              <TagOutlined />
-              Categories
-            </a>
-          </div>
-        )}
       </div>
     );
   };

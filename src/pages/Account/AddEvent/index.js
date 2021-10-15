@@ -23,6 +23,10 @@ const GET_ACCOUNTS = gql`
         price
         flexible_price
       }
+      tags {
+        id
+        name
+      }
     }
     accounts {
       id
@@ -38,6 +42,7 @@ const GET_ACCOUNTS = gql`
 const CREATE_EVENT = gql`
   mutation CreateEvent($object: events_insert_input!) {
     insert_events_one(object: $object) {
+      id
       name
       start
       end
@@ -50,6 +55,10 @@ const GET_EVENT = gql`
     account: accounts(where: { username: { _ilike: $username } }) {
       id
       name
+      tags {
+        id
+        name
+      }
       products(where: { account_access: { _eq: false } }) {
         id
         name
@@ -74,7 +83,12 @@ const GET_EVENT = gql`
       on_network
       location
       account_only
-      tags
+      tags {
+        id
+        tag {
+          id
+        }
+      }
       products {
         id
         event_id
@@ -138,6 +152,45 @@ const DELETE_EVENT_PRODUCTS = gql`
   }
 `;
 
+const UPDATE_EVENT_TAGS = gql`
+  mutation UpdateEventTags(
+    $objects: [events_tags_insert_input!]!
+    $delete_ids: [uuid!]
+  ) {
+    delete_events_tags(where: { id: { _in: $delete_ids } }) {
+      returning {
+        id
+      }
+    }
+    insert_events_tags(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+const DELETE_EVENT_TAGS = gql`
+  mutation DeleteEventTags($delete_ids: [uuid!]!) {
+    delete_events_tags(where: { id: { _in: $delete_ids } }) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+const CREATE_TAGS = gql`
+  mutation CreateTags($objects: [tags_insert_input!]!) {
+    insert_tags(objects: $objects) {
+      returning {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export default function AddEvent(props) {
   const params = useParams();
   const { user } = useAuth();
@@ -169,10 +222,13 @@ export default function AddEvent(props) {
   const [event, setEvent] = useState();
   const [coverType, setCoverType] = useState(null);
   const { loading, error, data } = useQuery(query, options);
+  const [createTags, { loading: isCreatingTags }] = useMutation(CREATE_TAGS);
   const [createEvent, { loading: isCreatingEvent }] = useMutation(CREATE_EVENT);
   const [updateEvent, { loading: isUpdatingEvent }] = useMutation(UPDATE_EVENT);
   const [deleteEventProducts] = useMutation(DELETE_EVENT_PRODUCTS);
   const [updateEventProducts] = useMutation(UPDATE_EVENT_PRODUCTS);
+  const [deleteEventTags] = useMutation(DELETE_EVENT_TAGS);
+  const [updateEventTags] = useMutation(UPDATE_EVENT_TAGS);
 
   useEffect(() => {
     setEvent(data?.events_by_pk);
@@ -186,9 +242,10 @@ export default function AddEvent(props) {
     }
   }, [event]);
 
-  let categories, account;
+  let categories, account, tags;
 
   if (data) {
+    tags = data?.account?.[0]?.tags || data?.events_by_pk?.tags;
     categories = data.categories;
     account = data.account[0];
   }
@@ -219,7 +276,6 @@ export default function AddEvent(props) {
       category_id: values.category_id,
       account_id: values.account_id || account.id,
       account_only: values.account_only,
-      tags: event?.tags,
       video: event?.video,
       preview: event?.preview,
       photo: event?.photo,
@@ -262,6 +318,62 @@ export default function AddEvent(props) {
       let event_id =
         newEvent?.data?.insert_events_one?.id ||
         newEvent?.data?.update_events_by_pk?.id;
+
+      if (values.event_tags.length) {
+        // determine which tags need to be created and updated
+        let tagsToCreate = [];
+        let tagsToUpdate = [];
+        values.event_tags.forEach((tag) => {
+          if (account?.tags?.filter((t) => t.id === tag).length) {
+            tagsToUpdate.push(tag);
+          } else {
+            tagsToCreate.push({
+              name: tag,
+              account_id: account.id,
+              ...(user?.isAdmin ? { created_by: user.id } : null)
+            });
+          }
+        });
+
+        // create tags if necessary
+        let createdTags = [];
+        if (tagsToCreate.length) {
+          let res = await createTags({
+            variables: { objects: tagsToCreate }
+          });
+          createdTags = res.data.insert_tags.returning;
+        }
+
+        // convert tags to events_tags objects
+        let events_tags = values.event_tags.map((tag) => {
+          let tag_id = createdTags.find((t) => t.name === tag)?.id || tag;
+          if (tag_id) {
+            return {
+              event_id,
+              tag_id,
+              ...(user?.isAdmin ? { created_by: user.id } : null)
+            };
+          }
+        });
+
+        if (events_tags.length) {
+          updateEventTags({
+            variables: {
+              delete_ids: event?.tags?.map((tag) => tag.id),
+              objects: events_tags
+            }
+          });
+        }
+      } else {
+        if (event?.tags?.length) {
+          deleteEventTags({
+            variables: {
+              delete_ids: event?.tags?.map((tag) => tag.id)
+            }
+          });
+        }
+      }
+
       let products = values?.events_products?.map((product) => {
         return {
           product_id: product,
@@ -334,7 +446,8 @@ export default function AddEvent(props) {
     ...event,
     type: event?.type || 'live',
     preview: '',
-    range: [moment(event?.start), moment(event?.end)]
+    range: [moment(event?.start), moment(event?.end)],
+    event_tags: event?.tags?.map((tag) => tag.tag.id) || []
   };
 
   let isVideoMissing = false;
@@ -363,6 +476,7 @@ export default function AddEvent(props) {
       buttonLabel={buttonLabel}
       handlePhotoUpload={handlePhotoUpload}
       handlePreviewUpload={handlePreviewUpload}
+      tags={tags}
       categories={categories}
       isSubmitDisabled={isSubmitDisabled}
       isCreatingEvent={isCreatingEvent}
