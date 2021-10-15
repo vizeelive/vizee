@@ -260,7 +260,12 @@ export default function HomeView(props) {
                 <TabPane tab="Videos" key="1">
                   {account?.tags
                     ?.filter((tag) => tag.events_tags.length)
-                    ?.map((tag) => (
+                    ?.sort(function (a, b) {
+                      return a.name
+                        .toLowerCase()
+                        .localeCompare(b.name.toLowerCase());
+                    })
+                    .map((tag) => (
                       <CheckableTag
                         key={tag.id}
                         className="rounded-full border-2 border-gray-800 py-1 px-4 m-2"
