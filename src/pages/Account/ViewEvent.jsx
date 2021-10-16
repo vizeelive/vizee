@@ -229,23 +229,23 @@ export default function ViewEvent() {
     };
   });
 
-  const codeColumns = [
-    {
-      title: 'Code',
-      dataIndex: 'id'
-    },
-    {
-      title: 'Recipient',
-      dataIndex: 'recipient'
-    }
-  ];
+  // const codeColumns = [
+  //   {
+  //     title: 'Code',
+  //     dataIndex: 'id'
+  //   },
+  //   {
+  //     title: 'Recipient',
+  //     dataIndex: 'recipient'
+  //   }
+  // ];
 
-  const codeData = event.access_codes.map((code) => {
-    return {
-      id: code.id,
-      recipient: code?.recipient?.email || 'Unclaimed'
-    };
-  });
+  // const codeData = event.access_codes.map((code) => {
+  //   return {
+  //     id: code.id,
+  //     recipient: code?.recipient?.email || 'Unclaimed'
+  //   };
+  // });
 
   const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
 

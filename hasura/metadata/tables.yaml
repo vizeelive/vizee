@@ -845,7 +845,7 @@
       manual_configuration:
         remote_table:
           schema: public
-          name: transactions
+          name: transactions_owner
         column_mapping:
           id: event_id
   - name: view
@@ -1509,6 +1509,46 @@
                     _eq: X-Hasura-User-Id
         - user_id:
             _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: transactions_owner
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
+  - name: user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        column_mapping:
+          user_id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - event_id
+      - created
+      - id
+      - price
+      - ref
+      - email
+      - affiliate_id
+      - account_id
+      - is_tip
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: transactions_report

@@ -127,7 +127,7 @@ function EventCard(props) {
 
   const menu = (event) => (
     <Menu>
-      <Menu.Item key="0">
+      <Menu.Item key="playlist">
         <a
           rel="noopener noreferrer"
           onClick={() => setCreatePlaylistVisible(true)}
@@ -135,7 +135,7 @@ function EventCard(props) {
           Add to playlist
         </a>
       </Menu.Item>
-      <Menu.Item key="1">
+      <Menu.Item key="edit">
         <a
           rel="noopener noreferrer"
           onClick={() =>
@@ -144,11 +144,21 @@ function EventCard(props) {
             )
           }
         >
-          Edit event
+          Edit
+        </a>
+      </Menu.Item>
+      <Menu.Item key="manage">
+        <a
+          rel="noopener noreferrer"
+          onClick={() =>
+            history.push(`/${event.account.username}/manage/events/${event.id}`)
+          }
+        >
+          Show report
         </a>
       </Menu.Item>
       {event.preview && (
-        <Menu.Item key="2">
+        <Menu.Item key="preview">
           <a rel="noopener noreferrer" onClick={() => setFeaturedVideo(event)}>
             Set as featured preview
           </a>
