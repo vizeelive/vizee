@@ -96,6 +96,7 @@
     "graphql:reset": "docker-compose down; docker volume rm vizee_db_data",
     "graphql": "docker-compose up -d; cd hasura; hasura console --endpoint http://localhost:8080 --admin-secret=secret",
     "cypress": "cypress open --config baseUrl=http://localhost:3000",
+    "cypress:run": "cypress run --config baseUrl=http://localhost:3000 --config video=false",
     "dev": "HOST=dev.vizee.live HTTPS=true craco start",
     "start": "craco start",
     "start:mock": "REACT_APP_MOCK=true craco start",
