@@ -20,28 +20,33 @@ export default function SuccessModal(props) {
       <Result
         status={props.status}
         title={props.description}
-        extra={[
-          <Button
-            type="primary"
-            key="signIn"
-            onClick={() =>
-              loginWithRedirect({
-                screen_hint: 'signup',
-                appState: {
-                  returnTo: onCancel
-                }
-              })
-            }
-          >
-            Sign In
-          </Button>
-        ]}
+        extra={
+          !props.user
+            ? [
+                <Button
+                  type="primary"
+                  key="signIn"
+                  onClick={() =>
+                    loginWithRedirect({
+                      screen_hint: 'signup',
+                      appState: {
+                        returnTo: onCancel
+                      }
+                    })
+                  }
+                >
+                  Sign In
+                </Button>
+              ]
+            : null
+        }
       />
     </Modal>
   );
 }
 
 SuccessModal.propTypes = {
+  user: PropTypes.object.isRequired,
   isVisible: PropTypes.bool.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,

@@ -392,12 +392,14 @@ export default function HomeView(props) {
         title="Congrats, you're in!"
         description="You successfully purchased a ticket to this event!"
         status="success"
+        user={user}
         isVisible={window.location.search.includes('event.purchase')}
       />
       <SuccessModal
         title="Congrats, you're subscribed!"
         description="You successfully subscribed to this channel!"
         status="success"
+        user={user}
         isVisible={window.location.search.includes('account.subscribe')}
       />
       {window.location.search.includes('account.subscribe') && <Confetti />}
@@ -405,6 +407,7 @@ export default function HomeView(props) {
         title="Thanks for the support!"
         description="Your generosity allows creators to keep doing their thing!"
         status="success"
+        user={user}
         isVisible={window.location.search.includes('tip')}
       />
     </React.Fragment>
