@@ -11,10 +11,19 @@ const {
   updateAccessById,
   updateAccessByEmail,
   createTransaction,
-  updateUserStripeCustomerId
+  updateUserStripeCustomerId,
+  updateSubscription
 } = require('../../mutations');
 
 module.exports = async function ({ event }) {
+  if (event.type === 'invoice.paid') {
+    const expiry = dayjs(event.data.object.period_end).format(
+      'YYYY-MM-DD HH:mm:ss'
+    );
+    let subscription_id = event.data.object.subscription;
+    await updateSubscription({ subscription_id, expiry });
+  }
+
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
 

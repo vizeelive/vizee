@@ -122,6 +122,7 @@ async function updateMuxLivestream(params) {
   }
 }
 
+
 async function updateUserStripeCustomerId(params) {
   let { user_id, stripe_customer_id } = params;
   try {
@@ -146,6 +147,36 @@ async function updateUserStripeCustomerId(params) {
     });
   } catch (e) {
     logger.error('Failed: updateUserStripeCustomerId', params, e);
+    throw e;
+  }
+}
+
+async function updateSubscription(params) {
+  let { subscription_id, expiry } = params;
+  try {
+    await client.mutate({
+      variables: {
+        subscription_id,
+        expiry
+      },
+      mutation: gql`
+        mutation updateSubscription(
+          $subscription_id: String!
+          $expiry: timestamptz!
+        ) {
+          update_users_access(
+            where: { stripe_subscription_id: { _eq: $subscription_id } }
+            _set: { expiry: $expiry }
+          ) {
+            returning {
+              id
+            }
+          }
+        }
+      `
+    });
+  } catch (e) {
+    logger.error('Failed: updateSubscription', params, e);
     throw e;
   }
 }
@@ -342,5 +373,6 @@ module.exports = {
   createProduct,
   updateProduct,
   updateShopify,
-  insertShopifyHook
+  insertShopifyHook,
+  updateSubscription
 };
