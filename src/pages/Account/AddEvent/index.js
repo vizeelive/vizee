@@ -359,7 +359,7 @@ export default function AddEvent(props) {
         if (events_tags.length) {
           updateEventTags({
             variables: {
-              delete_ids: event?.tags?.map((tag) => tag.id),
+              delete_ids: event?.tags?.map((tag) => tag.id) || [],
               objects: events_tags
             }
           });
@@ -368,7 +368,7 @@ export default function AddEvent(props) {
         if (event?.tags?.length) {
           deleteEventTags({
             variables: {
-              delete_ids: event?.tags?.map((tag) => tag.id)
+              delete_ids: event?.tags?.map((tag) => tag.id) || []
             }
           });
         }
