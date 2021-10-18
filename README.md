@@ -33,21 +33,9 @@ This monorepo contains a few things:
 * `yarn`
 * `yarn start`
 
-If you want to test Stripe flows, you'll need to turn on the development API.
 
-* `npm run api`
+## GraphQL/Hasura/Fullstack Development
 
-## GraphQL/Hasura Development
-
-### Running Hasura Console
-
-Running Hasura locally is not currently working due to issues with Auth0. However, you can run the Hasura CLI locally and make schema changes which will create files that can be committed in order to migrate production.
-
-* Obtain `hasura.env` and place in `/hasura`
-* `npm run hasura`
-
-
-### Setting Up Hasura (incomplete)
 
 #### Requirements
 
@@ -59,13 +47,9 @@ Running Hasura locally is not currently working due to issues with Auth0. Howeve
 
 * `./graphql-install.sh`
 
-### Loading Hasura Console
+#### Starting Hasura, Express, and React
 
-* `npm run graphql`
-
-## API/Hasura Actions Development
-
-* `npm run api`
+* `npm run stack`
 
 ## Pipeline
 

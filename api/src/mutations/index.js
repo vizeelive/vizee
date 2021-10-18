@@ -321,6 +321,51 @@ async function createAccess({ object }) {
   }
 }
 
+async function createUser({ object }) {
+  try {
+    let res = await client.mutate({
+      variables: { object },
+      mutation: gql`
+        mutation($object: users_insert_input!) {
+          insert_users_one(object: $object) {
+            id
+            code
+          }
+        }
+      `
+    });
+    return res.data.insert_users_one;
+  } catch (e) {
+    logger.error('Failed: createUser', object);
+    throw e;
+  }
+}
+
+async function createAccount({ username, name, user_id }) {
+  try {
+    let res = await client.mutate({
+      variables: { username, name, user_id },
+      mutation: gql`
+        mutation CreateAccount(
+          $username: String!
+          $name: String!
+          $user_id: String!
+        ) {
+          CreateAccount(
+            object: { username: $username, name: $name, user_id: $user_id }
+          ) {
+            id
+          }
+        }
+      `
+    });
+    return res.data.CreateAccount;
+  } catch (e) {
+    logger.error('Failed: createAccount', username, name, user_id);
+    throw e;
+  }
+}
+
 async function createTransaction(params) {
   const {
     customer,
@@ -374,5 +419,7 @@ module.exports = {
   updateProduct,
   updateShopify,
   insertShopifyHook,
-  updateSubscription
+  updateSubscription,
+  createUser,
+  createAccount
 };

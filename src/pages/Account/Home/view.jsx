@@ -268,7 +268,7 @@ export default function HomeView(props) {
                     .map((tag) => (
                       <CheckableTag
                         key={tag.id}
-                        className="rounded-full border-2 border-gray-800 py-1 px-4 m-2"
+                        className="rounded-full border-2 border-gray-800 active:border-0 py-1 px-4 m-2"
                         checked={tags.includes(tag.id)}
                         onChange={(checked) => handleTagClick(tag, checked)}
                       >

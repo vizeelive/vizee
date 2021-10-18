@@ -3,6 +3,7 @@ import config from '../config';
 import Cookies from 'js-cookie';
 import * as Sentry from '@sentry/react';
 import posthog from 'posthog-js';
+import jwt from 'jsonwebtoken';
 
 import {
   ApolloLink,
@@ -12,24 +13,20 @@ import {
 } from '@apollo/client';
 
 import apolloLogger from 'apollo-link-logger';
-import { useAuth0 } from '@auth0/auth0-react';
 import { setContext } from '@apollo/link-context';
 import { onError } from '@apollo/client/link/error';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
 export default function useAuth() {
-  let {
-    isLoading,
-    logout,
-    loginWithRedirect,
-    getIdTokenClaims,
-    user,
-    error
-  } = useAuth0();
   const [geo, setGeo] = useState();
-  const [client, setClient] = useState();
-  const [claims, setClaims] = useState();
+
+  let qs = new URLSearchParams(window.location.search);
+  if (qs.get('code')) {
+    Cookies.set('vizee_token', qs.get('code'));
+    window.location.href = window.location.origin;
+  }
+  let user = jwt.decode(Cookies.get('vizee_token'));
 
   if (window.Cypress || process.env.REACT_APP_MOCK) {
     if (Cookies.get('test_role') === 'user') {
@@ -60,7 +57,7 @@ export default function useAuth() {
   }
 
   if (user) {
-    user.token = claims?.__raw;
+    user.token = Cookies.get('vizee_token');
     user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
     user.code = user['https://hasura.io/jwt/claims']['x-hasura-user-code'];
     user.isAdmin = user['https://hasura.io/jwt/claims'][
@@ -81,107 +78,104 @@ export default function useAuth() {
     }
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      const claims = await getIdTokenClaims();
-      setClaims(claims);
-    }
-    fetchData();
-  }, [getIdTokenClaims]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const claims = await getIdTokenClaims();
+  //     setClaims(claims);
+  //   }
+  //   fetchData();
+  // }, [getIdTokenClaims]);
 
-  useEffect(() => {
-    let token = id_token || claims?.__raw;
-    var wsLink = new WebSocketLink({
-      uri: config.ws,
-      options: {
-        lazy: true,
-        reconnect: true,
-        connectionParams: {
-          headers: {
-            ...(token
-              ? {
-                  Authorization: `Bearer ${token}`,
-                  'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
-                }
-              : null)
-          }
-        }
-      }
-    });
-
-    const httpLink = createHttpLink({
-      uri: config.graphql
-    });
-
-    const authLink = setContext((_, { headers }) => {
-      let context = {
+  let token = id_token || Cookies.get('vizee_token');
+  var wsLink = new WebSocketLink({
+    uri: config.ws,
+    options: {
+      lazy: true,
+      reconnect: true,
+      connectionParams: {
         headers: {
-          ...headers
-        }
-      };
-      if (claims || id_token) {
-        context.headers['Authorization'] =
-          `Bearer ` + (claims?.__raw || id_token);
-        if (user?.isAdmin) {
-          context.headers['X-Hasura-Role'] = `admin`;
+          ...(token
+            ? {
+                Authorization: `Bearer ${token}`,
+                'X-Hasura-Role': user?.isAdmin ? 'admin' : 'user'
+              }
+            : null)
         }
       }
-      return context;
-    });
+    }
+  });
 
-    const errorLink = onError((errorParams) => {
-      const { graphQLErrors, networkError, operation } = errorParams;
-      if (graphQLErrors)
-        graphQLErrors.map((params) => {
-          const { message, locations, path } = params;
-          if (message.includes('JWT')) {
-            logout();
-          }
-          Sentry.captureException(
-            `GraphQL Error (${operation.operationName}): ${message}`
-          );
-          console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-          );
-          return null;
-        });
+  const httpLink = createHttpLink({
+    uri: config.graphql
+  });
 
-      if (networkError) {
-        Sentry.captureException(`GraphQL Error (${operation.operationName})`);
-        console.log(`[Network error]: ${networkError}`, networkError);
+  const authLink = setContext((_, { headers }) => {
+    let context = {
+      headers: {
+        ...headers
       }
-    });
+    };
+    if (Cookies.get('vizee_token') || id_token) {
+      context.headers['Authorization'] =
+        `Bearer ` + (Cookies.get('vizee_token') || id_token);
+      if (user?.isAdmin) {
+        context.headers['X-Hasura-Role'] = `admin`;
+      }
+    }
+    return context;
+  });
 
-    var link = ApolloLink.split(
-      // split based on operation type
-      ({ query }) => {
-        const { kind, operation } = getMainDefinition(query);
-        return kind === 'OperationDefinition' && operation === 'subscription';
+  const errorLink = onError((errorParams) => {
+    const { graphQLErrors, networkError, operation } = errorParams;
+    if (graphQLErrors)
+      graphQLErrors.map((params) => {
+        const { message, locations, path } = params;
+        if (message.includes('JWT')) {
+          logout();
+        }
+        Sentry.captureException(
+          `GraphQL Error (${operation.operationName}): ${message}`
+        );
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        );
+        return null;
+      });
+
+    if (networkError) {
+      Sentry.captureException(`GraphQL Error (${operation.operationName})`);
+      console.log(`[Network error]: ${networkError}`, networkError);
+    }
+  });
+
+  var link = ApolloLink.split(
+    // split based on operation type
+    ({ query }) => {
+      const { kind, operation } = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
+    },
+    wsLink,
+    httpLink
+  );
+
+  let client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: ApolloLink.from([apolloLogger, authLink, errorLink, link]),
+    defaultHttpLink: false,
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'network-only'
+        // errorPolicy: 'all'
       },
-      wsLink,
-      httpLink
-    );
-
-    let res = new ApolloClient({
-      cache: new InMemoryCache(),
-      link: ApolloLink.from([apolloLogger, authLink, errorLink, link]),
-      defaultHttpLink: false,
-      defaultOptions: {
-        watchQuery: {
-          fetchPolicy: 'network-only'
-          // errorPolicy: 'all'
-        },
-        query: {
-          fetchPolicy: 'network-only'
-          // errorPolicy: 'all'
-        },
-        mutate: {
-          // errorPolicy: 'all'
-        }
+      query: {
+        fetchPolicy: 'network-only'
+        // errorPolicy: 'all'
+      },
+      mutate: {
+        // errorPolicy: 'all'
       }
-    });
-    setClient(res);
-  }, [claims]);
+    }
+  });
 
   if (user && geo) {
     user.geo = geo;
@@ -189,14 +183,16 @@ export default function useAuth() {
     user = { geo };
   }
 
+  const logout = () => {
+    Cookies.remove('vizee_token');
+    window.location.href = window.location.origin;
+  };
+
   return {
-    isLoading,
-    client,
     user,
     geo,
     setGeo,
-    error,
     logout,
-    loginWithRedirect
+    client
   };
 }

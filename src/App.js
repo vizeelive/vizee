@@ -15,6 +15,7 @@ import VersionChecker from 'components/VersionChecker';
 import PrivateRoute from 'components/PrivateRoute';
 import useAuth from 'hooks/useAuth';
 import Admin from 'pages/Admin/Index';
+import Login from 'pages/Login';
 import User from 'pages/User';
 import Theme from './Theme';
 import EventGif from 'pages/EventGif';
@@ -29,7 +30,7 @@ process.env.NODE_ENV !== 'development' &&
   LogRocket.init('vizee/vizee');
 
 function App() {
-  const { isLoading, user, setGeo, client, error } = useAuth();
+  const { user, setGeo, client } = useAuth();
 
   useEffect(() => {
     if (user?.token) {
@@ -61,19 +62,19 @@ function App() {
     fetchData();
   }, [setGeo]);
 
-  if (isLoading) {
-    return (
-      <Theme>
-        <Centered height="full">
-          <Spinner />
-        </Centered>
-      </Theme>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <Theme>
+  //       <Centered height="full">
+  //         <Spinner />
+  //       </Centered>
+  //     </Theme>
+  //   );
+  // }
 
-  if (error) {
-    return <div>Oops... {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Oops... {error.message}</div>;
+  // }
 
   if (process.env.NODE_ENV !== 'development' && user) {
     const tracker = new Tracker({
@@ -113,6 +114,7 @@ function App() {
         <Router>
           <QueryParamProvider ReactRouterRoute={Route}>
             <Switch>
+              <Route path="/login" component={Login} />
               <Route path="/gif/:username/:id" component={EventGif} />
               <PrivateRoute path="/admin" user={user} component={Admin} />
               <Route path="/" component={User} />

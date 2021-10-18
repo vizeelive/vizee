@@ -11,7 +11,7 @@ const jwt_decode = require('jwt-decode');
 app.use(
   cors({
     origin: true,
-    allowedHeaders: ['Authorization', 'X-Name'],
+    allowedHeaders: ['Authorization', 'Content-Type', 'X-Name'],
     credentials: true
   })
 );

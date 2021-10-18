@@ -61,7 +61,9 @@ function Header({ shareUrl, user, account, isMyAccount }) {
     ]
   };
 
-  let coverUrl = cdnImage(account.cover(), { w: size.innerWidth });
+  let coverUrl = account.cover().includes('ogi')
+    ? account.cover()
+    : cdnImage(account.cover());
 
   return (
     <div className="relative bg-black">

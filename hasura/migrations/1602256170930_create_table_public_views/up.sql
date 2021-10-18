@@ -1,1 +1,0 @@
-CREATE TABLE "public"."views"("id" uuid NOT NULL, "event_id" uuid NOT NULL, "created" timestamptz DEFAULT now(), "created_by" text, PRIMARY KEY ("id") , FOREIGN KEY ("event_id") REFERENCES "public"."events"("id") ON UPDATE restrict ON DELETE restrict);

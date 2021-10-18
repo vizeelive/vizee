@@ -185,6 +185,28 @@ async function getCheckoutDataAccountOnly(ref) {
   }
 }
 
+async function getUserId({ email }) {
+  try {
+    let res = await client.query({
+      variables: {
+        email
+      },
+      query: gql`
+        query GetUserId($email: String!) {
+          users(where: { email: { _eq: $email } }) {
+            id
+            code
+          }
+        }
+      `
+    });
+    return res.data.users[0];
+  } catch (e) {
+    logger.error('Failed: getUserId', email, e);
+    throw e;
+  }
+}
+
 async function getEvent(id) {
   try {
     let res = await client.query({
@@ -585,5 +607,6 @@ module.exports = {
   getCheckoutDataAccount,
   getAccountAndProduct,
   getAccount,
-  getCheckoutDataAccountOnly
+  getCheckoutDataAccountOnly,
+  getUserId
 };

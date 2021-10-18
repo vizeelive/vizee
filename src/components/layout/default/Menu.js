@@ -183,15 +183,16 @@ export default function Menu(props) {
                 onLogout={onLogout}
               />
             ) : (
-              <Button
-                type="primary"
-                size="responsive"
-                onClick={onLogin}
-                offset="gray-850"
-                data-test-id="menu-login"
-              >
-                Sign In
-              </Button>
+              <Link to="/login">
+                <Button
+                  type="primary"
+                  size="responsive"
+                  offset="gray-850"
+                  data-test-id="menu-login"
+                >
+                  Sign In
+                </Button>
+              </Link>
             )}
           </div>
         </div>

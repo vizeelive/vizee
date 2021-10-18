@@ -4,8 +4,6 @@ const config = require('../config');
 const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client/core');
-const { subscribe, pay } = require('../lib/checkout');
-const { generateImageLink } = require('../lib');
 
 require('./index');
 

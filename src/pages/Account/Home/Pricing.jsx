@@ -1,7 +1,7 @@
 import React from 'react';
 import BuyButton from 'components/Event/BuyButton';
 
-function Pricing({ hasAccess, user, account }) {
+function Pricing({ user, account }) {
   return (
     <div className="bg-black">
       <div className="pb-5 xs:px-5">

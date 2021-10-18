@@ -1,2 +1,0 @@
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-CREATE TABLE "public"."comments"("id" uuid NOT NULL DEFAULT gen_random_uuid(), "event_id" uuid NOT NULL, "body" text NOT NULL, "created" timestamptz NOT NULL, "created_by" text NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("event_id") REFERENCES "public"."events"("id") ON UPDATE cascade ON DELETE cascade, FOREIGN KEY ("created_by") REFERENCES "public"."users"("id") ON UPDATE cascade ON DELETE cascade);
