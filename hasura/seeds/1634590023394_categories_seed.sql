@@ -1,0 +1,17 @@
+INSERT INTO public.categories (id, name) VALUES ('04b46af7-8d4a-425d-a713-668b99808612', 'Dance');
+INSERT INTO public.categories (id, name) VALUES ('06a15dcd-03cb-4dcd-b052-b9d8a84212cc', 'Music');
+INSERT INTO public.categories (id, name) VALUES ('0cf15a4d-8687-4a73-a00d-a04a89e39e8c', 'Autos & Vehicles');
+INSERT INTO public.categories (id, name) VALUES ('162c9a29-719d-4a05-a3aa-01bf788f256f', 'Science & Technology');
+INSERT INTO public.categories (id, name) VALUES ('265ffd0d-96b7-4073-be46-7504fa24ce1f', 'Film & Animation');
+INSERT INTO public.categories (id, name) VALUES ('501f9061-841b-42b5-a8ac-bfa0b9d951aa', 'News & Politics');
+INSERT INTO public.categories (id, name) VALUES ('64996528-7401-4405-bb19-928a1220957a', 'Travel & Events');
+INSERT INTO public.categories (id, name) VALUES ('7c59eec9-f0c8-4a4f-a823-3e07f3f3f81e', 'Health & Wellness');
+INSERT INTO public.categories (id, name) VALUES ('7f4d616d-0364-43ce-8f7a-57d608c6682d', 'Education');
+INSERT INTO public.categories (id, name) VALUES ('ac1730d3-97c7-47e9-abc4-b68c999152ef', 'Entertainment');
+INSERT INTO public.categories (id, name) VALUES ('ba464c6b-b97a-4003-a2e4-8e3fed1fbe5c', 'Pets & Animals');
+INSERT INTO public.categories (id, name) VALUES ('bd91d4f8-d7d7-444a-a233-3fb058afae3c', 'Howto & Style');
+INSERT INTO public.categories (id, name) VALUES ('cde5e2cf-a103-4ef7-af44-a3e77cf798dc', 'Sports');
+INSERT INTO public.categories (id, name) VALUES ('ce7d43ee-7627-4d36-8ec0-17f6dd9e4d41', 'People & Blogs');
+INSERT INTO public.categories (id, name) VALUES ('d1352bc2-b428-40f2-9174-e0e58fe0ef7b', 'Gaming');
+INSERT INTO public.categories (id, name) VALUES ('da986f2b-6db8-414d-ac31-e02099b5761b', 'Comedy');
+INSERT INTO public.categories (id, name) VALUES ('efd1a9c4-6761-4acb-ac24-262762aec0a5', 'Nonprofits & Activism');
