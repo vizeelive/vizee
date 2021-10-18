@@ -189,7 +189,10 @@ export default function useAuth() {
   }
 
   const logout = () => {
-    Cookies.remove('vizee_token');
+    Cookies.remove('vizee_token', {
+      domain:
+        process.env.NODE_ENV === 'production' ? '.vizee.live' : 'localhost'
+    });
     window.location.href = window.location.origin;
   };
 
