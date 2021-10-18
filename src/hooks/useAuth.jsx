@@ -24,6 +24,7 @@ export default function useAuth() {
   let qs = new URLSearchParams(window.location.search);
   if (qs.get('code')) {
     Cookies.set('vizee_token', qs.get('code'), {
+      expires: 7,
       secure: window.location.protocol === 'https:'
     });
     window.location.href = window.location.origin;

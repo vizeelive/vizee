@@ -84,7 +84,7 @@ app.post(
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: '72h'
+        expiresIn: '168h'
       }
     );
     let link = `${config.ui}?code=${token}`;
