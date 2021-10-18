@@ -21,12 +21,14 @@ import { getMainDefinition } from '@apollo/client/utilities';
 export default function useAuth() {
   const [geo, setGeo] = useState();
 
+  let domain =
+    process.env.NODE_ENV === 'production' ? '.vizee.live' : 'localhost';
+
   let qs = new URLSearchParams(window.location.search);
   if (qs.get('code')) {
     Cookies.set('vizee_token', qs.get('code'), {
       expires: 7,
-      domain:
-        process.env.NODE_ENV === 'production' ? '.vizee.live' : 'localhost',
+      domain,
       secure: window.location.protocol === 'https:'
     });
     window.location.href = window.location.origin;
@@ -189,10 +191,7 @@ export default function useAuth() {
   }
 
   const logout = () => {
-    Cookies.remove('vizee_token', {
-      domain:
-        process.env.NODE_ENV === 'production' ? '.vizee.live' : 'localhost'
-    });
+    Cookies.remove('vizee_token', { domain });
     window.location.href = window.location.origin;
   };
 
