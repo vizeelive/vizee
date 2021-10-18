@@ -65,7 +65,7 @@ export default function FinishSignup() {
         >
           <Form name="basic" onFinish={onFinish}>
             <Form.Item
-              autofocus
+              autoFocus={true}
               label="First Name"
               name="first_name"
               rules={[{ required: true, message: 'Required' }]}
