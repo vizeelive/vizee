@@ -25,6 +25,8 @@ export default function useAuth() {
   if (qs.get('code')) {
     Cookies.set('vizee_token', qs.get('code'), {
       expires: 7,
+      domain:
+        process.env.NODE_ENV === 'production' ? '*.vizee.live' : 'localhost',
       secure: window.location.protocol === 'https:'
     });
     window.location.href = window.location.origin;
