@@ -23,7 +23,9 @@ export default function useAuth() {
 
   let qs = new URLSearchParams(window.location.search);
   if (qs.get('code')) {
-    Cookies.set('vizee_token', qs.get('code'));
+    Cookies.set('vizee_token', qs.get('code'), {
+      secure: window.location.protocol === 'https:'
+    });
     window.location.href = window.location.origin;
   }
   let user = jwt.decode(Cookies.get('vizee_token'));
