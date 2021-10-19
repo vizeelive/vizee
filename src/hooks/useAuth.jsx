@@ -141,7 +141,8 @@ export default function useAuth() {
           logout();
         }
         Sentry.captureException(
-          `GraphQL Error (${operation.operationName}): ${message}`
+          `GraphQL Error (${operation.operationName}): ${message}`,
+          params
         );
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
@@ -150,7 +151,10 @@ export default function useAuth() {
       });
 
     if (networkError) {
-      Sentry.captureException(`GraphQL Error (${operation.operationName})`);
+      Sentry.captureException(
+        `GraphQL Error (${operation.operationName})`,
+        params
+      );
       console.log(`[Network error]: ${networkError}`, networkError);
     }
   });
