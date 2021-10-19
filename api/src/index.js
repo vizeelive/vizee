@@ -77,7 +77,9 @@ app.post(
         email,
         'https://hasura.io/jwt/claims': {
           'x-hasura-default-role': 'user',
-          'x-hasura-allowed-roles': ['user'].concat(['admin']),
+          'x-hasura-allowed-roles': email.includes('@viz.ee')
+            ? ['user', 'admin']
+            : ['user'],
           'x-hasura-user-id': user.id,
           'x-hasura-user-code': user.code
         }
