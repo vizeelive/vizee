@@ -28,10 +28,7 @@ export default function SuccessModal(props) {
                   key="signIn"
                   onClick={() =>
                     loginWithRedirect({
-                      screen_hint: 'signup',
-                      appState: {
-                        returnTo: onCancel
-                      }
+                      returnTo: onCancel
                     })
                   }
                 >

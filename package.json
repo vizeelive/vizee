@@ -8,7 +8,6 @@
     "@asayerio/tracker": "^5.6.8",
     "@asayerio/tracker-fetch": "^5.7.1",
     "@asayerio/tracker-graphql": "^5.7.0",
-    "@auth0/auth0-react": "^1.1.0",
     "@craco/craco": "^5.7.0",
     "@dnd-kit/sortable": "^5.0.0",
     "@headlessui/react": "^0.2.0",

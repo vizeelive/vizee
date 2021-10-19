@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import * as Sentry from '@sentry/react';
 import posthog from 'posthog-js';
 import jwt from 'jsonwebtoken';
+import { useHistory } from 'react-router-dom';
 
 import {
   ApolloLink,
@@ -19,6 +20,7 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
 export default function useAuth() {
+  const history = useHistory();
   const [geo, setGeo] = useState();
 
   let domain =
@@ -31,8 +33,14 @@ export default function useAuth() {
       domain,
       secure: window.location.protocol === 'https:'
     });
-    window.location.href = window.location.origin;
+    let returnTo = Cookies.get('returnTo', {
+      domain,
+      secure: window.location.protocol === 'https:'
+    });
+    Cookies.remove('returnTo', { domain });
+    window.history.pushState({}, '', returnTo || window.location.origin);
   }
+
   let user = jwt.decode(Cookies.get('vizee_token'));
 
   if (window.Cypress || process.env.REACT_APP_MOCK) {
@@ -194,6 +202,17 @@ export default function useAuth() {
     user = { geo };
   }
 
+  const loginWithRedirect = ({ returnTo }) => {
+    if (returnTo) {
+      Cookies.set('returnTo', returnTo, {
+        expires: 7,
+        domain,
+        secure: window.location.protocol === 'https:'
+      });
+    }
+    history.push('/login');
+  };
+
   const logout = () => {
     Cookies.remove('vizee_token', { domain });
     window.location.href = window.location.origin;
@@ -204,6 +223,7 @@ export default function useAuth() {
     geo,
     setGeo,
     logout,
-    client
+    client,
+    loginWithRedirect
   };
 }

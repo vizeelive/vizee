@@ -147,18 +147,12 @@ export default function User() {
 
   const handleLogin = () => {
     loginWithRedirect({
-      appState: {
-        returnTo: window.location.href
-      }
+      returnTo: window.location.href
     });
   };
 
   const handleSignup = () => {
-    loginWithRedirect({
-      appState: {
-        onboarding: true
-      }
-    });
+    loginWithRedirect({ returnTo: '/account' });
   };
 
   const handleLogout = () => {
