@@ -1,0 +1,28 @@
+name: Hasura migration
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  hasura_migration:
+    name: Hasura migration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Apply hasura migrations
+        uses: tibotiber/hasura-action@master
+        with:
+          args: migrate apply
+        env:
+          HASURA_ENDPOINT: ${{ secrets.STAGING_HASURA_ENDPOINT }}
+          HASURA_ADMIN_SECRET: ${{ secrets.STAGING_HASURA_ADMIN_SECRET }}
+          HASURA_WORKDIR: hasura
+      - name: Apply hasura metadata
+        uses: tibotiber/hasura-action@master
+        with:
+          args: metadata apply
+        env:
+          HASURA_ENDPOINT: ${{ secrets.STAGING_HASURA_ENDPOINT }}
+          HASURA_ADMIN_SECRET: ${{ secrets.STAGING_HASURA_ADMIN_SECRET }}
+          HASURA_WORKDIR: hasura
