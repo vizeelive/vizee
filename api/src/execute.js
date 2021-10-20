@@ -5,7 +5,7 @@ const execute = async (gql, variables, headers) => {
   const fetchResponse = await fetch(config.api, {
     method: 'POST',
     headers: {
-      Authorization: headers.authorization,
+      ...headers,
       'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET
     },
     body: JSON.stringify({

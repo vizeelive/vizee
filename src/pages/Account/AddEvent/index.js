@@ -277,6 +277,7 @@ export default function AddEvent(props) {
       account_id: values.account_id || account.id,
       account_only: values.account_only,
       video: event?.video,
+      duration: parseInt(event?.duration),
       preview: event?.preview,
       photo: event?.photo,
       thumb: event?.thumb,
@@ -425,7 +426,11 @@ export default function AddEvent(props) {
 
   const handleVideoUpload = (step) => {
     // @security public..
-    setEvent({ ...event, video: step.results[':original'][0].ssl_url });
+    setEvent({
+      ...event,
+      duration: step.results[':original'][0].meta.duration,
+      video: step.results[':original'][0].ssl_url
+    });
   };
 
   const handleUppyError = (res) => {

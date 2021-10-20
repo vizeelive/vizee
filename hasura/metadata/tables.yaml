@@ -502,6 +502,7 @@
       - account_only
       - category_id
       - description
+      - duration
       - end
       - location
       - location_pos
@@ -593,6 +594,7 @@
       - account_only
       - category_id
       - description
+      - duration
       - end
       - location
       - location_pos

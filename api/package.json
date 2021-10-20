@@ -30,6 +30,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "formidable": "^1.2.2",
+    "get-video-duration": "^4.0.0",
     "graphql": "^15.1.0",
     "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
