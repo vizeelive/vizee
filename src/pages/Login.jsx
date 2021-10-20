@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import config from 'config';
+import Cookies from 'js-cookie';
 
 function Login() {
   const [email, setEmail] = useState();
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
+    Cookies.set('returnTo', window.location.origin, {
+      expires: 7,
+      domain: window.location.hostname,
+      secure: window.location.protocol === 'https:'
+    });
     fetch(config.api + '/auth', {
       method: 'POST',
       headers: {
