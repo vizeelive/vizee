@@ -7,18 +7,14 @@ function Login() {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    Cookies.set('returnTo', window.location.origin, {
-      expires: 7,
-      domain: window.location.hostname,
-      secure: window.location.protocol === 'https:'
-    });
     fetch(config.api + '/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email
+        email,
+        domain: window.location.origin
       })
     });
     setSubmitted(true);

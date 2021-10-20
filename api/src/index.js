@@ -58,6 +58,17 @@ app.post(
   bodyParser.json({ type: 'application/json' }),
   async (req, res) => {
     var email = req.body.email;
+    var domain = req.body.domain;
+
+    if (
+      !domain.endsWith('vizee.pro') &&
+      !domain.endsWith('vizee.live') &&
+      !domain.endsWith('localhost:3000')
+    ) {
+      return res.status(400).send({
+        error: 'Invalid domain'
+      });
+    }
 
     let user = await getUserId({ email });
     if (!user?.id) {
@@ -89,7 +100,7 @@ app.post(
         expiresIn: '168h'
       }
     );
-    let link = `${config.ui}?code=${token}`;
+    let link = `${domain}?code=${token}`;
 
     const msg = {
       to: email,
