@@ -23,7 +23,7 @@ export default function useAuth() {
   const history = useHistory();
   const [geo, setGeo] = useState();
 
-  let domain = window.location.host;
+  let domain = window.location.hostname;
 
   let qs = new URLSearchParams(window.location.search);
   if (qs.get('code')) {
