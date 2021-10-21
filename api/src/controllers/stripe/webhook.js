@@ -17,7 +17,7 @@ const {
 
 module.exports = async function ({ event }) {
   if (event.type === 'invoice.paid') {
-    const expiry = dayjs(event.data.object.period_end).format(
+    const expiry = dayjs(event.data.object.period_end * 1000).format(
       'YYYY-MM-DD HH:mm:ss'
     );
     let subscription_id = event.data.object.subscription;
