@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import config from 'config';
-import Cookies from 'js-cookie';
 
 function Login() {
   const [email, setEmail] = useState();
@@ -22,11 +22,13 @@ function Login() {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
-          className="mx-auto h-12 w-auto"
-          src="/apple-icon-60x60.png"
-          alt="Workflow"
-        />
+        <Link to="/">
+          <img
+            className="mx-auto h-12 w-auto"
+            src="/apple-icon-60x60.png"
+            alt="Workflow"
+          />
+        </Link>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-200">
           Sign in to your account
         </h2>
