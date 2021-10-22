@@ -7,6 +7,7 @@ import { DownOutlined } from '@ant-design/icons';
 import CreatePlaylist from 'components/Playlist/CreatePlaylist';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import cdnImage from 'lib/cdn-image';
+import geopattern from 'geopattern';
 
 const UPDATE_ACCOUNT = gql`
   mutation updateAccountPreview($account_id: uuid!, $url: String!) {
@@ -195,7 +196,11 @@ function EventCard(props) {
           <img
             className="object-cover text-white"
             alt={event?.thumb || event?.account?.name || event?.name}
-            src={cdnImage(event.cover(), { w: 650 })}
+            src={
+              event.cover()
+                ? cdnImage(event.cover(), { w: 650 })
+                : geopattern.generate(event.id).toDataUri()
+            }
           />
         </div>
         <div className="event-card-info px-6 mt-6 md:mt-4">

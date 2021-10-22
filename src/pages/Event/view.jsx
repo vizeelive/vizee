@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import Linkify from 'react-linkify';
 import cn from 'classnames';
 import { isMobile } from 'react-device-detect';
 import { Divider, notification } from 'antd';
+import geopattern from 'geopattern';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';
@@ -37,9 +37,6 @@ export default function EventPage(props) {
     onEnded
   } = props;
 
-  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
-
-  const history = useHistory();
   const [showChat, setShowChat] = useState(false);
   const [videoHeight, setVideoHeight] = useState(0);
   const [showMobileEvent, setShowMobileEvent] = useState(false);

@@ -23,12 +23,7 @@ export default class Event {
     return this.status === 'completed';
   }
   cover() {
-    return (
-      this?.thumb ||
-      this?.photo ||
-      this?.account?.photo ||
-      `https://dummyimage.com/1216x684/000/fff.png&text=${this.name}`
-    );
+    return this?.thumb || this?.photo || this?.account?.photo;
   }
   isStreamComplete() {
     return (
