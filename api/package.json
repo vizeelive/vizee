@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js & stripe listen --forward-to localhost:3001/stripe/webhook & wait",
+    "start": "concurrently --kill-others \"nodemon ./src/index.js\" \"stripe listen --forward-to http://localhost:3001/stripe/webhook\"",
     "debug": "node --inspect-brk ./src/index.js & stripe listen --forward-to localhost:3001/stripe/webhook & wait",
     "test": "TZ=utc jest --watch"
   },
@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "clone-deep": "^4.0.1",
+    "concurrently": "^6.3.0",
     "jest": "^26.6.3",
     "mockdate": "^3.0.2"
   }
