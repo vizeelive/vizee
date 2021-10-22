@@ -35,7 +35,7 @@ async function main() {
         }).then((res) => res.headers.get('Content-Length'));
         console.log(`${event.id} ${size}`);
         const UPDATE_VIDEO_SIZE = `
-          mutation updateVideoDuration($id: uuid!, $size: Int!) {
+          mutation updateVideoDuration($id: uuid!, $size: bigint!) {
             update_events(where: {id: {_eq: $id}}, _set: {size: $size}) {
               affected_rows
             }
