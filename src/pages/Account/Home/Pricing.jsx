@@ -31,7 +31,7 @@ function Pricing({ user, account }) {
                     /
                     {product.access_length >= 28 && product.access_length <= 31
                       ? 'm'
-                      : ` ${length} days`}
+                      : ` ${product.access_length} days`}
                   </span>
                 </p>
                 {account.stripe_data ? (
