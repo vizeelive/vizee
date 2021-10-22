@@ -34,15 +34,13 @@ function Pricing({ user, account }) {
                       : ` ${product.access_length} days`}
                   </span>
                 </p>
-                {account.stripe_data ? (
-                  <BuyButton
-                    className="block w-full"
-                    disabled={true}
-                    product={product}
-                    user={user}
-                    account={account}
-                  />
-                ) : null}
+                <BuyButton
+                  className="block w-full"
+                  disabled={!account.stripe_data ? true : false}
+                  product={product}
+                  user={user}
+                  account={account}
+                />
               </div>
               <div className="pt-6 pb-8 px-6">
                 <h3 className="text-xs font-medium text-pink-900 tracking-wide uppercase">

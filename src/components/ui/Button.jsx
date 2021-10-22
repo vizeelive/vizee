@@ -76,6 +76,7 @@ function Button(props) {
   return (
     <button
       type={htmlType}
+      disabled={disabled}
       className={cn(className, {
         [typeClasses.default]: type === 'default' && !ghost,
         [typeClasses.primary]: type === 'primary' && !ghost,

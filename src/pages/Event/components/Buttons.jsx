@@ -9,13 +9,12 @@ import StartStreamButton from 'components/Event/StartStreamButton';
 function Buttons({ account, event, user, isMyAccount }) {
   return (
     <div className="mx-3 xs:mt-5 sm:mx-0 md:mx-7 lg:mx-0 sm:mt-0 md:space-x-3 space-y-3">
-      {event.account.stripe_data && (
-        <BuyButton
-          classes="md:inline w-full md:w-auto"
-          user={user}
-          event={event}
-        />
-      )}
+      <BuyButton
+        classes="md:inline w-full md:w-auto"
+        disabled={!account.stripe_data ? true : false}
+        user={user}
+        event={event}
+      />
 
       {event.master ? (
         <div className="md:inline mr-3 lg:mr-0 lg:ml-3">
@@ -30,15 +29,14 @@ function Buttons({ account, event, user, isMyAccount }) {
         </div>
       ) : null}
 
-      {event.account.stripe_data && (
-        <BuyButton
-          classes="md:inline w-full md:w-auto"
-          isTip={true}
-          account={event.account}
-          user={user}
-          event={event}
-        />
-      )}
+      <BuyButton
+        classes="md:inline w-full md:w-auto"
+        isTip={true}
+        disabled={!account.stripe_data ? true : false}
+        account={event.account}
+        user={user}
+        event={event}
+      />
 
       {/* {user && (
           <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
