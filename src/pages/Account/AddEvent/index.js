@@ -277,6 +277,7 @@ export default function AddEvent(props) {
       account_id: values.account_id || account.id,
       account_only: values.account_only,
       video: event?.video,
+      size: event?.size,
       duration: parseInt(event?.duration),
       preview: event?.preview,
       photo: event?.photo,
@@ -428,6 +429,7 @@ export default function AddEvent(props) {
     // @security public..
     setEvent({
       ...event,
+      size: step.results[':original'][0].size,
       duration: step.results[':original'][0].meta.duration,
       video: step.results[':original'][0].ssl_url
     });

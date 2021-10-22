@@ -512,6 +512,7 @@
       - preview
       - price
       - published
+      - size
       - start
       - tags_old
       - thumb
@@ -557,6 +558,7 @@
       - created
       - created_by
       - description
+      - duration
       - end
       - id
       - location
@@ -570,6 +572,7 @@
       - preview
       - price
       - published
+      - size
       - start
       - status
       - tags_old
@@ -604,6 +607,7 @@
       - preview
       - price
       - published
+      - size
       - start
       - tags_old
       - thumb
