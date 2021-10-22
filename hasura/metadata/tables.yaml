@@ -69,6 +69,9 @@
       check: null
 - table:
     schema: public
+    name: account_costs
+- table:
+    schema: public
     name: account_favorites
 - table:
     schema: public
