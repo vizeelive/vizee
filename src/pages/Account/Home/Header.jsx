@@ -5,6 +5,7 @@ import Button from 'components/ui/Button';
 import { Link } from 'react-router-dom';
 import ShareButton from 'components/Event/ShareButton';
 import BuyButton from 'components/Event/BuyButton';
+import FollowButton from 'components/Event/FollowButton';
 import VideoPlayer from 'components/VideoPlayer';
 
 import abbreviateNumber from 'lib/abbreviateNumber';
@@ -201,6 +202,13 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 <Button classes="w-full md:w-auto" onClick={openChat}>
                   Chat
                 </Button>
+              )}
+
+              {user && (
+                <FollowButton
+                  account_id={account.id}
+                  follower_id={account?.followers?.[0]?.id}
+                />
               )}
 
               {(user?.isAdmin || isMyAccount) &&

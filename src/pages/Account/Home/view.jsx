@@ -15,7 +15,6 @@ import Pricing from './Pricing';
 import SuccessModal from 'components/SuccessModal';
 import PlaylistListing from 'components/Playlist/PlaylistListing';
 import BuyButton from 'components/Event/BuyButton';
-import FollowButton from 'components/Event/FollowButton';
 import Confetti from 'react-confetti';
 import Linkify from 'react-linkify';
 import 'styles/EventView.css';
@@ -224,13 +223,6 @@ export default function HomeView(props) {
               )}
             </div>
             <ActionsContainer>
-              {user && !user.isAdmin && (
-                <FollowButton
-                  account_id={account.id}
-                  follower_id={account?.followers?.[0]?.id}
-                />
-              )}
-
               {/* {!hasAccess && account.stripe_data && account.products?.length ? (
                 <BuyButton user={user} account={account} />
               ) : null} */}
