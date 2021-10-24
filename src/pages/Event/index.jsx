@@ -109,6 +109,7 @@ const GET_EVENT_AUTH = gql`
     }
     accounts(where: { username: { _eq: $username } }) {
       id
+      stripe_data
       followers {
         id
       }

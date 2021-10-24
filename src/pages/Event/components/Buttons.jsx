@@ -11,7 +11,7 @@ function Buttons({ account, event, user, isMyAccount }) {
     <div className="mx-3 xs:mt-5 sm:mx-0 md:mx-7 lg:mx-0 sm:mt-0 md:space-x-3 space-y-3">
       <BuyButton
         classes="md:inline w-full md:w-auto"
-        disabled={!account.stripe_data ? true : false}
+        disabled={!account?.stripe_data ? true : false}
         user={user}
         event={event}
       />
@@ -32,7 +32,7 @@ function Buttons({ account, event, user, isMyAccount }) {
       <BuyButton
         classes="md:inline w-full md:w-auto"
         isTip={true}
-        disabled={!account.stripe_data ? true : false}
+        disabled={!account?.stripe_data ? true : false}
         account={event.account}
         user={user}
         event={event}
