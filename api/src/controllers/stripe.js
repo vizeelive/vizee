@@ -4,6 +4,7 @@ const config = require('../config');
 const { client } = require('../setup');
 const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client/core');
+const acccount_updated = require('./stripe/webhooks/account.updated.js');
 
 require('./index');
 
@@ -11,8 +12,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
 });
 
-// Find your endpoint's secret in your Dashboard's webhook settings
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const connectEndpointSecret = process.env.STRIPE_CONNECT_WEBHOOK_SECRET;
 
 app.get('/stripe/account/create', async function (req, res) {
@@ -24,6 +23,14 @@ app.get('/stripe/account/create', async function (req, res) {
     logger.info('Creating new stripe account');
     var account = await stripe.accounts.create({
       type: 'express',
+      capabilities: {
+        card_payments: {
+          requested: true
+        },
+        transfers: {
+          requested: true
+        }
+      },
       settings: {
         payouts: {
           schedule: {
@@ -93,28 +100,7 @@ app.post(
     }
 
     if (event.type === 'account.updated') {
-      try {
-        await client.mutate({
-          variables: {
-            id: event.data.object.id,
-            data: event.data.object
-          },
-          mutation: gql`
-            mutation UpdateStripeAccount($id: String!, $data: jsonb) {
-              update_accounts(
-                where: { stripe_id: { _eq: $id } }
-                _set: { stripe_data: $data }
-              ) {
-                returning {
-                  id
-                }
-              }
-            }
-          `
-        });
-      } catch (e) {
-        console.error(e);
-      }
+      await acccount_updated(event);
     }
 
     res.json({ received: true });

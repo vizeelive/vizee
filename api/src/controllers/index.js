@@ -23,7 +23,7 @@ app.post(
     try {
       var event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
       require('./stripe/webhook')({ event });
-      res.json({ recevied: true });
+      res.json({ received: true });
     } catch (err) {
       console.log(err);
       return res.status(500).send(`Webhook Error: ${err.message}`);
