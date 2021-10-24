@@ -326,6 +326,7 @@ export default function EventPage(props) {
         title="Congrats, you're in!"
         description="You successfully purchased a ticket to this event!"
         status="success"
+        user={user}
         isVisible={window.location.search.includes('event.purchase')}
       />
 
@@ -333,6 +334,7 @@ export default function EventPage(props) {
         title="Thanks for the support!"
         description="Your generosity allows creators to keep doing their thing!"
         status="success"
+        user={user}
         isVisible={window.location.search.includes('tip')}
       />
 
