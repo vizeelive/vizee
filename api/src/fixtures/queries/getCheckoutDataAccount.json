@@ -1,0 +1,30 @@
+{
+  "product": {
+    "id": "645bbd18-2883-4d37-b4c5-f7cada352a41",
+    "name": "🌌 Galactic 🌌",
+    "price": "$19.99",
+    "account_access": true,
+    "recurring": true,
+    "account_id": "3fc3721f-965f-498d-940d-1aa29f08df00",
+    "access_length": 30,
+    "events": [],
+    "account": {
+      "id": "3fc3721f-965f-498d-940d-1aa29f08df00",
+      "name": "Cosmic Awakenings",
+      "username": "Cosmic",
+      "photo": "https://vizee-media.s3.amazonaws.com/45/5ba51405ae49399baa4e13e5d0901a/076_Fletcher-Monsoon-Vizee-Cover.jpeg",
+      "domain": "Cosmic.vizee.pro",
+      "stripe_id": "acct_1IHe0V2XjEJXDnMf",
+      "fee_percent": 20
+    }
+  },
+  "account": {
+    "id": "3fc3721f-965f-498d-940d-1aa29f08df00",
+    "name": "Cosmic Awakenings",
+    "username": "Cosmic",
+    "photo": "https://vizee-media.s3.amazonaws.com/45/5ba51405ae49399baa4e13e5d0901a/076_Fletcher-Monsoon-Vizee-Cover.jpeg",
+    "domain": "Cosmic.vizee.pro",
+    "stripe_id": "acct_1IHe0V2XjEJXDnMf",
+    "fee_percent": 20
+  }
+}

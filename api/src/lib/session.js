@@ -13,8 +13,7 @@ const {
 async function session(params) {
   let { ref: refQuery } = params;
 
-  ref = parse(decodeURIComponent(refQuery));
-  logger.debug('Found ref', { ref });
+  ref = parseRef(refQuery);
 
   try {
     var account, event, product;
@@ -101,6 +100,15 @@ async function session(params) {
     });
     throw e;
   }
+}
+
+function parseRef(ref) {
+  if (!ref) {
+    throw new Error('Missing ref');
+  }
+  ref = parse(decodeURIComponent(ref));
+  logger.debug('Found ref', { ref });
+  return ref;
 }
 
 module.exports = session;

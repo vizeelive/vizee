@@ -67,11 +67,17 @@ async function getCheckoutDataAccount(ref) {
     let res = await client.query({
       variables: {
         event_id: ref?.event_id,
-        product_id: ref.product_id
+        product_id: ref.product_id,
+        has_event: !!ref?.event_id
       },
       query: gql`
-        query getCheckoutDataAccount($product_id: uuid!, $event_id: uuid) {
-          events(where: { id: { _eq: $event_id } }) {
+        query getCheckoutDataAccount(
+          $product_id: uuid!
+          $event_id: uuid
+          $has_event: Boolean!
+        ) {
+          events(where: { id: { _eq: $event_id } }, limit: 1)
+            @include(if: $has_event) {
             id
             name
           }
