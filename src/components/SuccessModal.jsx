@@ -43,7 +43,7 @@ export default function SuccessModal(props) {
 }
 
 SuccessModal.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   isVisible: PropTypes.bool.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
