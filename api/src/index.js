@@ -118,6 +118,6 @@ app.post(
       html: `Hello there! Please click the <a href="${link}">link</a> to log in and be magically transported to a world of wonder.`
     };
     sgMail.send(msg);
-    res.send();
+    res.send({});
   }
 );
