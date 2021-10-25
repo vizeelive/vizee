@@ -106,6 +106,10 @@ app.post(
     );
     let link = `${domain}?code=${token}`;
 
+    if (process.env.NODE_ENV === 'dev') {
+      return res.send({ link });
+    }
+
     const msg = {
       to: email,
       from: 'Vizee Support <support@viz.ee>',

@@ -5,9 +5,9 @@ import config from 'config';
 function Login() {
   const [email, setEmail] = useState();
   const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch(config.api + '/auth', {
+    let res = await fetch(config.api + '/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -16,7 +16,10 @@ function Login() {
         email,
         domain: window.location.origin
       })
-    });
+    }).then((res) => res.json());
+    if (process.env.NODE_ENV === 'development') {
+      window.location.href = res.link;
+    }
     setSubmitted(true);
   };
   return (
