@@ -60,6 +60,10 @@ app.post(
     var email = req.body.email;
     var domain = req.body.domain;
 
+    if (!email) {
+      return res.status(400).send('Email is required');
+    }
+
     if (
       !domain.endsWith('vizee.pro') &&
       !domain.endsWith('vizee.live') &&
