@@ -260,7 +260,7 @@ export default function EventPage({ location }) {
   });
 
   const playlist = queryParams.get('playlist') ? data?.playlist?.[0] : null;
-  const account = Mapper(data?.accounts?.[0]);
+  const account = Mapper(data?.events_report[0].account);
   const event = Mapper({ ...data?.events_report?.[0] });
   event.video = data?.getEventUrl?.url;
   event.master = data?.getEventUrl?.master;
