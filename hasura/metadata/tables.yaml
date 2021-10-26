@@ -1397,6 +1397,9 @@
     name: shopify_hooks
 - table:
     schema: public
+    name: stripe_subscriptions
+- table:
+    schema: public
     name: subscriptions
 - table:
     schema: public
