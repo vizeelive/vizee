@@ -85,52 +85,6 @@
           name: accounts
         column_mapping:
           id: id
-  array_relationships:
-  - name: events
-    using:
-      manual_configuration:
-        remote_table:
-          schema: public
-          name: events
-        column_mapping:
-          id: account_id
-  - name: supporters_report
-    using:
-      manual_configuration:
-        remote_table:
-          schema: public
-          name: supporters_report
-        column_mapping:
-          id: account_id
-  select_permissions:
-  - role: public
-    permission:
-      columns:
-      - eventcount
-      - favoritecount
-      - followercount
-      - id
-      - name
-      - revenue
-      - subscriptionscount
-      - tips
-      - username
-      - viewcount
-      filter: {}
-  - role: user
-    permission:
-      columns:
-      - eventcount
-      - favoritecount
-      - followercount
-      - id
-      - name
-      - revenue
-      - subscriptionscount
-      - tips
-      - username
-      - viewcount
-      filter: {}
 - table:
     schema: public
     name: account_revenue
