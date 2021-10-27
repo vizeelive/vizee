@@ -1389,6 +1389,15 @@
 - table:
     schema: public
     name: subscriptions
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
 - table:
     schema: public
     name: supporters_report
