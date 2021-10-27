@@ -73,8 +73,8 @@ export default function DashboardView(props) {
               {/* Cards */}
 
               <Statistic
-                name="Revenue"
-                value={account.revenue}
+                name="Monthly Recurring Revenue (MRR)"
+                value={account.mrr}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: currency-dollar */}

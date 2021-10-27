@@ -89,16 +89,17 @@
   - role: public
     permission:
       columns:
+      - eventcount
+      - favoritecount
+      - followercount
       - id
-      - username
+      - mrr
       - name
       - revenue
-      - viewcount
-      - followercount
-      - favoritecount
-      - eventcount
       - subscriptionscount
       - tips
+      - username
+      - viewcount
       filter: {}
   - role: user
     permission:
@@ -106,13 +107,14 @@
       - eventcount
       - favoritecount
       - followercount
-      - subscriptionscount
-      - viewcount
-      - revenue
-      - tips
-      - name
-      - username
       - id
+      - mrr
+      - name
+      - revenue
+      - subscriptionscount
+      - tips
+      - username
+      - viewcount
       filter: {}
 - table:
     schema: public
