@@ -12,10 +12,10 @@ async function main() {
     if (!sub?.account?.id) {
       return;
     }
-    let res = await fetch(sub.account.id, { starting_after: null });
+    let res = await fetch(sub.account, { starting_after: null });
     while (res?.has_more) {
       console.log({ starting_after: res.data[res.data.length - 1].id });
-      res = await fetch(sub.account.id, {
+      res = await fetch(sub.account, {
         starting_after: res.data[res.data.length - 1].id
       });
     }
@@ -28,18 +28,23 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function fetch(account_id, { starting_after }) {
+async function fetch(account, { starting_after }) {
   sleep(200);
-  let res = await stripe.payouts.list({
-    limit: 100,
-    expand: ['data.destination'],
-    ...(starting_after ? { starting_after } : null)
-  });
+  let res = await stripe.payouts.list(
+    {
+      limit: 100,
+      expand: ['data.destination'],
+      ...(starting_after ? { starting_after } : null)
+    },
+    {
+      stripeAccount: account.stripe_id
+    }
+  );
   let objects = res.data.map((pay) => {
     return {
       id: pay.id,
       data: pay,
-      account_id
+      account_id: account.id
     };
   });
   await insertStripePayout(objects);

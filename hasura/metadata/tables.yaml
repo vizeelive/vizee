@@ -1194,6 +1194,31 @@
     name: members
 - table:
     schema: public
+    name: payouts_totals
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - account_id
+      - account_name
+      - amount
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: playlists
   object_relationships:
   - name: account
