@@ -248,7 +248,7 @@ export default function DashboardView(props) {
 
               <Statistic
                 name="Minutes"
-                value={account.costs.total_duration_minutes || 0}
+                value={account?.costs?.total_duration_minutes || 0}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: video-camera */}
@@ -272,7 +272,7 @@ export default function DashboardView(props) {
 
               <Statistic
                 name="Storage"
-                value={account.costs.total_size_gb || 0}
+                value={account?.costs?.total_size_gb || 0}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: video-camera */}

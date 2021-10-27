@@ -107,7 +107,6 @@
           name: accounts
         column_mapping:
           id: id
-  array_relationships:
   - name: costs
     using:
       manual_configuration:
