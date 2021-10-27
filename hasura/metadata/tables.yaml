@@ -70,6 +70,28 @@
 - table:
     schema: public
     name: account_costs
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - total_duration_minutes
+      - total_size_gb
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: account_favorites
@@ -83,6 +105,15 @@
         remote_table:
           schema: public
           name: accounts
+        column_mapping:
+          id: id
+  array_relationships:
+  - name: costs
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: account_costs
         column_mapping:
           id: id
   select_permissions:

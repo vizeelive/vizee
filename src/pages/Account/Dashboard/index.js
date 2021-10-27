@@ -20,6 +20,10 @@ const ACCOUNT_REPORT = gql`
       subscriptionscount
       mrr
       payouts
+      costs {
+        total_duration_minutes
+        total_size_gb
+      }
       account {
         stripe_id
         events {

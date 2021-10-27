@@ -68,7 +68,7 @@ export default function DashboardView(props) {
             />
           )}
 
-          {stepsComplete && (
+          {!stepsComplete && (
             <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
               {/* Cards */}
 
@@ -225,6 +225,54 @@ export default function DashboardView(props) {
               <Statistic
                 name="Events"
                 value={account.eventcount}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: video-camera */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
+
+              <Statistic
+                name="Minutes"
+                value={account.costs.total_duration_minutes || 0}
+                icon={
+                  <React.Fragment>
+                    {/* Heroicon name: video-camera */}
+                    <svg
+                      className="h-8 w-8 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </React.Fragment>
+                }
+              />
+
+              <Statistic
+                name="Storage"
+                value={account.costs.total_size_gb || 0}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: video-camera */}
