@@ -46,8 +46,16 @@ export default function FollowButton(props) {
 
   return (
     <React.Fragment>
-      {!followerId && <Button onClick={handleFollow}>Follow</Button>}
-      {followerId && <Button onClick={handleUnfollow}>Unfollow</Button>}
+      {!followerId && (
+        <Button classes="w-full md:w-auto" onClick={handleFollow}>
+          Follow
+        </Button>
+      )}
+      {followerId && (
+        <Button classes="w-full md:w-auto" onClick={handleUnfollow}>
+          Unfollow
+        </Button>
+      )}
     </React.Fragment>
   );
 }
