@@ -85,6 +85,35 @@
           name: accounts
         column_mapping:
           id: id
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - username
+      - name
+      - revenue
+      - viewcount
+      - followercount
+      - favoritecount
+      - eventcount
+      - subscriptionscount
+      - tips
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - eventcount
+      - favoritecount
+      - followercount
+      - subscriptionscount
+      - viewcount
+      - revenue
+      - tips
+      - name
+      - username
+      - id
+      filter: {}
 - table:
     schema: public
     name: account_revenue
