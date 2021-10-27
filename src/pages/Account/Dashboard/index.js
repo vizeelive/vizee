@@ -19,6 +19,7 @@ const ACCOUNT_REPORT = gql`
       viewcount
       subscriptionscount
       mrr
+      payouts
       account {
         stripe_id
         events {

@@ -110,6 +110,7 @@
       - id
       - mrr
       - name
+      - payouts
       - revenue
       - subscriptionscount
       - tips

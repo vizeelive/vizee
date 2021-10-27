@@ -97,8 +97,8 @@ export default function DashboardView(props) {
               />
 
               <Statistic
-                name="Tips"
-                value={account.tips}
+                name="Payouts"
+                value={account.payouts}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: currency-dollar */}
