@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import Statistic from 'components/ui/Statistic';
 import Steps from './Steps';
+import abbreviateNumber from 'lib/abbreviateNumber';
 
 const { Title } = Typography;
 
@@ -146,7 +147,7 @@ export default function DashboardView(props) {
 
               <Statistic
                 name="Views"
-                value={account.viewcount}
+                value={abbreviateNumber(account.viewcount)}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: eye */}
@@ -247,7 +248,7 @@ export default function DashboardView(props) {
               />
 
               <Statistic
-                name="Minutes"
+                name="Content Minutes"
                 value={account?.costs?.total_duration_minutes || 0}
                 icon={
                   <React.Fragment>
@@ -271,8 +272,8 @@ export default function DashboardView(props) {
               />
 
               <Statistic
-                name="Storage"
-                value={account?.costs?.total_size_gb || 0}
+                name="Content Storage"
+                value={`${account?.costs?.total_size_gb || 0} GB`}
                 icon={
                   <React.Fragment>
                     {/* Heroicon name: video-camera */}
