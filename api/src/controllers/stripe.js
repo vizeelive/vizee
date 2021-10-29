@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const { gql } = require('@apollo/client/core');
 const acccount_updated = require('./stripe/webhooks/account.updated.js');
 
+const import_payouts = require('../jobs/import_payouts.js');
+const import_subscriptions = require('../jobs/import_subscriptions.js');
+
 require('./index');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
@@ -13,6 +16,17 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 });
 
 const connectEndpointSecret = process.env.STRIPE_CONNECT_WEBHOOK_SECRET;
+
+app.post('/stripe/sync/payouts', async function (req, res) {
+  await import_payouts();
+  res.send();
+});
+
+app.post('/stripe/sync/subscriptions', async function (req, res) {
+  await import_subscriptions();
+  res.send();
+});
+
 
 app.get('/stripe/account/create', async function (req, res) {
   let id = req.query.id;

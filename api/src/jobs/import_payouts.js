@@ -7,6 +7,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 });
 
 async function main() {
+  await deleteStripeCachePayouts();
   let subscriptions = await getActiveAccounts();
   subscriptions.forEach(async (sub) => {
     if (!sub?.account?.id) {
@@ -72,6 +73,24 @@ async function getActiveAccounts() {
   }
 }
 
+async function deleteStripeCachePayouts() {
+  try {
+    let res = await client.mutate({
+      mutation: gql`
+        mutation deleteStripeCachePayouts {
+          delete_stripe_subscriptions(where: {}) {
+            affected_rows
+          }
+        }
+      `
+    });
+    return res;
+  } catch (e) {
+    logger.error('Failed: deleteStripeCachePayouts', e);
+    throw e;
+  }
+}
+
 async function insertStripePayout(objects) {
   try {
     let res = await client.mutate({
@@ -99,3 +118,5 @@ async function insertStripePayout(objects) {
     throw e;
   }
 }
+
+module.exports = main;
