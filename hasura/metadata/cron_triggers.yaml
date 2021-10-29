@@ -3,8 +3,3 @@
   schedule: '* * * * *'
   include_in_metadata: true
   payload: {}
-- name: stripe_payouts_sync
-  webhook: '{{ACTION_BASE_URL}}/stripe/sync/payouts'
-  schedule: '* * * * *'
-  include_in_metadata: true
-  payload: {}

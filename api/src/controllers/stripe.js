@@ -17,16 +17,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 
 const connectEndpointSecret = process.env.STRIPE_CONNECT_WEBHOOK_SECRET;
 
-app.post('/stripe/sync/payouts', async function (req, res) {
-  await import_payouts();
-  res.send();
-});
-
 app.post('/stripe/sync/subscriptions', async function (req, res) {
   await import_subscriptions();
   res.send();
 });
-
 
 app.get('/stripe/account/create', async function (req, res) {
   let id = req.query.id;

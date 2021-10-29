@@ -6,8 +6,9 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: ''
 });
 
+const import_payouts = require('./import_payouts');
+
 async function main() {
-  await deleteStripeCacheSubscriptions();
   async function fetch({ starting_after }) {
     let res = await stripe.subscriptions.list({
       limit: 100,
@@ -30,24 +31,6 @@ async function main() {
 
 main();
 
-async function deleteStripeCacheSubscriptions() {
-  try {
-    let res = await client.mutate({
-      mutation: gql`
-        mutation deleteStripeCacheSubscriptions {
-          delete_stripe_payouts(where: {}) {
-            affected_rows
-          }
-        }
-      `
-    });
-    return res;
-  } catch (e) {
-    logger.error('Failed: deleteStripeCacheSubscriptions', e);
-    throw e;
-  }
-}
-
 async function insertStripeSubscription(objects) {
   try {
     let res = await client.mutate({
@@ -56,6 +39,9 @@ async function insertStripeSubscription(objects) {
         mutation upsertStripeSubscriptions(
           $objects: [stripe_subscriptions_insert_input!]!
         ) {
+          delete_stripe_subscriptions(where: {}) {
+            affected_rows
+          }
           insert_stripe_subscriptions(
             objects: $objects
             on_conflict: {
@@ -70,6 +56,7 @@ async function insertStripeSubscription(objects) {
         }
       `
     });
+    await import_payouts();
   } catch (e) {
     logger.error('Failed: insertStripeSubscription', objects, e);
     throw e;
