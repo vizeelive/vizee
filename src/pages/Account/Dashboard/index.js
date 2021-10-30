@@ -24,7 +24,7 @@ const ACCOUNT_REPORT = gql`
         total_duration_minutes
         total_size_gb
       }
-      subscriptions {
+      subscriptions(order_by: { user: { last_name: asc, first_name: asc } }) {
         user {
           first_name
           last_name
