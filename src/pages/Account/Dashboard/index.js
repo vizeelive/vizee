@@ -24,6 +24,12 @@ const ACCOUNT_REPORT = gql`
         total_duration_minutes
         total_size_gb
       }
+      subscriptions {
+        user {
+          first_name
+          last_name
+        }
+      }
       account {
         stripe_id
         events {

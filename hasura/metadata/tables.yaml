@@ -115,6 +115,15 @@
           name: account_costs
         column_mapping:
           id: id
+  array_relationships:
+  - name: subscriptions
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: subscriptions
+        column_mapping:
+          id: account_id
   select_permissions:
   - role: public
     permission:
@@ -1454,6 +1463,35 @@
           name: accounts
         column_mapping:
           account_id: id
+  - name: user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        column_mapping:
+          user_id: id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - user_id
+      - product_id
+      - account_id
+      - period_start
+      - period_end
+      - amount
+      - status
+      - cancelling
+      - data
+      - interval_count
+      - monthly_amount
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: supporters_report
