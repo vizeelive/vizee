@@ -23,6 +23,19 @@ function EventContent(props) {
   }, [height]);
 
   const renderEventVideo = () => {
+     if (event.isAudio()) {
+       return (
+         <div data-test-id="event-audio">
+           <VideoPlayer
+             key={playerKey}
+             {...videoJsOptions}
+             cover={event.photo}
+             onEnded={onEnded}
+           />
+         </div>
+       );
+     }
+
     if (event.isBroadcast() && event.stream_type.includes('mux')) {
       return (
         <div data-test-id="event-video-live">

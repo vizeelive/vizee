@@ -30,7 +30,7 @@ export default function TicketsView(props) {
     <Layout>
       <MainContent isAdmin={isAdmin}>
         <div style={{ marginTop: '20px', height: '800px' }}>
-          <Title>My Tickets</Title>
+          <Title>My Subscriptions</Title>
           <Events events={events} refetch={refetch} />
         </div>
       </MainContent>

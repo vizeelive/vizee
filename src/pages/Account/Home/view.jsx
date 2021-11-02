@@ -249,7 +249,7 @@ export default function HomeView(props) {
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5 event-tabs">
               <Tabs defaultActiveKey="1">
-                <TabPane tab="Videos" key="1">
+                <TabPane tab="Media" key="1">
                   <div data-test-id="account-tags">
                     {account?.tags
                       ?.filter((tag) => tag.events_tags.length)

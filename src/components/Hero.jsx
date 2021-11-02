@@ -47,7 +47,7 @@ export default function Hero(props) {
                 </span>
               </h1>
               <p className="mt-3 text-lg text-gray-500 font-sans sm:mt-5 sm:text-xl sm:max-w-xl sm:mx-auto md:mt-5 md:text-2xl lg:mx-0 2xl:text-3xl 2xl:max-w-full">
-                Sell videos.{' '}
+                Sell your content.{' '}
                 <span className="text-gray-200 font-semibold">
                   Earn up to 80% of every dollar.
                 </span>

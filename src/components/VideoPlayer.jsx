@@ -63,6 +63,14 @@ export default class VideoPlayer extends React.Component {
         Preview
       </span>
     );
+
+    let styles = this.props?.cover
+      ? {
+          backgroundImage: `url('${this.props.cover}')`,
+          backgroundSize: 'cover'
+        }
+      : null;
+
     return (
       <div>
         {this.props?.preview && preview}
@@ -72,6 +80,7 @@ export default class VideoPlayer extends React.Component {
         </div> */}
         <div data-vjs-player>
           <video
+            style={styles}
             data-test-id={this.props?.['data-test-id']}
             muted={isDev}
             playsInline

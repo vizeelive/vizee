@@ -92,7 +92,7 @@ export default function AddEventView(props) {
   };
 
   let uploadVideoOptions = {
-    allowedFileTypes: ['video/*']
+    allowedFileTypes: ['video/*', 'audio/*']
   };
 
   eventData.events_products = event?.products?.map(
@@ -103,7 +103,7 @@ export default function AddEventView(props) {
     <article className="min-h-page">
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <FormContainer>
-          {!params.id && <Title level={2}>Add An Event</Title>}
+          {!params.id && <Title level={2}>Add Media</Title>}
           {params.id && <Title level={2}>{event.name}</Title>}
 
           <Divider />
@@ -124,10 +124,11 @@ export default function AddEventView(props) {
                 <Radio.Button value="live">Live</Radio.Button>
                 <Radio.Button value="conference">Conference</Radio.Button>
                 <Radio.Button value="video">Video</Radio.Button>
+                <Radio.Button value="audio">Audio</Radio.Button>
               </Radio.Group>
             </Form.Item>
 
-            {event?.type === 'video' && (
+            {['video', 'audio'].includes(event?.type) && (
               <Form.Item>
                 {event?.video ? (
                   <React.Fragment>

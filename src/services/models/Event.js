@@ -10,6 +10,9 @@ export default class Event {
   isVideo() {
     return this?.type === 'video';
   }
+  isAudio() {
+    return this?.type === 'audio';
+  }
   isFree() {
     return !this?.products && this?.price === '$0.00';
   }
