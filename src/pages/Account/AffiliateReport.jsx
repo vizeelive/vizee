@@ -60,7 +60,7 @@ export default function AffiliateReport() {
   });
 
   return (
-    <article className="min-h-page">
+    <article data-test-id="account-affiliate" className="min-h-page">
       <Header />
       <div className="mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import cn from 'classnames';
+import useAuth from 'hooks/useAuth';
 import Button from 'components/ui/Button';
 import ProfileMenu from '../ProfileMenu';
 import logo from '../../../svg/vizee-logo.svg';
 import logoText from '../../../svg/vizee-logo-text.svg';
+import cookie from 'js-cookie';
 
 export default function Menu(props) {
+  const { loginWithRedirect } = useAuth();
+  const history = useHistory();
   const { user, creator, account, hasTickets, onLogin, onLogout } = props;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,6 +32,10 @@ export default function Menu(props) {
     if (isOpen) {
       setIsOpen(false);
     }
+  };
+
+  const handleLogin = () => {
+    loginWithRedirect({ returnTo: window.location.pathname });
   };
 
   return (
@@ -183,16 +191,15 @@ export default function Menu(props) {
                 onLogout={onLogout}
               />
             ) : (
-              <Link to="/login">
-                <Button
-                  type="primary"
-                  size="responsive"
-                  offset="gray-850"
-                  data-test-id="menu-login"
-                >
-                  Sign In
-                </Button>
-              </Link>
+              <Button
+                onClick={handleLogin}
+                type="primary"
+                size="responsive"
+                offset="gray-850"
+                data-test-id="menu-login"
+              >
+                Sign In
+              </Button>
             )}
           </div>
         </div>

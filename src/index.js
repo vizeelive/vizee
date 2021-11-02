@@ -5,23 +5,17 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './mockServer.js';
 
-// if (process.env.REACT_APP_MOCK) {
-//   const { worker } = require('./mocks/browser');
-//   (async function main() {
-//     await worker.start();
-//   })();
+// if (window.Cypress) {
+//   window.mixpanel = {
+//     identify: () => {},
+//     track: () => {},
+//     people: {
+//       set: () => {}
+//     }
+//   };
 // }
-
-if (window.Cypress) {
-  window.mixpanel = {
-    identify: () => {},
-    track: () => {},
-    people: {
-      set: () => {}
-    }
-  };
-}
 
 if (
   !navigator.platform.includes('Linux') &&
@@ -46,9 +40,12 @@ if (
   });
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+async function bootstrapApp() {
+  ReactDOM.render(<App />, document.getElementById('root'));
+}
+bootstrapApp();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();

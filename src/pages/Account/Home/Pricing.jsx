@@ -3,7 +3,7 @@ import BuyButton from 'components/Event/BuyButton';
 
 function Pricing({ user, account }) {
   return (
-    <div className="bg-black">
+    <div data-test-id="account-pricing" className="bg-black">
       <div className="pb-5 xs:px-5">
         {account.products.length ? (
           <h1 className="m-5 text-center text-2xl md:text-3xl">

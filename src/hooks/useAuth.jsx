@@ -92,14 +92,6 @@ export default function useAuth() {
     }
   }
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const claims = await getIdTokenClaims();
-  //     setClaims(claims);
-  //   }
-  //   fetchData();
-  // }, [getIdTokenClaims]);
-
   let token = id_token || Cookies.get('vizee_token');
   var wsLink = new WebSocketLink({
     uri: config.ws,

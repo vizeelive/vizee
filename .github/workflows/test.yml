@@ -6,9 +6,20 @@ jobs:
   cypress-run:
     name: Cypress Tests
     runs-on: ubuntu-latest
+    strategy:
+      # when one test fails, DO NOT cancel the other
+      # containers, because this will kill Cypress processes
+      # leaving the Dashboard hanging ...
+      # https://github.com/cypress-io/github-action/issues/48
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3, 4]
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
@@ -17,26 +28,20 @@ jobs:
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
           record: true
+          headless: true
+          parallel: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          cypress_auth_audience: ${{secrets.CYPRESS_AUTH_AUDIENCE}}
-          cypress_auth_url: ${{secrets.CYPRESS_AUTH_URL}}
-          cypress_auth_client_id: ${{secrets.CYPRESS_AUTH_CLIENT_ID}}
-          cypress_auth_client_secret: ${{secrets.CYPRESS_AUTH_CLIENT_SECRET}}
-          cypress_auth_username: ${{secrets.CYPRESS_AUTH_USERNAME}}
-          cypress_auth_password: ${{secrets.CYPRESS_AUTH_PASSWORD}}
-          cypress_auth_admin_username: ${{secrets.CYPRESS_AUTH_ADMIN_USERNAME}}
-          cypress_auth_admin_password: ${{secrets.CYPRESS_AUTH_ADMIN_PASSWORD}}
 
   ui-tests:
     name: Jest UI Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Install packages
-        run: npx yarn --frozen-lockfile
+        run: yarn --frozen-lockfile
 
       - name: Build
         run: yarn build
@@ -57,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Install packages
         run: npm ci

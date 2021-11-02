@@ -70,7 +70,7 @@ export default function AddAccount(props) {
   const [replacePhoto, setReplacePhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [loadAccount, { loading, error, data }] = useLazyQuery(
-    user.isAdmin ? GET_ACCOUNT_ADMIN : GET_ACCOUNT,
+    user?.isAdmin ? GET_ACCOUNT_ADMIN : GET_ACCOUNT,
     {
       variables: {
         id: params.id

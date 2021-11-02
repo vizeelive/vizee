@@ -13,7 +13,7 @@ This monorepo contains a few things:
 * `/hasura` (Hasura metadata)
 * `/src/` (React UI)
 
-## Infrastructure
+## Infrastructure, Accounts, and SaSS, oh my!
 
 * Netlify (UI)
 * Render.com (API)
@@ -23,12 +23,13 @@ This monorepo contains a few things:
 * GitHub (code)
 * TransloadIt (file uploads)
 * LogRocket (session recording)
-* Auth0 (authentication)
 * Mux (video transcoding)
 * Sentry (bug tracking)
 * Cypress (testing)
 
 ## UI Development
+
+If you want to run the UI againat [Mock Service Worker (msw)](https://github.com/mswjs/msw) 🎉
 
 * `yarn`
 * `yarn start`
@@ -40,7 +41,7 @@ This monorepo contains a few things:
 #### Requirements
 
 * [Docker](https://docs.docker.com/get-docker/)
-* docker-compose
+* [docker-compose](https://docs.docker.com/compose/)
 * [hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/install-hasura-cli.html)
 
 #### Installation
@@ -49,7 +50,15 @@ This monorepo contains a few things:
 
 #### Starting Hasura, Express, and React
 
-* `npm run stack`
+* `yarn run stack`
+
+This will open multiple processes into an aggregated log, including:
+
+* PostgreSQL
+* Hasura
+* Hasura Console
+* React (configured to use all local services)
+* schema.json watcher/writer for use with `msw`
 
 ## Pipeline
 

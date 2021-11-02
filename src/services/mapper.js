@@ -15,7 +15,7 @@ export default function Mapper(data) {
   let output = cloneDeep(data);
   for (let key in data) {
     if (key === '__typename') {
-      output = cloneDeep(map(data));
+      output = cloneDeep(map(output));
       continue;
     }
     if (Array.isArray(data[key])) {

@@ -106,17 +106,17 @@ export default function HomeView(props) {
   const [products, setProducts] = useState([]);
   const [tags, setTags] = useState(queryTagIds || []);
 
-  useEffect(() => {
-    if (!account.shopify_domain) return;
-    const client = Client.buildClient({
-      domain: account.shopify_domain,
-      storefrontAccessToken: account.shopify_storefront_token
-    });
-    client.product.fetchAll().then((products) => {
-      setClient(client);
-      setProducts(products);
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (!account.shopify_domain) return;
+  //   const client = Client.buildClient({
+  //     domain: account.shopify_domain,
+  //     storefrontAccessToken: account.shopify_storefront_token
+  //   });
+  //   client.product.fetchAll().then((products) => {
+  //     setClient(client);
+  //     setProducts(products);
+  //   });
+  // }, []);
 
   const handleBuy = (product) => {
     client.checkout.create().then((checkout) => {
@@ -250,23 +250,25 @@ export default function HomeView(props) {
             <div className="flex-grow mb-5 event-tabs">
               <Tabs defaultActiveKey="1">
                 <TabPane tab="Videos" key="1">
-                  {account?.tags
-                    ?.filter((tag) => tag.events_tags.length)
-                    ?.sort(function (a, b) {
-                      return a.name
-                        .toLowerCase()
-                        .localeCompare(b.name.toLowerCase());
-                    })
-                    .map((tag) => (
-                      <CheckableTag
-                        key={tag.id}
-                        className="rounded-full border-2 border-gray-800 active:border-0 py-1 px-4 m-2"
-                        checked={tags.includes(tag.id)}
-                        onChange={(checked) => handleTagClick(tag, checked)}
-                      >
-                        {tag.name}
-                      </CheckableTag>
-                    ))}
+                  <div data-test-id="account-tags">
+                    {account?.tags
+                      ?.filter((tag) => tag.events_tags.length)
+                      ?.sort(function (a, b) {
+                        return a.name
+                          .toLowerCase()
+                          .localeCompare(b.name.toLowerCase());
+                      })
+                      .map((tag) => (
+                        <CheckableTag
+                          key={tag.id}
+                          className="rounded-full border-2 border-gray-800 active:border-0 py-1 px-4 m-2"
+                          checked={tags.includes(tag.id)}
+                          onChange={(checked) => handleTagClick(tag, checked)}
+                        >
+                          {tag.name}
+                        </CheckableTag>
+                      ))}
+                  </div>
                   <EventsContainer>
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>

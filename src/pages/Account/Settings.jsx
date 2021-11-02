@@ -34,7 +34,7 @@ export default function Settings() {
   };
 
   return (
-    <article className="min-h-page">
+    <article data-test-id="account-settings" className="min-h-page">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <Header>
           <Title>Settings</Title>

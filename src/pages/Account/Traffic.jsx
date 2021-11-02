@@ -44,6 +44,7 @@ export default function Traffic() {
     <React.Fragment>
       {ready && (
         <iframe
+          data-test-id="account-traffic"
           style={{
             height: 'calc(100vh - 184px)',
             minHeight: '640px'

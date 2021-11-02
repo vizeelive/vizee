@@ -141,7 +141,10 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Videos
                 </dt>
-                <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
+                <dd
+                  data-test-id="account-eventcount"
+                  className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl"
+                >
                   {abbreviateNumber(account.report.eventcount)}
                 </dd>
               </div>
@@ -149,7 +152,10 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Supporters
                 </dt>
-                <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
+                <dd
+                  data-test-id="account-supporterscount"
+                  className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl"
+                >
                   {abbreviateNumber(supportersCount)}
                 </dd>
               </div>
@@ -157,7 +163,10 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Views
                 </dt>
-                <dd className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl">
+                <dd
+                  data-test-id="account-viewcount"
+                  className="text-center order-1 text-2xl font-extrabold text-pink-600 sm:text-3xl"
+                >
                   {abbreviateNumber(account.report.viewcount)}
                 </dd>
               </div>

@@ -34,13 +34,17 @@ function App() {
 
   useEffect(() => {
     if (user?.token) {
-      fetch(`${config.api}/cookie`, {
-        headers: {
-          'X-Name': user.nickname,
-          Authorization: user.token
-        },
-        credentials: 'include'
-      });
+      try {
+        fetch(`${config.api}/cookie`, {
+          headers: {
+            'X-Name': user.nickname,
+            Authorization: user.token
+          },
+          credentials: 'include'
+        });
+      } catch (e) {
+        // nada
+      }
     }
   }, [user?.token]);
 

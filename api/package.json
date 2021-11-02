@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"nodemon ./src/index.js\" \"stripe listen --forward-to http://localhost:3001/stripe/webhook\"",
+    "ci": "concurrently --kill-others \"npx nodemon ./src/index.js\"",
+    "start": "concurrently --kill-others \"npx nodemon ./src/index.js\" \"stripe listen --forward-to http://localhost:3001/stripe/webhook\"",
     "debug": "node --inspect-brk ./src/index.js & stripe listen --forward-to localhost:3001/stripe/webhook & wait",
     "test": "TZ=utc jest --watch"
   },

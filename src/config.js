@@ -22,7 +22,7 @@ let config = {
 let res;
 
 if (window.location.href.includes('localhost')) {
-  res = config.staging;
+  res = config.dev;
 } else if (window.location.href.includes('staging')) {
   res = config.staging;
 } else if (window.location.href.includes('netlify')) {
@@ -31,17 +31,8 @@ if (window.location.href.includes('localhost')) {
   res = config.production;
 }
 
-if (process.env.REACT_APP_ENV === 'dev') {
-  res = config.dev;
-}
-
 if (window.Cypress) {
-  res = {
-    ws: 'wss://hasura-staging.vizee.live/v1/graphql',
-    graphql: 'http://localhost/graphql',
-    api: 'http://localhost',
-    ui: 'http://localhost:3000'
-  };
+  res.ws = 'wss://hasura-staging.vizee.live/v1/graphql';
 }
 
 console.log(res);

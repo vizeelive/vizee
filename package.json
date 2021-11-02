@@ -10,6 +10,7 @@
     "@asayerio/tracker-graphql": "^5.7.0",
     "@craco/craco": "^5.7.0",
     "@dnd-kit/sortable": "^5.0.0",
+    "@graphql-tools/mock": "^8.4.2",
     "@headlessui/react": "^0.2.0",
     "@microlink/react": "^5.5.1",
     "@sentry/react": "^6.13.3",
@@ -47,7 +48,7 @@
     "cypress": "8.5.0",
     "geopattern": "^1.2.3",
     "graphql": "^15.3.0",
-    "hasura-cli": "^1.3.3",
+    "hasura-cli": "1.3.3",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
@@ -55,7 +56,7 @@
     "logrocket": "^1.0.13",
     "mapbox-gl": "^1.12.0",
     "moment": "^2.29.0",
-    "msw": "^0.24.2",
+    "msw": "^0.35.0",
     "postcss": "^8.1.10",
     "posthog-js": "^1.8.0",
     "query-string": "^7.0.1",
@@ -96,12 +97,15 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "api": "(cd api; npm start)",
+    "api:ci": "(cd api; npm run ci)",
+    "graphql:watch": "chokidar ./hasura/**/* -c \"npm run graphql:schema\"",
+    "graphql:schema": "gq http://localhost:8080/v1/graphql -H \"X-Hasura-Admin-Secret: secret\" --introspect --format json > ./src/schema.json",
     "graphql:reset": "docker-compose down; docker volume rm vizee_db_data; ./graphql-install.sh",
     "graphql": "docker-compose up -d; (cd hasura; hasura console --endpoint http://localhost:8080 --admin-secret=secret)",
     "cypress": "cypress open --config baseUrl=http://localhost:3000",
     "cypress:fast": "cypress run --config baseUrl=http://localhost:3000 --config video=false",
     "cypress:run": "cypress run --config baseUrl=http://localhost:3000 --config video=false",
-    "stack": "concurrently --kill-others \"npm run graphql\" \"npm run api\" \"npm run dev\"",
+    "stack": "concurrently --kill-others \"npm run graphql\" \"npm run graphql:watch\" \"npm run api\" \"npm run dev\"",
     "start": "craco start",
     "dev": "REACT_APP_ENV=dev craco start",
     "start:mock": "REACT_APP_MOCK=true craco start",
@@ -136,10 +140,14 @@
     "@storybook/node-logger": "^6.1.2",
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.1.2",
+    "chokidar-cli": "^3.0.0",
     "concurrently": "^6.3.0",
     "eslint-plugin-cypress": "^2.11.2",
     "prettier": "2.1.2",
     "react-error-overlay": "^6.0.9",
     "react-is": "^16.13.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
