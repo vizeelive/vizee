@@ -48,7 +48,7 @@ let mocks = {
 
 var worker = setupWorker();
 
-if (process.env.REACT_APP_ENV !== 'dev') {
+if (process.env.REACT_APP_MOCK === 'true') {
   worker.start();
 }
 
