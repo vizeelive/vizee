@@ -305,6 +305,7 @@ export default function EventPage(props) {
           property="og:image"
           content={event?.photo || event?.account?.photo}
         />
+        <meta property="og:video" content={event?.preview || event?.video} />
         <meta
           property="og:title"
           content={`${event.name} - ${event.account.name}`}
