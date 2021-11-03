@@ -1,5 +1,6 @@
 import React from 'react';
 import BuyButton from 'components/Event/BuyButton';
+import sortProducts from 'lib/sortProducts';
 
 function Pricing({ user, account }) {
   return (
@@ -11,7 +12,7 @@ function Pricing({ user, account }) {
           </h1>
         ) : null}
         <div className="md:grid-cols-2 lg:grid-cols-4 space-y-4 sm:space-y-0 sm:grid sm:gap-6  lg:mx-auto xl:max-w-none xl:mx-0">
-          {account.products.map((product, index) => (
+          {sortProducts(account.products).map((product, index) => (
             <div
               key={index}
               className="max-w-md border border-gray-800 rounded-lg shadow-sm divide-y divide-gray-800"
