@@ -276,6 +276,7 @@ export default function HomeView(props) {
                 </TabPane>
                 <TabPane tab="Timeline" key="timeline">
                   <Timeline
+                    isMyAccount={isMyAccount}
                     user={user}
                     account={account}
                     posts={account.posts}

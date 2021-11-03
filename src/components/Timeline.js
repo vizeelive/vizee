@@ -22,7 +22,13 @@ const DELETE_POST = gql`
   }
 `;
 
-export default function Timeline({ user, account, posts, refetch }) {
+export default function Timeline({
+  isMyAccount,
+  user,
+  account,
+  posts,
+  refetch
+}) {
   const [form] = Form.useForm();
   const [attachments, setAttachments] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -61,14 +67,19 @@ export default function Timeline({ user, account, posts, refetch }) {
     allowedFileTypes: ['video/*', 'audio/*', 'image/*']
   };
 
+  console.log({ account, user });
+
   return (
     <div className="max-w-screen-sm">
-      <div
-        onClick={() => setShowModal(true)}
-        className="mb-5 p-3 mx-1 text-gray-400 bg-gray-800 hover:bg-gray-700 hover:cursor-pointer border-solid rounded-lg ring-gray-500"
-      >
-        What's on your mind, {account.name}?
-      </div>
+      {isMyAccount && (
+        <div
+          onClick={() => setShowModal(true)}
+          className="mb-5 p-3 mx-1 text-gray-400 bg-gray-800 hover:bg-gray-700 hover:cursor-pointer border-solid rounded-lg ring-gray-500"
+        >
+          What's on your mind, {account.name}?
+        </div>
+      )}
+
       {posts.map((post) => (
         <div className="bg-gray-900 mx-1 border-solid rounded-lg mb-5 p-5">
           <Dropdown
