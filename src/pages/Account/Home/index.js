@@ -26,6 +26,12 @@ export const GET_ACCOUNT_ANON = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      posts(order_by: { created: desc }) {
+        id
+        message
+        attachments
+        created
+      }
       tags {
         id
         name
@@ -167,6 +173,12 @@ const GET_ACCOUNT_USER = gql`
         favoritecount
         eventcount
         subscriptionscount
+      }
+      posts(order_by: { created: desc }) {
+        id
+        message
+        attachments
+        created
       }
       tags {
         id

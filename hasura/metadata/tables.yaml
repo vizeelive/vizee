@@ -216,6 +216,13 @@
         table:
           schema: public
           name: playlists
+  - name: posts
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          schema: public
+          name: posts
   - name: products
     using:
       foreign_key_constraint_on:
@@ -1334,6 +1341,98 @@
             user:
               id:
                 _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: posts
+  object_relationships:
+  - name: account
+    using:
+      foreign_key_constraint_on: account_id
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        _or:
+        - account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
+      columns:
+      - account_id
+      - attachments
+      - event_id
+      - message
+      backend_only: false
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - attachments
+      - created
+      - created_by
+      - id
+      - message
+      filter: {}
+  - role: user
+    permission:
+      columns:
+      - attachments
+      - created
+      - created_by
+      - id
+      - message
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - attachments
+      - message
+      filter:
+        _or:
+        - account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        _or:
+        - account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: presence

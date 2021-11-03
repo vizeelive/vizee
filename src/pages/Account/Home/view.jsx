@@ -12,6 +12,7 @@ import VideoPlayer from 'components/VideoPlayer';
 import AccountHeader from './Header';
 import Pricing from './Pricing';
 
+import Timeline from 'components/Timeline';
 import SuccessModal from 'components/SuccessModal';
 import PlaylistListing from 'components/Playlist/PlaylistListing';
 import BuyButton from 'components/Event/BuyButton';
@@ -249,7 +250,7 @@ export default function HomeView(props) {
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5 event-tabs">
               <Tabs defaultActiveKey="1">
-                <TabPane tab="Media" key="1">
+                <TabPane tab="Media" key="media">
                   <div data-test-id="account-tags">
                     {account?.tags
                       ?.filter((tag) => tag.events_tags.length)
@@ -273,20 +274,29 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                <TabPane tab="Playlists" key="8">
+                <TabPane tab="Timeline" key="timeline">
+                  <Timeline
+                    user={user}
+                    account={account}
+                    posts={account.posts}
+                    refetch={refetch}
+                  />
+                  <br />
+                </TabPane>
+                <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}
                     account={account}
                     playlists={account.playlists}
                   />
                 </TabPane>
-                <TabPane tab="Video Chat" key="2">
+                <TabPane tab="Video Chat" key="video">
                   <VideoConference
                     roomName={`${account.id}-23kjh23kjh232kj3h`}
                     user={user}
                   />
                 </TabPane>
-                <TabPane tab="Map" key="7">
+                <TabPane tab="Map" key="map">
                   <Map events={account.events} />
                 </TabPane>
                 {/* <TabPane tab="Street Team" key="4">

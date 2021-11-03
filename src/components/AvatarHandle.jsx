@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-export default function AvatarHandle({ account }) {
+export default function AvatarHandle({ account, date }) {
   return (
     <Link
       to={`/${account.username}`}
@@ -22,7 +23,7 @@ export default function AvatarHandle({ account }) {
           >
             {account.name}
             {/* Verified badge: */}
-            {/* <span className="inline-flex align-text-bottom ml-1">
+            <span className="inline-flex align-text-bottom ml-1">
               <svg
                 className="h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
@@ -35,8 +36,11 @@ export default function AvatarHandle({ account }) {
                   clipRule="evenodd"
                 />
               </svg>
-            </span> */}
+            </span>
           </p>
+          {date ? (
+            <div className="text-sm"> {moment(date).fromNow()}</div>
+          ) : null}
         </div>
       </div>
     </Link>
