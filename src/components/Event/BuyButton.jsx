@@ -262,7 +262,7 @@ export default function BuyButton(props) {
       >
         {!account && !event.account_only && !event.products.length && (
           <PurchaseOption>
-            {true && (
+            {event.price !== '$0.00' && (
               <Button
                 onClick={() =>
                   user ? buy({ product: null }) : preBuy({ product: null })
