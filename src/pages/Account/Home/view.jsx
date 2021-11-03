@@ -274,7 +274,7 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                <TabPane tab="Timeline" key="timeline">
+                {/* <TabPane tab="Timeline" key="timeline">
                   <Timeline
                     isMyAccount={isMyAccount}
                     user={user}
@@ -283,7 +283,7 @@ export default function HomeView(props) {
                     refetch={refetch}
                   />
                   <br />
-                </TabPane>
+                </TabPane> */}
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}
