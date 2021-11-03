@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
-import { Button, Form, Menu, Dropdown, Tabs, message } from 'antd';
+import { Button, Menu, Dropdown, Tooltip, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import CreatePlaylist from 'components/Playlist/CreatePlaylist';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import cdnImage from 'lib/cdn-image';
 import geopattern from 'geopattern';
+
+import {
+  AudioOutlined,
+  PlaySquareOutlined,
+  TeamOutlined
+} from '@ant-design/icons';
 
 const UPDATE_ACCOUNT = gql`
   mutation updateAccountPreview($account_id: uuid!, $url: String!) {
@@ -229,21 +235,32 @@ function EventCard(props) {
             className="block text-gray-500 text-base xs:text-lg sm:text-base lg:text-lg xl:text-base font-sans"
             dateTime={moment(event.start).format()}
           >
-            <svg
-              className="inline-block align-text-top w-5 h-5 mr-2 text-gray-600"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            {moment(event.start).format('MMMM Do, h:mm a')}
+            {event.isAudio() ? (
+              <React.Fragment>
+                <Tooltip title="Audio">
+                  <AudioOutlined style={{ verticalAlign: 'text-bottom' }} />
+                </Tooltip>{' '}
+                {moment(event.start).format('MMMM Do, h:mm a')}
+              </React.Fragment>
+            ) : null}
+            {event.isVideo() || event.isBroadcast() ? (
+              <React.Fragment>
+                <Tooltip title="Video">
+                  <PlaySquareOutlined
+                    style={{ verticalAlign: 'text-bottom' }}
+                  />{' '}
+                </Tooltip>
+                {moment(event.start).format('MMMM Do, h:mm a')}
+              </React.Fragment>
+            ) : null}
+            {event.isConference() ? (
+              <React.Fragment>
+                <Tooltip title="Conference">
+                  <TeamOutlined style={{ verticalAlign: 'text-bottom' }} />{' '}
+                </Tooltip>
+                {moment(event.start).format('MMMM Do, h:mm a')}
+              </React.Fragment>
+            ) : null}
           </time>
         </div>
         {renderTags()}
