@@ -274,16 +274,18 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                {/* <TabPane tab="Timeline" key="timeline">
-                  <Timeline
-                    isMyAccount={isMyAccount}
-                    user={user}
-                    account={account}
-                    posts={account.posts}
-                    refetch={refetch}
-                  />
-                  <br />
-                </TabPane> */}
+                {user.email.includes('jeff') ? (
+                  <TabPane tab="Timeline" key="timeline">
+                    <Timeline
+                      isMyAccount={isMyAccount}
+                      user={user}
+                      account={account}
+                      posts={account.posts}
+                      refetch={refetch}
+                    />
+                    <br />
+                  </TabPane>
+                ) : null}
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}

@@ -12,7 +12,7 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 export const GET_ACCOUNT_ANON = gql`
-  query GetAccount($username: String!, $affiliate_code: String) {
+  query GetAccount($username: String!, $affiliate_code: Strin, $now: date!) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
     }
@@ -26,8 +26,12 @@ export const GET_ACCOUNT_ANON = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
-      posts(order_by: { created: desc }) {
+      posts(
+        order_by: { date: desc, created: desc }
+        where: { date: { _lte: $now } }
+      ) {
         id
+        date
         message
         attachments
         created
@@ -136,6 +140,7 @@ const GET_ACCOUNT_USER = gql`
     $username: String!
     $user_id: uuid!
     $affiliate_code: String
+    $now: date!
   ) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
@@ -174,8 +179,12 @@ const GET_ACCOUNT_USER = gql`
         eventcount
         subscriptionscount
       }
-      posts(order_by: { created: desc }) {
+      posts(
+        order_by: { date: desc, created: desc }
+        where: { date: { _lte: $now } }
+      ) {
         id
+        date
         message
         attachments
         created
@@ -304,8 +313,8 @@ export default function Home(props) {
     user ? GET_ACCOUNT_USER : GET_ACCOUNT_ANON,
     {
       variables: user
-        ? { username, user_id: user.id, affiliate_code: userCode }
-        : { username }
+        ? { username, user_id: user.id, affiliate_code: userCode, now }
+        : { username, now }
     }
   );
 

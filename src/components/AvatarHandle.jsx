@@ -39,7 +39,10 @@ export default function AvatarHandle({ account, date }) {
             </span>
           </p>
           {date ? (
-            <div className="text-sm"> {moment(date).fromNow()}</div>
+            <div className="text-sm text-gray-600">
+              {' '}
+              {moment(date).fromNow()}
+            </div>
           ) : null}
         </div>
       </div>

@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
-import { Button, Dropdown, Form, Menu, Modal, Popconfirm, Input } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Dropdown,
+  Form,
+  Menu,
+  Modal,
+  Popconfirm,
+  Input
+} from 'antd';
+import moment from 'moment';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import Microlink from '@microlink/react';
+
+import ReactAudioPlayer from 'react-audio-player';
 import AvatarHandle from 'components/AvatarHandle';
 import FileUpload from 'components/FileUpload';
 
@@ -56,18 +69,78 @@ export default function Timeline({
   };
 
   const handleVideoUpload = (step) => {
-    if (step.results[':original'][0].mime.includes('image')) {
-      setAttachments([...attachments, step.results[':original'][0].url]);
+    let mime = step.results[':original'][0].mime;
+    let type = mime.split('/')[0];
+    if (mime == 'application/pdf') {
+      type = 'pdf';
     }
+    setAttachments([
+      ...attachments,
+      { type, mime, audience: 'public', url: step.results[':original'][0].url }
+    ]);
   };
 
   const handleUppyError = () => {};
 
-  let uploadVideoOptions = {
-    allowedFileTypes: ['video/*', 'audio/*', 'image/*']
+  const uploadVideoOptions = {
+    allowedFileTypes: ['video/*', 'audio/*', 'image/*', 'application/pdf']
   };
 
-  console.log({ account, user });
+  const dateFormat = 'YYYY/MM/DD';
+
+  const initialValues = {
+    date: moment(new Date().toISOString().substr(0, 10))
+  };
+
+  const renderAttachment = (attachment) => {
+    switch (attachment.type) {
+      case 'image':
+        return (
+          <img
+            src={attachment.url}
+            style={{ width: '100%', height: '100%' }}
+            alt={attachment.mime}
+          />
+        );
+      case 'audio':
+        return <ReactAudioPlayer src={attachment.url} controls />;
+      case 'video':
+        return <video src={attachment.url} controls />;
+      case 'link':
+        return (
+          <Microlink
+            style={{
+              '--microlink-background-color': 'black',
+              '--microlink-border-color': 'black',
+              '--microlink-color': 'white',
+              '--microlink-hover-background-color': 'black',
+              '--microlink-hover-border-color': 'black'
+            }}
+            url={attachment.url}
+          />
+        );
+    }
+  };
+
+  const checkForLinks = (text) => {
+    let regex = /(https?:\/\/[^\s]+)/g;
+    let matches = text.match(regex);
+    if (matches) {
+      matches.forEach((match) => {
+        text = text.replace(match, `<Microlink url="${match}" />`);
+        setAttachments([
+          ...attachments,
+          {
+            type: 'link',
+            mime: 'text/html',
+            audience: 'public',
+            url: match
+          }
+        ]);
+      });
+    }
+    return text;
+  };
 
   return (
     <div className="max-w-screen-sm">
@@ -81,7 +154,10 @@ export default function Timeline({
       )}
 
       {posts.map((post) => (
-        <div className="bg-gray-900 mx-1 border-solid rounded-lg mb-5 p-5">
+        <div
+          key={post.id}
+          className="bg-gray-900 mx-1 border-solid rounded-lg mb-5 p-5"
+        >
           <Dropdown
             className="float-right"
             overlay={
@@ -108,12 +184,10 @@ export default function Timeline({
               <EllipsisOutlined />
             </a>
           </Dropdown>
-          <AvatarHandle account={account} date={post.created} />
+          <AvatarHandle account={account} date={post.date} />
           <div>{post.message}</div>
-          {post?.attachments?.map((attachment) => (
-            <div className="mt-5">
-              <img className="max-w-full" src={attachment} alt="attachment" />
-            </div>
+          {post.attachments.map((attachment) => (
+            <div className="mt-3">{renderAttachment(attachment)}</div>
           ))}
         </div>
       ))}
@@ -131,35 +205,45 @@ export default function Timeline({
         }
         onCancel={() => setShowModal(false)}
       >
-        <Form name="basic" onFinish={onFinish} layout="vertical" form={form}>
+        <Form
+          name="basic"
+          initialValues={initialValues}
+          onFinish={onFinish}
+          layout="vertical"
+          form={form}
+        >
           <AvatarHandle account={account} />
+          <Form.Item name="date" className="pt-5">
+            <DatePicker format={dateFormat} />
+          </Form.Item>
           <Form.Item name="message">
             <Input.TextArea
-              className="p-5"
               autoSize={true}
               autoFocus={true}
+              onChange={(e) => checkForLinks(e.target.value)}
               placeholder={` What's on your mind, ${account.name}?`}
             />
           </Form.Item>
-          <FileUpload
-            id="video"
-            success={handleVideoUpload}
-            error={handleUppyError}
-            options={uploadVideoOptions}
-          />
+          {!attachments.length ? (
+            <FileUpload
+              id="video"
+              success={handleVideoUpload}
+              error={handleUppyError}
+              options={uploadVideoOptions}
+            />
+          ) : null}
           {attachments.map((attachment) => (
-            <div className="mt-5">
+            <div>
               <CloseOutlined
                 className="float-right"
                 onClick={() =>
                   setAttachments(attachments.filter((a) => a !== attachment))
                 }
               />
-              <img className="max-w-full" src={attachment} alt="attachment" />
+              <div className="mt-3">{renderAttachment(attachment)}</div>
             </div>
           ))}
           <Button
-            className="mt-5"
             type="primary"
             key="submit"
             loading={creatingPost}

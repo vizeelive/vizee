@@ -40006,6 +40006,133 @@
       },
       {
         "inputFields": null,
+        "kind": "SCALAR",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "date",
+        "enumValues": null,
+        "description": null,
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "_eq",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_gt",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_gte",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_in",
+            "defaultValue": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "date",
+                  "ofType": null
+                }
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "_is_null",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_lt",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_lte",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_neq",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_nin",
+            "defaultValue": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "date",
+                  "ofType": null
+                }
+              }
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "date_comparison_exp",
+        "enumValues": null,
+        "description": "expression to compare columns of type date. All fields are combined with logical 'AND'.",
+        "fields": null
+      },
+      {
+        "inputFields": null,
         "kind": "OBJECT",
         "possibleTypes": null,
         "interfaces": [],
@@ -72629,6 +72756,22 @@
             "description": null
           },
           {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "allow_comments",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
             "args": [
               {
                 "name": "path",
@@ -72687,6 +72830,22 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "date",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "date",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "event",
             "type": {
               "kind": "OBJECT",
@@ -72729,13 +72888,9 @@
             "deprecationReason": null,
             "name": "message",
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "description": null
           },
@@ -73046,6 +73201,16 @@
             "description": null
           },
           {
+            "name": "allow_comments",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "attachments",
             "defaultValue": null,
             "type": {
@@ -73071,6 +73236,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "date",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "date_comparison_exp",
               "ofType": null
             },
             "description": null
@@ -73241,6 +73416,16 @@
             "description": null
           },
           {
+            "name": "allow_comments",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "attachments",
             "defaultValue": null,
             "type": {
@@ -73266,6 +73451,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "date",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
               "ofType": null
             },
             "description": null
@@ -73378,6 +73573,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "date",
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "event_id",
             "type": {
               "kind": "SCALAR",
@@ -73436,6 +73643,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "date",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -73532,6 +73749,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "date",
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "event_id",
             "type": {
               "kind": "SCALAR",
@@ -73590,6 +73819,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "date",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -73803,6 +74042,16 @@
             "description": null
           },
           {
+            "name": "allow_comments",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "attachments",
             "defaultValue": null,
             "type": {
@@ -73824,6 +74073,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "date",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -73953,6 +74212,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "allow_comments",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "attachments",
             "description": "column name"
           },
@@ -73966,6 +74231,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "created_by",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "date",
             "description": "column name"
           },
           {
@@ -74003,6 +74274,16 @@
             "description": null
           },
           {
+            "name": "allow_comments",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "attachments",
             "defaultValue": null,
             "type": {
@@ -74028,6 +74309,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "date",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "date",
               "ofType": null
             },
             "description": null
@@ -74087,6 +74378,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "allow_comments",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "attachments",
             "description": "column name"
           },
@@ -74100,6 +74397,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "created_by",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "date",
             "description": "column name"
           },
           {
