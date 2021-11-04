@@ -50,14 +50,14 @@ export const GET_ACCOUNT_ANON = gql`
         eventcount
         subscriptionscount
       }
-      playlists(where: { events: { event: { published: { _eq: true } } } }) {
+      playlists {
         id
         name
         account {
           id
           username
         }
-        events {
+        events(where: { event: { id: { _is_null: false } } }) {
           id
           event {
             id
@@ -196,14 +196,14 @@ const GET_ACCOUNT_USER = gql`
           id
         }
       }
-      playlists(where: { events: { event: { published: { _eq: true } } } }) {
+      playlists {
         id
         name
         account {
           id
           username
         }
-        events {
+        events(where: { event: { id: { _is_null: false } } }) {
           id
           event {
             id
