@@ -26,7 +26,7 @@ const UPDATE_ACCOUNT = gql`
   }
 `;
 function EventCard(props) {
-  const { event, user, onFavoriteClick } = props;
+  const { event, user, onFavoriteClick, selectCallback } = props;
 
   const history = useHistory();
   const [createPlaylistVisible, setCreatePlaylistVisible] = useState(false);
@@ -40,6 +40,10 @@ function EventCard(props) {
     const handleClick = () => {
       const isTextSelected = window.getSelection().toString();
       if (!isTextSelected) {
+        if (selectCallback) {
+          selectCallback({ type: 'event', data: event });
+          return;
+        }
         eventLink.click();
       }
     };
@@ -65,7 +69,7 @@ function EventCard(props) {
         }
       });
       message.success('Set featured preview');
-      props.refetch();
+      props?.refetch?.();
     } catch (e) {
       message.error('Failed to set featured preview');
     }
@@ -188,7 +192,7 @@ function EventCard(props) {
           event={event}
           visible={createPlaylistVisible}
           onClose={() => {
-            props.refetch();
+            props?.refetch?.();
             setCreatePlaylistVisible(false);
           }}
         />

@@ -249,7 +249,21 @@ export default function HomeView(props) {
 
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5 event-tabs">
-              <Tabs defaultActiveKey="1">
+              <Tabs defaultActiveKey="timeline">
+                {user?.email?.includes('@viz.ee') ||
+                user?.email?.includes('@loiselles.com') ? (
+                  <TabPane tab="Timeline" key="timeline">
+                    <Timeline
+                      isMyAccount={isMyAccount}
+                      user={user}
+                      account={account}
+                      posts={account.posts}
+                      events={account.events}
+                      refetch={refetch}
+                    />
+                    <br />
+                  </TabPane>
+                ) : null}
                 <TabPane tab="Media" key="media">
                   <div data-test-id="account-tags">
                     {account?.tags
@@ -274,18 +288,6 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                {user?.email?.includes('jeff') ? (
-                  <TabPane tab="Timeline" key="timeline">
-                    <Timeline
-                      isMyAccount={isMyAccount}
-                      user={user}
-                      account={account}
-                      posts={account.posts}
-                      refetch={refetch}
-                    />
-                    <br />
-                  </TabPane>
-                ) : null}
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}

@@ -14,7 +14,7 @@ const CREATE_FAVORITE = gql`
   }
 `;
 
-export default function Events({ events, refetch }) {
+export default function Events({ events, refetch, selectCallback }) {
   const { user } = useAuth();
   const [createFavorite] = useMutation(CREATE_FAVORITE);
 
@@ -83,6 +83,7 @@ export default function Events({ events, refetch }) {
                 key={event.id}
                 event={event}
                 user={user}
+                selectCallback={selectCallback}
                 onFavoriteClick={(e) =>
                   event?.favorites?.length ? () => {} : handleFavorite(e, event)
                 }
@@ -98,5 +99,6 @@ export default function Events({ events, refetch }) {
 Events.propTypes = {
   refetch: PropTypes.func.isRequired,
   category: PropTypes.string,
-  events: PropTypes.array.isRequired
+  events: PropTypes.array.isRequired,
+  selectCallback: PropTypes.func
 };

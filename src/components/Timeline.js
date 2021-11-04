@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Button,
   DatePicker,
+  Drawer,
   Dropdown,
   Form,
   Menu,
@@ -16,6 +17,9 @@ import Microlink from '@microlink/react';
 import ReactAudioPlayer from 'react-audio-player';
 import AvatarHandle from 'components/AvatarHandle';
 import FileUpload from 'components/FileUpload';
+import Events from 'components/Events';
+import EventCard from 'components/EventCard';
+import VideoConference from 'components/VideoConference';
 
 import { EllipsisOutlined, CloseOutlined } from '@ant-design/icons';
 
@@ -40,9 +44,11 @@ export default function Timeline({
   user,
   account,
   posts,
+  events,
   refetch
 }) {
   const [form] = Form.useForm();
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -92,7 +98,7 @@ export default function Timeline({
     date: moment(new Date().toISOString().substr(0, 10))
   };
 
-  const renderAttachment = (attachment) => {
+  const renderAttachment = (attachment, post) => {
     switch (attachment.type) {
       case 'image':
         return (
@@ -106,6 +112,14 @@ export default function Timeline({
         return <ReactAudioPlayer src={attachment.url} controls />;
       case 'video':
         return <video src={attachment.url} controls />;
+      case 'event':
+        return <EventCard event={attachment.data} />;
+      case 'jitsi':
+        return post ? (
+          <VideoConference roomName={post.id} user={user} />
+        ) : (
+          'Conference'
+        );
       case 'link':
         return (
           <Microlink
@@ -127,7 +141,7 @@ export default function Timeline({
     let matches = text.match(regex);
     if (matches) {
       matches.forEach((match) => {
-        text = text.replace(match, `<Microlink url="${match}" />`);
+        // text = text.replace(match, `<Microlink url="${match}" />`);
         setAttachments([
           ...attachments,
           {
@@ -142,8 +156,39 @@ export default function Timeline({
     return text;
   };
 
+  const handleSelectCallback = (obj) => {
+    setAttachments([
+      ...attachments,
+      {
+        type: obj.type,
+        data: obj.data,
+        audience: 'public'
+      }
+    ]);
+    setDrawerVisible(false);
+  };
+
+  const handleAddConference = () => {
+    setAttachments([
+      ...attachments,
+      {
+        type: 'jitsi',
+        audience: 'public'
+      }
+    ]);
+  };
+
   return (
     <div className="max-w-screen-sm">
+      <Drawer
+        title="Select from Library"
+        placement="right"
+        width={500}
+        onClose={() => setDrawerVisible(false)}
+        visible={drawerVisible}
+      >
+        <Events events={events} selectCallback={handleSelectCallback} />
+      </Drawer>
       {isMyAccount && (
         <div
           onClick={() => setShowModal(true)}
@@ -187,7 +232,7 @@ export default function Timeline({
           <AvatarHandle account={account} date={post.date} />
           <div>{post.message}</div>
           {post.attachments.map((attachment) => (
-            <div className="mt-3">{renderAttachment(attachment)}</div>
+            <div className="mt-3">{renderAttachment(attachment, post)}</div>
           ))}
         </div>
       ))}
@@ -218,12 +263,25 @@ export default function Timeline({
           </Form.Item>
           <Form.Item name="message">
             <Input.TextArea
-              autoSize={true}
+              autoSize={{ minRows: 4 }}
               autoFocus={true}
               onChange={(e) => checkForLinks(e.target.value)}
               placeholder={` What's on your mind, ${account.name}?`}
             />
           </Form.Item>
+          {!attachments.length ? (
+            <Button
+              className="mb-5 mr-3"
+              onClick={() => setDrawerVisible(true)}
+            >
+              Select Media from Library
+            </Button>
+          ) : null}
+          {!attachments.length ? (
+            <Button className="mb-5" onClick={handleAddConference}>
+              Add Conference
+            </Button>
+          ) : null}
           {!attachments.length ? (
             <FileUpload
               id="video"
@@ -247,6 +305,7 @@ export default function Timeline({
             type="primary"
             key="submit"
             loading={creatingPost}
+            className="mt-5"
             htmlType="submit"
           >
             Post
