@@ -12,7 +12,7 @@ import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 export const GET_ACCOUNT_ANON = gql`
-  query GetAccount($username: String!, $affiliate_code: Strin, $now: date!) {
+  query GetAccount($username: String!, $affiliate_code: String, $now: date!) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
     }
@@ -50,7 +50,7 @@ export const GET_ACCOUNT_ANON = gql`
         eventcount
         subscriptionscount
       }
-      playlists {
+      playlists(where: { events: { event: { published: { _eq: true } } } }) {
         id
         name
         account {
@@ -196,7 +196,7 @@ const GET_ACCOUNT_USER = gql`
           id
         }
       }
-      playlists {
+      playlists(where: { events: { event: { published: { _eq: true } } } }) {
         id
         name
         account {

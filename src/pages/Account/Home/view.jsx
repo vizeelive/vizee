@@ -274,7 +274,7 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                {user.email.includes('jeff') ? (
+                {user?.email?.includes('jeff') ? (
                   <TabPane tab="Timeline" key="timeline">
                     <Timeline
                       isMyAccount={isMyAccount}
