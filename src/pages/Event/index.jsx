@@ -25,7 +25,7 @@ const GET_EVENT_UNAUTH = gql`
     playlist: playlists(where: { id: { _eq: $playlist_id } }) {
       id
       name
-      events {
+      events(where: { event: { id: { _is_null: false } } }) {
         event {
           id
           name
@@ -129,7 +129,7 @@ const GET_EVENT_AUTH = gql`
     playlist: playlists(where: { id: { _eq: $playlist_id } }) {
       id
       name
-      events {
+      events(where: { event: { id: { _is_null: false } } }) {
         event {
           id
           name
