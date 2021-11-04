@@ -246,7 +246,7 @@ export default function DashboardView(props) {
                 />
 
                 <Statistic
-                  name="Events"
+                  name="Media"
                   value={account.eventcount}
                   icon={
                     <React.Fragment>

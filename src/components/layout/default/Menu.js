@@ -126,7 +126,7 @@ export default function Menu(props) {
                   className={className.default.inactive}
                   activeClassName={className.default.active}
                 >
-                  Media
+                  Library
                 </NavLink>
 
                 {hasTickets && (
