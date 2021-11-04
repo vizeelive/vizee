@@ -64,12 +64,12 @@ export default class VideoPlayer extends React.Component {
       </span>
     );
 
-    let styles = this.props?.cover
-      ? {
-          backgroundImage: `url('${this.props.cover}')`,
-          backgroundSize: 'cover'
-        }
-      : null;
+     let styles = this.props?.cover
+       ? {
+           backgroundImage: `url('${this.props.cover}')`,
+           backgroundSize: 'cover'
+         }
+       : null;
 
     return (
       <div>

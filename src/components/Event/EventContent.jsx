@@ -4,6 +4,7 @@ import useDimensions from 'react-use-dimensions';
 import VideoPlayer from '../VideoPlayer';
 import VideoPlayerIVS from '../VideoPlayerIVS';
 import VideoConference from '../VideoConference';
+import cdnImage from 'lib/cdn-image';
 
 function EventContent(props) {
   const {
@@ -23,18 +24,23 @@ function EventContent(props) {
   }, [height]);
 
   const renderEventVideo = () => {
-     if (event.isAudio()) {
-       return (
-         <div data-test-id="event-audio">
-           <VideoPlayer
-             key={playerKey}
-             {...videoJsOptions}
-             cover={event.photo}
-             onEnded={onEnded}
-           />
-         </div>
-       );
-     }
+    if (event.isAudio()) {
+      return (
+        <div data-test-id="event-audio">
+          <VideoPlayer
+            key={playerKey}
+            {...videoJsOptions}
+            cover={cdnImage(event.cover(), {
+              fit: 'fill',
+              fill: 'blur',
+              w: 1216,
+              h: 684
+            })}
+            onEnded={onEnded}
+          />
+        </div>
+      );
+    }
 
     if (event.isBroadcast() && event.stream_type.includes('mux')) {
       return (
