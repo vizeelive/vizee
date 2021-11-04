@@ -15,6 +15,7 @@ function createPlaybackId(id) {
 
 function createStream() {
   return Video.LiveStreams.create({
+    low_latency: true,
     playback_policy: 'signed',
     new_asset_settings: { playback_policy: 'signed' }
   });

@@ -122,7 +122,7 @@ export default function StartStreamButton(props) {
           </Col>
         </Row>
       </Modal>
-      <TwButton onClick={() => setModalVisible(true)}>
+      <TwButton onClick={() => handleStartLivestream('mux')}>
         Start Live Stream
       </TwButton>
     </React.Fragment>
