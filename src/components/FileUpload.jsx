@@ -17,6 +17,7 @@ function FileUpload(props) {
     allowedFileTypes: [],
     aspectRatio: props.aspectRatio || null,
     autoOpenFileEditor: props.autoOpenFileEditor || false,
+    maxNumberOfFiles: props.maxNumberOfFiles || 1,
     ...props.options
   };
 
@@ -26,7 +27,7 @@ function FileUpload(props) {
       autoProceed: false,
       restrictions: {
         allowedFileTypes: options.allowedFileTypes,
-        maxNumberOfFiles: 1
+        maxNumberOfFiles: options.maxNumberOfFiles
       }
     });
     uppy

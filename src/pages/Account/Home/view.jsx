@@ -12,6 +12,7 @@ import VideoPlayer from 'components/VideoPlayer';
 import AccountHeader from './Header';
 import Pricing from './Pricing';
 
+import Images from './Images';
 import Timeline from 'components/Timeline';
 import SuccessModal from 'components/SuccessModal';
 import PlaylistListing from 'components/Playlist/PlaylistListing';
@@ -287,6 +288,9 @@ export default function HomeView(props) {
                   <EventsContainer>
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
+                </TabPane>
+                <TabPane tab="Images" key="images">
+                  <Images images={account.images} />
                 </TabPane>
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing

@@ -33,32 +33,32 @@ function EventCard(props) {
 
   const [updateAccount] = useMutation(UPDATE_ACCOUNT);
 
-  useEffect(() => {
-    const card = document.getElementById(`card-${event.id}`);
-    const eventLink = document.getElementById(`event-link-${event.id}`);
+  // useEffect(() => {
+  //   const card = document.getElementById(`card-${event.id}`);
+  //   const eventLink = document.getElementById(`event-link-${event.id}`);
 
-    const handleClick = () => {
-      const isTextSelected = window.getSelection().toString();
-      if (!isTextSelected) {
-        if (selectCallback) {
-          selectCallback({ type: 'event', data: event });
-          return;
-        }
-        eventLink.click();
-      }
-    };
+  //   const handleClick = () => {
+  //     if (selectCallback) {
+  //       selectCallback({ type: 'event', data: event });
+  //       return;
+  //     }
+  //     const isTextSelected = window.getSelection().toString();
+  //     if (!isTextSelected) {
+  //       eventLink.click();
+  //     }
+  //   };
 
-    card.addEventListener('click', handleClick);
+  //   card.addEventListener('click', handleClick);
 
-    const clickableElements = Array.from(
-      card.querySelectorAll('.event-clickable')
-    );
-    clickableElements.forEach((el) =>
-      el.addEventListener('click', (e) => e.stopPropagation())
-    );
+  //   const clickableElements = Array.from(
+  //     card.querySelectorAll('.event-clickable')
+  //   );
+  //   clickableElements.forEach((el) =>
+  //     el.addEventListener('click', (e) => e.stopPropagation())
+  //   );
 
-    return () => card.removeEventListener('click', handleClick);
-  }, []);
+  //   return () => card.removeEventListener('click', handleClick);
+  // }, []);
 
   const setFeaturedVideo = async (event) => {
     try {
@@ -184,6 +184,14 @@ function EventCard(props) {
     eventLink = `/${event.account.username}/${event.id}?playlist=${playlist_id}`;
   }
 
+  const handleClick = () => {
+    if (selectCallback) {
+      selectCallback({ type: 'event', data: event });
+      return;
+    }
+    history.push(`/${event.account.username}/${event.id}`);
+  };
+
   return (
     <React.Fragment>
       {createPlaylistVisible && (
@@ -199,6 +207,7 @@ function EventCard(props) {
       )}
       <article
         id={`card-${event.id}`}
+        onClick={handleClick}
         className="event-card relative cursor-pointer bg-gray-950 overflow-hidden shadow rounded-3xl hover:border-red-500"
         data-test-id="event-card"
       >

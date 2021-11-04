@@ -36,6 +36,9 @@ export const GET_ACCOUNT_ANON = gql`
         attachments
         created
       }
+      images {
+        url
+      }
       tags {
         id
         name
@@ -188,6 +191,9 @@ const GET_ACCOUNT_USER = gql`
         message
         attachments
         created
+      }
+      images {
+        url
       }
       tags {
         id

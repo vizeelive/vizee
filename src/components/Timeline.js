@@ -7,7 +7,7 @@ import {
   Form,
   Menu,
   Modal,
-  Popconfirm,
+  Select,
   Input
 } from 'antd';
 import moment from 'moment';
@@ -20,6 +20,7 @@ import FileUpload from 'components/FileUpload';
 import Events from 'components/Events';
 import EventCard from 'components/EventCard';
 import VideoConference from 'components/VideoConference';
+import Images from 'pages/Account/Home/Images';
 
 import { EllipsisOutlined, CloseOutlined } from '@ant-design/icons';
 
@@ -74,29 +75,24 @@ export default function Timeline({
     refetch();
   };
 
-  const handleVideoUpload = (step) => {
-    let mime = step.results[':original'][0].mime;
-    let type = mime.split('/')[0];
-    if (mime == 'application/pdf') {
-      type = 'pdf';
-    }
-    setAttachments([
-      ...attachments,
-      { type, mime, audience: 'public', url: step.results[':original'][0].url }
-    ]);
+  const handleUpload = (step) => {
+    let files = step.results[':original'].map((file) => {
+      let mime = file.mime;
+      let type = mime.split('/')[0];
+      if (mime == 'application/pdf') {
+        type = 'pdf';
+      }
+      return {
+        type,
+        mime,
+        audience: 'public',
+        url: file.url
+      };
+    });
+    setAttachments([...attachments, ...files]);
   };
 
   const handleUppyError = () => {};
-
-  const uploadVideoOptions = {
-    allowedFileTypes: ['video/*', 'audio/*', 'image/*', 'application/pdf']
-  };
-
-  const dateFormat = 'YYYY/MM/DD';
-
-  const initialValues = {
-    date: moment(new Date().toISOString().substr(0, 10))
-  };
 
   const renderAttachment = (attachment, post) => {
     switch (attachment.type) {
@@ -141,7 +137,6 @@ export default function Timeline({
     let matches = text.match(regex);
     if (matches) {
       matches.forEach((match) => {
-        // text = text.replace(match, `<Microlink url="${match}" />`);
         setAttachments([
           ...attachments,
           {
@@ -176,6 +171,16 @@ export default function Timeline({
         audience: 'public'
       }
     ]);
+  };
+
+  const uploadOptions = {
+    allowedFileTypes: ['video/*', 'audio/*', 'image/*', 'application/pdf']
+  };
+
+  const dateFormat = 'YYYY/MM/DD';
+
+  const initialValues = {
+    date: moment(new Date().toISOString().substr(0, 10))
   };
 
   return (
@@ -261,6 +266,12 @@ export default function Timeline({
           <Form.Item name="date" className="pt-5">
             <DatePicker format={dateFormat} />
           </Form.Item>
+          <Form.Item name="audience">
+            <Select defaultValue="public">
+              <Option value="public">Public</Option>
+              <Option value="private">Private</Option>
+            </Select>
+          </Form.Item>
           <Form.Item name="message">
             <Input.TextArea
               autoSize={{ minRows: 4 }}
@@ -285,22 +296,32 @@ export default function Timeline({
           {!attachments.length ? (
             <FileUpload
               id="video"
-              success={handleVideoUpload}
+              success={handleUpload}
               error={handleUppyError}
-              options={uploadVideoOptions}
+              options={uploadOptions}
+              maxNumberOfFiles={20}
             />
           ) : null}
-          {attachments.map((attachment) => (
-            <div>
-              <CloseOutlined
-                className="float-right"
-                onClick={() =>
-                  setAttachments(attachments.filter((a) => a !== attachment))
-                }
-              />
-              <div className="mt-3">{renderAttachment(attachment)}</div>
-            </div>
-          ))}
+          <Images
+            images={attachments.filter((a) => {
+              if (a.type === 'image') {
+                return a;
+              }
+            })}
+          />
+          {attachments
+            .filter((a) => a.type !== 'image')
+            .map((attachment) => (
+              <div>
+                <CloseOutlined
+                  className="float-right"
+                  onClick={() =>
+                    setAttachments(attachments.filter((a) => a !== attachment))
+                  }
+                />
+                <div className="mt-3">{renderAttachment(attachment)}</div>
+              </div>
+            ))}
           <Button
             type="primary"
             key="submit"
