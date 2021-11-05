@@ -31,6 +31,14 @@ app.get('/stripe/account/create', async function (req, res) {
     logger.info('Creating new stripe account');
     var account = await stripe.accounts.create({
       type: 'express',
+      capabilities: {
+        card_payments: {
+          requested: true
+        },
+        transfers: {
+          requested: true
+        }
+      },
       settings: {
         payouts: {
           schedule: {
