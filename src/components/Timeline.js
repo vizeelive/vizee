@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from 'config';
 import {
   Button,
   DatePicker,
@@ -20,7 +21,11 @@ import FileUpload from 'components/FileUpload';
 import Events from 'components/Events';
 import EventCard from 'components/EventCard';
 import VideoConference from 'components/VideoConference';
-import Images from 'pages/Account/Home/Images';
+import VideoPlayer from 'components/VideoPlayer';
+
+import { Document, Page } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 import { EllipsisOutlined, CloseOutlined } from '@ant-design/icons';
 
@@ -53,6 +58,9 @@ export default function Timeline({
   const [attachments, setAttachments] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
   const [createPost, { loading: creatingPost }] = useMutation(CREATE_POST);
 
   const [deletePost, { loading: deletingPost }] = useMutation(DELETE_POST);
@@ -62,7 +70,10 @@ export default function Timeline({
       variables: {
         object: {
           ...form.getFieldsValue(),
-          attachments,
+          attachments: attachments.map((a) => {
+            delete a.preview;
+            return a;
+          }),
           account_id: account.id,
           ...(user?.isAdmin ? { created_by: user.id } : null)
         }
@@ -75,21 +86,48 @@ export default function Timeline({
     refetch();
   };
 
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+    setPageNumber(1);
+  }
+
+  function changePage(offset) {
+    setPageNumber((prevPageNumber) => prevPageNumber + offset);
+  }
+
+  function previousPage() {
+    changePage(-1);
+  }
+
+  function nextPage() {
+    changePage(1);
+  }
+
   const handleUpload = (step) => {
-    let files = step.results[':original'].map((file) => {
+    let objects = step.results[':original'].map(async (file) => {
+      let data;
       let mime = file.mime;
       let type = mime.split('/')[0];
       if (mime == 'application/pdf') {
         type = 'pdf';
       }
+      if (type === 'video') {
+        let res = await fetch(
+          `${config.api}/mux/asset/preview?url=${file.url}`
+        );
+        data = await res.json();
+      }
       return {
         type,
         mime,
         audience: 'public',
-        url: file.url
+        url: data?.url || file.url,
+        preview: file.url
       };
     });
-    setAttachments([...attachments, ...files]);
+    Promise.all(objects).then((results) => {
+      setAttachments([...attachments, ...results]);
+    });
   };
 
   const handleUppyError = () => {};
@@ -107,7 +145,21 @@ export default function Timeline({
       case 'audio':
         return <ReactAudioPlayer src={attachment.url} controls />;
       case 'video':
-        return <video src={attachment.url} controls />;
+        let videoJsOptions = {
+          autoplay: true,
+          controls: true,
+          aspectRatio: '16:9',
+          sources: []
+        };
+        if (attachment?.preview) {
+          videoJsOptions.sources.push({ src: attachment.preview });
+        } else {
+          videoJsOptions.sources.push({
+            src: attachment.url,
+            type: 'application/x-mpegurl'
+          });
+        }
+        return <VideoPlayer key={Math.random()} {...videoJsOptions} />;
       case 'event':
         return <EventCard event={attachment.data} />;
       case 'jitsi':
@@ -115,6 +167,37 @@ export default function Timeline({
           <VideoConference roomName={post.id} user={user} />
         ) : (
           'Conference'
+        );
+      case 'pdf':
+        return (
+          <div>
+            <Document
+              file={attachment.url}
+              onLoadSuccess={onDocumentLoadSuccess}
+            >
+              <Page pageNumber={pageNumber} />
+            </Document>
+            <div className="text-center mt-2">
+              <p>
+                Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
+              </p>
+              <Button
+                type="button"
+                disabled={pageNumber <= 1}
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button
+                className="ml-3"
+                type="button"
+                disabled={pageNumber >= numPages}
+                onClick={nextPage}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
         );
       case 'link':
         return (
@@ -302,26 +385,18 @@ export default function Timeline({
               maxNumberOfFiles={20}
             />
           ) : null}
-          <Images
-            images={attachments.filter((a) => {
-              if (a.type === 'image') {
-                return a;
-              }
-            })}
-          />
-          {attachments
-            .filter((a) => a.type !== 'image')
-            .map((attachment) => (
-              <div>
+          {attachments.map((attachment) => (
+            <div>
+              <div className="text-right">
                 <CloseOutlined
-                  className="float-right"
                   onClick={() =>
                     setAttachments(attachments.filter((a) => a !== attachment))
                   }
                 />
-                <div className="mt-3">{renderAttachment(attachment)}</div>
               </div>
-            ))}
+              <div className="mt-3">{renderAttachment(attachment)}</div>
+            </div>
+          ))}
           <Button
             type="primary"
             key="submit"

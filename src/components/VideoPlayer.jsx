@@ -34,6 +34,9 @@ export default class VideoPlayer extends React.Component {
     );
     let props = this.props;
     this.player = videojs(this.videoNode, options, function onPlayerReady() {
+      let reloadOptions = {};
+      reloadOptions.errorInterval = 1;
+      this.reloadSourceOnError(reloadOptions);
       this.hlsQualitySelector({
         displayCurrentQuality: true
       });

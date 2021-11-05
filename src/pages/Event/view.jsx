@@ -6,7 +6,6 @@ import Linkify from 'react-linkify';
 import cn from 'classnames';
 import { isMobile } from 'react-device-detect';
 import { Divider, notification } from 'antd';
-import geopattern from 'geopattern';
 
 import TwButton from 'components/ui/Button';
 import Countdown from 'components/Event/Countdown';

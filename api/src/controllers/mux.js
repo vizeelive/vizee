@@ -63,6 +63,21 @@ app.post(
   }
 );
 
+app.get('/mux/asset/preview', async function (req, res) {
+  let url = req.query.url;
+  try {
+    const asset = await Video.Assets.create({
+      input: url,
+      playback_policy: 'public'
+    });
+    res.send({
+      url: `https://stream.mux.com/${asset.playback_ids[0].id}.m3u8`
+    });
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
+
 app.get('/mux/asset/create', async function (req, res) {
   let url = req.query.url;
 

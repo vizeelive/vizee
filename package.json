@@ -74,6 +74,7 @@
     "react-helmet": "^6.1.0",
     "react-images": "^1.2.0-beta.7",
     "react-linkify": "^1.0.0-alpha",
+    "react-pdf": "^5.5.0",
     "react-photo-gallery": "^8.0.0",
     "react-places-autocomplete": "^7.3.0",
     "react-rotating-text": "^1.4.1",
