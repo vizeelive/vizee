@@ -24,6 +24,7 @@ app.post('/stripe/sync/subscriptions', async function (req, res) {
 
 app.get('/stripe/account/create', async function (req, res) {
   let id = req.query.id;
+  let country = req.query.country;
   let username = req.query.username;
   let account_id = req.query.account_id;
 
@@ -31,15 +32,19 @@ app.get('/stripe/account/create', async function (req, res) {
     logger.info('Creating new stripe account');
     var account = await stripe.accounts.create({
       type: 'express',
+      country,
       capabilities: {
-        card_payments: {
+        transfers: {
           requested: true
         }
+      },
+      tos_acceptance: {
+        service_agreement: 'recipient'
       },
       settings: {
         payouts: {
           schedule: {
-            interval: 'manual'
+            interval: 'daily'
           }
         }
       }

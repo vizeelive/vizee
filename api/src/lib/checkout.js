@@ -98,7 +98,7 @@ async function pay(params) {
     client_reference_id: ref,
     payment_method_types: ['card'],
     payment_intent_data: {
-      on_behalf_of: account.stripe_id,
+      // on_behalf_of: account.stripe_id,
       setup_future_usage: 'off_session',
       transfer_data: {
         amount,
