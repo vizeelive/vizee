@@ -59,6 +59,17 @@ app.post(
   async (req, res) => {
     var email = req.body.email;
     var domain = req.body.domain;
+    var authorization = req.headers?.authorization
+      ? req.headers.authorization.split('Bearer ')[1]
+      : null;
+
+    let isAdmin;
+    let sudo = jwt.decode(authorization);
+    if (sudo) {
+      let sudoRoles =
+        sudo['https://hasura.io/jwt/claims']['x-hasura-allowed-roles'];
+      isAdmin = sudoRoles.includes('admin');
+    }
 
     if (!email) {
       return res.status(400).send('Email is required');
@@ -106,7 +117,7 @@ app.post(
     );
     let link = `${domain}?code=${token}`;
 
-    if (process.env.NODE_ENV === 'dev') {
+    if (isAdmin || process.env.NODE_ENV === 'dev') {
       return res.send({ link });
     }
 

@@ -3,11 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { Transition } from '@headlessui/react';
 import Cookies from 'js-cookie';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import { Form, Input, Button, Modal, message } from 'antd';
+import config from 'config';
 
 export default function ProfileMenu(props) {
   const { user, creator, account, onLogout } = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [impersonateModal, setImpersonateModal] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -35,6 +38,23 @@ export default function ProfileMenu(props) {
     user.picture ||
     `https://avatars.dicebear.com/api/initials/${user.email}.svg`;
 
+  const onImpersonate = async (val) => {
+    let res = await fetch(config.api + '/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`
+      },
+      body: JSON.stringify({
+        email: val.email,
+        domain: window.location.origin
+      })
+    }).then((res) => res.json());
+    if (user.isAdmin || process.env.NODE_ENV === 'development') {
+      window.location.href = res.link;
+    }
+  };
+
   return (
     <div className="ml-3 relative">
       <div data-test-id="menu-profile">
@@ -48,6 +68,33 @@ export default function ProfileMenu(props) {
           <img className="h-8 w-8 rounded-full" src={photo} alt={user.email} />
         </button>
       </div>
+
+      <Modal
+        title="Impersonate"
+        closable={false}
+        visible={impersonateModal}
+        footer={null}
+      >
+        <Form name="basic" onFinish={onImpersonate}>
+          <Form.Item
+            autoFocus={true}
+            label="Email"
+            name="email"
+            autoFocus={true}
+            rules={[{ required: true, message: 'Required' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Button
+            key="submit"
+            htmlType="submit"
+            type="primary"
+            // loading={updating}
+          >
+            OK
+          </Button>
+        </Form>
+      </Modal>
 
       <Transition
         show={isOpen}
@@ -89,6 +136,16 @@ export default function ProfileMenu(props) {
               role="menuitem"
             >
               Subscriptions
+            </a>
+          )}
+          {account && user.isAdmin && (
+            <a
+              data-test-id="menu-impersonate"
+              onClick={() => setImpersonateModal(true)}
+              className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white-5 transition-none"
+              role="menuitem"
+            >
+              Impersonate
             </a>
           )}
           {account && isNetwork && (
