@@ -6,6 +6,7 @@ import { gql, useQuery } from '@apollo/client';
 import useAuth from 'hooks/useAuth';
 import Mapper from 'services/mapper';
 import useAffiliate from 'hooks/useAffiliate';
+import getOrigin from 'lib/getOrigin';
 
 import HomeView from './view';
 import { Centered } from 'components/styled/common';
@@ -359,7 +360,7 @@ export default function Home(props) {
 
   if (error) return 'Error';
 
-  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+  const origin = getOrigin();
   const shareUrl = `${origin}/${username}`;
 
   return (

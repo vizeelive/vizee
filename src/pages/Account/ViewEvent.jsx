@@ -13,6 +13,7 @@ import {
 import moment from 'moment';
 import styled from 'styled-components';
 import useAuth from 'hooks/useAuth';
+import getOrigin from 'lib/getOrigin';
 
 import { gql, useQuery, useMutation } from '@apollo/client';
 
@@ -247,7 +248,7 @@ export default function ViewEvent() {
   //   };
   // });
 
-  const origin = process.env.REACT_APP_DOMAIN || window.location.origin;
+  const origin = getOrigin();
 
   return (
     <article className="min-h-page">
