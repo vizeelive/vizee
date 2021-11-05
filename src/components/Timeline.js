@@ -14,6 +14,7 @@ import {
 import moment from 'moment';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import Microlink from '@microlink/react';
+import Linkify from 'react-linkify';
 
 import ReactAudioPlayer from 'react-audio-player';
 import AvatarHandle from 'components/AvatarHandle';
@@ -318,7 +319,9 @@ export default function Timeline({
             </a>
           </Dropdown>
           <AvatarHandle account={account} date={post.date} />
-          <div>{post.message}</div>
+          <div>
+            <Linkify>{post.message}</Linkify>
+          </div>
           {post.attachments.map((attachment) => (
             <div className="mt-3">{renderAttachment(attachment, post)}</div>
           ))}
