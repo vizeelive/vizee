@@ -532,7 +532,14 @@ export default function EventPage(props) {
                 data-test-id="event-description"
               >
                 <Linkify>
-                  <p>{event.description}</p>
+                  {event?.description?.split('\n').map((item, key) => {
+                    return (
+                      <span key={key}>
+                        {item}
+                        <br />
+                      </span>
+                    );
+                  })}
                 </Linkify>
               </div>
               {!event.isBroadcast() ? (

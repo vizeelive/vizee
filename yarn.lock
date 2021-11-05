@@ -5809,7 +5809,7 @@
     nanoid "^3.1.25"
     preact "^10.5.13"
 
-"@uppy/dashboard@^2.1.0", "@uppy/dashboard@^2.1.1":
+"@uppy/dashboard@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@uppy/dashboard/-/dashboard-2.1.1.tgz#ccecf0a50b51a76e81efb7b093be9edb01851bf0"
   integrity sha512-o+x381JXDAbl1M/gNeZWePfjfgYf8NPS3EvABH9P488hWGmzJUErZ5BODcrbMK9PovRlwU3SelHrMzfz232NbQ==

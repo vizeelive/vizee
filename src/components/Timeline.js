@@ -320,7 +320,16 @@ export default function Timeline({
           </Dropdown>
           <AvatarHandle account={account} date={post.date} />
           <div>
-            <Linkify>{post.message}</Linkify>
+            <Linkify>
+              {post?.message?.split('\n').map((item, key) => {
+                return (
+                  <span key={key}>
+                    {item}
+                    <br />
+                  </span>
+                );
+              })}
+            </Linkify>
           </div>
           {post.attachments.map((attachment) => (
             <div className="mt-3">{renderAttachment(attachment, post)}</div>
