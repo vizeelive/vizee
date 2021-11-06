@@ -429,8 +429,10 @@ export default function AddEvent(props) {
       ...event,
       size: step.results[':original'][0].size,
       duration: step.results[':original'][0].meta.duration,
-      video: step.results[':original'][0].ssl_url
+      video: step.results[':original'][0].ssl_url,
+      photo: step.results.thumbed[0].ssl_url
     });
+    setCoverType('Photo');
   };
 
   const handleUppyError = (res) => {
