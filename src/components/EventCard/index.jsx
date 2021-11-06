@@ -90,12 +90,17 @@ function EventCard(props) {
     if (isStreamStarting) {
       tagText = 'Stream Starting';
     }
-    if (isAvailableNow) {
-      tagText = 'Available Now';
+    if (event.isFree()) {
+      tagText = 'Free';
+    }
+    if (!isAvailableNow) {
+      tagText = 'Coming ' + moment(event.start).format('MMM Do');
     }
     if (isLiveNow) {
-      tagText = 'Live Now';
+      tagText = 'Live';
     }
+
+    if (!tagText) return null;
 
     return (
       <p className="absolute top-0 left-0 px-4 py-4 transform origin-top-left xs:scale-110 sm:scale-100">

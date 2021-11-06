@@ -98,6 +98,7 @@ export const GET_ACCOUNT_ANON = gql`
       }
       events {
         id
+        price
         location
         location_pos
         name
@@ -250,6 +251,7 @@ const GET_ACCOUNT_USER = gql`
       }
       events {
         id
+        price
         location
         location_pos
         name
