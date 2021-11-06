@@ -190,17 +190,6 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 />
               )}
 
-              {(user?.isAdmin || isMyAccount) && (
-                <div className="md:inline">
-                  <Link
-                    to={`/${account.username}/manage/events/add`}
-                    data-test-id="link-create-event"
-                  >
-                    <Button classes="w-full md:w-auto">Add Media</Button>
-                  </Link>
-                </div>
-              )}
-
               <ShareButton
                 className="xs:w-full md:w-auto"
                 url={shareUrl}

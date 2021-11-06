@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { useQueryParam, StringParam } from 'use-query-params';
 
 import Button from 'components/ui/Button';
@@ -270,6 +271,18 @@ export default function HomeView(props) {
                   </TabPane>
                 ) : null}
                 <TabPane tab="Media" key="media">
+                  {(user?.isAdmin || isMyAccount) && (
+                    <div className="md:inline float-right">
+                      <Link
+                        to={`/${account.username}/manage/events/add`}
+                        data-test-id="link-create-event"
+                      >
+                        <Button type="primary" classes="w-full md:w-auto">
+                          Add Media
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                   <div data-test-id="account-tags">
                     {account?.tags
                       ?.filter((tag) => tag.events_tags.length)
