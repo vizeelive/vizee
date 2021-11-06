@@ -7,6 +7,7 @@ import ShareButton from 'components/Event/ShareButton';
 import BuyButton from 'components/Event/BuyButton';
 import FollowButton from 'components/Event/FollowButton';
 import VideoPlayer from 'components/VideoPlayer';
+import Linkify from 'react-linkify';
 
 import abbreviateNumber from 'lib/abbreviateNumber';
 import cdnImage from 'lib/cdn-image';
@@ -133,7 +134,16 @@ function Header({ shareUrl, user, account, isMyAccount }) {
             )}
           </SocialList>
           <p data-test-id="account-bio" className="mt-6 text-lg text-gray-500">
-            {account.description}
+            <Linkify>
+              {account?.description?.split('\n').map((item, key) => {
+                return (
+                  <span key={key}>
+                    {item}
+                    <br />
+                  </span>
+                );
+              })}
+            </Linkify>
           </p>
           <div className="mt-8 overflow-hidden">
             <dl className="-mx-8 -mt-8 flex flex-wrap">
