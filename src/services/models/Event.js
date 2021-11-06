@@ -14,7 +14,9 @@ export default class Event {
     return this?.type === 'audio';
   }
   isFree() {
-    return !this?.products?.length && this?.price === '$0.00';
+    return (
+      !this?.products?.length && !this.account_only && this?.price === '$0.00'
+    );
   }
   isAvailable() {
     let res;
