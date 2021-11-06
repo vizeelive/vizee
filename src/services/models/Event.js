@@ -14,7 +14,7 @@ export default class Event {
     return this?.type === 'audio';
   }
   isFree() {
-    return !this?.products && this?.price === '$0.00';
+    return !this?.products?.length && this?.price === '$0.00';
   }
   isAvailable() {
     return moment().isBetween(this.start, this.end);
