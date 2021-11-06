@@ -87,6 +87,8 @@ function EventCard(props) {
 
     let tagText;
 
+    if (!event.published) return null;
+
     if (isStreamStarting) {
       tagText = 'Stream Starting';
     }
