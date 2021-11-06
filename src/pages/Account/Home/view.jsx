@@ -96,6 +96,7 @@ export default function HomeView(props) {
     refetch
   } = props;
 
+  const [queryTab, setQueryTab] = useQueryParam('tab', StringParam, 'timeline');
   const [queryTags, setQueryTags] = useQueryParam('tags', StringParam);
   let queryTagIds;
   if (queryTags) {
@@ -250,7 +251,10 @@ export default function HomeView(props) {
 
           <div className="flex flex-col md:flex-row">
             <div className="flex-grow mb-5 event-tabs">
-              <Tabs defaultActiveKey="timeline">
+              <Tabs
+                defaultActiveKey={queryTab}
+                onTabClick={(tab) => setQueryTab(tab)}
+              >
                 {user?.email?.includes('@viz.ee') ||
                 user?.email?.includes('@loiselles.com') ? (
                   <TabPane tab="Timeline" key="timeline">
