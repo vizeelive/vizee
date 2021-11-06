@@ -262,8 +262,6 @@ export default function AddEvent(props) {
   };
 
   const onFinish = async (values) => {
-    let [start, end] = values.range;
-
     let newEvent;
 
     let inputData = {
@@ -282,8 +280,8 @@ export default function AddEvent(props) {
       preview: event?.preview,
       photo: event?.photo,
       thumb: event?.thumb,
-      start,
-      end
+      start: values.start,
+      end: values.end
     };
 
     if (values?.location?.address) {
@@ -453,7 +451,8 @@ export default function AddEvent(props) {
     ...event,
     type: event?.type || 'live',
     preview: '',
-    range: [moment(event?.start), moment(event?.end)],
+    start: moment(event?.start),
+    end: event?.end ? moment(event?.end) : null,
     event_tags: event?.tags?.map((tag) => tag.tag.id) || []
   };
 

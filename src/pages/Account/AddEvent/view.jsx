@@ -17,12 +17,14 @@ import {
   DatePicker,
   Select,
   Radio,
-  Switch
+  Switch,
+  Tooltip
 } from 'antd';
+
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Option } = Select;
-const { RangePicker } = DatePicker;
 
 export default function AddEventView(props) {
   const {
@@ -62,7 +64,7 @@ export default function AddEventView(props) {
 
   const formLayout = isLargeScreen
     ? {
-        labelCol: { span: 4 },
+        labelCol: { span: 10 },
         wrapperCol: { span: 20 }
       }
     : null;
@@ -82,10 +84,6 @@ export default function AddEventView(props) {
   }
 
   if (error) return 'Error';
-
-  const rangeConfig = {
-    rules: [{ type: 'array', required: true, message: 'Please select time!' }]
-  };
 
   let uploadPhotoOptions = {
     allowedFileTypes: ['image/*']
@@ -211,8 +209,32 @@ export default function AddEventView(props) {
               </Form.Item>
             )}
 
-            <Form.Item name="range" label="Event Times" {...rangeConfig}>
-              <RangePicker showTime format="MM-DD-YYYY HH:mm a" />
+            <Form.Item
+              name="start"
+              label={
+                <span>
+                  Available Start&nbsp;
+                  <Tooltip title="The date this media becomes available. Time must be set in UTC.">
+                    <InfoCircleOutlined />
+                  </Tooltip>
+                </span>
+              }
+            >
+              <DatePicker format="MM-DD-YYYY HH:mm a" />
+            </Form.Item>
+
+            <Form.Item
+              name="end"
+              label={
+                <span>
+                  Available End&nbsp;
+                  <Tooltip title="The date this media becomes unavailable if set. Time must be set in UTC.">
+                    <InfoCircleOutlined />
+                  </Tooltip>
+                </span>
+              }
+            >
+              <DatePicker format="MM-DD-YYYY HH:mm a" />
             </Form.Item>
 
             <Form.Item

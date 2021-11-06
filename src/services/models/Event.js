@@ -17,7 +17,13 @@ export default class Event {
     return !this?.products?.length && this?.price === '$0.00';
   }
   isAvailable() {
-    return moment().isBetween(this.start, this.end);
+    let res;
+    if (this.end) {
+      res = moment().isBetween(this.start, this.end);
+    } else {
+      res = moment().isAfter(this.start);
+    }
+    return res;
   }
   isLive() {
     return this.status === 'live';
