@@ -9,6 +9,7 @@ import {
   Menu,
   Modal,
   Select,
+  Timeline as AntTimeline,
   Input
 } from 'antd';
 import moment from 'moment';
@@ -47,6 +48,9 @@ const DELETE_POST = gql`
 `;
 
 export default function Timeline({
+  type,
+  uuid,
+  format,
   isMyAccount,
   user,
   account,
@@ -75,7 +79,8 @@ export default function Timeline({
             delete a.preview;
             return a;
           }),
-          account_id: account.id,
+          ...(type === 'account' ? { account_id: uuid } : null),
+          ...(type === 'event' ? { event_id: uuid } : null),
           ...(user?.isAdmin ? { created_by: user.id } : null)
         }
       }
@@ -267,6 +272,8 @@ export default function Timeline({
     date: moment(new Date().toISOString().substr(0, 10))
   };
 
+  let backgroundClass = format === 'post' ? 'bg-gray-900' : '';
+
   return (
     <div className="max-w-screen-sm">
       <Drawer
@@ -287,55 +294,63 @@ export default function Timeline({
         </div>
       )}
 
-      {posts.map((post) => (
-        <div
-          key={post.id}
-          className="bg-gray-900 mx-1 border-solid rounded-lg mb-5 p-5"
-        >
-          <Dropdown
-            className="float-right"
-            overlay={
-              <Menu>
-                <Menu.Item
-                  key={`delete_${post.id}`}
-                  onClick={() => {
-                    deletePost({
-                      variables: { id: post.id }
-                    });
-                    refetch();
-                  }}
-                >
-                  Delete post
-                </Menu.Item>
-              </Menu>
-            }
-            trigger={['click']}
-          >
-            <a
-              className="ant-dropdown-link"
-              onClick={(e) => e.preventDefault()}
+      <AntTimeline>
+        {posts?.map((post) => (
+          <AntTimeline.Item>
+            <div
+              key={post.id}
+              className={`${backgroundClass} mx-1 border-solid rounded-lg mb-5 p-5`}
             >
-              <EllipsisOutlined />
-            </a>
-          </Dropdown>
-          <AvatarHandle account={account} date={post.date} />
-          <div>
-            <Linkify>
-              {post?.message?.split('\n').map((item, key) => {
-                return (
-                  <span key={key}>
-                    {item}
-                    <br />
-                  </span>
-                );
-              })}
-            </Linkify>
-          </div>
-          {post.attachments.map((attachment) => (
-            <div className="mt-3">{renderAttachment(attachment, post)}</div>
-          ))}
-        </div>
-      ))}
+              <Dropdown
+                className="float-right"
+                overlay={
+                  <Menu>
+                    <Menu.Item
+                      key={`delete_${post.id}`}
+                      onClick={() => {
+                        deletePost({
+                          variables: { id: post.id }
+                        });
+                        refetch();
+                      }}
+                    >
+                      Delete post
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={['click']}
+              >
+                <a
+                  className="ant-dropdown-link"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <EllipsisOutlined />
+                </a>
+              </Dropdown>
+              {format === 'post' ? (
+                <AvatarHandle account={account} date={post.date} />
+              ) : (
+                moment(post.date).fromNow()
+              )}
+              <div>
+                <Linkify>
+                  {post?.message?.split('\n')?.map((item, key) => {
+                    return (
+                      <span key={key}>
+                        {item}
+                        <br />
+                      </span>
+                    );
+                  })}
+                </Linkify>
+              </div>
+              {post.attachments.map((attachment) => (
+                <div className="mt-3">{renderAttachment(attachment, post)}</div>
+              ))}
+            </div>
+          </AntTimeline.Item>
+        ))}
+      </AntTimeline>
       <Modal
         title="Create post"
         visible={showModal}
@@ -375,7 +390,7 @@ export default function Timeline({
               placeholder={` What's on your mind, ${account.name}?`}
             />
           </Form.Item>
-          {!attachments.length ? (
+          {events.length && !attachments.length ? (
             <Button
               className="mb-5 mr-3"
               onClick={() => setDrawerVisible(true)}

@@ -9,7 +9,6 @@ import { Card, Typography, Tabs, Tag } from 'antd';
 import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
-import VideoPlayer from 'components/VideoPlayer';
 import AccountHeader from './Header';
 import Pricing from './Pricing';
 
@@ -19,16 +18,7 @@ import SuccessModal from 'components/SuccessModal';
 import PlaylistListing from 'components/Playlist/PlaylistListing';
 import BuyButton from 'components/Event/BuyButton';
 import Confetti from 'react-confetti';
-import Linkify from 'react-linkify';
 import 'styles/EventView.css';
-
-import {
-  InstagramOutlined,
-  TwitterOutlined,
-  FacebookOutlined,
-  VideoCameraOutlined,
-  TagOutlined
-} from '@ant-design/icons';
 
 import Client from 'shopify-buy';
 
@@ -260,6 +250,9 @@ export default function HomeView(props) {
                 user?.email?.includes('@loiselles.com') ? (
                   <TabPane tab="Timeline" key="timeline">
                     <Timeline
+                      type="account"
+                      uuid={account.id}
+                      format="post"
                       isMyAccount={isMyAccount}
                       user={user}
                       account={account}

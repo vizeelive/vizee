@@ -12,6 +12,7 @@ import Countdown from 'components/Event/Countdown';
 import Comments from 'components/Event/CommentsContainer';
 import CommentsChat from 'components/Event/CommentsChat';
 
+import Timeline from 'components/Timeline';
 import EventContent from 'components/Event/EventContent';
 import EventPreview from 'components/Event/EventPreview';
 import AvatarHandle from 'components/AvatarHandle';
@@ -33,7 +34,8 @@ export default function EventPage(props) {
     playerKey,
     videoJsOptions,
     liveData,
-    onEnded
+    onEnded,
+    refetch
   } = props;
 
   const [showChat, setShowChat] = useState(false);
@@ -542,6 +544,22 @@ export default function EventPage(props) {
                   })}
                 </Linkify>
               </div>
+
+              {user?.email?.includes('@viz.ee') ||
+              user?.email?.includes('@loiselles.com') ? (
+                <Timeline
+                  type="event"
+                  uuid={event.id}
+                  format="timeline"
+                  isMyAccount={isMyAccount}
+                  user={user}
+                  account={account}
+                  posts={event.posts}
+                  events={[]}
+                  refetch={refetch}
+                />
+              ) : null}
+
               {!event.isBroadcast() ? (
                 <div className="max-w-prose my-8">
                   <Comments event={event} user={user} />
@@ -569,5 +587,6 @@ EventPage.propTypes = {
   playerKey: PropTypes.number,
   videoJsOptions: PropTypes.object.isRequired,
   liveData: PropTypes.object,
-  status: PropTypes.string
+  status: PropTypes.string,
+  refetch: PropTypes.func
 };

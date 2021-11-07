@@ -15,6 +15,7 @@ const GET_EVENT_UNAUTH = gql`
     $id: uuid!
     $affiliate_code: String
     $playlist_id: uuid
+    $now: date
   ) {
     affiliate: users(where: { code: { _eq: $affiliate_code } }) {
       id
@@ -50,6 +51,16 @@ const GET_EVENT_UNAUTH = gql`
       stream_type
       status
       account_only
+      posts(
+        order_by: { date: desc, created: desc }
+        where: { date: { _lte: $now } }
+      ) {
+        id
+        date
+        message
+        attachments
+        created
+      }
       account {
         id
         name
@@ -93,6 +104,7 @@ const GET_EVENT_AUTH = gql`
     $username: String!
     $affiliate_code: String
     $playlist_id: uuid
+    $now: date!
   ) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
@@ -153,6 +165,16 @@ const GET_EVENT_AUTH = gql`
       account_only
       status
       stream_type
+      posts(
+        order_by: { date: desc, created: desc }
+        where: { date: { _lte: $now } }
+      ) {
+        id
+        date
+        message
+        attachments
+        created
+      }
       account {
         id
         name
@@ -226,6 +248,8 @@ const TRACK_VIEW = gql`
   }
 `;
 
+let now = new Date();
+
 export default function EventPage({ location }) {
   const history = useHistory();
   const { id, username, status, userCode } = useParams();
@@ -244,9 +268,10 @@ export default function EventPage({ location }) {
         user_id: user?.id,
         username,
         affiliate_code: userCode,
-        playlist_id: queryParams.get('playlist')
+        playlist_id: queryParams.get('playlist'),
+        now
       }
-    : { id, playlist_id: queryParams.get('playlist') };
+    : { id, playlist_id: queryParams.get('playlist'), now };
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
@@ -410,6 +435,7 @@ export default function EventPage({ location }) {
       videoJsOptions={videoJsOptions}
       liveData={liveData}
       status={status}
+      refetch={refetch}
     />
   );
 }
