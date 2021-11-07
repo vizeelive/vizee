@@ -330,7 +330,9 @@ export default function Timeline({
               {format === 'post' ? (
                 <AvatarHandle account={account} date={post.date} />
               ) : (
-                moment(post.date).fromNow()
+                <div className="text-gray-600">
+                  {moment(post.date).format('MMMM Do, YYYY')}
+                </div>
               )}
               <div>
                 <Linkify>
