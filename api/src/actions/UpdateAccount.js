@@ -28,7 +28,7 @@ const schema = Joi.object({
   user_id: Joi.string(),
   logo: Joi.string().uri(),
   photo: Joi.string().uri(),
-  store_url: Joi.string().uri(),
+  store_url: Joi.string().uri().allow('', null),
   whitelabel: Joi.boolean()
 });
 

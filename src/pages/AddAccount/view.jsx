@@ -175,7 +175,16 @@ export default function AddAccountView(props) {
           <Input placeholder="username" />
         </Form.Item>
 
-        <Form.Item label="Store URL" name="store_url">
+        <Form.Item
+          label="Store URL"
+          name="store_url"
+          rules={[
+            {
+              type: 'url',
+              message: 'This field must be a valid url.'
+            }
+          ]}
+        >
           <Input placeholder="http://mystore.com" />
         </Form.Item>
 
