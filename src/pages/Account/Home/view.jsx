@@ -10,9 +10,10 @@ import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
 import AccountHeader from './Header';
-import Pricing from './Pricing';
 
 import Images from './Images';
+import Supporters from 'pages//Account/Home/Supporters';
+import PriceLevels from 'pages//Account/Home/PriceLevels';
 import Timeline from 'components/Timeline';
 import SuccessModal from 'components/SuccessModal';
 import PlaylistListing from 'components/Playlist/PlaylistListing';
@@ -204,7 +205,7 @@ export default function HomeView(props) {
           <VideoPlayer key={`preview`} {...videoJsOptions} onEnded={() => {}} />
         </div> */}
 
-        <Pricing hasAccess={hasAccess} user={user} account={account} />
+        {/* <Pricing hasAccess={hasAccess} user={user} account={account} /> */}
 
         <div className="px-4 sm:px-6 lg:px-8">
           <Header>
@@ -241,6 +242,14 @@ export default function HomeView(props) {
           )} */}
 
           <div className="flex flex-col md:flex-row">
+            <div className="md:order-last md:ml-5">
+              {account.stripe_data && (
+                <div>
+                  <PriceLevels account={account} user={user} />
+                  <Supporters account={account} user={user} />
+                </div>
+              )}
+            </div>
             <div className="flex-grow mb-5 event-tabs">
               <Tabs
                 defaultActiveKey={queryTab}
@@ -321,9 +330,6 @@ export default function HomeView(props) {
                 {/* <TabPane tab="Street Team" key="4">
                   Street Team
                 </TabPane>
-                <TabPane tab="Supporters" key="5">
-                  hi
-                </TabPane>
                 <TabPane tab="Links" key="6">
                   {account.links.length ? (
                     <div data-test-id="links">
@@ -340,32 +346,6 @@ export default function HomeView(props) {
                 </TabPane> */}
               </Tabs>
             </div>
-            {account.stripe_data && (
-              <div className="md:mt-11 rounded-lg md:ml-5 md:w-80 bg-gray-900 p-5">
-                <div className="text-center content-center">
-                  <div className="mb-5">Can we please get your support? ❤️</div>
-                  <BuyButton isTip={true} user={user} account={account} />
-                </div>
-                {account.supporters_report.map((user, index) => (
-                  <Card className="mt-3" key={index}>
-                    <img
-                      src={
-                        index <= 2
-                          ? `/icons/medal-${index + 1}.png`
-                          : `/icons/medal-4.png`
-                      }
-                      width="40"
-                      className="float-left mr-2"
-                    />
-                    <div className="text-l">
-                      {user.first_name && user.last_name
-                        ? `${user.first_name} ${user.last_name}`
-                        : 'Anonymous'}{' '}
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            )}
           </div>
           <br />
 

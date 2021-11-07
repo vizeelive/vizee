@@ -72,7 +72,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
       <div className="lg:left-0 lg:h-full">
         <img className="w-full h-full" src={coverUrl} />
       </div>
-      <div className="flex flex-wrap xs:px-5 md:space-x-5 py-4">
+      <div className="flex flex-wrap xs:px-5 md:space-x-5 py-2">
         {account.preview && (
           <div className="xs:w-screen xs:mb-5 md:flex-1">
             <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
@@ -146,7 +146,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
             </Linkify>
           </p>
           <div className="mt-8 overflow-hidden">
-            <dl className="-mx-8 -mt-8 flex flex-wrap">
+            {/* <dl className="-mx-8 -mt-8 flex flex-wrap">
               <div className="flex flex-col flex-grow px-8 pt-8">
                 <dt className="text-center order-2 text-base font-medium text-gray-500">
                   Media
@@ -179,63 +179,60 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 >
                   {abbreviateNumber(account.report.viewcount)}
                 </dd>
-              </div>
+              </div> */}
 
-              {/* {supportersCount ? (
+            {/* {supportersCount ? (
                 <div className="pt-5 px-8 text-gray-500">
                   Supported by {supportersCount} wonderful{' '}
                   {supportersCount == 1 ? 'person, ' : 'people including'}{' '}
                   {supportersText}.
                 </div>
               ) : null} */}
-            </dl>
-
-            <div className="md:p-2 md:space-x-3 space-y-3">
-              {account.stripe_data && (
-                <BuyButton
-                  classes="w-full md:w-auto"
-                  isTip={true}
-                  user={user}
-                  account={account}
-                />
-              )}
-
-              <ShareButton
-                className="xs:w-full md:w-auto"
-                url={shareUrl}
-                user={user}
-              />
-
-              {account.store_url && (
-                <Button onClick={() => window.open(account.store_url)}>
-                  Store
-                </Button>
-              )}
-
-              {user && (
-                <Button classes="w-full md:w-auto" onClick={openChat}>
-                  Chat
-                </Button>
-              )}
-
-              {user && (
-                <FollowButton
-                  account_id={account.id}
-                  follower_id={account?.followers?.[0]?.id}
-                />
-              )}
-
-              {(user?.isAdmin || isMyAccount) &&
-                !location.pathname.includes('manage') && (
-                  <div className="md:inline">
-                    <Link to={`/${account.username}/manage`}>
-                      <Button classes="w-full md:w-auto">Manage</Button>
-                    </Link>
-                  </div>
-                )}
-            </div>
+            {/* </dl> */}
           </div>
         </div>
+      </div>
+      <div className="ml-5 md:space-x-3 space-y-3 mr-5">
+        {account.stripe_data && (
+          <BuyButton
+            classes="w-full md:w-auto"
+            isTip={true}
+            user={user}
+            account={account}
+          />
+        )}
+
+        <ShareButton
+          className="xs:w-full md:w-auto"
+          url={shareUrl}
+          user={user}
+        />
+
+        {account.store_url && (
+          <Button onClick={() => window.open(account.store_url)}>Store</Button>
+        )}
+
+        {user && (
+          <Button classes="w-full md:w-auto" onClick={openChat}>
+            Chat
+          </Button>
+        )}
+
+        {user && (
+          <FollowButton
+            account_id={account.id}
+            follower_id={account?.followers?.[0]?.id}
+          />
+        )}
+
+        {(user?.isAdmin || isMyAccount) &&
+          !location.pathname.includes('manage') && (
+            <div className="md:inline">
+              <Link to={`/${account.username}/manage`}>
+                <Button classes="w-full md:w-auto">Manage</Button>
+              </Link>
+            </div>
+          )}
       </div>
     </div>
   );

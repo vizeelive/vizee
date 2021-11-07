@@ -28,6 +28,9 @@ export const GET_ACCOUNT_ANON = gql`
       store_url
       shopify_domain
       shopify_storefront_token
+      facebook
+      twitter
+      instagram
       posts(
         order_by: { date: desc, created: desc }
         where: { date: { _lte: $now } }
