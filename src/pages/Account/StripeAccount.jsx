@@ -24,6 +24,7 @@ const GET_ACCOUNT = gql`
 
 export default function StripeAccount(props) {
   let { id, username, status } = useParams();
+  const [creating, setCreating] = useState(false);
   const [country, setCountry] = useState(null);
 
   id = props.id || id;
@@ -51,6 +52,7 @@ export default function StripeAccount(props) {
     account?.stripe_id && account?.stripe_data?.details_submitted;
 
   const handleStripeConnect = async () => {
+    setCreating(true);
     logger.info('Running handleStripeConnect');
     try {
       let res = await fetch(
@@ -316,6 +318,7 @@ export default function StripeAccount(props) {
           <Button
             onClick={handleStripeConnect}
             type="primary"
+            loading={creating}
             disabled={!country}
           >
             Connect to Stripe
