@@ -1,6 +1,6 @@
 import React from 'react';
 import BuyButton from 'components/Event/BuyButton';
-import Pricing from 'pages/Account/Home/Pricing';
+import { Card } from 'antd';
 
 export default function Supporters({ account, user }) {
   return (
