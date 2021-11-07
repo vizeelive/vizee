@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useQueryParam, StringParam } from 'use-query-params';
+import { isMobile } from 'react-device-detect';
 
 import Button from 'components/ui/Button';
 import Map from 'components/Map';
@@ -246,7 +247,7 @@ export default function HomeView(props) {
               {account.stripe_data && (
                 <div>
                   <PriceLevels account={account} user={user} />
-                  <Supporters account={account} user={user} />
+                  {!isMobile && <Supporters account={account} user={user} />}
                 </div>
               )}
             </div>

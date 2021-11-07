@@ -27,7 +27,7 @@ export default function Supporters({ account, user }) {
             </div>
             <p className="text-lg text-gray-500">{product.description}</p>
           </div>
-          <div className="flex-1 flex flex-col justify-between px-6 pt-1 pb-1 bg-black sm:p-10 sm:pt-6">
+          <div className="flex-1 flex flex-col justify-between px-6 pt-1 bg-black sm:p-10 sm:pt-6 xs:pb-5">
             <ul role="list" className="">
               <li className="flex items-start">
                 <div className="flex-shrink-0">
