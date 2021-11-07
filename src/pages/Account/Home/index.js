@@ -25,6 +25,7 @@ export const GET_ACCOUNT_ANON = gql`
       username
       description
       stripe_data
+      store_url
       shopify_domain
       shopify_storefront_token
       posts(
@@ -66,6 +67,10 @@ export const GET_ACCOUNT_ANON = gql`
           event {
             id
             name
+            photo
+            account {
+              username
+            }
           }
         }
       }
@@ -174,6 +179,7 @@ const GET_ACCOUNT_USER = gql`
       instagram
       facebook
       twitter
+      store_url
       stripe_id
       stripe_data
       shopify_domain
@@ -217,6 +223,10 @@ const GET_ACCOUNT_USER = gql`
           event {
             id
             name
+            photo
+            account {
+              username
+            }
           }
         }
       }

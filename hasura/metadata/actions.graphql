@@ -762,6 +762,7 @@ input CreateAccountInput {
   twitter : String
   username : String
   user_id : String
+  store_url : String
 }
 
 input UpdateAccountInput {
@@ -780,6 +781,7 @@ input UpdateAccountInput {
   photo : String
   twitter : String
   username : String
+  store_url : String
   user_id : String
 }
 

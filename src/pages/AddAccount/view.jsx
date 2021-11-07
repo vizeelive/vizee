@@ -175,6 +175,10 @@ export default function AddAccountView(props) {
           <Input placeholder="username" />
         </Form.Item>
 
+        <Form.Item label="Store URL" name="store_url">
+          <Input placeholder="http://mystore.com" />
+        </Form.Item>
+
         {!replacePhoto && !photoUrl && account?.photo && (
           <Form.Item label="Photo">
             <img src={account.photo} alt="Account" width="300" />

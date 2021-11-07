@@ -277,6 +277,7 @@
       - preview
       - shopify_domain
       - shopify_storefront_token
+      - store_url
       - stripe_data
       - stripe_id
       - tpl_backgroundcolor
@@ -302,6 +303,7 @@
       - preview
       - shopify_domain
       - shopify_storefront_token
+      - store_url
       - stripe_data
       - stripe_id
       - tpl_backgroundcolor

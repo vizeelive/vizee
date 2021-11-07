@@ -299,6 +299,16 @@
             "description": null
           },
           {
+            "name": "store_url",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "twitter",
             "defaultValue": null,
             "type": {
@@ -13669,6 +13679,16 @@
           },
           {
             "name": "photo",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "store_url",
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
@@ -29203,6 +29223,18 @@
             "description": null
           },
           {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "store_url",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "args": [
               {
                 "name": "path",
@@ -30682,6 +30714,16 @@
             "description": null
           },
           {
+            "name": "store_url",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "stripe_data",
             "defaultValue": null,
             "type": {
@@ -31220,6 +31262,16 @@
             "description": null
           },
           {
+            "name": "store_url",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "stripe_data",
             "defaultValue": null,
             "type": {
@@ -31573,6 +31625,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "store_url",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "stripe_id",
             "type": {
               "kind": "SCALAR",
@@ -31845,6 +31909,16 @@
           },
           {
             "name": "shopify_token",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "store_url",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -32167,6 +32241,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "store_url",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "stripe_id",
             "type": {
               "kind": "SCALAR",
@@ -32439,6 +32525,16 @@
           },
           {
             "name": "shopify_token",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "store_url",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -32962,6 +33058,16 @@
             "description": null
           },
           {
+            "name": "store_url",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "stripe_data",
             "defaultValue": null,
             "type": {
@@ -33272,6 +33378,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "store_url",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "stripe_data",
             "description": "column name"
           },
@@ -33499,6 +33611,16 @@
           },
           {
             "name": "shopify_token",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "store_url",
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
@@ -34089,6 +34211,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "shopify_token",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "store_url",
             "description": "column name"
           },
           {

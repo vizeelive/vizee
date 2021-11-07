@@ -206,6 +206,12 @@ function Header({ shareUrl, user, account, isMyAccount }) {
                 user={user}
               />
 
+              {account.store_url && (
+                <Button onClick={() => window.open(account.store_url)}>
+                  Store
+                </Button>
+              )}
+
               {user && (
                 <Button classes="w-full md:w-auto" onClick={openChat}>
                   Chat

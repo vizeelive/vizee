@@ -27,7 +27,8 @@ const schema = Joi.object({
   instagram: Joi.string().allow('', null),
   user_id: Joi.string(),
   logo: Joi.string().uri(),
-  photo: Joi.string().uri()
+  photo: Joi.string().uri(),
+  store_url: Joi.string().uri()
 });
 
 module.exports = async function CreateAccount(req, res) {
