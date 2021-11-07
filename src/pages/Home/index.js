@@ -13,7 +13,12 @@ const GET_EVENTS_AUTH = gql`
       first_name
       last_name
     }
-    events(where: { on_network: { _eq: true }, end: { _gte: $now } }) {
+    events(
+      where: {
+        on_network: { _eq: true }
+        _or: [{ end: { _is_null: true } }, { end: { _gt: $now } }]
+      }
+    ) {
       id
       name
       start
@@ -57,7 +62,12 @@ const GET_EVENTS_AUTH = gql`
 
 const GET_EVENTS_UNAUTH = gql`
   query AnonGetEvents($now: timestamptz!) {
-    events(where: { on_network: { _eq: true }, end: { _gte: $now } }) {
+    events(
+      where: {
+        on_network: { _eq: true }
+        _or: [{ end: { _is_null: true } }, { end: { _gt: $now } }]
+      }
+    ) {
       id
       name
       start
