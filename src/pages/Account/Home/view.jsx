@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect';
 
 import Button from 'components/ui/Button';
 import Map from 'components/Map';
-import { Card, Typography, Tabs, Tag } from 'antd';
+import { Card, Collapse, Typography, Tabs, Tag } from 'antd';
 import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
@@ -28,6 +28,7 @@ const { Title } = Typography;
 const { Meta } = Card;
 const { TabPane } = Tabs;
 const { CheckableTag } = Tag;
+const { Panel } = Collapse;
 
 const MicrolinkCard = styled.div`
   max-width: 300px;
@@ -286,25 +287,31 @@ export default function HomeView(props) {
                       </Link>
                     </div>
                   )}
-                  <div data-test-id="account-tags">
-                    {account?.tags
-                      ?.filter((tag) => tag.events_tags.length)
-                      ?.sort(function (a, b) {
-                        return a.name
-                          .toLowerCase()
-                          .localeCompare(b.name.toLowerCase());
-                      })
-                      .map((tag) => (
-                        <CheckableTag
-                          key={tag.id}
-                          className="rounded-full border-2 border-gray-800 active:border-0 py-1 px-4 m-2"
-                          checked={tags.includes(tag.id)}
-                          onChange={(checked) => handleTagClick(tag, checked)}
-                        >
-                          {tag.name}
-                        </CheckableTag>
-                      ))}
-                  </div>
+                  <Collapse defaultActiveKey={['1']} ghost>
+                    <Panel header="Filters" key="filters">
+                      <div data-test-id="account-tags">
+                        {account?.tags
+                          ?.filter((tag) => tag.events_tags.length)
+                          ?.sort(function (a, b) {
+                            return a.name
+                              .toLowerCase()
+                              .localeCompare(b.name.toLowerCase());
+                          })
+                          .map((tag) => (
+                            <CheckableTag
+                              key={tag.id}
+                              className="rounded-full border-2 border-gray-800 active:border-0 py-1 px-4 m-2"
+                              checked={tags.includes(tag.id)}
+                              onChange={(checked) =>
+                                handleTagClick(tag, checked)
+                              }
+                            >
+                              {tag.name}
+                            </CheckableTag>
+                          ))}
+                      </div>
+                    </Panel>
+                  </Collapse>
                   <EventsContainer>
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
