@@ -170,6 +170,13 @@ export default function HomeView(props) {
 
   let canSeeTimeline =
     user?.email?.includes('@viz.ee') || user?.email?.includes('@loiselles.com');
+
+  let allTags = account?.tags
+    ?.filter((tag) => tag.events_tags.length)
+    ?.sort(function (a, b) {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+
   return (
     <React.Fragment>
       <Helmet>
