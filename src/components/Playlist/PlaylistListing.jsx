@@ -58,6 +58,14 @@ function PlaylistListing({ account, playlists, refetch }) {
 
   let lists = playlists.filter((playlist) => playlist.events.length > 0);
 
+  // https://vizee.imgix.net/${coverPhoto}?fit=fill&fill=blur&w=1216&h=684
+
+  function photo(url) {
+    if (!url) return null;
+    url = url.replace('https://vizee-media.s3.amazonaws.com/', '');
+    return `https://vizee.imgix.net/${url}?fit=fill&fill=blur&w=1216&h=684`;
+  }
+
   return (
     <React.Fragment>
       {editing && (
@@ -77,7 +85,9 @@ function PlaylistListing({ account, playlists, refetch }) {
             >
               <img
                 src={
-                  playlist.events.find((e) => e.event.photo)?.event?.photo ||
+                  photo(
+                    playlist.events.find((e) => e.event.photo)?.event?.photo
+                  ) ||
                   `https://dummyimage.com/500x300/000/fff.png&text=${playlist.name}`
                 }
               />
