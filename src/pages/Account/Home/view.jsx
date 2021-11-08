@@ -276,7 +276,7 @@ export default function HomeView(props) {
                 ) : null}
                 <TabPane tab="Media" key="media">
                   {(user?.isAdmin || isMyAccount) && (
-                    <div className="md:inline float-right">
+                    <div className="text-right">
                       <Link
                         to={`/${account.username}/manage/events/add`}
                         data-test-id="link-create-event"
