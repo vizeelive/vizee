@@ -378,12 +378,12 @@ export default function Timeline({
           <Form.Item name="date" className="pt-5">
             <DatePicker format={dateFormat} />
           </Form.Item>
-          <Form.Item name="audience">
+          {/* <Form.Item name="audience">
             <Select defaultValue="public">
               <Option value="public">Public</Option>
               <Option value="private">Private</Option>
             </Select>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item name="message">
             <Input.TextArea
               autoSize={{ minRows: 4 }}
