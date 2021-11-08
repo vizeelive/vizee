@@ -168,6 +168,8 @@ export default function HomeView(props) {
     });
   }
 
+  let canSeeTimeline =
+    user?.email?.includes('@viz.ee') || user?.email?.includes('@loiselles.com');
   return (
     <React.Fragment>
       <Helmet>
@@ -257,8 +259,7 @@ export default function HomeView(props) {
                 defaultActiveKey={queryTab}
                 onTabClick={(tab) => setQueryTab(tab)}
               >
-                {user?.email?.includes('@viz.ee') ||
-                user?.email?.includes('@loiselles.com') ? (
+                {canSeeTimeline ? (
                   <TabPane tab="Timeline" key="timeline">
                     <Timeline
                       type="account"
@@ -288,16 +289,10 @@ export default function HomeView(props) {
                     </div>
                   )}
                   <Collapse defaultActiveKey={['1']} ghost>
-                    <Panel header="Filters" key="filters">
-                      <div data-test-id="account-tags">
-                        {account?.tags
-                          ?.filter((tag) => tag.events_tags.length)
-                          ?.sort(function (a, b) {
-                            return a.name
-                              .toLowerCase()
-                              .localeCompare(b.name.toLowerCase());
-                          })
-                          .map((tag) => (
+                    {allTags.length && (
+                      <Panel header="Filters" key="filters">
+                        <div data-test-id="account-tags">
+                          {allTags.map((tag) => (
                             <CheckableTag
                               key={tag.id}
                               className="rounded-full border-2 border-gray-800 active:border-0 py-1 px-4 m-2"
@@ -309,16 +304,19 @@ export default function HomeView(props) {
                               {tag.name}
                             </CheckableTag>
                           ))}
-                      </div>
-                    </Panel>
+                        </div>
+                      </Panel>
+                    )}
                   </Collapse>
                   <EventsContainer>
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                <TabPane tab="Images" key="images">
-                  <Images images={account.images} />
-                </TabPane>
+                {canSeeTimeline && (
+                  <TabPane tab="Images" key="images">
+                    <Images images={account.images} />
+                  </TabPane>
+                )}
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}
