@@ -47,7 +47,7 @@ export const GET_ACCOUNT_ANON = gql`
       tags {
         id
         name
-        events_tags {
+        events_tags(where: { event: { published: { _eq: true } } }) {
           id
         }
       }
@@ -210,7 +210,7 @@ const GET_ACCOUNT_USER = gql`
       tags {
         id
         name
-        events_tags {
+        events_tags(where: { event: { published: { _eq: true } } }) {
           id
         }
       }
