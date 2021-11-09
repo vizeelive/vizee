@@ -404,7 +404,7 @@ export default function AddEvent(props) {
       }
 
       window.mixpanel.track('Event Created');
-      message.success('Successfully saved event');
+      message.success('Successfully saved media');
       history.push(redirect);
     } else {
       message.error('Failed to save event');
