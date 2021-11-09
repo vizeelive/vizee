@@ -17,7 +17,7 @@ export const GET_ACCOUNT_ANON = gql`
     $username: String!
     $affiliate_code: String
     $now: date!
-    $has_affiliate: Boolean
+    $has_affiliate: Boolean!
   ) {
     affiliate: users(where: { code: { _eq: $affiliate_code } })
       @include(if: $has_affiliate) {
