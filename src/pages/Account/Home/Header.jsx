@@ -209,7 +209,12 @@ function Header({ shareUrl, user, account, isMyAccount }) {
         />
 
         {account.store_url && (
-          <Button onClick={() => window.open(account.store_url)}>Store</Button>
+          <Button
+            classes="xs:w-full md:w-auto"
+            onClick={() => window.open(account.store_url)}
+          >
+            Store
+          </Button>
         )}
 
         {user && (
