@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { Button } from 'antd';
 import Button from 'components/ui/Button';
 import { Link } from 'react-router-dom';
 import ShareButton from 'components/Event/ShareButton';
@@ -9,7 +8,7 @@ import FollowButton from 'components/Event/FollowButton';
 import VideoPlayer from 'components/VideoPlayer';
 import Linkify from 'react-linkify';
 
-import abbreviateNumber from 'lib/abbreviateNumber';
+import config from 'config';
 import cdnImage from 'lib/cdn-image';
 import useWindowSize from 'hooks/useWindowSize';
 
@@ -34,9 +33,14 @@ const Social = styled.li`
 
 function Header({ shareUrl, user, account, isMyAccount }) {
   const size = useWindowSize();
+  let host = config.api.includes('local')
+    ? 'https://local.vizee.live:3003'
+    : config.api;
   const openChat = () => {
     window.open(
-      `https://chat.vizee.live/vizee/channels/${account.username.toLowerCase()}`
+      `${host}/chat?name=${user.nickname}&token=${
+        user.token
+      }&channel=${account.username.toLowerCase()}`
     );
   };
 

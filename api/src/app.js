@@ -20,9 +20,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const port = 3001;
 
-app.get('/cookie', async (req, res) => {
-  let name = req.headers['x-name'];
-  let user = jwt_decode(req.headers.authorization);
+app.get('/chat', async (req, res) => {
+  let name = req.query.name;
+  let channel = req.query.channel;
+  let user = jwt_decode(req.query.token);
   let token = await getMattermostToken({ name, email: user.email });
 
   res.cookie('MMUSERID', token.MMUSERID, {
@@ -40,7 +41,7 @@ app.get('/cookie', async (req, res) => {
     sameSite: 'None'
   });
 
-  res.send('ohai cookie');
+  res.redirect(`https://chat.vizee.live/vizee/channels/${channel}`);
 });
 
 app.get('/prerender', (req, res) => {

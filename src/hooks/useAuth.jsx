@@ -71,6 +71,7 @@ export default function useAuth() {
   }
 
   if (user) {
+    user.nickname = user?.email?.split('@')?.[0];
     user.token = Cookies.get('vizee_token');
     user.id = user['https://hasura.io/jwt/claims']['x-hasura-user-id'];
     user.code = user['https://hasura.io/jwt/claims']['x-hasura-user-code'];

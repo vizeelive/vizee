@@ -21,7 +21,7 @@ let config = {
 
 let res;
 
-if (window.location.href.includes('localhost')) {
+if (window.location.href.includes('local')) {
   res = config.dev;
 } else if (window.location.href.includes('staging')) {
   res = config.staging;

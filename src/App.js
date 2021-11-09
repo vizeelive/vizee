@@ -32,22 +32,6 @@ process.env.NODE_ENV !== 'development' &&
 function App() {
   const { user, setGeo, client } = useAuth();
 
-  useEffect(() => {
-    if (user?.token) {
-      try {
-        fetch(`${config.api}/cookie`, {
-          headers: {
-            'X-Name': user.nickname,
-            Authorization: user.token
-          },
-          credentials: 'include'
-        });
-      } catch (e) {
-        // nada
-      }
-    }
-  }, [user?.token]);
-
   useMemo(() => {
     async function fetchData() {
       let geo = {};
