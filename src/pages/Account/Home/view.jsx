@@ -254,12 +254,10 @@ export default function HomeView(props) {
 
           <div className="flex flex-col md:flex-row">
             <div className="md:order-last md:ml-5">
-              {account.stripe_data && (
-                <div>
-                  <PriceLevels account={account} user={user} />
-                  {!isMobile && <Supporters account={account} user={user} />}
-                </div>
-              )}
+              <div>
+                <PriceLevels account={account} user={user} />
+                {!isMobile && <Supporters account={account} user={user} />}
+              </div>
             </div>
             <div className="flex-grow mb-5 event-tabs">
               <Tabs
