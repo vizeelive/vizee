@@ -16,8 +16,10 @@ const GET_EVENT_UNAUTH = gql`
     $affiliate_code: String
     $playlist_id: uuid
     $now: date
+    $has_affiliate: Boolean!
   ) {
-    affiliate: users(where: { code: { _eq: $affiliate_code } }) {
+    affiliate: users(where: { code: { _eq: $affiliate_code } })
+      @include(if: $has_affiliate) {
       id
     }
     getEventUrl(id: $id) {
@@ -105,6 +107,7 @@ const GET_EVENT_AUTH = gql`
     $affiliate_code: String
     $playlist_id: uuid
     $now: date!
+    $has_affiliate: Boolean!
   ) {
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
@@ -131,7 +134,8 @@ const GET_EVENT_AUTH = gql`
       affiliate_user_id
       affiliate_account_id
     }
-    affiliate: users(where: { code: { _eq: $affiliate_code } }) {
+    affiliate: users(where: { code: { _eq: $affiliate_code } })
+      @include(if: $has_affiliate) {
       id
     }
     getEventUrl(id: $id) {
@@ -269,9 +273,15 @@ export default function EventPage({ location }) {
         username,
         affiliate_code: userCode,
         playlist_id: queryParams.get('playlist'),
-        now
+        now,
+        has_affiliate: !!userCode
       }
-    : { id, playlist_id: queryParams.get('playlist'), now };
+    : {
+        id,
+        playlist_id: queryParams.get('playlist'),
+        now,
+        has_affiliate: !!userCode
+      };
 
   const { loading, error, data, refetch } = useQuery(
     user ? GET_EVENT_AUTH : GET_EVENT_UNAUTH,
