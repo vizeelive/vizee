@@ -33,20 +33,34 @@ export default class VideoPlayer extends React.Component {
       this.props
     );
     let props = this.props;
-    this.player = videojs(this.videoNode, options, function onPlayerReady() {
-      let reloadOptions = {};
-      reloadOptions.errorInterval = 1;
-      this.reloadSourceOnError(reloadOptions);
-      this.hlsQualitySelector({
-        displayCurrentQuality: true
+    try {
+      this.player = videojs(this.videoNode, options, function onPlayerReady() {
+        let reloadOptions = {};
+        reloadOptions.errorInterval = 5;
+        this.reloadSourceOnError(reloadOptions);
+        this.hlsQualitySelector({
+          displayCurrentQuality: true
+        });
+        this.on('error', function (event) {
+          var time = this.currentTime();
+
+          if (this.error().code === 4) {
+            this.error(null);
+            this.pause();
+            this.load();
+            this.currentTime(time);
+            this.play();
+          }
+        });
+        this.on('ended', () => {
+          if (props.onEnded) {
+            props.onEnded();
+          }
+        });
+        // console.log('onPlayerReady', this);
       });
-      this.on('ended', () => {
-        if (props.onEnded) {
-          props.onEnded();
-        }
-      });
-      // console.log('onPlayerReady', this);
-    });
+    } catch (e) {}
+
   }
 
   // destroy player on unmount

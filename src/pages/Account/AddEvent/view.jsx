@@ -5,6 +5,7 @@ import CurrencyInput from 'components/CurrencyInput';
 import useBreakpoint from 'hooks/useBreakpoint';
 import Spinner from 'components/ui/Spinner';
 import LocationSearchInput from 'components/LocationSearchInput';
+import VideoPlayer from 'components/VideoPlayer';
 
 import { Centered, FormContainer } from 'components/styled/common';
 
@@ -62,12 +63,14 @@ export default function AddEventView(props) {
 
   const layout = 'vertical';
 
-  const formLayout = isLargeScreen
-    ? {
-        labelCol: { span: 10 },
-        wrapperCol: { span: 20 }
-      }
-    : null;
+  // const formLayout = isLargeScreen
+  //   ? {
+  //       labelCol: { span: 10 },
+  //       wrapperCol: { span: 20 }
+  //     }
+  //   : null;
+
+  const formLayout = null;
 
   const tailLayout = isLargeScreen
     ? {
@@ -96,6 +99,13 @@ export default function AddEventView(props) {
   eventData.events_products = event?.products?.map(
     (product) => product.product.id
   );
+
+  let videoJsOptions = {
+    autoplay: false,
+    controls: true,
+    aspectRatio: '16:9',
+    sources: [{ src: event?.preview, type: 'application/x-mpegurl' }]
+  };
 
   return (
     <article className="min-h-page">
@@ -186,12 +196,7 @@ export default function AddEventView(props) {
               <Form.Item>
                 {event?.preview ? (
                   <React.Fragment>
-                    <video
-                      src={event.preview}
-                      width="300px"
-                      alt="event"
-                      controls
-                    />
+                    <VideoPlayer key={Math.random()} {...videoJsOptions} />
                     <Button
                       onClick={() => setEvent({ ...event, preview: null })}
                     >

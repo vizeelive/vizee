@@ -415,10 +415,14 @@ export default function AddEvent(props) {
     setEvent({ ...event, photo: step.results[':original'][0].ssl_url });
   };
 
-  const handlePreviewUpload = (step) => {
+  const handlePreviewUpload = async (step) => {
+    let res = await fetch(
+      `${config.api}/mux/asset/preview?url=${step.results[':original'][0].ssl_url}`
+    ).then((res) => res.json());
+
     setEvent({
       ...event,
-      preview: step.results[':original'][0].ssl_url,
+      preview: res.url,
       thumb: step.results['thumbed'][0].ssl_url
     });
   };
