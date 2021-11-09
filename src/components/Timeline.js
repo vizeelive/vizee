@@ -152,7 +152,7 @@ export default function Timeline({
         return <ReactAudioPlayer src={attachment.url} controls />;
       case 'video':
         let videoJsOptions = {
-          autoplay: true,
+          autoplay: false,
           controls: true,
           aspectRatio: '16:9',
           sources: []
