@@ -41,28 +41,29 @@ module.exports = async function UpdateAccount(req, res) {
   }
 
   // TODO is user allowed to update this record?
-
-  try {
-    var domainResult;
-    if (object.whitelabel) {
-      logger.info('updateAccount - adding custom domain', {
-        username: object.username
+  if (process.env.NODE_ENV !== 'dev') {
+    try {
+      var domainResult;
+      if (object.whitelabel) {
+        logger.info('updateAccount - adding custom domain', {
+          username: object.username
+        });
+        object.domain = `${object.username}.vizee.pro`;
+        domainResult = await addDomain({ username: object.username });
+      } else {
+        logger.info('updateAccount - removing custom domain', {
+          username: object.username
+        });
+        object.domain = null;
+        domainResult = await removeDomain({ username: object.username });
+      }
+    } catch (e) {
+      logger.debug('failed to add custom domain', {
+        username: object.username,
+        domainResult
       });
-      object.domain = `${object.username}.vizee.pro`;
-      domainResult = await addDomain({ username: object.username });
-    } else {
-      logger.info('updateAccount - removing custom domain', {
-        username: object.username
-      });
-      object.domain = null;
-      domainResult = await removeDomain({ username: object.username });
+      return res.status(400).send({ message: `failed to add custom domain` });
     }
-  } catch (e) {
-    logger.debug('failed to add custom domain', {
-      username: object.username,
-      domainResult
-    });
-    return res.status(400).send({ message: `failed to add custom domain` });
   }
 
   try {
