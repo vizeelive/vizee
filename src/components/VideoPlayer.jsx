@@ -101,7 +101,7 @@ export default class VideoPlayer extends React.Component {
             data-test-id={this.props?.['data-test-id']}
             muted={isDev}
             playsInline
-            autoPlay
+            autoPlay={props?.autoplay || false}
             ref={(node) => (this.videoNode = node)}
             className="video-js vjs-big-play-centered"
           />
