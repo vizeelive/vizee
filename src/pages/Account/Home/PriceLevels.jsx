@@ -4,7 +4,10 @@ import sortProducts from 'lib/sortProducts';
 
 export default function Supporters({ account, user }) {
   return (
-    <div className="md:mt-11 rounded-lg md:mr-5 md:w-80 p-1 border-pink-800">
+    <div
+      className="md:mt-11 rounded-lg md:mr-5 md:w-80 p-1 border-pink-800"
+      data-test-id="account-pricing"
+    >
       {sortProducts(account.products).map((product, index) => (
         <div className="flex flex-col rounded-lg shadow-lg overflow-hidden mb-2 border-2 border-gray-900">
           <div className="px-6 py-8 bg-black sm:p-10 sm:pb-6">

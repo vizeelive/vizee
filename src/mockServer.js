@@ -16,6 +16,7 @@ let mocks = {
   bigint: () => 123456789,
   money: () => '$9.99',
   numeric: () => '123',
+  date: () => '2021-01-01',
   jsonb: () => {
     hello: 'world';
   },
@@ -26,6 +27,9 @@ let mocks = {
       instagram: 'cosmicawakenings',
       facebook: 'cosmicawakenings',
       twitter: 'cosmicawakenings',
+      stripe_data: '{}',
+      preview:
+        'https://vizee-media.s3.amazonaws.com/ec/006381886e45e88659506b9cc8d72d/Vizee-16x9-Noise-Reduction-Lemurian_at_Ibiza.mp4',
       photo:
         'https://vizee-media.s3.amazonaws.com/45/5ba51405ae49399baa4e13e5d0901a/076_Fletcher-Monsoon-Vizee-Cover.jpeg'
     };
@@ -46,13 +50,19 @@ let mocks = {
   }
 };
 
+let started = false;
 var worker = setupWorker();
 
-if (process.env.REACT_APP_MOCK === 'true') {
-  worker.start();
+async function start() {
+  let res = await worker.start();
+  started = true;
+  return res;
 }
 
 function init({ mocks }) {
+  if (window.Cypress && !started) {
+    start();
+  }
   const mockedSchema = addMocksToSchema({
     schema,
     mocks,
@@ -101,6 +111,10 @@ function intercept(newMocks) {
     updatedMocks[k] = () => Object.assign({}, merged);
   }
   return init({ mocks: updatedMocks });
+}
+
+if (process.env.REACT_APP_MOCK === 'true') {
+  start();
 }
 
 init({ mocks });

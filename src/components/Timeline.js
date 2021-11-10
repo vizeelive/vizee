@@ -346,7 +346,7 @@ export default function Timeline({
                   })}
                 </Linkify>
               </div>
-              {post.attachments.map((attachment) => (
+              {post?.attachments?.map((attachment) => (
                 <div className="mt-3">{renderAttachment(attachment, post)}</div>
               ))}
             </div>

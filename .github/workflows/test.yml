@@ -18,8 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - uses: c-hive/gha-yarn-cache@v2
+
       - name: Install packages
-        run: yarn install --frozen-lockfile
+        run: yarn
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
@@ -33,29 +35,29 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  ui-tests:
-    name: Jest UI Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
+  # ui-tests:
+  #   name: Jest UI Tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v2
 
-      - name: Install packages
-        run: yarn --frozen-lockfile
+  #     - name: Install packages
+  #       run: yarn
 
-      - name: Build
-        run: yarn build
-        env:
-          CI: true
-          NODE_OPTIONS: "--max_old_space_size=4096"
+  #     - name: Build
+  #       run: yarn build
+  #       env:
+  #         CI: true
+  #         NODE_OPTIONS: "--max_old_space_size=4096"
 
-      - name: Run tests
-        run: npm run test:coverage
+  #     - name: Run tests
+  #       run: npm run test:coverage
 
-      - name: Upload code coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+  #     - name: Upload code coverage
+  #       uses: codecov/codecov-action@v1
+  #       with:
+  #         token: ${{ secrets.CODECOV_TOKEN }}
 
   api-tests:
     name: Jest API Tests
@@ -65,7 +67,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install packages
-        run: npm ci
+        run: npm i
         working-directory: ./api
 
       - name: Run tests

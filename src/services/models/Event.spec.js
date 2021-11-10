@@ -1,10 +1,8 @@
 import Event from './Event';
-import moment from 'moment';
 
-jest.mock('moment', () => () => ({
-  format: () => 'October 22nd 9:40 pm',
-  isBetween: () => true
-}));
+// 2015-06-14T22:12:05.275Z
+const MockDate = require('mockdate');
+MockDate.set(1434319925275);
 
 describe('Event', () => {
   describe('isBroadcast', () => {
