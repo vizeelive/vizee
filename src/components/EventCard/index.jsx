@@ -203,6 +203,8 @@ function EventCard(props) {
     </Menu>
   );
 
+  if (!event) return null;
+
   let eventLink = `/${event.account.username}/${event.id}`;
   if (event?.playlist_items?.length) {
     let playlist_id = event.playlist_items[0].playlist.id;

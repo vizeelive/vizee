@@ -80,6 +80,7 @@ export default function Timeline({
           ...(user?.isAdmin ? { created_by: user.id } : null),
           attachments: {
             data: attachments.map((a) => {
+              delete a.event;
               return {
                 ...a,
                 ...(user?.isAdmin ? { created_by: user.id } : null)
@@ -170,7 +171,7 @@ export default function Timeline({
         });
         return <VideoPlayer key={Math.random()} {...videoJsOptions} />;
       case 'event':
-        return <EventCard event={attachment.data} />;
+        return <EventCard event={attachment.event} />;
       case 'jitsi':
         return post ? (
           <VideoConference roomName={post.id} user={user} />
@@ -247,6 +248,7 @@ export default function Timeline({
       ...attachments,
       {
         type: obj.type,
+        event: obj.data,
         event_id: obj.data.id
       }
     ]);

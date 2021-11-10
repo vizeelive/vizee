@@ -55,7 +55,12 @@ export const GET_ACCOUNT_ANON = gql`
           mime
           url
           cover
-          event_id
+          event {
+            id
+            account {
+              name
+            }
+          }
         }
       }
       tags {
@@ -233,7 +238,12 @@ const GET_ACCOUNT_USER = gql`
           mime
           url
           cover
-          event_id
+          event {
+            id
+            account {
+              username
+            }
+          }
         }
       }
       tags {

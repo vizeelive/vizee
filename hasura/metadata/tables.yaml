@@ -1465,6 +1465,8 @@
             user:
               id:
                 _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
       columns:
       - account_id
       - allow_comments
@@ -1568,6 +1570,8 @@
               user:
                 id:
                   _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
       columns:
       - cover
       - event_id
