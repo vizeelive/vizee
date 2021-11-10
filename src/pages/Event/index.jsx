@@ -65,6 +65,7 @@ const GET_EVENT_UNAUTH = gql`
           id
           type
           mime
+          url
           preview
           cover
           event_id
@@ -188,6 +189,7 @@ const GET_EVENT_AUTH = gql`
           id
           type
           mime
+          url
           preview
           cover
           event_id
