@@ -8,6 +8,7 @@ import {
   Form,
   Menu,
   Modal,
+  Radio,
   Select,
   Timeline as AntTimeline,
   Input
@@ -120,7 +121,7 @@ export default function Timeline({
       if (mime == 'application/pdf') {
         type = 'pdf';
       }
-      if (type === 'video') {
+      if (type === 'video' || type === 'audio') {
         let audience = form.getFieldValue('audience');
         // let action = audience === 'public' ? 'preview' : 'create';
         let action = 'preview';
@@ -128,7 +129,6 @@ export default function Timeline({
           `${config.api}/mux/asset/${action}?url=${file.url}`
         );
         data = await res.json();
-        console.log({ data });
       }
       return {
         type,
@@ -386,10 +386,10 @@ export default function Timeline({
             <DatePicker format={dateFormat} />
           </Form.Item>
           <Form.Item name="audience">
-            <Select defaultValue="public">
-              <Option value="public">Public</Option>
-              <Option value="private">Private</Option>
-            </Select>
+            <Radio.Group defaultValue="public">
+              <Radio.Button value="public">Public</Radio.Button>
+              <Radio.Button value="private">Private</Radio.Button>
+            </Radio.Group>
           </Form.Item>
           <Form.Item name="message">
             <Input.TextArea
