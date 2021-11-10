@@ -1459,7 +1459,19 @@
   insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        _or:
+        - account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
       set:
         created_by: x-hasura-User-Id
       columns:
@@ -1558,7 +1570,13 @@
   insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        post:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
       set:
         created_by: x-hasura-User-Id
       columns:
