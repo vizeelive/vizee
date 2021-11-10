@@ -156,7 +156,24 @@ export default function Timeline({
           />
         );
       case 'audio':
-        return <ReactAudioPlayer src={attachment.url} controls />;
+        let audioJsOptions = {
+          autoplay: false,
+          controls: true,
+          aspectRatio: '16:9',
+          poster: attachment.cover,
+          sources: []
+        };
+        audioJsOptions.sources.push({
+          src: attachment.url,
+          type: 'application/x-mpegurl'
+        });
+        return (
+          <VideoPlayer
+            key={Math.random()}
+            cover={`https://dummyimage.com/566x318/000/fff.png&text=Audio`}
+            {...audioJsOptions}
+          />
+        );
       case 'video':
         let videoJsOptions = {
           autoplay: false,
