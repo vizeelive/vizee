@@ -57,8 +57,13 @@ export const GET_ACCOUNT_ANON = gql`
           cover
           event {
             id
+            type
+            name
+            start
+            end
             account {
               name
+              username
             }
           }
         }
@@ -242,9 +247,14 @@ const GET_ACCOUNT_USER = gql`
           cover
           event {
             id
+            type
+            name
+            start
+            end
             thumb
             preview
             account {
+              name
               username
             }
           }
