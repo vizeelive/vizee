@@ -549,7 +549,11 @@
   insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        account:
+          users:
+            user_id:
+              _eq: X-Hasura-User-Id
       set:
         created_by: x-hasura-User-Id
       columns:
