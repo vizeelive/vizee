@@ -210,6 +210,11 @@ const GET_ACCOUNT_USER = gql`
         eventcount
         subscriptionscount
       }
+      users {
+        user {
+          id
+        }
+      }
       images {
         url
       }
