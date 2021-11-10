@@ -174,6 +174,8 @@ export default function HomeView(props) {
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
     });
 
+  let showTimeline = account.posts.length || user?.isAdmin || isMyAccount;
+
   return (
     <React.Fragment>
       <Helmet>
@@ -261,20 +263,22 @@ export default function HomeView(props) {
                 defaultActiveKey={queryTab}
                 onTabClick={(tab) => setQueryTab(tab)}
               >
-                <TabPane tab="Timeline" key="timeline">
-                  <Timeline
-                    type="account"
-                    uuid={account.id}
-                    format="post"
-                    isMyAccount={isMyAccount}
-                    user={user}
-                    account={account}
-                    posts={account.posts}
-                    events={account.events}
-                    refetch={refetch}
-                  />
-                  <br />
-                </TabPane>
+                {showTimeline && (
+                  <TabPane tab="Timeline" key="timeline">
+                    <Timeline
+                      type="account"
+                      uuid={account.id}
+                      format="post"
+                      isMyAccount={isMyAccount}
+                      user={user}
+                      account={account}
+                      posts={account.posts}
+                      events={account.events}
+                      refetch={refetch}
+                    />
+                    <br />
+                  </TabPane>
+                )}
                 <TabPane tab="Media" key="media">
                   {(user?.isAdmin || isMyAccount) && (
                     <div className="text-right">
