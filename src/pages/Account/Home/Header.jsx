@@ -62,7 +62,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
     sources: [
       {
         src: account.preview,
-        type: 'video/mp4'
+        type: 'application/x-mpegurl'
       }
     ]
   };

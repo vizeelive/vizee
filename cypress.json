@@ -5,5 +5,9 @@
   "viewportWidth": 1200,
   "defaultCommandTimeout": 20000,
   "pageLoadTimeout": 120000,
-  "responseTimeout": 60000
+  "responseTimeout": 60000,
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  }
 }

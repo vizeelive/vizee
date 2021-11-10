@@ -275,6 +275,7 @@
       - name
       - photo
       - preview
+      - preview_poster
       - shopify_domain
       - shopify_storefront_token
       - store_url
@@ -301,6 +302,7 @@
       - name
       - photo
       - preview
+      - preview_poster
       - shopify_domain
       - shopify_storefront_token
       - store_url
@@ -326,6 +328,7 @@
       - name
       - photo
       - preview
+      - preview_poster
       - twitter
       filter:
         users:

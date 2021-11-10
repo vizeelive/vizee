@@ -29001,6 +29001,18 @@
             "description": null
           },
           {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "preview_poster",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "args": [
               {
                 "name": "distinct_on",
@@ -30664,6 +30676,16 @@
             "description": null
           },
           {
+            "name": "preview_poster",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "products",
             "defaultValue": null,
             "type": {
@@ -31222,6 +31244,16 @@
             "description": null
           },
           {
+            "name": "preview_poster",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "products",
             "defaultValue": null,
             "type": {
@@ -31589,6 +31621,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "preview_poster",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "shopify_domain",
             "type": {
               "kind": "SCALAR",
@@ -31879,6 +31923,16 @@
           },
           {
             "name": "preview",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "preview_poster",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -32205,6 +32259,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "preview_poster",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "shopify_domain",
             "type": {
               "kind": "SCALAR",
@@ -32495,6 +32561,16 @@
           },
           {
             "name": "preview",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "preview_poster",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -33008,6 +33084,16 @@
             "description": null
           },
           {
+            "name": "preview_poster",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "products_aggregate",
             "defaultValue": null,
             "type": {
@@ -33360,6 +33446,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "preview_poster",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "shopify_domain",
             "description": "column name"
           },
@@ -33581,6 +33673,16 @@
           },
           {
             "name": "preview",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "preview_poster",
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
@@ -34193,6 +34295,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "preview",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "preview_poster",
             "description": "column name"
           },
           {

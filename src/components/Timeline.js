@@ -110,7 +110,7 @@ export default function Timeline({
   }
 
   const handleUpload = (step) => {
-    let objects = step.results[':original'].map(async (file) => {
+    let objects = step.results[':original'].map(async (file, i) => {
       let data;
       let mime = file.mime;
       let type = mime.split('/')[0];
@@ -128,7 +128,8 @@ export default function Timeline({
         mime,
         audience: 'public',
         url: data?.url || file.url,
-        preview: file.url
+        preview: file.url,
+        cover: step.results.thumbed[i].ssl_url
       };
     });
     Promise.all(objects).then((results) => {
@@ -155,6 +156,7 @@ export default function Timeline({
           autoplay: false,
           controls: true,
           aspectRatio: '16:9',
+          poster: attachment.cover,
           sources: []
         };
         if (attachment?.preview) {
@@ -285,7 +287,7 @@ export default function Timeline({
       >
         <Events events={events} selectCallback={handleSelectCallback} />
       </Drawer>
-      {isMyAccount && (
+      {account.belongsTo(user) && (
         <div
           onClick={() => setShowModal(true)}
           className="mb-5 p-3 mx-1 text-gray-400 bg-gray-800 hover:bg-gray-700 hover:cursor-pointer border-solid rounded-lg ring-gray-500"

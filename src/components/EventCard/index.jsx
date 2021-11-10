@@ -16,10 +16,14 @@ import {
 } from '@ant-design/icons';
 
 const UPDATE_ACCOUNT = gql`
-  mutation updateAccountPreview($account_id: uuid!, $url: String!) {
+  mutation updateAccountPreview(
+    $account_id: uuid!
+    $url: String!
+    $poster: String!
+  ) {
     update_accounts_by_pk(
       pk_columns: { id: $account_id }
-      _set: { preview: $url }
+      _set: { preview: $url, preview_poster: $poster }
     ) {
       id
     }
@@ -65,7 +69,8 @@ function EventCard(props) {
       await updateAccount({
         variables: {
           account_id: event.account.id,
-          url: event.preview
+          url: event.preview,
+          poster: event.photo || event.thumb
         }
       });
       message.success('Set featured preview');
