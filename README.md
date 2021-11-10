@@ -13,7 +13,7 @@ This monorepo contains a few things:
 * `/hasura` (Hasura metadata)
 * `/src/` (React UI)
 
-## Infrastructure, Accounts, and SaSS, oh my!
+## Infrastructure, Accounts, and SaaS, oh my!
 
 * Netlify (UI)
 * Render.com (API)

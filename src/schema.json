@@ -61792,6 +61792,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "post",
+            "type": {
+              "kind": "OBJECT",
+              "name": "posts",
+              "ofType": null
+            },
+            "description": "An object relationship"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "post_id",
             "type": {
               "kind": "SCALAR",
@@ -62108,6 +62120,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "post",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "posts_bool_exp",
               "ofType": null
             },
             "description": null
@@ -62757,6 +62779,16 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "post",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "posts_order_by",
               "ofType": null
             },
             "description": null

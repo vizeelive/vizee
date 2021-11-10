@@ -1184,6 +1184,68 @@
 - table:
     schema: public
     name: images
+  object_relationships:
+  - name: post
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: posts
+        column_mapping:
+          post_id: id
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - type
+      - mime
+      - url
+      - preview
+      - cover
+      - event_id
+      - post_id
+      - created
+      - created_by
+      - account_id
+      filter:
+        post:
+          audience:
+            _eq: public
+  - role: user
+    permission:
+      columns:
+      - id
+      - type
+      - mime
+      - url
+      - preview
+      - cover
+      - event_id
+      - post_id
+      - created
+      - created_by
+      - account_id
+      filter:
+        _or:
+        - post:
+            audience:
+              _eq: public
+        - post:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+        - post:
+            account:
+              access:
+                _and:
+                - product:
+                    account_access:
+                      _eq: true
+                - user_id:
+                    _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: links
