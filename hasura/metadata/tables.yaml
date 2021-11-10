@@ -202,14 +202,6 @@
         table:
           schema: public
           name: followers
-  - name: images
-    using:
-      manual_configuration:
-        remote_table:
-          schema: public
-          name: images
-        column_mapping:
-          id: account_id
   - name: links
     using:
       foreign_key_constraint_on:
@@ -1183,26 +1175,6 @@
     name: followers_report
 - table:
     schema: public
-    name: images
-  select_permissions:
-  - role: public
-    permission:
-      columns:
-      - account_id
-      - created
-      - date
-      - url
-      filter: {}
-  - role: user
-    permission:
-      columns:
-      - account_id
-      - created
-      - date
-      - url
-      filter: {}
-- table:
-    schema: public
     name: links
   object_relationships:
   - name: account
@@ -1403,89 +1375,204 @@
   - name: user
     using:
       foreign_key_constraint_on: created_by
+  array_relationships:
+  - name: attachments
+    using:
+      foreign_key_constraint_on:
+        column: post_id
+        table:
+          schema: public
+          name: posts_attachments
   insert_permissions:
   - role: user
     permission:
       check:
-        _or:
-        - account:
-            users:
-              user:
-                id:
-                  _eq: X-Hasura-User-Id
-        - event:
-            account:
-              users:
-                user:
-                  id:
-                    _eq: X-Hasura-User-Id
-      set:
-        created_by: x-hasura-User-Id
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
       columns:
       - account_id
-      - attachments
+      - allow_comments
+      - audience
       - date
       - event_id
+      - id
       - message
       backend_only: false
   select_permissions:
   - role: public
     permission:
       columns:
-      - attachments
-      - created
-      - created_by
-      - date
       - id
       - message
-      filter: {}
+      - created_by
+      - created
+      - account_id
+      - event_id
+      - allow_comments
+      - date
+      - audience
+      filter:
+        audience:
+          _eq: public
   - role: user
     permission:
       columns:
-      - attachments
+      - allow_comments
+      - date
+      - audience
+      - message
       - created
+      - account_id
       - created_by
-      - date
+      - event_id
       - id
-      - message
-      filter: {}
-  update_permissions:
-  - role: user
-    permission:
-      columns:
-      - attachments
-      - date
-      - message
       filter:
         _or:
+        - audience:
+            _eq: public
         - account:
             users:
               user:
                 id:
                   _eq: X-Hasura-User-Id
-        - event:
-            account:
-              users:
-                user:
-                  id:
-                    _eq: X-Hasura-User-Id
+        - account:
+            access:
+              _and:
+              - product:
+                  account_access:
+                    _eq: true
+              - user_id:
+                  _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - allow_comments
+      - audience
+      - date
+      - event_id
+      - id
+      - message
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
       check: null
   delete_permissions:
   - role: user
     permission:
       filter:
-        _or:
-        - account:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: posts_attachments
+  object_relationships:
+  - name: event
+    using:
+      foreign_key_constraint_on: event_id
+  - name: post
+    using:
+      foreign_key_constraint_on: post_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        post:
+          account:
             users:
               user:
                 id:
                   _eq: X-Hasura-User-Id
-        - event:
+      columns:
+      - cover
+      - event_id
+      - id
+      - mime
+      - post_id
+      - preview
+      - type
+      - url
+      backend_only: false
+  select_permissions:
+  - role: public
+    permission:
+      columns:
+      - id
+      - type
+      - mime
+      - url
+      - preview
+      - cover
+      - event_id
+      - post_id
+      filter:
+        post:
+          audience:
+            _eq: public
+  - role: user
+    permission:
+      columns:
+      - cover
+      - mime
+      - preview
+      - type
+      - url
+      - created
+      - created_by
+      - event_id
+      - id
+      - post_id
+      filter:
+        _or:
+        - post:
+            audience:
+              _eq: public
+        - post:
             account:
               users:
                 user:
                   id:
                     _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - cover
+      - event_id
+      - mime
+      - preview
+      - type
+      - url
+      filter:
+        post:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+      check: null
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        post:
+          account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: presence

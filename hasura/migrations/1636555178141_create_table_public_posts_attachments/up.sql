@@ -1,0 +1,2 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE TABLE "public"."posts_attachments"("id" uuid NOT NULL DEFAULT gen_random_uuid(), "type" text NOT NULL, "mime" text NOT NULL, "url" text, "preview" text, "cover" text, "event_id" uuid, "post_id" uuid NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("event_id") REFERENCES "public"."events"("id") ON UPDATE restrict ON DELETE restrict, UNIQUE ("id"));

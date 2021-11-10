@@ -51,7 +51,6 @@ export default function Timeline({
   type,
   uuid,
   format,
-  isMyAccount,
   user,
   account,
   posts,
@@ -75,13 +74,17 @@ export default function Timeline({
       variables: {
         object: {
           ...form.getFieldsValue(),
-          attachments: attachments.map((a) => {
-            delete a.preview;
-            return a;
-          }),
           ...(type === 'account' ? { account_id: uuid } : null),
           ...(type === 'event' ? { event_id: uuid } : null),
-          ...(user?.isAdmin ? { created_by: user.id } : null)
+          ...(user?.isAdmin ? { created_by: user.id } : null),
+          attachments: {
+            data: attachments.map((a) => {
+              return {
+                ...a,
+                ...(user?.isAdmin ? { created_by: user.id } : null)
+              };
+            })
+          }
         }
       }
     };
@@ -118,17 +121,19 @@ export default function Timeline({
         type = 'pdf';
       }
       if (type === 'video') {
+        let audience = form.getFieldValue('audience');
+        // let action = audience === 'public' ? 'preview' : 'create';
+        let action = 'preview';
         let res = await fetch(
-          `${config.api}/mux/asset/preview?url=${file.url}`
+          `${config.api}/mux/asset/${action}?url=${file.url}`
         );
         data = await res.json();
+        console.log({ data });
       }
       return {
         type,
         mime,
-        audience: 'public',
         url: data?.url || file.url,
-        preview: file.url,
         cover: step.results.thumbed[i].ssl_url
       };
     });
@@ -159,14 +164,10 @@ export default function Timeline({
           poster: attachment.cover,
           sources: []
         };
-        if (attachment?.preview) {
-          videoJsOptions.sources.push({ src: attachment.preview });
-        } else {
-          videoJsOptions.sources.push({
-            src: attachment.url,
-            type: 'application/x-mpegurl'
-          });
-        }
+        videoJsOptions.sources.push({
+          src: attachment.url,
+          type: 'application/x-mpegurl'
+        });
         return <VideoPlayer key={Math.random()} {...videoJsOptions} />;
       case 'event':
         return <EventCard event={attachment.data} />;
@@ -233,7 +234,6 @@ export default function Timeline({
           {
             type: 'link',
             mime: 'text/html',
-            audience: 'public',
             url: match
           }
         ]);
@@ -247,8 +247,7 @@ export default function Timeline({
       ...attachments,
       {
         type: obj.type,
-        data: obj.data,
-        audience: 'public'
+        event_id: obj.data.id
       }
     ]);
     setDrawerVisible(false);
@@ -258,8 +257,7 @@ export default function Timeline({
     setAttachments([
       ...attachments,
       {
-        type: 'jitsi',
-        audience: 'public'
+        type: 'jitsi'
       }
     ]);
   };
@@ -271,6 +269,7 @@ export default function Timeline({
   const dateFormat = 'YYYY/MM/DD';
 
   const initialValues = {
+    audience: 'public',
     date: moment(new Date().toISOString().substr(0, 10))
   };
 
@@ -330,7 +329,13 @@ export default function Timeline({
                 </a>
               </Dropdown>
               {format === 'post' ? (
-                <AvatarHandle account={account} date={post.date} />
+                <div>
+                  <AvatarHandle
+                    account={account}
+                    date={post.date}
+                    audience={post.audience}
+                  />
+                </div>
               ) : (
                 <div className="text-gray-600">
                   {moment(post.date).format('MMMM Do, YYYY')}
@@ -380,12 +385,12 @@ export default function Timeline({
           <Form.Item name="date" className="pt-5">
             <DatePicker format={dateFormat} />
           </Form.Item>
-          {/* <Form.Item name="audience">
+          <Form.Item name="audience">
             <Select defaultValue="public">
               <Option value="public">Public</Option>
               <Option value="private">Private</Option>
             </Select>
-          </Form.Item> */}
+          </Form.Item>
           <Form.Item name="message">
             <Input.TextArea
               autoSize={{ minRows: 4 }}

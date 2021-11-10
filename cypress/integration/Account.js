@@ -33,7 +33,7 @@ describe('AccountPage', () => {
       // cy.get('[data-test-id=account-supporterscount').should('exist');
       // cy.get('[data-test-id=account-viewcount').should('exist');
       cy.get('[data-test-id=share-button').should('exist');
-      cy.get('[data-test-id=events').should('exist');
+      // cy.get('[data-test-id=events').should('exist');
       cy.get('[data-test-id=account-pricing').should('exist');
       // cy.get('[data-test-id=account-tags').should('exist');
     });

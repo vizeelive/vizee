@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'antd';
 import moment from 'moment';
 
-export default function AvatarHandle({ account, date }) {
+import { LockOutlined, GlobalOutlined } from '@ant-design/icons';
+
+export default function AvatarHandle({ account, date, audience }) {
   return (
     <Link
       to={`/${account.username}`}
@@ -40,7 +43,15 @@ export default function AvatarHandle({ account, date }) {
           </p>
           {date ? (
             <div className="text-sm text-gray-600">
-              {' '}
+              {audience === 'public' ? (
+                <Tooltip title="Public">
+                  <GlobalOutlined style={{ verticalAlign: 'text-bottom' }} />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Private">
+                  <LockOutlined style={{ verticalAlign: 'text-bottom' }} />
+                </Tooltip>
+              )}{' '}
               {moment(date).fromNow()}
             </div>
           ) : null}

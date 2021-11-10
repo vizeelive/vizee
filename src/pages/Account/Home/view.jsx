@@ -168,9 +168,6 @@ export default function HomeView(props) {
     });
   }
 
-  let canSeeTimeline =
-    user?.email?.includes('@viz.ee') || user?.email?.includes('@loiselles.com');
-
   let allTags = account?.tags
     ?.filter((tag) => tag.events_tags.length)
     ?.sort(function (a, b) {
@@ -264,22 +261,20 @@ export default function HomeView(props) {
                 defaultActiveKey={queryTab}
                 onTabClick={(tab) => setQueryTab(tab)}
               >
-                {canSeeTimeline ? (
-                  <TabPane tab="Timeline" key="timeline">
-                    <Timeline
-                      type="account"
-                      uuid={account.id}
-                      format="post"
-                      isMyAccount={isMyAccount}
-                      user={user}
-                      account={account}
-                      posts={account.posts}
-                      events={account.events}
-                      refetch={refetch}
-                    />
-                    <br />
-                  </TabPane>
-                ) : null}
+                <TabPane tab="Timeline" key="timeline">
+                  <Timeline
+                    type="account"
+                    uuid={account.id}
+                    format="post"
+                    isMyAccount={isMyAccount}
+                    user={user}
+                    account={account}
+                    posts={account.posts}
+                    events={account.events}
+                    refetch={refetch}
+                  />
+                  <br />
+                </TabPane>
                 <TabPane tab="Media" key="media">
                   {(user?.isAdmin || isMyAccount) && (
                     <div className="text-right">
@@ -317,11 +312,9 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                {canSeeTimeline && (
-                  <TabPane tab="Images" key="images">
+                {/* <TabPane tab="Images" key="images">
                     <Images images={account.images} />
-                  </TabPane>
-                )}
+                  </TabPane> */}
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}

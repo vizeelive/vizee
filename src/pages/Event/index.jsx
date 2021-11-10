@@ -60,8 +60,15 @@ const GET_EVENT_UNAUTH = gql`
         id
         date
         message
-        attachments
         created
+        attachments {
+          id
+          type
+          mime
+          preview
+          cover
+          event_id
+        }
       }
       account {
         id
@@ -176,8 +183,15 @@ const GET_EVENT_AUTH = gql`
         id
         date
         message
-        attachments
         created
+        attachments {
+          id
+          type
+          mime
+          preview
+          cover
+          event_id
+        }
       }
       account {
         id

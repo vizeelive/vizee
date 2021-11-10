@@ -44,11 +44,16 @@ export const GET_ACCOUNT_ANON = gql`
         id
         date
         message
-        attachments
+        audience
         created
-      }
-      images {
-        url
+        attachments {
+          id
+          type
+          mime
+          url
+          cover
+          event_id
+        }
       }
       tags {
         id
@@ -209,11 +214,16 @@ const GET_ACCOUNT_USER = gql`
         id
         date
         message
-        attachments
+        audience
         created
-      }
-      images {
-        url
+        attachments {
+          id
+          type
+          mime
+          url
+          cover
+          event_id
+        }
       }
       tags {
         id

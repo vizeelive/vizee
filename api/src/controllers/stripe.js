@@ -38,9 +38,13 @@ app.get('/stripe/account/create', async function (req, res) {
           requested: true
         }
       },
-      tos_acceptance: {
-        service_agreement: 'recipient'
-      },
+      ...(country !== 'US'
+        ? {
+            tos_acceptance: {
+              service_agreement: 'recipient'
+            }
+          }
+        : null),
       settings: {
         payouts: {
           schedule: {

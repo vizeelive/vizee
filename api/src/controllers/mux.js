@@ -123,9 +123,10 @@ app.get('/mux/asset/create', async function (req, res) {
 
   try {
     const asset = await Video.Assets.create({
-      input: url
+      input: url,
+      playback_policy: 'signed'
     });
-    console.log({ asset });
+    console.log(asset.playback_ids);
     await client.mutate({
       variables: {
         url,
@@ -142,7 +143,9 @@ app.get('/mux/asset/create', async function (req, res) {
         }
       `
     });
-    res.send('OK');
+    res.send({
+      url: `https://stream.mux.com/${asset.playback_ids[0].id}.m3u8`
+    });
   } catch (e) {
     console.log(url, e);
     res.status(500).send(e.message);
