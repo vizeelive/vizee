@@ -134,7 +134,7 @@ export default function Timeline({
         type,
         mime,
         url: data?.url || file.url,
-        cover: step.results.thumbed[i].ssl_url
+        cover: step.results?.thumbed?.[i]?.ssl_url
       };
     });
     Promise.all(objects).then((results) => {
