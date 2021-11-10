@@ -37,6 +37,9 @@ export const GET_ACCOUNT_ANON = gql`
       facebook
       twitter
       instagram
+      images {
+        url
+      }
       posts(
         order_by: { date: desc, created: desc }
         where: { date: { _lte: $now } }
@@ -206,6 +209,9 @@ const GET_ACCOUNT_USER = gql`
         favoritecount
         eventcount
         subscriptionscount
+      }
+      images {
+        url
       }
       posts(
         order_by: { date: desc, created: desc }

@@ -202,6 +202,14 @@
         table:
           schema: public
           name: followers
+  - name: images
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: images
+        column_mapping:
+          id: account_id
   - name: links
     using:
       foreign_key_constraint_on:
@@ -1173,6 +1181,9 @@
 - table:
     schema: public
     name: followers_report
+- table:
+    schema: public
+    name: images
 - table:
     schema: public
     name: links

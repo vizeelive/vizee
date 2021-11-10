@@ -312,9 +312,9 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                {/* <TabPane tab="Images" key="images">
-                    <Images images={account.images} />
-                  </TabPane> */}
+                <TabPane tab="Images" key="images">
+                  <Images images={account.images} />
+                </TabPane>
                 <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}
