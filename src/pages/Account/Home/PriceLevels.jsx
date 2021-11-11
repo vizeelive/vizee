@@ -9,7 +9,10 @@ export default function Supporters({ account, user }) {
       data-test-id="account-pricing"
     >
       {sortProducts(account.products).map((product, index) => (
-        <div className="flex flex-col rounded-lg shadow-lg overflow-hidden mb-2 border-2 border-gray-900">
+        <div
+          key={index}
+          className="flex flex-col rounded-lg shadow-lg overflow-hidden mb-2 border-2 border-gray-900"
+        >
           <div className="px-6 py-8 bg-black sm:p-10 sm:pb-6">
             <div>
               <h3
@@ -43,9 +46,9 @@ export default function Supporters({ account, user }) {
                     aria-hidden="true"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
@@ -64,9 +67,9 @@ export default function Supporters({ account, user }) {
                     aria-hidden="true"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
@@ -86,9 +89,9 @@ export default function Supporters({ account, user }) {
                       aria-hidden="true"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
@@ -111,9 +114,9 @@ export default function Supporters({ account, user }) {
                       aria-hidden="true"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M5 13l4 4L19 7"
                       />
                     </svg>

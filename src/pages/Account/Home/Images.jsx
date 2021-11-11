@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Gallery from 'react-photo-gallery';
 import Carousel, { Modal, ModalGateway } from 'react-images';
+import cdnImage from 'lib/cdn-image';
 
 export default function Images({ images }) {
   const [currentImage, setCurrentImage] = useState(0);
@@ -19,7 +20,7 @@ export default function Images({ images }) {
   let photos = images.map((image) => {
     return {
       id: Math.random(),
-      src: image.url,
+      src: cdnImage(image.url, { w: 450 }),
       width: 4,
       height: 3
     };

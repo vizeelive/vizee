@@ -9,22 +9,22 @@ import {
   Menu,
   Modal,
   Radio,
-  Select,
   Timeline as AntTimeline,
   Input
 } from 'antd';
 import moment from 'moment';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import Microlink from '@microlink/react';
 import Linkify from 'react-linkify';
 
-import ReactAudioPlayer from 'react-audio-player';
+import cdnImage from 'lib/cdn-image';
 import AvatarHandle from 'components/AvatarHandle';
 import FileUpload from 'components/FileUpload';
 import Events from 'components/Events';
 import EventCard from 'components/EventCard';
 import VideoConference from 'components/VideoConference';
 import VideoPlayer from 'components/VideoPlayer';
+import Images from 'pages/Account/Home/Images';
 
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
@@ -127,14 +127,14 @@ export default function Timeline({
         // let action = audience === 'public' ? 'preview' : 'create';
         let action = 'preview';
         let res = await fetch(
-          `${config.api}/mux/asset/${action}?url=${file.url}`
+          `${config.api}/mux/asset/${action}?url=${file.ssl_url}`
         );
         data = await res.json();
       }
       return {
         type,
         mime,
-        url: data?.url || file.url,
+        url: data?.url || file.ssl_url,
         cover: step.results?.thumbed?.[i]?.ssl_url
       };
     });
@@ -148,9 +148,10 @@ export default function Timeline({
   const renderAttachment = (attachment, post) => {
     switch (attachment.type) {
       case 'image':
+        if (!attachment.url) return;
         return (
           <img
-            src={attachment.url}
+            src={cdnImage(attachment.url, { w: 450 })}
             style={{ width: '100%', height: '100%' }}
             alt={attachment.mime}
           />
@@ -316,7 +317,7 @@ export default function Timeline({
 
       <AntTimeline>
         {posts?.map((post) => (
-          <AntTimeline.Item>
+          <AntTimeline.Item key={post.id}>
             <div
               key={post.id}
               className={`${backgroundClass} mx-1 border-solid rounded-lg mb-5 p-5`}
@@ -372,9 +373,18 @@ export default function Timeline({
                   })}
                 </Linkify>
               </div>
-              {post?.attachments?.map((attachment) => (
-                <div className="mt-3">{renderAttachment(attachment, post)}</div>
-              ))}
+              {post?.attachments
+                ?.filter((a) => a.type !== 'image')
+                .map((attachment) => (
+                  <div key={attachment.id} className="mt-3">
+                    {renderAttachment(attachment, post)}
+                  </div>
+                ))}
+              {post?.attachments?.filter((a) => a.type === 'image').length && (
+                <Images
+                  images={post?.attachments?.filter((a) => a.type === 'image')}
+                />
+              )}
             </div>
           </AntTimeline.Item>
         ))}
@@ -405,7 +415,7 @@ export default function Timeline({
             <DatePicker format={dateFormat} />
           </Form.Item>
           <Form.Item name="audience">
-            <Radio.Group defaultValue="public">
+            <Radio.Group>
               <Radio.Button value="public">Public</Radio.Button>
               <Radio.Button value="private">Private</Radio.Button>
             </Radio.Group>
@@ -440,8 +450,8 @@ export default function Timeline({
               maxNumberOfFiles={20}
             />
           ) : null}
-          {attachments.map((attachment) => (
-            <div>
+          {attachments.map((attachment, key) => (
+            <div key={key}>
               <div className="text-right">
                 <CloseOutlined
                   onClick={() =>
