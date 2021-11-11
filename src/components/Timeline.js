@@ -17,7 +17,6 @@ import { gql, useMutation } from '@apollo/client';
 import Microlink from '@microlink/react';
 import Linkify from 'react-linkify';
 
-import cdnImage from 'lib/cdn-image';
 import AvatarHandle from 'components/AvatarHandle';
 import FileUpload from 'components/FileUpload';
 import Events from 'components/Events';
@@ -135,7 +134,9 @@ export default function Timeline({
         type,
         mime,
         url: data?.url || file.ssl_url,
-        cover: step.results?.thumbed?.[i]?.ssl_url
+        cover: step.results?.thumbed?.[i]?.ssl_url,
+        width: file.meta?.width,
+        height: file.meta?.height
       };
     });
     Promise.all(objects).then((results) => {
@@ -151,7 +152,7 @@ export default function Timeline({
         if (!attachment.url) return;
         return (
           <img
-            src={cdnImage(attachment.url, { w: 450 })}
+            src={attachment.url}
             style={{ width: '100%', height: '100%' }}
             alt={attachment.mime}
           />
@@ -348,7 +349,12 @@ export default function Timeline({
           })}
         </Linkify>
       </div>
-      {post?.attachments
+      {post?.attachments?.map((attachment) => (
+        <div key={attachment.id} className="mt-3">
+          {renderAttachment(attachment, post)}
+        </div>
+      ))}
+      {/* {post?.attachments
         ?.filter((a) => a.type !== 'image')
         .map((attachment) => (
           <div key={attachment.id} className="mt-3">
@@ -356,8 +362,12 @@ export default function Timeline({
           </div>
         ))}
       {post?.attachments?.filter((a) => a.type === 'image').length ? (
-        <Images images={post?.attachments?.filter((a) => a.type === 'image')} />
-      ) : null}
+        <div>
+          <Images
+            images={post?.attachments?.filter((a) => a.type === 'image')}
+          />
+        </div>
+      ) : null} */}
     </div>
   );
 

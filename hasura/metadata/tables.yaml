@@ -1594,25 +1594,29 @@
       columns:
       - cover
       - event_id
+      - height
       - id
       - mime
       - post_id
       - preview
       - type
       - url
+      - width
       backend_only: false
   select_permissions:
   - role: public
     permission:
       columns:
-      - id
-      - type
-      - mime
-      - url
-      - preview
       - cover
       - event_id
+      - height
+      - id
+      - mime
       - post_id
+      - preview
+      - type
+      - url
+      - width
       filter:
         post:
           audience:
@@ -1621,15 +1625,17 @@
     permission:
       columns:
       - cover
-      - mime
-      - preview
-      - type
-      - url
       - created
       - created_by
       - event_id
+      - height
       - id
+      - mime
       - post_id
+      - preview
+      - type
+      - url
+      - width
       filter:
         _or:
         - post:

@@ -1,47 +1,16 @@
-import React, { useState, useCallback } from 'react';
-import Gallery from 'react-photo-gallery';
-import Carousel, { Modal, ModalGateway } from 'react-images';
-import cdnImage from 'lib/cdn-image';
+import React from 'react';
+import Gallery from 'react-grid-gallery';
 
 export default function Images({ images }) {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [viewerIsOpen, setViewerIsOpen] = useState(false);
-
-  const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index);
-    setViewerIsOpen(true);
-  }, []);
-
-  const closeLightbox = () => {
-    setCurrentImage(0);
-    setViewerIsOpen(false);
-  };
-
   let photos = images.map((image) => {
     return {
-      id: Math.random(),
       src: image.url,
-      width: 4,
-      height: 3
+      thumbnail: image.url,
+      thumbnailWidth: image.width,
+      thumbnailHeight: image.height,
+      caption: image.name
     };
   });
-  return (
-    <div>
-      <Gallery photos={photos} onClick={openLightbox} />
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel
-              currentIndex={currentImage}
-              views={photos.map((x) => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title
-              }))}
-            />
-          </Modal>
-        ) : null}
-      </ModalGateway>
-    </div>
-  );
+
+  return <Gallery images={photos} />;
 }
