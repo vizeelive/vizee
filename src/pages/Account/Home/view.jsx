@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect';
 
 import Button from 'components/ui/Button';
 import Map from 'components/Map';
-import { Affix, Card, Collapse, Typography, Tabs, Tag } from 'antd';
+import { Card, Collapse, Typography, Tabs, Tag } from 'antd';
 import styled from 'styled-components';
 import Events from 'components/Events';
 import VideoConference from 'components/VideoConference';
@@ -217,7 +217,7 @@ export default function HomeView(props) {
 
         {/* <Pricing hasAccess={hasAccess} user={user} account={account} /> */}
 
-        <div className="px-4 sm:px-6 lg:px-5">
+        <div className="px-4 sm:px-6 lg:px-8">
           <Header>
             <div>
               {/* <Title data-test-id="account-name">{account.name}</Title> */}
@@ -263,7 +263,7 @@ export default function HomeView(props) {
                 defaultActiveKey={queryTab}
                 onTabClick={(tab) => setQueryTab(tab)}
               >
-                {/* {showTimeline && (
+                {showTimeline && (
                   <TabPane tab="Timeline" key="timeline">
                     <Timeline
                       type="account"
@@ -278,7 +278,7 @@ export default function HomeView(props) {
                     />
                     <br />
                   </TabPane>
-                )} */}
+                )}
                 <TabPane tab="Media" key="media">
                   {(user?.isAdmin || isMyAccount) && (
                     <div className="text-right">
@@ -316,16 +316,16 @@ export default function HomeView(props) {
                     <Events events={filteredEvents} refetch={refetch} />
                   </EventsContainer>
                 </TabPane>
-                {/* <TabPane tab="Images" key="images">
+                <TabPane tab="Images" key="images">
                   <Images images={account.images} />
-                </TabPane> */}
-                {/* <TabPane tab="Playlists" key="playlists">
+                </TabPane>
+                <TabPane tab="Playlists" key="playlists">
                   <PlaylistListing
                     refetch={refetch}
                     account={account}
                     playlists={account.playlists}
                   />
-                </TabPane> */}
+                </TabPane>
                 <TabPane tab="Video Chat" key="video">
                   <VideoConference
                     roomName={`${account.id}-23kjh23kjh232kj3h`}
