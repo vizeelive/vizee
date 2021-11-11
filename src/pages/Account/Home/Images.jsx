@@ -20,7 +20,7 @@ export default function Images({ images }) {
   let photos = images.map((image) => {
     return {
       id: Math.random(),
-      src: cdnImage(image.url, { w: 450 }),
+      src: image.url,
       width: 4,
       height: 3
     };
