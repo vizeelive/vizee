@@ -545,6 +545,7 @@ export default function EventPage(props) {
                 </Linkify>
               </div>
 
+              <div className="text-xl py-5">Timeline</div>
               <Timeline
                 type="event"
                 uuid={event.id}
