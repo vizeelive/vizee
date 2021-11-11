@@ -295,6 +295,72 @@ export default function Timeline({
 
   let backgroundClass = format === 'post' ? 'bg-gray-900' : '';
 
+  const renderItem = (post) => (
+    <div
+      key={post.id}
+      className={`${backgroundClass} mx-1 border-solid rounded-lg mb-5 p-5`}
+    >
+      <Dropdown
+        className="float-right"
+        overlay={
+          <Menu>
+            <Menu.Item
+              key={`delete_${post.id}`}
+              onClick={() => {
+                deletePost({
+                  variables: { id: post.id }
+                });
+                refetch();
+              }}
+            >
+              Delete post
+            </Menu.Item>
+          </Menu>
+        }
+        trigger={['click']}
+      >
+        <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+          <EllipsisOutlined />
+        </a>
+      </Dropdown>
+      {format === 'post' ? (
+        <div>
+          <AvatarHandle
+            account={account}
+            date={post.date}
+            audience={post.audience}
+          />
+        </div>
+      ) : (
+        <div className="text-gray-600">
+          {moment(post.date).format('MMMM Do, YYYY')}
+        </div>
+      )}
+      <div>
+        <Linkify>
+          {post?.message?.split('\n')?.map((item, key) => {
+            return (
+              <span key={key}>
+                {item}
+                <br />
+              </span>
+            );
+          })}
+        </Linkify>
+      </div>
+      {post?.attachments
+        ?.filter((a) => a.type !== 'image')
+        .map((attachment) => (
+          <div key={attachment.id} className="mt-3">
+            {renderAttachment(attachment, post)}
+          </div>
+        ))}
+      {post?.attachments?.filter((a) => a.type === 'image').length && (
+        <Images images={post?.attachments?.filter((a) => a.type === 'image')} />
+      )}
+    </div>
+  );
+
   return (
     <div className="max-w-screen-sm">
       <Drawer
@@ -315,80 +381,16 @@ export default function Timeline({
         </div>
       )}
 
-      <AntTimeline>
-        {posts?.map((post) => (
-          <AntTimeline.Item key={post.id}>
-            <div
-              key={post.id}
-              className={`${backgroundClass} mx-1 border-solid rounded-lg mb-5 p-5`}
-            >
-              <Dropdown
-                className="float-right"
-                overlay={
-                  <Menu>
-                    <Menu.Item
-                      key={`delete_${post.id}`}
-                      onClick={() => {
-                        deletePost({
-                          variables: { id: post.id }
-                        });
-                        refetch();
-                      }}
-                    >
-                      Delete post
-                    </Menu.Item>
-                  </Menu>
-                }
-                trigger={['click']}
-              >
-                <a
-                  className="ant-dropdown-link"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <EllipsisOutlined />
-                </a>
-              </Dropdown>
-              {format === 'post' ? (
-                <div>
-                  <AvatarHandle
-                    account={account}
-                    date={post.date}
-                    audience={post.audience}
-                  />
-                </div>
-              ) : (
-                <div className="text-gray-600">
-                  {moment(post.date).format('MMMM Do, YYYY')}
-                </div>
-              )}
-              <div>
-                <Linkify>
-                  {post?.message?.split('\n')?.map((item, key) => {
-                    return (
-                      <span key={key}>
-                        {item}
-                        <br />
-                      </span>
-                    );
-                  })}
-                </Linkify>
-              </div>
-              {post?.attachments
-                ?.filter((a) => a.type !== 'image')
-                .map((attachment) => (
-                  <div key={attachment.id} className="mt-3">
-                    {renderAttachment(attachment, post)}
-                  </div>
-                ))}
-              {post?.attachments?.filter((a) => a.type === 'image').length && (
-                <Images
-                  images={post?.attachments?.filter((a) => a.type === 'image')}
-                />
-              )}
-            </div>
-          </AntTimeline.Item>
-        ))}
-      </AntTimeline>
+      {format === 'timeline' ? (
+        <AntTimeline>
+          {posts.map((post) => (
+            <AntTimeline.Item>{renderItem(post)}</AntTimeline.Item>
+          ))}
+        </AntTimeline>
+      ) : (
+        <div>{posts.map((post) => renderItem(post))}</div>
+      )}
+
       <Modal
         title="Create post"
         visible={showModal}
