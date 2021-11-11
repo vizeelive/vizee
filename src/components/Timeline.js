@@ -355,9 +355,9 @@ export default function Timeline({
             {renderAttachment(attachment, post)}
           </div>
         ))}
-      {post?.attachments?.filter((a) => a.type === 'image').length && (
+      {post?.attachments?.filter((a) => a.type === 'image').length ? (
         <Images images={post?.attachments?.filter((a) => a.type === 'image')} />
-      )}
+      ) : null}
     </div>
   );
 
