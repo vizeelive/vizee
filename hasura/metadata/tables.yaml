@@ -1575,12 +1575,20 @@
   - role: user
     permission:
       check:
-        post:
-          account:
-            users:
-              user:
-                id:
-                  _eq: X-Hasura-User-Id
+        _or:
+        - post:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
+        - post:
+            event:
+              account:
+                users:
+                  user:
+                    id:
+                      _eq: X-Hasura-User-Id
       set:
         created_by: x-hasura-User-Id
       columns:
