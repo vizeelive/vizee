@@ -545,7 +545,7 @@ export default function EventPage(props) {
                 </Linkify>
               </div>
 
-              <div className="text-xl py-5">Timeline</div>
+              {/* <div className="text-xl py-5">Timeline</div>
               <Timeline
                 type="event"
                 uuid={event.id}
@@ -556,7 +556,7 @@ export default function EventPage(props) {
                 posts={event.posts}
                 events={[]}
                 refetch={refetch}
-              />
+              /> */}
 
               {!event.isBroadcast() ? (
                 <div className="max-w-prose my-8">
