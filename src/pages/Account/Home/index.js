@@ -58,6 +58,8 @@ export const GET_ACCOUNT_ANON = gql`
           event {
             id
             type
+            photo
+            thumb
             name
             start
             end
@@ -252,6 +254,7 @@ const GET_ACCOUNT_USER = gql`
             start
             end
             thumb
+            photo
             preview
             account {
               name
