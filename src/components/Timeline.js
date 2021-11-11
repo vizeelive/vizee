@@ -372,7 +372,7 @@ export default function Timeline({
   );
 
   return (
-    <div className="max-w-screen-sm">
+    <div>
       <Drawer
         title="Select from Library"
         placement="right"

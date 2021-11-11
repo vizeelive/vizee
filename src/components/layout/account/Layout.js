@@ -16,7 +16,7 @@ export default function Layout(props) {
   }, [location]);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-black">
+    <div className="max-w-7xl h-screen flex overflow-hidden bg-black 3xl:container 3xl:mx-auto">
       <OffCanvasMenu
         user={user}
         username={username}

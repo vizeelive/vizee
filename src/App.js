@@ -1,6 +1,5 @@
 import './App.less';
 
-import config from 'config';
 import { ApolloProvider } from '@apollo/client';
 import Tracker from '@asayerio/tracker';
 import trackerFetch from '@asayerio/tracker-fetch';
@@ -20,9 +19,6 @@ import User from 'pages/User';
 import Theme from './Theme';
 import EventGif from 'pages/EventGif';
 import FinishSignup from 'components/FinishSignup';
-
-import { Centered } from 'components/styled/common';
-import Spinner from 'components/ui/Spinner';
 
 // dont initialize LogRocket for dev or robots (Linux)
 process.env.NODE_ENV !== 'development' &&
