@@ -16,7 +16,7 @@ function Layout(props) {
 
   return (
     <div className="max-w-7xl h-screen flex flex-col bg-black pt-16 3xl:container 3xl:mx-auto">
-      <header className="fixed top-0 inset-x-0 z-40">
+      <header className="w-full fixed top-0 z-40" style={{ maxWidth: 1280 }}>
         <Menu
           user={user}
           creator={creator}
