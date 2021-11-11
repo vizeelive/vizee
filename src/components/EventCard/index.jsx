@@ -251,23 +251,31 @@ function EventCard(props) {
         </div>
         <div className="event-card-info px-6 mt-6 md:mt-4">
           <h2 className="font-sans">
-            <Link
-              to={eventLink}
-              className="event-name event-clickable line-clamp-2 text-gray-100 transition-colors font-bold text-xl xs:text-2xl sm:text-xl"
-              id={`event-link-${event.id}`}
-              title={event.name}
-            >
-              {event.name}
-            </Link>
+            {!selectCallback ? (
+              <Link
+                to={eventLink}
+                className="event-name event-clickable line-clamp-2 text-gray-100 transition-colors font-bold text-xl xs:text-2xl sm:text-xl"
+                id={`event-link-${event.id}`}
+                title={event.name}
+              >
+                {event.name}
+              </Link>
+            ) : (
+              <React.Fragment>{event.name}</React.Fragment>
+            )}
           </h2>
           <p className="mb-4 font-sans">
-            <Link
-              to={`/${event.account.username}`}
-              className="event-clickable text-gray-400 hover:text-gray-300 transition-colors font-semibold text-base xs:text-lg sm:text-base"
-              title={event.account?.name || ''}
-            >
-              {event.account?.name}
-            </Link>
+            {!selectCallback ? (
+              <Link
+                to={`/${event.account.username}`}
+                className="event-clickable text-gray-400 hover:text-gray-300 transition-colors font-semibold text-base xs:text-lg sm:text-base"
+                title={event.account?.name || ''}
+              >
+                {event.account?.name}
+              </Link>
+            ) : (
+              <React.Fragment>{event.account?.name}</React.Fragment>
+            )}
           </p>
         </div>
         <div className="p-5">
@@ -305,7 +313,7 @@ function EventCard(props) {
         </div>
         {renderTags()}
         {renderUnPublished()}
-        {renderActions(event)}
+        {!selectCallback ? renderActions(event) : null}
       </article>
     </React.Fragment>
   );
