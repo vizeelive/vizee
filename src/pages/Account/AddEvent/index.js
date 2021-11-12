@@ -423,7 +423,7 @@ export default function AddEvent(props) {
     setEvent({
       ...event,
       preview: res.url,
-      thumb: step.results['thumbed'][0].ssl_url
+      thumb: step?.results?.['thumbed']?.[0]?.ssl_url
     });
   };
 
@@ -434,7 +434,7 @@ export default function AddEvent(props) {
       size: step.results[':original'][0].size,
       duration: step.results[':original'][0].meta.duration,
       video: step.results[':original'][0].ssl_url,
-      photo: step.results.thumbed[0].ssl_url
+      photo: step?.results?.['thumbed']?.[0]?.ssl_url
     });
     setCoverType('Photo');
   };
