@@ -27618,6 +27618,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "avatar",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "created",
             "type": {
               "kind": "SCALAR",
@@ -30476,6 +30488,16 @@
             "description": null
           },
           {
+            "name": "avatar",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "created",
             "defaultValue": null,
             "type": {
@@ -31054,6 +31076,16 @@
             "description": null
           },
           {
+            "name": "avatar",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "created",
             "defaultValue": null,
             "type": {
@@ -31465,6 +31497,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "avatar",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "created",
             "type": {
               "kind": "SCALAR",
@@ -31801,6 +31845,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "avatar",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "created",
             "defaultValue": null,
@@ -32103,6 +32157,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "avatar",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "created",
             "type": {
               "kind": "SCALAR",
@@ -32439,6 +32505,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "avatar",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "created",
             "defaultValue": null,
@@ -32879,6 +32955,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_access_valid_aggregate_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "avatar",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
               "ofType": null
             },
             "description": null
@@ -33368,6 +33454,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "avatar",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "created",
             "description": "column name"
           },
@@ -33551,6 +33643,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "avatar",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "created",
             "defaultValue": null,
@@ -34219,6 +34321,12 @@
         "interfaces": null,
         "name": "accounts_update_column",
         "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "avatar",
+            "description": "column name"
+          },
           {
             "isDeprecated": false,
             "deprecationReason": null,
@@ -116159,6 +116267,30 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "payout_account",
+            "type": {
+              "kind": "OBJECT",
+              "name": "accounts",
+              "ofType": null
+            },
+            "description": "An object relationship"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "payout_account_id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "state",
             "type": {
               "kind": "SCALAR",
@@ -120291,6 +120423,26 @@
             "description": null
           },
           {
+            "name": "payout_account",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "accounts_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "payout_account_id",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "state",
             "defaultValue": null,
             "type": {
@@ -120541,6 +120693,26 @@
             "description": null
           },
           {
+            "name": "payout_account",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "accounts_obj_rel_insert_input",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "payout_account_id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "state",
             "defaultValue": null,
             "type": {
@@ -120744,6 +120916,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "payout_account_id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "state",
             "type": {
               "kind": "SCALAR",
@@ -120882,6 +121066,16 @@
           },
           {
             "name": "name",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "payout_account_id",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -121074,6 +121268,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "payout_account_id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "state",
             "type": {
               "kind": "SCALAR",
@@ -121212,6 +121418,16 @@
           },
           {
             "name": "name",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "payout_account_id",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -121565,6 +121781,26 @@
             "description": null
           },
           {
+            "name": "payout_account",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "accounts_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "payout_account_id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "state",
             "defaultValue": null,
             "type": {
@@ -121724,6 +121960,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "payout_account_id",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "state",
             "description": "column name"
           },
@@ -121856,6 +122098,16 @@
             "description": null
           },
           {
+            "name": "payout_account_id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "state",
             "defaultValue": null,
             "type": {
@@ -121965,6 +122217,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "name",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "payout_account_id",
             "description": "column name"
           },
           {

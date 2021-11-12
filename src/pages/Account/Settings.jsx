@@ -1,12 +1,18 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { Tabs, Typography } from 'antd';
+import { Form, Button, Tabs, Typography, Select, message } from 'antd';
 import styled from 'styled-components';
+import { gql, useMutation } from '@apollo/client';
 
-import { CreditCardOutlined, YoutubeOutlined } from '@ant-design/icons';
+import {
+  CreditCardOutlined,
+  YoutubeOutlined,
+  UserOutlined
+} from '@ant-design/icons';
 
 import AddAccount from '../AddAccount';
 import StripeAccount from './StripeAccount';
+import useAuth from 'hooks/useAuth';
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
@@ -25,9 +31,37 @@ const Header = styled.header`
   }
 `;
 
-export default function Settings() {
+const UPDATE_PAYOUT_ACCOUNT = gql`
+  mutation updatePayoutAccount($id: uuid!, $payout_account_id: uuid!) {
+    update_users_by_pk(
+      pk_columns: { id: $id }
+      _set: { payout_account_id: $payout_account_id }
+    ) {
+      id
+    }
+  }
+`;
+
+export default function Settings({ accounts, payout_account_id }) {
   const { tab } = useParams();
   const history = useHistory();
+  const { user } = useAuth();
+
+  const [updatePayoutAccount] = useMutation(UPDATE_PAYOUT_ACCOUNT);
+
+  const handleProfileUpdate = async (values) => {
+    try {
+      await updatePayoutAccount({
+        variables: {
+          id: user.id,
+          payout_account_id: values.payout_account_id
+        }
+      });
+      message.success('Payout account updated');
+    } catch (e) {
+      message.error(e.message);
+    }
+  };
 
   const handleOnChange = (val) => {
     history.push(`${val}`);
@@ -59,6 +93,40 @@ export default function Settings() {
             key="payment"
           >
             <StripeAccount />
+          </TabPane>
+          <TabPane
+            tab={
+              <span>
+                <UserOutlined /> Profile
+              </span>
+            }
+            key="user"
+            className="p-5 space-y-3"
+          >
+            <div className="text-md">Payout Account</div>
+            <div className="text-gray-700">
+              Please choose the destination account where you would like payouts
+              made to you
+            </div>
+            <Form
+              initialValues={{ payout_account_id }}
+              onFinish={handleProfileUpdate}
+            >
+              <Form.Item name="payout_account_id">
+                <Select
+                  style={{ width: 220 }}
+                  options={accounts.map((a) => {
+                    return {
+                      value: a.id,
+                      label: a.name
+                    };
+                  })}
+                />
+              </Form.Item>
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+            </Form>
           </TabPane>
         </Tabs>
       </div>

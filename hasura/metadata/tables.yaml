@@ -2006,6 +2006,9 @@
   - name: affiliate_user
     using:
       foreign_key_constraint_on: affiliate_user_id
+  - name: payout_account
+    using:
+      foreign_key_constraint_on: payout_account_id
   array_relationships:
   - name: access
     using:
@@ -2064,6 +2067,7 @@
       - id
       - last_name
       - name
+      - payout_account_id
       - state
       filter: {}
   update_permissions:
@@ -2074,6 +2078,7 @@
       - affiliate_user_id
       - first_name
       - last_name
+      - payout_account_id
       filter:
         id:
           _eq: X-Hasura-User-Id

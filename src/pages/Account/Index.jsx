@@ -66,6 +66,9 @@ const GET_ACCOUNT_AUTH = gql`
     getStripeCustomerPortalUrl {
       url
     }
+    user: users_by_pk(id: $user_id) {
+      payout_account_id
+    }
     accounts(where: { username: { _ilike: $username } }) {
       id
       name
@@ -219,10 +222,12 @@ export default function Account() {
             exact
             render={() => <AddEvent redirect={`/${username}/manage`} />}
           />
-          <Route
-            path="/:username/manage/settings/:id/:tab/:status?"
-            component={Settings}
-          />
+          <Route path="/:username/manage/settings/:id/:tab/:status?">
+            <Settings
+              payout_account_id={data?.user?.payout_account_id}
+              accounts={myAccounts}
+            />
+          </Route>
           <Route path="/:username/manage/calendar" exact component={Calendar} />
           <Route path="/:username/manage" exact render={() => <Home />} />
         </Switch>
