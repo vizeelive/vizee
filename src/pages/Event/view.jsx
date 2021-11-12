@@ -571,7 +571,11 @@ export default function EventPage(props) {
           </div>
           {playlist && (
             <div className="w-full p-2 sm:w-1/4 sm:p-2 md:w-full lg:w-1/2 xl:w-1/4 xl:p-0 xl:pl-2">
-              <Playlist username={username} playlist={playlist} />
+              <Playlist
+                username={username}
+                playlist={playlist}
+                active_event_id={event.id}
+              />
             </div>
           )}
         </div>
