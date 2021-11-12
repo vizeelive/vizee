@@ -545,18 +545,22 @@ export default function EventPage(props) {
                 </Linkify>
               </div>
 
-              <div className="text-xl py-5">Timeline</div>
-              <Timeline
-                type="event"
-                uuid={event.id}
-                format="timeline"
-                isMyAccount={isMyAccount}
-                user={user}
-                account={account}
-                posts={event.posts}
-                events={[]}
-                refetch={refetch}
-              />
+              {isMyAccount || event.posts.length ? (
+                <React.Fragment>
+                  <div className="text-xl py-5">Timeline</div>
+                  <Timeline
+                    type="event"
+                    uuid={event.id}
+                    format="timeline"
+                    isMyAccount={isMyAccount}
+                    user={user}
+                    account={account}
+                    posts={event.posts}
+                    events={[]}
+                    refetch={refetch}
+                  />
+                </React.Fragment>
+              ) : null}
 
               {!event.isBroadcast() ? (
                 <div className="max-w-prose my-8">
