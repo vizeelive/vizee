@@ -91,7 +91,10 @@ export const GET_ACCOUNT_ANON = gql`
           id
           username
         }
-        events(where: { event: { id: { _is_null: false } } }) {
+        events(
+          where: { event: { id: { _is_null: false } } }
+          order_by: { created: asc }
+        ) {
           id
           event {
             id
@@ -277,7 +280,10 @@ const GET_ACCOUNT_USER = gql`
           id
           username
         }
-        events(where: { event: { id: { _is_null: false } } }) {
+        events(
+          where: { event: { id: { _is_null: false } } }
+          order_by: { created: asc }
+        ) {
           id
           event {
             id
