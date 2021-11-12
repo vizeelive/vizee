@@ -81,6 +81,8 @@ module.exports = async function (params) {
 
   let master;
   if (
+    user.isAdmin ||
+    event.account.users.find((u) => u.user.id === user.id) ||
     data.eventAccess?.product?.download_access ||
     data.accountAccess?.filter((a) => a.product?.download_access).length
   ) {
