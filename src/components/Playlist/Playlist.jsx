@@ -16,7 +16,6 @@ const Playlist = ({ username, playlist, active_event_id }) => {
       {playlist.events.map((event, index) => {
         let highlighted =
           active_event_id === event.event.id ? 'bg-gray-900' : null;
-        console.log({ highlighted });
         return (
           <div
             className={`flex p-2 hover:bg-gray-900 cursor-pointer ${highlighted}`}
