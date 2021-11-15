@@ -7,15 +7,12 @@ RUN pip install tap-stripe singer-target-postgres
 COPY stripe-cron /etc/cron.d/stripe-cron
 
 # Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/stripe-cron
+RUN chmod 0744 /etc/cron.d/stripe-cron
 
 # Apply cron job
 RUN crontab /etc/cron.d/stripe-cron
 
-# Create the log file to be able to run tail
-RUN touch /var/log/cron.log
-
 WORKDIR /code
 COPY . /code
 
-CMD cron && tail -f /var/log/cron.log
+CMD ["cron", "-f"]
