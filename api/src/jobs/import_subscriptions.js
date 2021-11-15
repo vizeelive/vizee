@@ -39,9 +39,6 @@ async function insertStripeSubscription(objects) {
         mutation upsertStripeSubscriptions(
           $objects: [stripe_subscriptions_insert_input!]!
         ) {
-          delete_stripe_subscriptions(where: {}) {
-            affected_rows
-          }
           insert_stripe_subscriptions(
             objects: $objects
             on_conflict: {
