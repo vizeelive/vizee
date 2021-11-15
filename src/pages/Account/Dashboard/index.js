@@ -20,6 +20,7 @@ const ACCOUNT_REPORT = gql`
       subscriptionscount
       mrr
       payouts
+      net_volume
       costs {
         total_duration_minutes
         total_size_gb

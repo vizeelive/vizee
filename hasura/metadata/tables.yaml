@@ -149,6 +149,7 @@
       - id
       - mrr
       - name
+      - net_volume
       - payouts
       - revenue
       - subscriptionscount
@@ -291,6 +292,8 @@
   - role: user
     permission:
       columns:
+      - affiliate_commission
+      - avatar
       - created
       - created_by
       - description
@@ -321,6 +324,7 @@
   - role: user
     permission:
       columns:
+      - affiliate_commission
       - description
       - facebook
       - instagram

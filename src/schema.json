@@ -23008,6 +23008,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "money",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -23653,6 +23665,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -23745,6 +23769,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -23933,6 +23967,16 @@
             "description": null
           },
           {
+            "name": "net_volume",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "money_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "payouts",
             "defaultValue": null,
             "type": {
@@ -24096,6 +24140,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "money",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -24220,6 +24276,16 @@
           },
           {
             "name": "name",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -24382,6 +24448,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "money",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -24506,6 +24584,16 @@
           },
           {
             "name": "name",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -24666,6 +24754,16 @@
             "description": null
           },
           {
+            "name": "net_volume",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "payouts",
             "defaultValue": null,
             "type": {
@@ -24790,6 +24888,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "description": "column name"
           },
@@ -24877,6 +24981,18 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "mrr",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "net_volume",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -24980,6 +25096,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -25108,6 +25234,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -25200,6 +25338,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -25328,6 +25476,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -25420,6 +25580,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -25548,6 +25718,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "money",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -25640,6 +25822,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -25768,6 +25960,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -25860,6 +26064,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -25988,6 +26202,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -26080,6 +26306,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -26208,6 +26444,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "net_volume",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "payouts",
             "type": {
               "kind": "SCALAR",
@@ -26300,6 +26548,16 @@
           },
           {
             "name": "mrr",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "net_volume",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -27613,6 +27871,18 @@
               }
             },
             "description": "An aggregated array relationship"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
           },
           {
             "args": [],
@@ -30362,6 +30632,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -30398,6 +30680,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -30483,6 +30775,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_access_valid_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Int_comparison_exp",
               "ofType": null
             },
             "description": null
@@ -31025,6 +31327,16 @@
       {
         "inputFields": [
           {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "fee_percent",
             "defaultValue": null,
             "type": {
@@ -31071,6 +31383,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_access_valid_arr_rel_insert_input",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
               "ofType": null
             },
             "description": null
@@ -31497,6 +31819,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "avatar",
             "type": {
               "kind": "SCALAR",
@@ -31845,6 +32179,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "avatar",
             "defaultValue": null,
@@ -32157,6 +32501,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "avatar",
             "type": {
               "kind": "SCALAR",
@@ -32505,6 +32861,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "avatar",
             "defaultValue": null,
@@ -32955,6 +33321,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_access_valid_aggregate_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
               "ofType": null
             },
             "description": null
@@ -33454,6 +33830,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "avatar",
             "description": "column name"
           },
@@ -33643,6 +34025,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "avatar",
             "defaultValue": null,
@@ -33975,6 +34367,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -34011,6 +34415,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -34063,6 +34477,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -34099,6 +34525,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -34151,6 +34587,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -34187,6 +34635,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -34239,6 +34697,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -34275,6 +34745,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -34321,6 +34801,12 @@
         "interfaces": null,
         "name": "accounts_update_column",
         "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "affiliate_commission",
+            "description": "column name"
+          },
           {
             "isDeprecated": false,
             "deprecationReason": null,
@@ -35867,6 +36353,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -35903,6 +36401,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -35955,6 +36463,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -35991,6 +36511,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
@@ -36043,6 +36573,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "affiliate_commission",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "fee_percent",
             "type": {
               "kind": "SCALAR",
@@ -36079,6 +36621,16 @@
       },
       {
         "inputFields": [
+          {
+            "name": "affiliate_commission",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
           {
             "name": "fee_percent",
             "defaultValue": null,
