@@ -52,8 +52,9 @@ export default function DashboardView(props) {
   const dataSource = account.subscriptions.map((sub) => {
     return {
       key: Math.random(),
-      first_name: sub.user?.first_name || 'Anonymous',
-      last_name: sub.user?.last_name || 'Anonymous'
+      first_name: sub.user?.first_name || '',
+      last_name: sub.user?.last_name || '',
+      email: sub.email
     };
   });
 
@@ -67,6 +68,11 @@ export default function DashboardView(props) {
       title: 'Last Name',
       dataIndex: 'last_name',
       key: 'last_name'
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email'
     }
   ];
 

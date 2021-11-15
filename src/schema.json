@@ -105620,6 +105620,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "interval_count",
             "type": {
               "kind": "SCALAR",
@@ -106254,6 +106266,16 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "interval_count",
             "defaultValue": null,
             "type": {
@@ -106446,6 +106468,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "interval_count",
             "type": {
               "kind": "SCALAR",
@@ -106542,6 +106576,16 @@
           },
           {
             "name": "amount",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -106666,6 +106710,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "interval_count",
             "type": {
               "kind": "SCALAR",
@@ -106762,6 +106818,16 @@
           },
           {
             "name": "amount",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -106893,6 +106959,16 @@
           },
           {
             "name": "data",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -107040,6 +107116,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "data",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "email",
             "description": "column name"
           },
           {
