@@ -1,6 +1,5 @@
 #!/bin/bash
 
-CONFIG_DIR="${CONFIG_DIR:-/code}"
-/usr/local/bin/tap-stripe -c /$CONFIG_DIR/stripe-config.json --catalog /code/catalog.json --state /$CONFIG_DIR/state.json | /usr/local/bin/target-postgres -c /$CONFIG_DIR/postgres-config.json >>/$CONFIG_DIR/state.json
-tail -1 /$CONFIG_DIR/state.json >/$CONFIG_DIR/state.json.tmp
-mv /$CONFIG_DIR/state.json.tmp /$CONFIG_DIR/state.json
+/usr/local/bin/tap-stripe -c /config/stripe-config.json --catalog /code/catalog.json --state /config/state.json | /usr/local/bin/target-postgres -c /config/postgres-config.json >>/config/state.json
+tail -1 /config/state.json >/config/state.json.tmp
+mv /config/state.json.tmp /config/state.json
