@@ -111,7 +111,7 @@
     "cypress": "cypress open --config baseUrl=http://localhost:3000",
     "cypress:fast": "cypress run --config baseUrl=http://localhost:3002,video=false",
     "cypress:run": "cypress run --config baseUrl=http://localhost:3000,video=false",
-    "cypress:test": "concurrently --kill-others \"BROWSER=none PORT=3002 npm run dev\" \"wait-on http://localhost:3002 && npm run cypress:fast\"",
+    "cypress:test": "concurrently --success first --kill-others \"BROWSER=none PORT=3002 npm run dev\" \"wait-on http://localhost:3002 && npm run cypress:fast\"",
     "stack": "concurrently --kill-others \"npm run graphql\" \"npm run graphql:watch\" \"npm run api\" \"npm start\"",
     "start": "craco start",
     "dev": "REACT_APP_MOCK=true craco start",
