@@ -17,10 +17,10 @@ function Buttons({ account, event, user, isMyAccount }) {
       />
 
       {event.master ? (
-        <div className="md:inline mr-3 lg:mr-0 lg:ml-3">
+        <div className="md:inline lg:mr-0 lg:ml-3">
           <a
             type="button"
-            className="w-full md:w-auto inline-flex items-center px-4 py-2 border border-gray-700 rounded-md shadow-sm text-sm lg:text-base font-medium text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
+            className="p-3 md:inline w-full md:w-auto inline-flex items-center border border-gray-700 rounded-md shadow-sm text-sm lg:text-base font-medium text-gray-300 bg-black hover:bg-white-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-pink-600"
             href={event.master}
             download
           >
@@ -58,9 +58,7 @@ function Buttons({ account, event, user, isMyAccount }) {
         )} */}
 
       {(user?.isAdmin || isMyAccount) && event.isBroadcast() && (
-        <span className="mr-3 mb-3 lg:mr-0 lg:ml-3">
-          <StartStreamButton event_id={event.id} />
-        </span>
+        <StartStreamButton classes="w-full md:w-auto" event_id={event.id} />
       )}
 
       <ShareButton
