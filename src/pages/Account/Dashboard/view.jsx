@@ -67,41 +67,25 @@ export default function DashboardView(props) {
       title: 'First Name',
       dataIndex: 'first_name',
       key: 'first_name',
-      sorter: (a, b) => {
-        if (a.first_name < b.first_name) return -1;
-        if (a.first_name > b.first_name) return 1;
-        return 0;
-      }
+      sorter: (a, b) => a.first_name.localeCompare(b.first_name)
     },
     {
       title: 'Last Name',
       dataIndex: 'last_name',
       key: 'last_name',
-      sorter: (a, b) => {
-        if (a.last_name < b.last_name) return -1;
-        if (a.last_name > b.last_name) return 1;
-        return 0;
-      }
+      sorter: (a, b) => a.last_name.localeCompare(b.last_name)
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      sorter: (a, b) => {
-        if (a.email < b.email) return -1;
-        if (a.email > b.email) return 1;
-        return 0;
-      }
+      sorter: (a, b) => a.email.localeCompare(b.email)
     },
     {
       title: 'Date',
       dataIndex: 'date',
       key: 'date',
-      sorter: (a, b) => {
-        if (a.created < b.created) return -1;
-        if (a.created > b.created) return 1;
-        return 0;
-      }
+      sorter: (a, b) => a.date.localeCompare(b.date)
     }
   ];
 
