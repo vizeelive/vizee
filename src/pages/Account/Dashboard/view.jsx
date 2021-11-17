@@ -86,8 +86,8 @@ export default function DashboardView(props) {
       dataIndex: 'date',
       key: 'date',
       sorter: (a, b) => {
-        if (a.date < b.date) return -1;
-        if (a.date > b.date) return 1;
+        if (a.created < b.created) return -1;
+        if (a.created > b.created) return 1;
         return 0;
       }
     }
