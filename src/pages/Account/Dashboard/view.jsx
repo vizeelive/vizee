@@ -5,6 +5,7 @@ import Spinner from 'components/ui/Spinner';
 
 import { Typography, Table, Tabs } from 'antd';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import Statistic from 'components/ui/Statistic';
 import Steps from './Steps';
@@ -55,7 +56,8 @@ export default function DashboardView(props) {
       key: Math.random(),
       first_name: sub.user?.first_name || '',
       last_name: sub.user?.last_name || '',
-      email: sub.email
+      email: sub.email,
+      created: moment(sub.created_at).format('lll')
     };
   });
 
@@ -63,17 +65,42 @@ export default function DashboardView(props) {
     {
       title: 'First Name',
       dataIndex: 'first_name',
-      key: 'first_name'
+      key: 'first_name',
+      sorter: (a, b) => {
+        if (a.first_name < b.first_name) return -1;
+        if (a.first_name > b.first_name) return 1;
+        return 0;
+      }
     },
     {
       title: 'Last Name',
       dataIndex: 'last_name',
-      key: 'last_name'
+      key: 'last_name',
+      sorter: (a, b) => {
+        if (a.last_name < b.last_name) return -1;
+        if (a.last_name > b.last_name) return 1;
+        return 0;
+      }
     },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email'
+      key: 'email',
+      sorter: (a, b) => {
+        if (a.email < b.email) return -1;
+        if (a.email > b.email) return 1;
+        return 0;
+      }
+    },
+    {
+      title: 'Date',
+      dataIndex: 'created',
+      key: 'created',
+      sorter: (a, b) => {
+        if (a.created < b.created) return -1;
+        if (a.created > b.created) return 1;
+        return 0;
+      }
     }
   ];
 
