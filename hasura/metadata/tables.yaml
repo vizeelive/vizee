@@ -342,6 +342,73 @@
       check: null
 - table:
     schema: public
+    name: accounts_affiliates
+  object_relationships:
+  - name: account
+    using:
+      foreign_key_constraint_on: account_id
+  - name: affiliate
+    using:
+      foreign_key_constraint_on: user_id
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        created_by: x-hasura-User-Id
+      columns:
+      - account_id
+      - user_id
+      backend_only: false
+- table:
+    schema: public
+    name: accounts_affiliates_owner
+  object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+      columns:
+      - account_id
+      - approved
+      - commission
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - account_id
+      - user_id
+      - created_by
+      - created
+      - approved
+      - commission
+      filter:
+        account:
+          users:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+- table:
+    schema: public
     name: accounts_users
   object_relationships:
   - name: account
@@ -1820,17 +1887,18 @@
   - role: user
     permission:
       columns:
-      - user_id
-      - product_id
       - account_id
-      - period_start
-      - period_end
       - amount
-      - status
       - cancelling
       - data
+      - email
       - interval_count
       - monthly_amount
+      - period_end
+      - period_start
+      - product_id
+      - status
+      - user_id
       filter:
         account:
           users:
