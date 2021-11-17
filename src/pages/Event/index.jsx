@@ -63,6 +63,7 @@ const GET_EVENT_UNAUTH = gql`
         id
         date
         message
+        audience
         created
         attachments {
           id
@@ -190,6 +191,7 @@ const GET_EVENT_AUTH = gql`
         id
         date
         message
+        audience
         created
         attachments {
           id

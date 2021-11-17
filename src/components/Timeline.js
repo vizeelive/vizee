@@ -39,6 +39,32 @@ const CREATE_POST = gql`
   }
 `;
 
+const UPDATE_POST = gql`
+  mutation updatePost($id: uuid!, $object: posts_set_input!) {
+    update_posts_by_pk(pk_columns: { id: $id }, _set: $object) {
+      id
+    }
+  }
+`;
+
+const UPDATE_ATTACHMENTS = gql`
+  mutation updateAttachments(
+    $ids: [uuid!]!
+    $objects: [posts_attachments_insert_input!]!
+  ) {
+    delete_posts_attachments(where: { id: { _in: $ids } }) {
+      returning {
+        id
+      }
+    }
+    insert_posts_attachments(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
 const DELETE_POST = gql`
   mutation deletePost($id: uuid!) {
     delete_posts_by_pk(id: $id) {
@@ -58,6 +84,7 @@ export default function Timeline({
   refetch
 }) {
   const [form] = Form.useForm();
+  const [post, setPost] = useState(null);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -66,30 +93,59 @@ export default function Timeline({
   const [pageNumber, setPageNumber] = useState(1);
 
   const [createPost, { loading: creatingPost }] = useMutation(CREATE_POST);
-
+  const [updatePost, { loading: updatingPost }] = useMutation(UPDATE_POST);
   const [deletePost, { loading: deletingPost }] = useMutation(DELETE_POST);
+  const [updateAttachments, { loading: updatingAttachments }] = useMutation(
+    UPDATE_ATTACHMENTS
+  );
 
-  const onFinish = async () => {
-    let input = {
-      variables: {
-        object: {
-          ...form.getFieldsValue(),
-          ...(type === 'account' ? { account_id: uuid } : null),
-          ...(type === 'event' ? { event_id: uuid } : null),
-          ...(user?.isAdmin ? { created_by: user.id } : null),
-          attachments: {
-            data: attachments.map((a) => {
-              delete a.event;
-              return {
-                ...a,
-                ...(user?.isAdmin ? { created_by: user.id } : null)
-              };
-            })
+  const onFinish = async (values) => {
+    if (values.id) {
+      let input = {
+        variables: {
+          id: values.id,
+          object: {
+            ...form.getFieldsValue()
           }
         }
-      }
-    };
-    await createPost(input);
+      };
+      await updatePost(input);
+
+      let newAttachments = attachments.filter((a) => !a?.id);
+      let ids = post.attachments
+        .filter((a) => !attachments.find((b) => b?.id === a?.id))
+        .map((a) => a?.id);
+      await updateAttachments({
+        variables: {
+          ids,
+          objects: newAttachments.map((a) => {
+            a.post_id = values.id;
+            return a;
+          })
+        }
+      });
+    } else {
+      let input = {
+        variables: {
+          object: {
+            ...form.getFieldsValue(),
+            ...(type === 'account' ? { account_id: uuid } : null),
+            ...(type === 'event' ? { event_id: uuid } : null),
+            ...(user?.isAdmin ? { created_by: user.id } : null),
+            attachments: {
+              data: attachments.map((a) => {
+                delete a.event;
+                return {
+                  ...a,
+                  ...(user?.isAdmin ? { created_by: user.id } : null)
+                };
+              })
+            }
+          }
+        }
+      };
+      await createPost(input);
+    }
     form.resetFields();
     setAttachments([]);
     setShowModal(false);
@@ -146,14 +202,14 @@ export default function Timeline({
 
   const handleUppyError = () => {};
 
-  const renderAttachment = (attachment, post) => {
+  const renderAttachment = (attachment, post, opts = {}) => {
     switch (attachment.type) {
       case 'image':
         if (!attachment.url) return;
         return (
           <img
             src={attachment.url}
-            style={{ width: '100%', height: '100%' }}
+            style={{ maxWidth: opts?.inModal ? '100%' : '614px' }}
             alt={attachment.mime}
           />
         );
@@ -283,6 +339,18 @@ export default function Timeline({
     ]);
   };
 
+  const handleEditPost = (post) => {
+    form.setFieldsValue({
+      id: post.id,
+      date: moment(post.date),
+      audience: post.audience,
+      message: post.message
+    });
+    setPost(post);
+    setAttachments(post.attachments);
+    setShowModal(true);
+  };
+
   const uploadOptions = {
     allowedFileTypes: ['video/*', 'audio/*', 'image/*', 'application/pdf']
   };
@@ -305,6 +373,12 @@ export default function Timeline({
         className="float-right"
         overlay={
           <Menu>
+            <Menu.Item
+              key={`edit_${post.id}`}
+              onClick={() => handleEditPost(post)}
+            >
+              Edit post
+            </Menu.Item>
             <Menu.Item
               key={`delete_${post.id}`}
               onClick={() => {
@@ -384,7 +458,10 @@ export default function Timeline({
       </Drawer>
       {account.belongsTo(user) && (
         <div
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            form.resetFields();
+            setShowModal(true);
+          }}
           className="mb-5 p-3 mx-1 text-gray-400 bg-gray-800 hover:bg-gray-700 hover:cursor-pointer border-solid rounded-lg ring-gray-500"
         >
           What's on your mind, {account.name}?
@@ -423,6 +500,7 @@ export default function Timeline({
           form={form}
         >
           <AvatarHandle account={account} />
+          <Form.Item name="id" hidden={true} />
           <Form.Item name="date" className="pt-5">
             <DatePicker format={dateFormat} />
           </Form.Item>
@@ -471,7 +549,9 @@ export default function Timeline({
                   }
                 />
               </div>
-              <div className="mt-3">{renderAttachment(attachment)}</div>
+              <div className="mt-3">
+                {renderAttachment(attachment, null, { inModal: true })}
+              </div>
             </div>
           ))}
           <Button

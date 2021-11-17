@@ -1614,11 +1614,18 @@
       - id
       - message
       filter:
-        account:
-          users:
-            user:
-              id:
-                _eq: X-Hasura-User-Id
+        _or:
+        - account:
+            users:
+              user:
+                id:
+                  _eq: X-Hasura-User-Id
+        - event:
+            account:
+              users:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
       check: null
   delete_permissions:
   - role: user
