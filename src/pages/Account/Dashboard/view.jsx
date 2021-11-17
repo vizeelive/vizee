@@ -69,7 +69,7 @@ export default function DashboardView(props) {
       case 'active':
         return <Badge color="green" text="Active" />;
         break;
-      case 'cancelled':
+      case 'canceled':
         return <Badge color="red" text="Cancelled" />;
         break;
       case 'past_due':
