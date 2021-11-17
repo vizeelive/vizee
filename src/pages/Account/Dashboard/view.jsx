@@ -57,7 +57,8 @@ export default function DashboardView(props) {
       first_name: sub.user?.first_name || '',
       last_name: sub.user?.last_name || '',
       email: sub.email,
-      created: moment(sub.created).format('lll')
+      created: sub.created,
+      date: moment(sub.created).format('lll')
     };
   });
 
@@ -94,8 +95,8 @@ export default function DashboardView(props) {
     },
     {
       title: 'Date',
-      dataIndex: 'created',
-      key: 'created',
+      dataIndex: 'date',
+      key: 'date',
       sorter: (a, b) => {
         if (a.created < b.created) return -1;
         if (a.created > b.created) return 1;
