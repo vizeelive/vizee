@@ -192,44 +192,46 @@ export default function Products() {
           </Button>
         </Header>
 
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            title={product.name}
-            bordered={false}
-            style={{ width: 300 }}
-          >
-            <p>{product.description}</p>
-            <p>Price: {product.price}</p>
-            {product.flexible_price && (
-              <p>
-                Name Your Own Price: {product.flexible_price ? 'Yes' : 'No'}
-              </p>
-            )}
-            {product.recurring && (
-              <p>Recurs every {product.access_length} days</p>
-            )}
-            {!product.recurring && (
-              <p>Access for {product.access_length} days</p>
-            )}
-            {product.account_access && (
-              <p>Account Access: {product.account_access ? 'Yes' : 'No'}</p>
-            )}
-            {product.download_access && (
-              <p>Download Access: {product.download_access ? 'Yes' : 'No'}</p>
-            )}
-            <Button onClick={() => handleClickEdit(product)}>Edit</Button>
-            <Popconfirm
-              title="Are you sure?"
-              onConfirm={() => handleClickDelete(product.id)}
-              onCancel={() => {}}
-              okText="Yes"
-              cancelText="No"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              title={product.name}
+              bordered={false}
+              className="w-30 max-w-xs"
             >
-              <Button loading={deletingProduct}>Delete</Button>
-            </Popconfirm>
-          </ProductCard>
-        ))}
+              <p>{product.description}</p>
+              <p>Price: {product.price}</p>
+              {product.flexible_price && (
+                <p>
+                  Name Your Own Price: {product.flexible_price ? 'Yes' : 'No'}
+                </p>
+              )}
+              {product.recurring && (
+                <p>Recurs every {product.access_length} days</p>
+              )}
+              {!product.recurring && (
+                <p>Access for {product.access_length} days</p>
+              )}
+              {product.account_access && (
+                <p>Account Access: {product.account_access ? 'Yes' : 'No'}</p>
+              )}
+              {product.download_access && (
+                <p>Download Access: {product.download_access ? 'Yes' : 'No'}</p>
+              )}
+              <Button onClick={() => handleClickEdit(product)}>Edit</Button>
+              <Popconfirm
+                title="Are you sure?"
+                onConfirm={() => handleClickDelete(product.id)}
+                onCancel={() => {}}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button loading={deletingProduct}>Delete</Button>
+              </Popconfirm>
+            </ProductCard>
+          ))}
+        </div>
 
         <Modal
           title="Create Product"
