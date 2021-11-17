@@ -209,7 +209,10 @@ export default function Timeline({
         return (
           <img
             src={attachment.url}
-            style={{ maxWidth: opts?.inModal ? '100%' : '614px' }}
+            style={{
+              width: '100%',
+              maxWidth: opts?.inModal ? '100%' : '614px'
+            }}
             alt={attachment.mime}
           />
         );
