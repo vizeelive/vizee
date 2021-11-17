@@ -85,7 +85,11 @@ export default function DashboardView(props) {
       title: 'Date',
       dataIndex: 'date',
       key: 'date',
-      sorter: (a, b) => a.date.localeCompare(b.date)
+      sorter: (a, b) => {
+        if (a.date < b.date) return -1;
+        if (a.date > b.date) return 1;
+        return 0;
+      }
     }
   ];
 
