@@ -80,8 +80,8 @@ export default function useAuth() {
     ].includes('admin');
 
     if (!window.Cypress) {
-      posthog.init('mg9G9n0xj7ktBE9NfalasObycP6BJfzFWjWrEGO4CIs', {
-        api_host: 'https://vizee-posthog.herokuapp.com'
+      posthog.init('phc_3oocklcqzSxCa6FPvac6VdjmqodgRdRaUaqV2iznkM6', {
+        api_host: 'https://posthog-3n3f.onrender.com'
       });
       posthog.identify(user.id);
       posthog.people.set({ email: user.email });
