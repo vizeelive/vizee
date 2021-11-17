@@ -560,7 +560,7 @@ export default function Timeline({
           <Button
             type="primary"
             key="submit"
-            loading={creatingPost}
+            loading={creatingPost || updatingPost || updatingAttachments}
             className="mt-5"
             htmlType="submit"
           >
