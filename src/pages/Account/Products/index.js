@@ -186,7 +186,7 @@ export default function Products() {
     <article data-test-id="account-products" className="min-h-page">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <Header>
-          <Title level={3}>Products</Title>
+          <Title level={3}>Pricing</Title>
           <Button type="primary" onClick={() => setShowModal(true)}>
             Add Product
           </Button>
