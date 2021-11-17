@@ -80,7 +80,7 @@ export default function useAuth() {
     ].includes('admin');
 
     if (!window.Cypress) {
-      posthog.init('phc_3oocklcqzSxCa6FPvac6VdjmqodgRdRaUaqV2iznkM6', {
+      posthog.init('phc_DlMSnuadFtp3rfFSgqOTD9PzCV9bbT6LI9WlXDVvNAl', {
         api_host: 'https://posthog-3n3f.onrender.com'
       });
       posthog.identify(user.id);
