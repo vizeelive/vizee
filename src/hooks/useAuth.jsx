@@ -81,7 +81,7 @@ export default function useAuth() {
 
     if (!window.Cypress) {
       posthog.init('phc_DlMSnuadFtp3rfFSgqOTD9PzCV9bbT6LI9WlXDVvNAl', {
-        api_host: 'https://posthog-3n3f.onrender.com'
+        api_host: 'https://posthog.vizee.live'
       });
       posthog.identify(user.id);
       posthog.people.set({ email: user.email });
