@@ -57,7 +57,7 @@ export default function DashboardView(props) {
       first_name: sub.user?.first_name || '',
       last_name: sub.user?.last_name || '',
       email: sub.email,
-      created: moment(sub.created_at).format('lll')
+      created: moment(sub.created).format('lll')
     };
   });
 
