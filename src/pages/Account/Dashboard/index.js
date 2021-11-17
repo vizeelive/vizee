@@ -27,6 +27,7 @@ const ACCOUNT_REPORT = gql`
       }
       subscriptions(order_by: { user: { last_name: asc, first_name: asc } }) {
         email
+        status
         created
         user {
           first_name

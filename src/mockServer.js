@@ -43,6 +43,11 @@ let mocks = {
         'https://vizee-media.s3.amazonaws.com/92/7faa9720454643b0460cd0c8b0728b/Bart-Skils---Dub-Killer-Drumcode.jpg'
     };
   },
+  subscriptions: () => {
+    return {
+      status: 'active'
+    };
+  },
   events_report: () => {
     return {
       account_only: false

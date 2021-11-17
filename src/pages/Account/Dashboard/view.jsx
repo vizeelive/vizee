@@ -3,7 +3,7 @@ import React from 'react';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
-import { Typography, Table, Tabs } from 'antd';
+import { Badge, Typography, Table, Tabs } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
 
@@ -57,10 +57,26 @@ export default function DashboardView(props) {
       first_name: sub.user?.first_name || '',
       last_name: sub.user?.last_name || '',
       email: sub.email,
+      status: sub.status,
       created: sub.created,
       date: moment(sub.created).format('lll')
     };
   });
+
+  const getStatus = (status) => {
+    switch (status) {
+      case 'trialing':
+      case 'active':
+        return <Badge color="green" text="Active" />;
+        break;
+      case 'cancelled':
+        return <Badge color="red" text="Cancelled" />;
+        break;
+      case 'past_due':
+        return <Badge color="orange" text="Past Due" />;
+        break;
+    }
+  };
 
   const columns = [
     {
@@ -80,6 +96,13 @@ export default function DashboardView(props) {
       dataIndex: 'email',
       key: 'email',
       sorter: (a, b) => a.email.localeCompare(b.email)
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => getStatus(status),
+      sorter: (a, b) => a.status.localeCompare(b.status)
     },
     {
       title: 'Date',
