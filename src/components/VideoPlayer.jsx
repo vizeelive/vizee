@@ -5,9 +5,11 @@ import hlsQualitySelector from 'videojs-hls-quality-selector';
 import { LockOutlined } from '@ant-design/icons';
 import 'videojs-mux';
 import 'video.js/dist/video-js.min.css';
+import '@silvermine/videojs-airplay/dist/silvermine-videojs-airplay.css';
 
 videojs.registerPlugin('qualityLevels', qualityLevels);
 videojs.registerPlugin('hlsQualitySelector', hlsQualitySelector);
+require('@silvermine/videojs-airplay')(videojs);
 
 export default class VideoPlayer extends React.Component {
   componentDidMount() {
@@ -16,6 +18,9 @@ export default class VideoPlayer extends React.Component {
     let options = Object.assign(
       {
         plugins: {
+          airPlay: {
+            addButtonToControlBar: true
+          },
           mux: {
             // debug: true,
             data: {
@@ -60,7 +65,6 @@ export default class VideoPlayer extends React.Component {
         // console.log('onPlayerReady', this);
       });
     } catch (e) {}
-
   }
 
   // destroy player on unmount
@@ -81,12 +85,12 @@ export default class VideoPlayer extends React.Component {
       </span>
     );
 
-     let styles = this.props?.cover
-       ? {
-           backgroundImage: `url('${this.props.cover}')`,
-           backgroundSize: 'cover'
-         }
-       : null;
+    let styles = this.props?.cover
+      ? {
+          backgroundImage: `url('${this.props.cover}')`,
+          backgroundSize: 'cover'
+        }
+      : null;
 
     return (
       <div>
