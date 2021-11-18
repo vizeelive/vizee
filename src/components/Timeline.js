@@ -372,35 +372,37 @@ export default function Timeline({
       key={post.id}
       className={`${backgroundClass} mx-1 border-solid rounded-lg mb-5 p-5`}
     >
-      <Dropdown
-        className="float-right"
-        overlay={
-          <Menu>
-            <Menu.Item
-              key={`edit_${post.id}`}
-              onClick={() => handleEditPost(post)}
-            >
-              Edit post
-            </Menu.Item>
-            <Menu.Item
-              key={`delete_${post.id}`}
-              onClick={() => {
-                deletePost({
-                  variables: { id: post.id }
-                });
-                refetch();
-              }}
-            >
-              Delete post
-            </Menu.Item>
-          </Menu>
-        }
-        trigger={['click']}
-      >
-        <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-          <EllipsisOutlined />
-        </a>
-      </Dropdown>
+      {account.belongsTo(user) && (
+        <Dropdown
+          className="float-right"
+          overlay={
+            <Menu>
+              <Menu.Item
+                key={`edit_${post.id}`}
+                onClick={() => handleEditPost(post)}
+              >
+                Edit post
+              </Menu.Item>
+              <Menu.Item
+                key={`delete_${post.id}`}
+                onClick={() => {
+                  deletePost({
+                    variables: { id: post.id }
+                  });
+                  refetch();
+                }}
+              >
+                Delete post
+              </Menu.Item>
+            </Menu>
+          }
+          trigger={['click']}
+        >
+          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+            <EllipsisOutlined />
+          </a>
+        </Dropdown>
+      )}
       {format === 'post' ? (
         <div>
           <AvatarHandle
