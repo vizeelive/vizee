@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { UserAddOutlined } from '@ant-design/icons';
 import { Centered } from 'components/styled/common';
 import Spinner from 'components/ui/Spinner';
 
 import {
+  Badge,
   Button,
   Modal,
   Form,
@@ -54,6 +54,17 @@ export default function UsersView(props) {
   }
   if (error) return 'Error.';
 
+  const getStatus = (status) => {
+    switch (status) {
+      case true:
+        return <Badge color="green" text="Approved" />;
+        break;
+      case false:
+        return <Badge color="red" text="Unappoved" />;
+        break;
+    }
+  };
+
   const columns = [
     {
       title: 'email',
@@ -67,6 +78,12 @@ export default function UsersView(props) {
       render: (created) => {
         return moment(created).format('MMMM Do h:mm a');
       }
+    },
+    {
+      title: 'status',
+      dataIndex: ['approved'],
+      key: 'approved',
+      render: (status) => getStatus(status)
     },
     {
       title: 'Actions',
@@ -91,47 +108,43 @@ export default function UsersView(props) {
   ];
 
   return (
-    <article className="min-h-page">
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <Header>
-          <Title>Users</Title>
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => setShowModal(true)}
-            icon={<UserAddOutlined />}
+    <div>
+      <Button
+        type="primary"
+        size="large"
+        onClick={() => setShowModal(true)}
+        className="float-right"
+      >
+        Add Affiliate
+      </Button>
+
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={accountUsers}
+        scroll={{ x: 800 }}
+        className="pt-5"
+      />
+
+      <Modal
+        title="Add User"
+        visible={showModal}
+        footer={null}
+        onCancel={() => setShowModal(false)}
+      >
+        <Form name="basic" form={form} onFinish={onFinish}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Required' }]}
           >
+            <Input autoFocus={true} />
+          </Form.Item>
+          <Button key="submit" htmlType="submit" type="primary" size="large">
             Add Affiliate
           </Button>
-        </Header>
-
-        <Table
-          rowKey="id"
-          columns={columns}
-          dataSource={accountUsers}
-          scroll={{ x: 800 }}
-        />
-
-        <Modal
-          title="Add User"
-          visible={showModal}
-          footer={null}
-          onCancel={() => setShowModal(false)}
-        >
-          <Form name="basic" form={form} onFinish={onFinish}>
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: 'Required' }]}
-            >
-              <Input autoFocus={true} />
-            </Form.Item>
-            <Button key="submit" htmlType="submit" type="primary" size="large">
-              Add User
-            </Button>
-          </Form>
-        </Modal>
-      </div>
-    </article>
+        </Form>
+      </Modal>
+    </div>
   );
 }

@@ -2,21 +2,32 @@ const logger = require('../logger');
 const { client } = require('../setup');
 const { gql } = require('@apollo/client/core');
 
-/**
- * Fetch event and account to be used by Stripe Session
- *
- * @param {object} ref
- */
-async function getCheckoutDataProduct(ref) {
+async function getCheckoutData(ref) {
   try {
     let res = await client.query({
       variables: {
-        id: ref.event_id,
-        product_id: ref.product_id
+        affiliate_id: ref.affiliate,
+        account_id: ref.account_id,
+        product_id: ref.product_id,
+        event_id: ref.event_id,
+        has_affiliate: !!ref.affiliate,
+        has_account: !!ref.account_id,
+        has_product: !!ref.product_id,
+        has_event: !!ref.event_id
       },
       query: gql`
-        query getCheckoutDataProduct($id: uuid!, $product_id: uuid!) {
-          events_by_pk(id: $id) {
+        query getCheckoutData(
+          $affiliate_id: uuid
+          $event_id: uuid
+          $account_id: uuid
+          $product_id: uuid
+          $has_affiliate: Boolean!
+          $has_event: Boolean!
+          $has_product: Boolean!
+          $has_account: Boolean!
+        ) {
+          events(where: { id: { _eq: $event_id } }, limit: 1)
+            @include(if: $has_event) {
             id
             name
             price
@@ -32,56 +43,25 @@ async function getCheckoutDataProduct(ref) {
               stripe_id
             }
           }
-          products_by_pk(id: $product_id) {
-            id
-            name
-            price
-            recurring
-            account_id
-            access_length
-            events {
-              id
+          users(where: { id: { _eq: $affiliate_id } }, limit: 1)
+            @include(if: $has_affiliate) {
+            payout_account_id
+            affiliate_account {
+              stripe_id
             }
           }
-        }
-      `
-    });
-    return {
-      event: res.data.events_by_pk,
-      account: res.data.events_by_pk.account,
-      product: res.data.products_by_pk
-    };
-  } catch (e) {
-    logger.error('Failed: getCheckoutDataProduct', ref, e);
-    throw e;
-  }
-}
-
-/**
- * Fetch account to be used by Stripe Session
- *
- * @param {object} ref
- */
-async function getCheckoutDataAccount(ref) {
-  try {
-    let res = await client.query({
-      variables: {
-        event_id: ref?.event_id,
-        product_id: ref.product_id,
-        has_event: !!ref?.event_id
-      },
-      query: gql`
-        query getCheckoutDataAccount(
-          $product_id: uuid!
-          $event_id: uuid
-          $has_event: Boolean!
-        ) {
-          events(where: { id: { _eq: $event_id } }, limit: 1)
-            @include(if: $has_event) {
+          accounts(where: { id: { _eq: $account_id } }, limit: 1)
+            @include(if: $has_account) {
             id
             name
+            username
+            photo
+            fee_percent
+            affiliate_commission
+            stripe_id
           }
-          products_by_pk(id: $product_id) {
+          products(where: { id: { _eq: $product_id } }, limit: 1)
+            @include(if: $has_product) {
             id
             name
             price
@@ -97,51 +77,8 @@ async function getCheckoutDataAccount(ref) {
               name
               username
               photo
-              domain
-              stripe_id
               fee_percent
-            }
-          }
-        }
-      `
-    });
-    return {
-      account: res.data.products_by_pk.account,
-      product: res.data.products_by_pk,
-      event: res.data.events?.[0]
-    };
-  } catch (e) {
-    logger.error('Failed: getCheckoutDataAccount', ref, e);
-    throw e;
-  }
-}
-
-/**
- * Fetch event and account to be used by Stripe Session
- *
- * @param {object} ref
- */
-async function getCheckoutDataEvent(ref) {
-  try {
-    let res = await client.query({
-      variables: {
-        id: ref.event_id
-      },
-      query: gql`
-        query getCheckoutDataEvent($id: uuid!) {
-          events_by_pk(id: $id) {
-            id
-            name
-            price
-            photo
-            start
-            account {
-              id
-              name
-              photo
-              username
-              fee_percent
-              domain
+              affiliate_commission
               stripe_id
             }
           }
@@ -149,44 +86,16 @@ async function getCheckoutDataEvent(ref) {
       `
     });
     return {
-      event: res.data.events_by_pk,
-      account: res.data.events_by_pk.account
+      account:
+        res.data?.accounts?.[0] ||
+        res.data?.events?.[0]?.account ||
+        res.data?.products?.[0]?.account,
+      event: res.data?.events?.[0],
+      product: res.data?.products?.[0],
+      affiliate: res.data?.users?.[0]
     };
   } catch (e) {
-    logger.error('Failed: getCheckoutDataEvent', ref, e);
-    throw e;
-  }
-}
-
-/**
- * Fetch event and account to be used by Stripe Session
- *
- * @param {object} ref
- */
-async function getCheckoutDataAccountOnly(ref) {
-  try {
-    let res = await client.query({
-      variables: {
-        id: ref.account_id
-      },
-      query: gql`
-        query getCheckoutDataAccountOnly($id: uuid!) {
-          accounts_by_pk(id: $id) {
-            id
-            name
-            username
-            photo
-            fee_percent
-            stripe_id
-          }
-        }
-      `
-    });
-    return {
-      account: res.data.accounts_by_pk
-    };
-  } catch (e) {
-    logger.error('Failed: getCheckoutDataAccountOnly', ref, e);
+    logger.error('Failed: getCheckoutData', ref, e);
     throw e;
   }
 }
@@ -435,6 +344,28 @@ async function getUnlinkedUsers(email) {
   }
 }
 
+async function getUnlinkedAffiliates(email) {
+  try {
+    let res = await client.query({
+      variables: { email },
+      query: gql`
+        query getUnlinkedAffiliates($email: String!) {
+          accounts_affiliates(where: { email: { _eq: $email } }) {
+            id
+            emailUser {
+              id
+            }
+          }
+        }
+      `
+    });
+    return res.data.accounts_affiliates;
+  } catch (e) {
+    logger.error('Failed: getUnlinkedUsers', email);
+    throw e;
+  }
+}
+
 /**
  * Finds a user given an email, and gets the product
  *
@@ -603,16 +534,14 @@ module.exports = {
   getEvent,
   getUser,
   getAnonStripeCustomer,
-  getCheckoutDataProduct,
-  getCheckoutDataEvent,
   getUserAndProduct,
   subscriptionPrecheck,
   getUserAccess,
   getUnlinkedUsers,
+  getUnlinkedAffiliates,
   getStripeUrlData,
-  getCheckoutDataAccount,
   getAccountAndProduct,
   getAccount,
-  getCheckoutDataAccountOnly,
+  getCheckoutData,
   getUserId
 };

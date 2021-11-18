@@ -30262,13 +30262,9 @@
             "deprecationReason": null,
             "name": "affiliate",
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "users",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
             },
             "description": "An object relationship"
           },
@@ -30336,6 +30332,30 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "emailUser",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": "An object relationship"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -30370,13 +30390,9 @@
             "deprecationReason": null,
             "name": "user_id",
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "uuid",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
             },
             "description": null
           }
@@ -30920,6 +30936,26 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "emailUser",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "id",
             "defaultValue": null,
             "type": {
@@ -30965,6 +31001,12 @@
         "interfaces": null,
         "name": "accounts_affiliates_constraint",
         "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "accounts_affiliates_account_id_email_key",
+            "description": "unique or primary key constraint"
+          },
           {
             "isDeprecated": false,
             "deprecationReason": null,
@@ -31069,6 +31111,26 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "emailUser",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_obj_rel_insert_input",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "id",
             "defaultValue": null,
             "type": {
@@ -31168,6 +31230,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "type": {
               "kind": "SCALAR",
@@ -31224,6 +31298,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -31322,6 +31406,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "type": {
               "kind": "SCALAR",
@@ -31378,6 +31474,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -31631,6 +31737,26 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "emailUser",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "id",
             "defaultValue": null,
             "type": {
@@ -31754,6 +31880,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "type": {
               "kind": "SCALAR",
@@ -31761,6 +31899,18 @@
               "ofType": null
             },
             "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": "An object relationship"
           },
           {
             "args": [],
@@ -32294,11 +32444,31 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "id",
             "defaultValue": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "user",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_bool_exp",
               "ofType": null
             },
             "description": null
@@ -32406,11 +32576,31 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "id",
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "user",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_obj_rel_insert_input",
               "ofType": null
             },
             "description": null
@@ -32495,6 +32685,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "type": {
               "kind": "SCALAR",
@@ -32551,6 +32753,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -32649,6 +32861,18 @@
             "args": [],
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "type": {
               "kind": "SCALAR",
@@ -32705,6 +32929,16 @@
           },
           {
             "name": "created_by",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
@@ -32881,11 +33115,31 @@
             "description": null
           },
           {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
             "name": "id",
             "defaultValue": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "user",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_order_by",
               "ofType": null
             },
             "description": null
@@ -32944,6 +33198,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "created_by",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "email",
             "description": "column name"
           },
           {
@@ -33010,6 +33270,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "description": null
@@ -33416,6 +33686,12 @@
           {
             "isDeprecated": false,
             "deprecationReason": null,
+            "name": "email",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
             "name": "id",
             "description": "column name"
           },
@@ -33477,6 +33753,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "email",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "description": null
@@ -33721,6 +34007,12 @@
             "isDeprecated": false,
             "deprecationReason": null,
             "name": "created_by",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "email",
             "description": "column name"
           },
           {

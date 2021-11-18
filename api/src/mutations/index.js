@@ -231,6 +231,30 @@ async function linkAccountUser({ id, user_id }) {
   }
 }
 
+async function linkAffiliate({ id, user_id }) {
+  try {
+    await client.mutate({
+      variables: {
+        id,
+        user_id
+      },
+      mutation: gql`
+        mutation linkAffiliate($id: uuid!, $user_id: uuid!) {
+          update_accounts_affiliates_by_pk(
+            pk_columns: { id: $id }
+            _set: { user_id: $user_id }
+          ) {
+            id
+          }
+        }
+      `
+    });
+  } catch (e) {
+    logger.error('Failed: linkAccountUser', id, user_id, e);
+    throw e;
+  }
+}
+
 async function fixAnonAccess({ email, user_id }) {
   try {
     await client.mutate({
@@ -414,6 +438,7 @@ module.exports = {
   createTransaction,
   updateUserStripeCustomerId,
   linkAccountUser,
+  linkAffiliate,
   updateMuxLivestream,
   createProduct,
   updateProduct,

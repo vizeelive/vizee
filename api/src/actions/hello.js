@@ -3,11 +3,16 @@ const { getUser } = require('../lib');
 const logger = require('../logger');
 const execute = require('../execute');
 
-const { getAnonStripeCustomer, getUnlinkedUsers } = require('../queries');
+const {
+  getAnonStripeCustomer,
+  getUnlinkedUsers,
+  getUnlinkedAffiliates
+} = require('../queries');
 const {
   updateUserStripeCustomerId,
   fixAnonAccess,
-  linkAccountUser
+  linkAccountUser,
+  linkAffiliate
 } = require('../mutations');
 
 /**
@@ -43,6 +48,16 @@ module.exports = async function hello(req, res) {
       unlinkedUsers.map(async (u) => {
         logger.info(`linking`, { id: u.id, user_id: u.emailUser.id });
         return linkAccountUser({ id: u.id, user_id: u.emailUser.id });
+      })
+    );
+
+    logger.info(`getUnlinkedAffiliates: ${email}`);
+    let unlinkedAffiliates = await getUnlinkedAffiliates(email);
+
+    await Promise.all(
+      unlinkedAffiliates.map(async (u) => {
+        logger.info(`linking affiliate`, { id: u.id, user_id: u.emailUser.id });
+        return linkAffiliate({ id: u.id, user_id: u.emailUser.id });
       })
     );
 
