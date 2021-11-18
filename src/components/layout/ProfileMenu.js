@@ -164,7 +164,7 @@ export default function ProfileMenu(props) {
             role="menuitem"
             onClick={onLogout}
           >
-            Logout
+            Logout {user.email}
           </button>
         </div>
       </Transition>
