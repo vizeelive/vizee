@@ -427,16 +427,23 @@ export default function AddEvent(props) {
     });
   };
 
-  const handleVideoUpload = (step) => {
+  const handleVideoUpload = async (step) => {
     // @security public..
+    let res;
+    if (step?.results?.['shortened']?.[0]?.ssl_url) {
+      res = await fetch(
+        `${config.api}/mux/asset/preview?url=${step.results['shortened'][0].ssl_url}`
+      ).then((res) => res.json());
+    }
+
     setEvent({
       ...event,
       size: step.results[':original'][0].size,
       duration: step.results[':original'][0].meta.duration,
       video: step.results[':original'][0].ssl_url,
-      photo: step?.results?.['thumbed']?.[0]?.ssl_url
+      photo: step?.results?.['thumbed']?.[0]?.ssl_url,
+      preview: res?.url
     });
-    setCoverType('Photo');
   };
 
   const handleUppyError = (res) => {

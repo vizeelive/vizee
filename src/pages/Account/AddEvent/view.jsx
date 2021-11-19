@@ -104,6 +104,7 @@ export default function AddEventView(props) {
     autoplay: false,
     controls: true,
     aspectRatio: '16:9',
+    // sources: [{ src: event?.preview, type: 'video/mp4' }]
     sources: [{ src: event?.preview, type: 'application/x-mpegurl' }]
   };
 
@@ -161,17 +162,23 @@ export default function AddEventView(props) {
               </Form.Item>
             )}
 
-            <Form.Item label="Preview" name="preview">
-              <Radio.Group
-                onChange={(e) => setCoverType(e.target.value)}
-                optionType="button"
-                value={coverType || ''}
-              >
-                <Radio.Button value="">None</Radio.Button>
-                <Radio.Button value="Photo">Photo</Radio.Button>
-                <Radio.Button value="Video">Video</Radio.Button>
-              </Radio.Group>
-            </Form.Item>
+            <div className="mb-5">
+              <div className="ant-col ant-form-item-label">
+                <label>Preview</label>
+              </div>
+
+              <div>
+                <Radio.Group
+                  onChange={(e) => setCoverType(e.target.value)}
+                  optionType="button"
+                  value={coverType}
+                >
+                  <Radio.Button value="">None</Radio.Button>
+                  <Radio.Button value="Photo">Photo</Radio.Button>
+                  <Radio.Button value="Video">Video</Radio.Button>
+                </Radio.Group>
+              </div>
+            </div>
 
             {coverType === 'Photo' && (
               <Form.Item>
