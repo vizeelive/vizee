@@ -2337,3 +2337,6 @@
       - timezone
       filter: {}
       check: null
+- table:
+    schema: stripe
+    name: transfers
