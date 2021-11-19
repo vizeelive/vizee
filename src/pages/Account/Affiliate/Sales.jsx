@@ -355,7 +355,7 @@ export default function AffiliateReport({ account_id }) {
                 </div>
               </div>
             </TabPane>
-            {posthog.isFeatureEnabled('affiliate') ? (
+            {!window.Cypress && posthog.isFeatureEnabled('affiliate') ? (
               <TabPane tab="Affiliates" key="affiliates">
                 <AffiliateUsers account_id={account_id} />
               </TabPane>
