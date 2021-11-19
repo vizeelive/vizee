@@ -397,6 +397,7 @@ export default function EventPage({ location }) {
 
   let videoJsOptions = {
     autoplay: true,
+    muted: false,
     controls: true,
     aspectRatio: '16:9',
     sources: []

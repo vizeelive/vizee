@@ -56,6 +56,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
 
   let videoJsOptions = {
     autoplay: true,
+    muted: true,
     loop: true,
     controls: true,
     aspectRatio: '16:9',
