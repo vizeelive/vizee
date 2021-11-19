@@ -4,11 +4,7 @@ const { parse } = require('zipson');
 const currency = require('currency.js');
 const { pay } = require('./checkout');
 const { generateImageLink } = require('./index');
-const {
-  getCheckoutDataAccount,
-  getCheckoutDataEvent,
-  getCheckoutDataAccountOnly
-} = require('../queries');
+const { getCheckoutData } = require('../queries');
 
 async function session(params) {
   let { ref: refQuery } = params;
@@ -16,14 +12,7 @@ async function session(params) {
   ref = parseRef(refQuery);
 
   try {
-    var account, event, product;
-    if (ref.product_id) {
-      var { event, account, product } = await getCheckoutDataAccount(ref);
-    } else if (ref?.event_id) {
-      var { event, account } = await getCheckoutDataEvent(ref);
-    } else {
-      var { account } = await getCheckoutDataAccountOnly(ref);
-    }
+    var { affiliate, event, account, product } = await getCheckoutData(ref);
   } catch (e) {
     logger.error(`Failed to fetch data for checkout: ${e.message}`, { ref });
     throw new Error(e.message);
