@@ -20,7 +20,7 @@ export default class VideoPlayer extends React.Component {
     var playerInitTime = Date.now();
     let options = Object.assign(
       {
-        ...(props?.playlist.length <= 1 ? { loop: true } : null),
+        ...(props?.playlist?.length <= 1 ? { loop: true } : null),
         plugins: {
           airPlay: {
             addButtonToControlBar: true
