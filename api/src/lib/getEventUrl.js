@@ -26,6 +26,9 @@ module.exports = async function (params) {
     expiry
   });
 
+  let isOwner =
+    user.isAdmin || event.account.users.find((u) => u.user.id === user.id);
+
   if (data.event.type !== 'live' && !data.event.mux_asset_id) {
     logger.info('Event has no mux_asset_id, skipping');
     return { url: null };
@@ -42,7 +45,7 @@ module.exports = async function (params) {
     return { url: null };
   }
 
-  if (!data.event.published) {
+  if (!isOwner && !data.event.published) {
     logger.info('Event is not published, denying');
     return { url: null };
   }
