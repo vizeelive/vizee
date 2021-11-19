@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euf -o pipefail
 
-npm run cypress:test
+npm run cypress:fast
 git stash
 git push
 git checkout master
