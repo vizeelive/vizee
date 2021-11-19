@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { isMobile } from 'react-device-detect';
 
@@ -280,18 +279,6 @@ export default function HomeView(props) {
                   </TabPane>
                 )}
                 <TabPane tab="Media" key="media">
-                  {(user?.isAdmin || isMyAccount) && (
-                    <div className="text-right">
-                      <Link
-                        to={`/${account.username}/manage/events/add`}
-                        data-test-id="link-create-event"
-                      >
-                        <Button type="primary" classes="w-full md:w-auto">
-                          Add Media
-                        </Button>
-                      </Link>
-                    </div>
-                  )}
                   <Collapse defaultActiveKey={['1']} ghost>
                     {allTags.length && (
                       <Panel header="Filters" key="filters">

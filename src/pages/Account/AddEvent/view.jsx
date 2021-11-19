@@ -104,7 +104,6 @@ export default function AddEventView(props) {
     autoplay: false,
     controls: true,
     aspectRatio: '16:9',
-    // sources: [{ src: event?.preview, type: 'video/mp4' }]
     sources: [{ src: event?.preview, type: 'application/x-mpegurl' }]
   };
 

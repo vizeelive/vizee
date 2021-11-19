@@ -197,6 +197,17 @@ function Header({ shareUrl, user, account, isMyAccount }) {
         </div>
       </div>
       <div className="ml-5 md:space-x-3 space-y-3 mr-5">
+        {(user?.isAdmin || isMyAccount) && (
+          <Link
+            to={`/${account.username}/manage/events/add`}
+            data-test-id="link-create-event"
+          >
+            <Button type="primary" classes="w-full md:w-auto">
+              Add Media
+            </Button>
+          </Link>
+        )}
+
         {account.stripe_data && (
           <BuyButton
             classes="w-full md:w-auto"
