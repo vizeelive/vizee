@@ -31,7 +31,7 @@ const Social = styled.li`
   }
 `;
 
-function Header({ shareUrl, user, account, isMyAccount }) {
+function Header({ shareUrl, user, account, isMyAccount, playlist }) {
   const size = useWindowSize();
   let host = config.api.includes('local')
     ? 'https://local.vizee.live:3003'
@@ -57,7 +57,6 @@ function Header({ shareUrl, user, account, isMyAccount }) {
   let videoJsOptions = {
     autoplay: true,
     muted: true,
-    loop: true,
     controls: true,
     aspectRatio: '16:9',
     sources: [
@@ -72,6 +71,12 @@ function Header({ shareUrl, user, account, isMyAccount }) {
     ? account.cover()
     : cdnImage(account.cover());
 
+  let previewPlaylist = playlist.map((p) => {
+    return {
+      sources: [{ src: p.preview, type: 'application/x-mpegurl' }]
+    };
+  });
+
   return (
     <div className="relative bg-black">
       <div className="lg:left-0 lg:h-full">
@@ -85,6 +90,7 @@ function Header({ shareUrl, user, account, isMyAccount }) {
             </span>
             <VideoPlayer
               key={`preview`}
+              playlist={previewPlaylist}
               {...videoJsOptions}
               onEnded={() => {}}
             />

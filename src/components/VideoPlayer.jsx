@@ -2,6 +2,8 @@ import React from 'react';
 import videojs from 'video.js';
 import qualityLevels from 'videojs-contrib-quality-levels';
 import hlsQualitySelector from 'videojs-hls-quality-selector';
+import videojsPlaylistPlugin from 'videojs-playlist';
+
 import { LockOutlined } from '@ant-design/icons';
 import 'videojs-mux';
 import 'video.js/dist/video-js.min.css';
@@ -9,14 +11,16 @@ import '@silvermine/videojs-airplay/dist/silvermine-videojs-airplay.css';
 
 videojs.registerPlugin('qualityLevels', qualityLevels);
 videojs.registerPlugin('hlsQualitySelector', hlsQualitySelector);
+videojs.registerPlugin('playlist', videojsPlaylistPlugin);
 require('@silvermine/videojs-airplay')(videojs);
 
 export default class VideoPlayer extends React.Component {
   componentDidMount() {
-    // instantiate Video.js
+    let props = this.props;
     var playerInitTime = Date.now();
     let options = Object.assign(
       {
+        ...(props?.playlist.length <= 1 ? { loop: true } : null),
         plugins: {
           airPlay: {
             addButtonToControlBar: true
@@ -37,7 +41,6 @@ export default class VideoPlayer extends React.Component {
       },
       this.props
     );
-    let props = this.props;
     try {
       this.player = videojs(this.videoNode, options, function onPlayerReady() {
         let reloadOptions = {};
@@ -46,6 +49,7 @@ export default class VideoPlayer extends React.Component {
         this.hlsQualitySelector({
           displayCurrentQuality: true
         });
+
         this.on('error', function (event) {
           var time = this.currentTime();
 
@@ -57,11 +61,19 @@ export default class VideoPlayer extends React.Component {
             this.play();
           }
         });
+
         this.on('ended', () => {
           if (props.onEnded) {
             props.onEnded();
           }
         });
+
+        if (props?.playlist) {
+          this.playlist(props.playlist);
+          this.playlist.autoadvance(0);
+          this.playlist.repeat(true);
+        }
+
         // console.log('onPlayerReady', this);
       });
     } catch (e) {}

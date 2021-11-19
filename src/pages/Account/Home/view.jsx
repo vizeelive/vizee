@@ -82,6 +82,7 @@ export default function HomeView(props) {
   const {
     hasAccess,
     account,
+    playlist,
     user,
     isMyAccount,
     followers,
@@ -205,6 +206,7 @@ export default function HomeView(props) {
 
         <AccountHeader
           isMyAccount={isMyAccount}
+          playlist={playlist}
           user={user}
           account={account}
           shareUrl={shareUrl}

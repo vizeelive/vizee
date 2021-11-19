@@ -99,6 +99,7 @@
     "videojs-contrib-quality-levels": "^2.0.9",
     "videojs-hls-quality-selector": "^1.1.4",
     "videojs-mux": "^3.1.1",
+    "videojs-playlist": "^4.3.1",
     "zipson": "^0.2.12"
   },
   "scripts": {

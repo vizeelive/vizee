@@ -21462,6 +21462,14 @@ videojs-mux@^3.1.1:
   resolved "https://registry.yarnpkg.com/videojs-mux/-/videojs-mux-3.1.1.tgz"
   integrity sha512-GBYsBZSv1JY37mCcUv3gjDOcis98zyXsUOHNBtYrh4AXlCRpPzZkSGh31N14Jvow2//m4cZUCruhb/2SXSac/A==
 
+videojs-playlist@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/videojs-playlist/-/videojs-playlist-4.3.1.tgz#b5621fa00e133138f79c4127dadf2399d94719ac"
+  integrity sha512-fxI3T6mWHKaXRwTQyJeq5I0b8GM9Q4S/p92Aq7O1xAT+X8jYxYSIN15xi32a1F5adEGPRqct+yMl5MkXO9x9cQ==
+  dependencies:
+    global "^4.3.2"
+    video.js "^6 || ^7"
+
 videojs-vtt.js@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/videojs-vtt.js/-/videojs-vtt.js-0.15.2.tgz"

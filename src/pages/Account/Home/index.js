@@ -23,6 +23,9 @@ export const GET_ACCOUNT_ANON = gql`
       @include(if: $has_affiliate) {
       id
     }
+    preview_playlist: events(where: { preview: { _is_null: false } }) {
+      preview
+    }
     accounts(where: { username: { _ilike: $username } }) {
       id
       name
@@ -191,6 +194,9 @@ const GET_ACCOUNT_USER = gql`
     affiliate: users(where: { code: { _eq: $affiliate_code } })
       @include(if: $has_affiliate) {
       id
+    }
+    preview_playlist: events(where: { preview: { _is_null: false } }) {
+      preview
     }
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
@@ -413,6 +419,7 @@ export default function Home(props) {
   const account = Mapper(data?.accounts?.[0]);
   const hasAccess = !!account?.access?.length;
   const followers = data?.followers_aggregate?.aggregate?.count;
+  const playlist = data?.preview_playlist;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username.toLowerCase() === username.toLowerCase()
   ).length;
@@ -452,6 +459,7 @@ export default function Home(props) {
     <HomeView
       hasAccess={hasAccess}
       account={account}
+      playlist={playlist}
       user={user}
       isMyAccount={isMyAccount}
       username={username}
