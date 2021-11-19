@@ -23,9 +23,6 @@ export const GET_ACCOUNT_ANON = gql`
       @include(if: $has_affiliate) {
       id
     }
-    preview_playlist: events(where: { preview: { _is_null: false } }) {
-      preview
-    }
     accounts(where: { username: { _ilike: $username } }) {
       id
       name
@@ -40,6 +37,9 @@ export const GET_ACCOUNT_ANON = gql`
       facebook
       twitter
       instagram
+      preview_playlist: events(where: { preview: { _is_null: false } }) {
+        preview
+      }
       images {
         url
       }
@@ -168,6 +168,7 @@ export const GET_ACCOUNT_ANON = gql`
           id
           name
           username
+          preview
           photo
         }
         favorites {
@@ -194,9 +195,6 @@ const GET_ACCOUNT_USER = gql`
     affiliate: users(where: { code: { _eq: $affiliate_code } })
       @include(if: $has_affiliate) {
       id
-    }
-    preview_playlist: events(where: { preview: { _is_null: false } }) {
-      preview
     }
     myaccounts: accounts_users(
       order_by: { account: { name: asc } }
@@ -226,6 +224,9 @@ const GET_ACCOUNT_USER = gql`
       stripe_data
       shopify_domain
       shopify_storefront_token
+      preview_playlist: events(where: { preview: { _is_null: false } }) {
+        preview
+      }
       report {
         viewcount
         followercount
@@ -362,6 +363,7 @@ const GET_ACCOUNT_USER = gql`
           name
           username
           photo
+          preview
           users {
             user {
               id
@@ -419,7 +421,7 @@ export default function Home(props) {
   const account = Mapper(data?.accounts?.[0]);
   const hasAccess = !!account?.access?.length;
   const followers = data?.followers_aggregate?.aggregate?.count;
-  const playlist = data?.preview_playlist;
+  const playlist = account?.preview_playlist;
   const isMyAccount = !!data?.myaccounts?.filter(
     (acc) => acc.account.username.toLowerCase() === username.toLowerCase()
   ).length;

@@ -18,7 +18,7 @@ import {
 const UPDATE_ACCOUNT = gql`
   mutation updateAccountPreview(
     $account_id: uuid!
-    $url: String!
+    $url: String
     $poster: String!
   ) {
     update_accounts_by_pk(
@@ -77,6 +77,22 @@ function EventCard(props) {
       props?.refetch?.();
     } catch (e) {
       message.error('Failed to set featured preview');
+    }
+  };
+
+  const removeFeaturedVideo = async (event) => {
+    try {
+      await updateAccount({
+        variables: {
+          account_id: event.account.id,
+          url: null,
+          poster: event.photo || event.thumb
+        }
+      });
+      message.success('Removed featured preview');
+      props?.refetch?.();
+    } catch (e) {
+      message.error('Failed to remove featured preview');
     }
   };
 
@@ -197,6 +213,19 @@ function EventCard(props) {
             }}
           >
             Set as featured preview
+          </a>
+        </Menu.Item>
+      )}
+      {event.account.preview && (
+        <Menu.Item key="remove_preview">
+          <a
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+              removeFeaturedVideo(event);
+            }}
+          >
+            Remove featured preview
           </a>
         </Menu.Item>
       )}

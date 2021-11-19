@@ -59,12 +59,16 @@ function Header({ shareUrl, user, account, isMyAccount, playlist }) {
     muted: true,
     controls: true,
     aspectRatio: '16:9',
-    sources: [
-      {
-        src: account.preview,
-        type: 'application/x-mpegurl'
-      }
-    ]
+    ...(account.preview
+      ? {
+          sources: [
+            {
+              src: account.preview,
+              type: 'application/x-mpegurl'
+            }
+          ]
+        }
+      : null)
   };
 
   let coverUrl = account.cover().includes('ogi')
@@ -84,6 +88,18 @@ function Header({ shareUrl, user, account, isMyAccount, playlist }) {
       </div>
       <div className="flex flex-wrap xs:px-5 md:space-x-5 py-2">
         {account.preview && (
+          <div className="xs:w-screen xs:mb-5 md:flex-1">
+            <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
+              Preview
+            </span>
+            <VideoPlayer
+              key={`preview`}
+              {...videoJsOptions}
+              onEnded={() => {}}
+            />
+          </div>
+        )}
+        {!account.preview && playlist?.length && (
           <div className="xs:w-screen xs:mb-5 md:flex-1">
             <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
               Preview
