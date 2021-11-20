@@ -7,26 +7,28 @@ import TicketsView from './view';
 import Mapper from 'services/mapper';
 
 const MY_TRANSACTIONS = gql`
-  query MyTransactions($user_id: uuid!) {
-    transactions(where: { user_id: { _eq: $user_id } }) {
-      event {
+  query MySubscriptionsPage($user_id: uuid!) {
+    users_by_pk(id: $user_id) {
+      id
+      access {
         id
         account {
-          name
-          photo
-          username
-        }
-        favorites {
           id
+          name
+          username
+          photo
         }
-        name
-        photo
-        preview
-        price
-        start
-        type
-        location
-        description
+        event {
+          id
+          name
+          thumb
+          photo
+          account {
+            name
+            username
+            photo
+          }
+        }
       }
     }
   }
@@ -40,14 +42,26 @@ const Tickets = (props) => {
     variables: { user_id: user.id }
   });
 
-  let events = Mapper(
-    data?.transactions.filter((t) => t.event).map((t) => t.event)
-  );
+  let purchases = Mapper(data?.users_by_pk?.access)?.map((access) => {
+    let url;
+    if (access.account) {
+      url = `/${access.account.username}`;
+    } else {
+      url = `/${access.event.account.username}/${access.event.id}`;
+    }
+    return {
+      url,
+      id: access.id,
+      account: access.account?.name || access.event?.account?.name,
+      cover: access.account ? access.account.cover() : access.event.cover(),
+      name: access.account ? access.account.name : access.event.name
+    };
+  });
 
   return (
     <TicketsView
       isAdmin={isAdmin}
-      events={events}
+      purchases={purchases}
       refetch={refetch}
       loading={loading}
       error={error}

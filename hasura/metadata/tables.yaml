@@ -2121,18 +2121,12 @@
   array_relationships:
   - name: access
     using:
-      foreign_key_constraint_on:
-        column: user_id
-        table:
+      manual_configuration:
+        remote_table:
           schema: public
-          name: users_access
-  - name: accounts
-    using:
-      foreign_key_constraint_on:
-        column: user_id
-        table:
-          schema: public
-          name: accounts_users
+          name: users_access_valid
+        column_mapping:
+          id: user_id
   - name: events
     using:
       foreign_key_constraint_on:
@@ -2211,6 +2205,22 @@
     schema: public
     name: users_access_valid
   object_relationships:
+  - name: account
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
+  - name: event
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: events
+        column_mapping:
+          event_id: id
   - name: product
     using:
       manual_configuration:
@@ -2219,6 +2229,23 @@
           name: products
         column_mapping:
           product_id: id
+  array_relationships:
+  - name: accounts
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: accounts
+        column_mapping:
+          account_id: id
+  - name: events
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: events
+        column_mapping:
+          event_id: id
   select_permissions:
   - role: user
     permission:
