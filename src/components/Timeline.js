@@ -23,7 +23,7 @@ import Events from 'components/Events';
 import EventCard from 'components/EventCard';
 import VideoConference from 'components/VideoConference';
 import VideoPlayer from 'components/VideoPlayer';
-import Images from 'pages/Account/Home/Images';
+import WaveformPlayer from 'components/WaveformPlayer';
 
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
@@ -177,7 +177,7 @@ export default function Timeline({
       if (mime == 'application/pdf') {
         type = 'pdf';
       }
-      if (type === 'video' || type === 'audio') {
+      if (type === 'video') {
         let audience = form.getFieldValue('audience');
         // let action = audience === 'public' ? 'preview' : 'create';
         let action = 'preview';
@@ -189,7 +189,7 @@ export default function Timeline({
       return {
         type,
         mime,
-        url: data?.url || file.ssl_url,
+        url: data?.url || step.results?.mp3?.[i]?.ssl_url,
         cover: step.results?.thumbed?.[i]?.ssl_url,
         width: file.meta?.width,
         height: file.meta?.height
@@ -217,24 +217,7 @@ export default function Timeline({
           />
         );
       case 'audio':
-        let audioJsOptions = {
-          autoplay: false,
-          controls: true,
-          aspectRatio: '16:9',
-          poster: attachment.cover,
-          sources: []
-        };
-        audioJsOptions.sources.push({
-          src: attachment.url,
-          type: 'application/x-mpegurl'
-        });
-        return (
-          <VideoPlayer
-            key={Math.random()}
-            cover={`https://dummyimage.com/566x318/000/fff.png&text=Audio`}
-            {...audioJsOptions}
-          />
-        );
+        return <WaveformPlayer key={Math.random()} url={attachment.url} />;
       case 'video':
         let videoJsOptions = {
           autoplay: false,

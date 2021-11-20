@@ -37,7 +37,7 @@ function Layout(props) {
 Layout.propTypes = {
   user: PropTypes.object,
   account: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  hasTickets: PropTypes.bool.isRequired,
+  tickets: PropTypes.array,
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired
 };
