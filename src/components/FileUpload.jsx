@@ -7,6 +7,10 @@ import Transloadit from '@uppy/transloadit';
 import ImageEditor from '@uppy/image-editor';
 import GoogleDrive from '@uppy/google-drive';
 import Dropbox from '@uppy/dropbox';
+import Instagram from '@uppy/instagram';
+import Facebook from '@uppy/facebook';
+import OneDrive from '@uppy/onedrive';
+import Url from '@uppy/url';
 
 require('@uppy/core/dist/style.css');
 require('@uppy/dashboard/dist/style.css');
@@ -38,6 +42,26 @@ function FileUpload(props) {
         height: 300,
         target: `#${props.id}`,
         autoOpenFileEditor: options.autoOpenFileEditor
+      })
+      .use(Url, {
+        target: Dashboard,
+        companionUrl: Transloadit.COMPANION,
+        companionAllowedHosts: Transloadit.COMPANION_PATTERN
+      })
+      .use(OneDrive, {
+        target: Dashboard,
+        companionUrl: Transloadit.COMPANION,
+        companionAllowedHosts: Transloadit.COMPANION_PATTERN
+      })
+      .use(Facebook, {
+        target: Dashboard,
+        companionUrl: Transloadit.COMPANION,
+        companionAllowedHosts: Transloadit.COMPANION_PATTERN
+      })
+      .use(Instagram, {
+        target: Dashboard,
+        companionUrl: Transloadit.COMPANION,
+        companionAllowedHosts: Transloadit.COMPANION_PATTERN
       })
       .use(GoogleDrive, {
         target: Dashboard,
