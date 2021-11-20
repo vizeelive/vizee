@@ -29,7 +29,7 @@ const GET_ACCOUNTS_UNAUTH = gql`
 `;
 
 const GET_ACCOUNTS_AUTH = gql`
-  query MyAccounts($user_id: uuid, $username: String) {
+  query MyAccounts($user_id: uuid!, $username: String) {
     hello {
       message
     }
@@ -54,6 +54,28 @@ const GET_ACCOUNTS_AUTH = gql`
           photo
           account {
             name
+            username
+            photo
+          }
+        }
+      }
+    }
+    tickets: users_by_pk(id: $user_id) {
+      id
+      access {
+        id
+        account {
+          id
+          name
+          username
+          photo
+        }
+        event {
+          id
+          name
+          thumb
+          photo
+          account {
             username
             photo
           }
@@ -143,7 +165,7 @@ export default function User() {
     history.push('/');
   }
 
-  const hasTickets = !!data?.transactions?.length;
+  const tickets = data?.tickets?.access;
 
   const handleLogin = () => {
     loginWithRedirect({
@@ -169,7 +191,7 @@ export default function User() {
             user={user}
             creator={creator}
             account={account}
-            hasTickets={hasTickets}
+            tickets={tickets}
             onLogin={handleLogin}
             onLogout={handleLogout}
           >

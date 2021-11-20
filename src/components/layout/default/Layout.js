@@ -8,7 +8,7 @@ function Layout(props) {
     user,
     creator,
     account,
-    hasTickets,
+    tickets,
     onLogin,
     onLogout,
     children
@@ -21,7 +21,7 @@ function Layout(props) {
           user={user}
           creator={creator}
           account={account}
-          hasTickets={hasTickets}
+          tickets={tickets}
           onLogin={onLogin}
           onLogout={onLogout}
         />

@@ -7,11 +7,12 @@ import ProfileMenu from '../ProfileMenu';
 import logo from '../../../svg/vizee-logo.svg';
 import logoText from '../../../svg/vizee-logo-text.svg';
 import cookie from 'js-cookie';
+import { Badge } from 'antd';
 
 export default function Menu(props) {
   const { loginWithRedirect } = useAuth();
   const history = useHistory();
-  const { user, creator, account, hasTickets, onLogin, onLogout } = props;
+  const { user, creator, account, tickets, onLogin, onLogout } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const className = {
@@ -39,7 +40,7 @@ export default function Menu(props) {
   };
 
   return (
-    <nav className="bg-gray-850 shadow-nav">
+    <nav id="menu" className="bg-gray-850 shadow-nav">
       <div className="max-w-full mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -129,16 +130,18 @@ export default function Menu(props) {
                   Library
                 </NavLink>
 
-                {hasTickets && (
-                  <NavLink
-                    to="/tickets"
-                    exact
-                    className={className.default.inactive}
-                    activeClassName={className.default.active}
-                    data-test-id="menu-tickets"
-                  >
-                    My Subscriptions
-                  </NavLink>
+                {tickets?.length && (
+                  <Badge count={tickets.length} color="#ee326e">
+                    <NavLink
+                      to="/tickets"
+                      exact
+                      className={className.default.inactive}
+                      activeClassName={className.default.active}
+                      data-test-id="menu-tickets"
+                    >
+                      My Subscriptions
+                    </NavLink>
+                  </Badge>
                 )}
 
                 {/* {user && (
@@ -271,7 +274,7 @@ export default function Menu(props) {
               Events
             </NavLink>
 
-            {hasTickets && (
+            {tickets?.length && (
               <NavLink
                 to="/tickets"
                 exact
