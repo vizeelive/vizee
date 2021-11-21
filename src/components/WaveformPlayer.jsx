@@ -25,8 +25,8 @@ const PlayButton = styled.button`
   align-items: center;
   width: 70px;
   height: 60px;
-  background: #ee326e;
-  border-radius: 50%;
+  background: #262626;
+  border-radius: 10%;
   border: none;
   outline: none;
   cursor: pointer;

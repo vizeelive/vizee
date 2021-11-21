@@ -171,6 +171,7 @@ export default function Timeline({
 
   const handleUpload = (step) => {
     let objects = step.results[':original'].map(async (file, i) => {
+      let url = step.results?.[':original']?.[i]?.ssl_url;
       let data;
       let mime = file.mime;
       let type = mime.split('/')[0];
@@ -185,11 +186,15 @@ export default function Timeline({
           `${config.api}/mux/asset/${action}?url=${file.ssl_url}`
         );
         data = await res.json();
+        url = data.url;
+      }
+      if (type === 'audio') {
+        url = step.results?.mp3?.[i]?.ssl_url;
       }
       return {
         type,
         mime,
-        url: data?.url || step.results?.mp3?.[i]?.ssl_url,
+        url,
         cover: step.results?.thumbed?.[i]?.ssl_url,
         width: file.meta?.width,
         height: file.meta?.height
@@ -450,7 +455,7 @@ export default function Timeline({
             form.resetFields();
             setShowModal(true);
           }}
-          className="mb-5 p-3 mx-1 text-gray-400 bg-gray-800 hover:bg-gray-700 hover:cursor-pointer border-solid rounded-lg ring-gray-500"
+          className="cursor-pointer mb-5 p-3 mx-1 text-gray-400 bg-gray-800 hover:bg-gray-700 hover:cursor-pointer border-solid rounded-lg ring-gray-500"
         >
           What's on your mind, {account.name}?
         </div>
