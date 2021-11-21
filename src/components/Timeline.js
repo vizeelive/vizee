@@ -24,6 +24,8 @@ import EventCard from 'components/EventCard';
 import VideoConference from 'components/VideoConference';
 import VideoPlayer from 'components/VideoPlayer';
 import WaveformPlayer from 'components/WaveformPlayer';
+import ReactPlayer from 'react-player';
+import { isMobile } from 'react-device-detect';
 
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
@@ -222,7 +224,16 @@ export default function Timeline({
           />
         );
       case 'audio':
-        return <WaveformPlayer key={Math.random()} url={attachment.url} />;
+        return isMobile ? (
+          <ReactPlayer
+            url={attachment.url}
+            height="70px"
+            width="100%"
+            controls
+          />
+        ) : (
+          <WaveformPlayer key={Math.random()} url={attachment.url} />
+        );
       case 'video':
         let videoJsOptions = {
           autoplay: false,
