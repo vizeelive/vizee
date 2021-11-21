@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
 import { message } from 'antd';
+import useAuth from 'hooks/useAuth';
 
 import Comments from './view';
 
@@ -48,6 +49,7 @@ const CREATE_COMMENT = gql`
 
 export default function CommentsContainer(props) {
   const [key, setKey] = useState(1);
+  const { user } = useAuth();
 
   const { loading, data } = useQuery(GET_COMMENTS, {
     variables: { event_id: props.event.id }
@@ -71,6 +73,9 @@ export default function CommentsContainer(props) {
   // if (error) return 'Error.';
 
   const handleCreateComment = async (object) => {
+    if (user?.isAdmin) {
+      object.created_by = user.id;
+    }
     try {
       await createComment({ variables: { object } });
     } catch (e) {
