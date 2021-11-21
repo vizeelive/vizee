@@ -76,6 +76,7 @@ const GET_ACCOUNTS_AUTH = gql`
           thumb
           photo
           account {
+            id
             username
             photo
           }
@@ -124,7 +125,8 @@ export default function User() {
   const { loading, error, data } = useQuery(
     user ? GET_ACCOUNTS_AUTH : GET_ACCOUNTS_UNAUTH,
     {
-      variables: { user_id: user?.id, username }
+      variables: { user_id: user?.id, username },
+      fetchPolicy: 'no-cache'
     }
   );
 
