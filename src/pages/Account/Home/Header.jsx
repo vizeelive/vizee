@@ -87,7 +87,7 @@ function Header({ shareUrl, user, account, isMyAccount, playlist }) {
         <img className="w-full h-full" src={coverUrl} />
       </div>
       <div className="flex flex-wrap xs:px-5 md:space-x-5 py-2">
-        {account.preview && (
+        {account.preview ? (
           <div className="xs:w-screen xs:mb-5 md:flex-1">
             <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
               Preview
@@ -98,8 +98,8 @@ function Header({ shareUrl, user, account, isMyAccount, playlist }) {
               onEnded={() => {}}
             />
           </div>
-        )}
-        {!account.preview && playlist?.length && (
+        ) : null}
+        {!account.preview && playlist?.length ? (
           <div className="xs:w-screen xs:mb-5 md:flex-1">
             <span className="absolute z-50 ml-2 mt-2 items-center px-2 py-0.5 rounded-sm text-sm font-semibold bg-gray-750 text-white uppercase">
               Preview
@@ -111,7 +111,7 @@ function Header({ shareUrl, user, account, isMyAccount, playlist }) {
               onEnded={() => {}}
             />
           </div>
-        )}
+        ) : null}
         <div className="flex-1">
           <h2
             data-test-id="account-name"
