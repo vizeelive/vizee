@@ -24,6 +24,7 @@ const MY_TRANSACTIONS = gql`
           thumb
           photo
           account {
+            id
             name
             username
             photo

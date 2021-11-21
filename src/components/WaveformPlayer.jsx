@@ -51,9 +51,9 @@ class Waveform extends Component {
       container: this.ref.current,
       backend: 'WebAudio',
       height: 80,
-      progressColor: '#ee326e',
+      progressColor: '#595592',
       responsive: true,
-      waveColor: '#ee326e'
+      waveColor: '#8e4f9b'
     });
 
     this.waveform.load(this.props.url);
