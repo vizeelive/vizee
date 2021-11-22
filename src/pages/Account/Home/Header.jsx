@@ -231,6 +231,10 @@ function Header({ shareUrl, user, account, isMyAccount, playlist }) {
           </Link>
         )}
 
+        {!!account.stripe_data && (
+          <BuyButton classes="w-full md:w-auto" user={user} account={account} />
+        )}
+
         {account.stripe_data && (
           <BuyButton
             classes="w-full md:w-auto"

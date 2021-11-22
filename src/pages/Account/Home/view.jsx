@@ -255,7 +255,7 @@ export default function HomeView(props) {
           <div className="flex flex-col md:flex-row">
             <div className="md:order-last md:ml-5">
               <div>
-                <PriceLevels account={account} user={user} />
+                {!isMobile && <PriceLevels account={account} user={user} />}
                 {!isMobile && <Supporters account={account} user={user} />}
               </div>
             </div>
