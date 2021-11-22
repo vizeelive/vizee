@@ -101,7 +101,7 @@ export default function UsersView(props) {
             onClick={() => setShowModal(true)}
             icon={<UserAddOutlined />}
           >
-            Add Affiliate
+            Add User
           </Button>
         </Header>
 
