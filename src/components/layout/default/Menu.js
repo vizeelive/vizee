@@ -130,7 +130,7 @@ export default function Menu(props) {
                   Library
                 </NavLink>
 
-                {tickets?.length && (
+                {!!tickets?.length && (
                   <Badge count={tickets.length} color="#ee326e">
                     <NavLink
                       to="/tickets"

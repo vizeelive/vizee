@@ -30,6 +30,13 @@ const MY_TRANSACTIONS = gql`
             photo
           }
         }
+        product {
+          id
+          name
+          price
+          recurring
+          access_length
+        }
       }
     }
   }
@@ -55,7 +62,8 @@ const Tickets = (props) => {
       id: access.id,
       account: access.account?.name || access.event?.account?.name,
       cover: access.account ? access.account.cover() : access.event.cover(),
-      name: access.account ? access.account.name : access.event.name
+      product: access.product,
+      name: access.event?.name || access.product?.name
     };
   });
 

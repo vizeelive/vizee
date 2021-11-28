@@ -50,11 +50,25 @@ export default function TicketsView(props) {
                   </div>
                   <div className="event-card-info px-6 mt-6 md:mt-4">
                     <h2 className="font-sans">
-                      <React.Fragment>{purchase.name}</React.Fragment>
+                      <React.Fragment>
+                        <div>{purchase.name}</div>
+                      </React.Fragment>
                     </h2>
                     <p className="mb-4 font-sans">
                       <React.Fragment>{purchase.account}</React.Fragment>
                     </p>
+                    {!!purchase.product && (
+                      <p className="mb-4 font-sans">
+                        <React.Fragment>
+                          Renews every {purchase.product.access_length} days
+                        </React.Fragment>
+                      </p>
+                    )}
+                    {!!!purchase.product && (
+                      <p className="mb-4 font-sans">
+                        <React.Fragment>All Access</React.Fragment>
+                      </p>
+                    )}
                   </div>
                 </article>
               </Link>
