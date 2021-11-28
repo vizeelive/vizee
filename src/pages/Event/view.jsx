@@ -545,7 +545,7 @@ export default function EventPage(props) {
                 </Linkify>
               </div>
 
-              {isMyAccount || event.posts.length ? (
+              {event.belongsTo(user) || event.posts.length ? (
                 <React.Fragment>
                   <div className="text-xl py-5">Timeline</div>
                   <Timeline
