@@ -63,7 +63,7 @@ This will open multiple processes into an aggregated log, including:
 ## Pipeline
 
 * Open a PR, view branch deployment on Netlify via link in PR
-* Once merged to `dev` is depoys to `staging.pixwel.com`
+* Once merged to `dev` is depoys to `staging.vizee.live`
 
 ## GraphQL Documentation
 
