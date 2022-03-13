@@ -4,6 +4,14 @@
 # Vizee.live
 
 An video monetization and social networking platform for artists and creators.
+
+## Quick Setup
+
+* Create a new Codespace or load the project with VSCode devcontainer
+* Run `stripe login`
+* Run `npm run stack`
+* Open `http://127.0.0.1:9000`
+
 ## Setup
 
 This monorepo contains a few things:
@@ -11,6 +19,7 @@ This monorepo contains a few things:
 * `/api` (Node.js API)
 * `/express` (Prerender.io) (currently replaced by Netlify prerender)
 * `/hasura` (Hasura metadata)
+* `/singer` (Stripe data sync)
 * `/src/` (React UI)
 
 ## Infrastructure, Accounts, and SaaS, oh my!

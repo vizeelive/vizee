@@ -78,7 +78,8 @@ app.post(
     if (
       !domain.endsWith('vizee.pro') &&
       !domain.endsWith('vizee.live') &&
-      !domain.includes('local')
+      !domain.includes('local') &&
+      !domain.includes('127.0.0.1')
     ) {
       return res.status(400).send({
         error: 'Invalid domain'

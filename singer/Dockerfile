@@ -5,4 +5,4 @@ RUN pip install tap-stripe singer-target-postgres
 WORKDIR /code
 COPY . /code
 
-CMD /code/cmd.sh
+ENTRYPOINT ["/code/cmd.sh"]

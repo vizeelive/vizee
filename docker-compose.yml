@@ -10,6 +10,11 @@ services:
     - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgrespassword
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   graphql-engine:
     image: hasura/graphql-engine:v1.3.3
     ports:
@@ -17,6 +22,8 @@ services:
     depends_on:
     - "postgres"
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       ACTION_BASE_URL: http://host.docker.internal:3001
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256","key":"kj3425jhg345jhg345jhg345jh34g5jhg"}'
@@ -29,6 +36,30 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: secret
+  singer-single:
+    image: singer
+    build:
+      context: ./singer
+      dockerfile: Dockerfile
+    restart: always
+    command: -single
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ${LOCAL_WORKSPACE_FOLDER:-.}/singer/config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  singer:
+    image: singer
+    build:
+      context: ./singer
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${LOCAL_WORKSPACE_FOLDER:-.}/singer/config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 volumes:
   db_data:
 
