@@ -7,7 +7,7 @@ An video monetization and social networking platform for artists and creators.
 
 ## Quick Setup
 
-* Create a new Codespace or load the project with VSCode devcontainer
+* Create a new Codespace (or load the project with VSCode devcontainer, requires fetching secrets manually)
 * Run `stripe login`
 * Run `npm run stack`
 * Open `http://127.0.0.1:9000`
