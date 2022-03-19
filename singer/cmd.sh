@@ -9,13 +9,15 @@ fi
 set -xeuf -o pipefail
 
 if [ $CMD = "-single" ]; then
-    /usr/local/bin/tap-stripe -c /config/stripe-config.json --catalog /code/catalog.json --state /config/state.json | /usr/local/bin/target-postgres -c /config/postgres-config.json >>/config/state.json
-    tail -1 /config/state.json >/config/state.json.tmp
-    mv /config/state.json.tmp /config/state.json
-    exit 0
+  echo "Running in single mode"
+  /usr/local/bin/tap-stripe -c /config/stripe-config.json --catalog /code/catalog.json --state /config/state.json | /usr/local/bin/target-postgres -c /config/postgres-config.json >>/config/state.json
+  tail -1 /config/state.json >/config/state.json.tmp
+  mv /config/state.json.tmp /config/state.json
+  exit 0
 fi
 
 while true; do
+  echo "Running in continuous mode"
   /usr/local/bin/tap-stripe -c /config/stripe-config.json --catalog /code/catalog.json --state /config/state.json | /usr/local/bin/target-postgres -c /config/postgres-config.json >>/config/state.json
   tail -1 /config/state.json >/config/state.json.tmp
   mv /config/state.json.tmp /config/state.json
