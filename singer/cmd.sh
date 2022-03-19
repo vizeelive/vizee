@@ -8,6 +8,10 @@ fi
 
 set -xeuf -o pipefail
 
+if [ ! -f /config/state.json ]; then
+  echo '{}' >/config/state.json
+fi
+
 if [ $CMD = "-single" ]; then
   echo "Running in single mode"
   /usr/local/bin/tap-stripe -c /config/stripe-config.json --catalog /code/catalog.json --state /config/state.json | /usr/local/bin/target-postgres -c /config/postgres-config.json >>/config/state.json
